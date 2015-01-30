@@ -51,6 +51,10 @@
     <Compile Include="Migrations\201501301837478_Inicial.Designer.cs">
       <DependentUpon>201501301837478_Inicial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201501302008356_inclusao_pais.cs" />
+    <Compile Include="Migrations\201501302008356_inclusao_pais.Designer.cs">
+      <DependentUpon>201501302008356_inclusao_pais.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -67,6 +71,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201501301837478_Inicial.resx">
       <DependentUpon>201501301837478_Inicial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201501302008356_inclusao_pais.resx">
+      <DependentUpon>201501302008356_inclusao_pais.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
