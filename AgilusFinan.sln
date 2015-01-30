@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgilusFinan.Domain", "AgilusFinan.Domain\AgilusFinan.Domain.csproj", "{EA995E34-CA88-4823-845B-B92B8B8E5BFC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgilusFinan.Infra", "AgilusFinan.Infra\AgilusFinan.Infra.csproj", "{3EA3497F-2A10-49DB-8D3E-F08C7E496405}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgilusFinan.Web", "AgilusFinan.Web\AgilusFinan.Web.csproj", "{82B23B04-083B-4041-87D3-29CF24749FDC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgilusFinan.Tests", "AgilusFinan.Tests\AgilusFinan.Tests.csproj", "{49CF3FD8-38F7-475E-864F-670A5508F50F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EA995E34-CA88-4823-845B-B92B8B8E5BFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA995E34-CA88-4823-845B-B92B8B8E5BFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA995E34-CA88-4823-845B-B92B8B8E5BFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA995E34-CA88-4823-845B-B92B8B8E5BFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3EA3497F-2A10-49DB-8D3E-F08C7E496405}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3EA3497F-2A10-49DB-8D3E-F08C7E496405}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3EA3497F-2A10-49DB-8D3E-F08C7E496405}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3EA3497F-2A10-49DB-8D3E-F08C7E496405}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82B23B04-083B-4041-87D3-29CF24749FDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82B23B04-083B-4041-87D3-29CF24749FDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82B23B04-083B-4041-87D3-29CF24749FDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82B23B04-083B-4041-87D3-29CF24749FDC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49CF3FD8-38F7-475E-864F-670A5508F50F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49CF3FD8-38F7-475E-864F-670A5508F50F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49CF3FD8-38F7-475E-864F-670A5508F50F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49CF3FD8-38F7-475E-864F-670A5508F50F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
