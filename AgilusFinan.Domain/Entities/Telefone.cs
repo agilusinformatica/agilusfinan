@@ -5,7 +5,5 @@
         public string Ddd { get; set; }
         public string Numero { get; set; }
         public int TipoTelefoneId { get; set; }
-
-        virtual public TipoTelefone TipoTelefone { get; set; }
     }
 }

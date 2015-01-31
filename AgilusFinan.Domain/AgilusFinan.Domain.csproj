@@ -39,6 +39,7 @@
     <Compile Include="Entities\Endereco.cs" />
     <Compile Include="Entities\Pessoa.cs" />
     <Compile Include="Entities\Telefone.cs" />
+    <Compile Include="Entities\TelefonePessoa.cs" />
     <Compile Include="Entities\TipoTelefone.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

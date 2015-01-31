@@ -8,6 +8,5 @@
         public bool Poupanca { get; set; }
         public string NomeTitular { get; set; }
         public string CpfTitular { get; set; }
-        //public virtual Banco Banco { get; set; }
     }
 }
