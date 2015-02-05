@@ -13,6 +13,7 @@ namespace AgilusFinan.Domain.Entities
         public ContaBancaria ContaBancaria { get; set; }
         public virtual IEnumerable<TelefonePessoa> Telefones { get; set; }
         public virtual Empresa Empresa { get; set; }
+        public virtual IEnumerable<TipoPessoaPorPessoa> TiposPessoa { get; set; }
 
     }
 }

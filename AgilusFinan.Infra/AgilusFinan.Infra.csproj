@@ -59,6 +59,14 @@
     <Compile Include="Migrations\201501311646494_TelefonePessoa.Designer.cs">
       <DependentUpon>201501311646494_TelefonePessoa.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201502051715325_CriacaoTipoPessoa.cs" />
+    <Compile Include="Migrations\201502051715325_CriacaoTipoPessoa.Designer.cs">
+      <DependentUpon>201502051715325_CriacaoTipoPessoa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201502051725512_LigacaoEmpresaComTipoPessoaTipoTelefone.cs" />
+    <Compile Include="Migrations\201502051725512_LigacaoEmpresaComTipoPessoaTipoTelefone.Designer.cs">
+      <DependentUpon>201502051725512_LigacaoEmpresaComTipoPessoaTipoTelefone.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -81,6 +89,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201501311646494_TelefonePessoa.resx">
       <DependentUpon>201501311646494_TelefonePessoa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502051715325_CriacaoTipoPessoa.resx">
+      <DependentUpon>201502051715325_CriacaoTipoPessoa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502051725512_LigacaoEmpresaComTipoPessoaTipoTelefone.resx">
+      <DependentUpon>201502051725512_LigacaoEmpresaComTipoPessoaTipoTelefone.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
