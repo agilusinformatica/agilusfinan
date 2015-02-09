@@ -67,6 +67,10 @@
     <Compile Include="Migrations\201502051725512_LigacaoEmpresaComTipoPessoaTipoTelefone.Designer.cs">
       <DependentUpon>201502051725512_LigacaoEmpresaComTipoPessoaTipoTelefone.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201502091327023_InsercaoEndrecoEmpresa.cs" />
+    <Compile Include="Migrations\201502091327023_InsercaoEndrecoEmpresa.Designer.cs">
+      <DependentUpon>201502091327023_InsercaoEndrecoEmpresa.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -95,6 +99,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201502051725512_LigacaoEmpresaComTipoPessoaTipoTelefone.resx">
       <DependentUpon>201502051725512_LigacaoEmpresaComTipoPessoaTipoTelefone.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502091327023_InsercaoEndrecoEmpresa.resx">
+      <DependentUpon>201502091327023_InsercaoEndrecoEmpresa.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
