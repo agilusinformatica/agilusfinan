@@ -1,4 +1,6 @@
-﻿namespace AgilusFinan.Domain.Entities
+﻿using System.Collections.Generic;
+
+namespace AgilusFinan.Domain.Entities
 {
     public class ContaBancaria
     {
