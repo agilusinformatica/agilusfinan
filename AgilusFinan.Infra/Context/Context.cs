@@ -19,6 +19,7 @@ namespace AgilusFinan.Infra.Context
         public DbSet<TelefonePessoa> TelefonesPessoa { get; set; }
         public DbSet<TipoPessoa> TiposPessoa { get; set; }
         public DbSet<TipoPessoaPorPessoa> TiposPessoaPorPessoa { get; set; }
+        public DbSet<CentroCusto> CentrosCusto { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

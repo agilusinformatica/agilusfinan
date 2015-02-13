@@ -71,6 +71,10 @@
     <Compile Include="Migrations\201502091327023_InsercaoEndrecoEmpresa.Designer.cs">
       <DependentUpon>201502091327023_InsercaoEndrecoEmpresa.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201502131843521_CriacaoCentroCusto.cs" />
+    <Compile Include="Migrations\201502131843521_CriacaoCentroCusto.Designer.cs">
+      <DependentUpon>201502131843521_CriacaoCentroCusto.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -102,6 +106,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201502091327023_InsercaoEndrecoEmpresa.resx">
       <DependentUpon>201502091327023_InsercaoEndrecoEmpresa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502131843521_CriacaoCentroCusto.resx">
+      <DependentUpon>201502131843521_CriacaoCentroCusto.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
