@@ -34,6 +34,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\Banco.cs" />
+    <Compile Include="Entities\Categoria.cs" />
     <Compile Include="Entities\CentroCusto.cs" />
     <Compile Include="Entities\ContaBancaria.cs" />
     <Compile Include="Entities\Empresa.cs" />
