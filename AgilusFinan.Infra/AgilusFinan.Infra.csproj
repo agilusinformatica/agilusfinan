@@ -75,6 +75,10 @@
     <Compile Include="Migrations\201502131843521_CriacaoCentroCusto.Designer.cs">
       <DependentUpon>201502131843521_CriacaoCentroCusto.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201502132021138_Conta_Bancaria_Na_Empresa.cs" />
+    <Compile Include="Migrations\201502132021138_Conta_Bancaria_Na_Empresa.Designer.cs">
+      <DependentUpon>201502132021138_Conta_Bancaria_Na_Empresa.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -109,6 +113,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201502131843521_CriacaoCentroCusto.resx">
       <DependentUpon>201502131843521_CriacaoCentroCusto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502132021138_Conta_Bancaria_Na_Empresa.resx">
+      <DependentUpon>201502132021138_Conta_Bancaria_Na_Empresa.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
