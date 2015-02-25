@@ -91,6 +91,10 @@
     <Compile Include="Migrations\201502251542561_CriacaoTransferencia.Designer.cs">
       <DependentUpon>201502251542561_CriacaoTransferencia.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201502251746218_inclusaoDescricaoTransferencia.cs" />
+    <Compile Include="Migrations\201502251746218_inclusaoDescricaoTransferencia.Designer.cs">
+      <DependentUpon>201502251746218_inclusaoDescricaoTransferencia.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -137,6 +141,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201502251542561_CriacaoTransferencia.resx">
       <DependentUpon>201502251542561_CriacaoTransferencia.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502251746218_inclusaoDescricaoTransferencia.resx">
+      <DependentUpon>201502251746218_inclusaoDescricaoTransferencia.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -8,7 +8,5 @@
         public string EmailFinanceiro { get; set; }
         public byte[] Logotipo { get; set; }
         public Endereco Endereco { get; set; }
-        public ContaBancaria ContaBancaria { get; set; }
-   
     }
 }

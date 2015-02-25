@@ -11,6 +11,7 @@ namespace AgilusFinan.Domain.Entities
         public virtual Conta ContaDestino { get; set; }
         public decimal Valor { get; set; }
         public DateTime Data { get; set; }
+        public string Descricao { get; set; }
           
     }
 }
