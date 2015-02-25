@@ -40,12 +40,16 @@
     <Compile Include="Entities\ContaBancaria.cs" />
     <Compile Include="Entities\Empresa.cs" />
     <Compile Include="Entities\Endereco.cs" />
+    <Compile Include="Entities\Pagamento.cs" />
     <Compile Include="Entities\Pessoa.cs" />
+    <Compile Include="Entities\Recebimento.cs" />
+    <Compile Include="Entities\Recorrencia.cs" />
     <Compile Include="Entities\Telefone.cs" />
     <Compile Include="Entities\TelefonePessoa.cs" />
     <Compile Include="Entities\TipoPessoa.cs" />
     <Compile Include="Entities\TipoPessoaPorPessoa.cs" />
     <Compile Include="Entities\TipoTelefone.cs" />
+    <Compile Include="Entities\Transferencia.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

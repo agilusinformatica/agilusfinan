@@ -14,5 +14,5 @@ namespace AgilusFinan.Domain.Entities
         public virtual IEnumerable<Categoria> CategoriasFilhas { get; set; } 
     }
 
-    public enum DirecaoCategoria { Entrada, Saida }
+    public enum DirecaoCategoria { Recebimento, Pagamento }
 }

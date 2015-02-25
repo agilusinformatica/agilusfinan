@@ -7,7 +7,6 @@
         public string EmailContato { get; set; }
         public string EmailFinanceiro { get; set; }
         public byte[] Logotipo { get; set; }
-
         public Endereco Endereco { get; set; }
    
     }

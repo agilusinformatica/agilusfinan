@@ -83,6 +83,14 @@
     <Compile Include="Migrations\201502181618170_CriacaoConta.Designer.cs">
       <DependentUpon>201502181618170_CriacaoConta.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201502251346527_Criacao das classes Pagamento e Recebimento.cs" />
+    <Compile Include="Migrations\201502251346527_Criacao das classes Pagamento e Recebimento.Designer.cs">
+      <DependentUpon>201502251346527_Criacao das classes Pagamento e Recebimento.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201502251542561_CriacaoTransferencia.cs" />
+    <Compile Include="Migrations\201502251542561_CriacaoTransferencia.Designer.cs">
+      <DependentUpon>201502251542561_CriacaoTransferencia.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -123,6 +131,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201502181618170_CriacaoConta.resx">
       <DependentUpon>201502181618170_CriacaoConta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502251346527_Criacao das classes Pagamento e Recebimento.resx">
+      <DependentUpon>201502251346527_Criacao das classes Pagamento e Recebimento.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502251542561_CriacaoTransferencia.resx">
+      <DependentUpon>201502251542561_CriacaoTransferencia.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
