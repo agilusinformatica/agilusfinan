@@ -40,6 +40,7 @@
     <Compile Include="Entities\ContaBancaria.cs" />
     <Compile Include="Entities\Empresa.cs" />
     <Compile Include="Entities\Endereco.cs" />
+    <Compile Include="Entities\FormaPagamento.cs" />
     <Compile Include="Entities\Pagamento.cs" />
     <Compile Include="Entities\Pessoa.cs" />
     <Compile Include="Entities\Recebimento.cs" />
@@ -50,14 +51,14 @@
     <Compile Include="Entities\TipoPessoaPorPessoa.cs" />
     <Compile Include="Entities\TipoTelefone.cs" />
     <Compile Include="Entities\Transferencia.cs" />
+    <Compile Include="Interfaces\IRepositorioBanco.cs" />
+    <Compile Include="Interfaces\IRepositorioPadrao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Interfaces\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

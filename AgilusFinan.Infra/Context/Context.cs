@@ -4,9 +4,9 @@ using System.Data.Entity.ModelConfiguration.Conventions;
 
 namespace AgilusFinan.Infra.Context
 {
-    public class Context : DbContext
+    public class Contexto : DbContext
     {
-        public Context()
+        public Contexto()
             : base("dbAgilusFinan")
         {
 

@@ -5,14 +5,14 @@ namespace AgilusFinan.Infra.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<AgilusFinan.Infra.Context.Context>
+    internal sealed class Configuration : DbMigrationsConfiguration<AgilusFinan.Infra.Context.Contexto>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(AgilusFinan.Infra.Context.Context context)
+        protected override void Seed(AgilusFinan.Infra.Context.Contexto context)
         {
             //  This method will be called after migrating to the latest version.
 

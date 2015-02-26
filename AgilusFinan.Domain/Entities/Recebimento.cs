@@ -25,6 +25,5 @@ namespace AgilusFinan.Domain.Entities
         public decimal JurosMulta { get; set; }
         public String Observacao { get; set; }
         public Recorrencia Recorrencia { get; set; }
-        
     }
 }
