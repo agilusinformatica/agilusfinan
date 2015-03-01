@@ -8,5 +8,6 @@ namespace AgilusFinan.Domain.Interfaces
 {
     public interface IRepositorioBanco : IRepositorioPadrao<Banco>
     {
+        IEnumerable<Banco> Listar2(Func<Banco, bool> predicate);
     }
 }

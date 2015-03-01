@@ -47,8 +47,7 @@ namespace AgilusFinan.Infra.Services
             return db.Set<T>().Find(id);
         }
 
-
-        public IEnumerable<T> Listar(IEnumerable<T> source, Func<T, bool> predicate)
+        public IEnumerable<T> Listar(Func<T, bool> predicate)
         {
             return db.Set<T>().Where(predicate).ToList();
         }
