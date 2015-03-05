@@ -99,6 +99,10 @@
     <Compile Include="Migrations\201502261716396_ConsertoTipoNomeEmpresa.Designer.cs">
       <DependentUpon>201502261716396_ConsertoTipoNomeEmpresa.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201503051830570_AddEmpresaNoCentroCusto.cs" />
+    <Compile Include="Migrations\201503051830570_AddEmpresaNoCentroCusto.Designer.cs">
+      <DependentUpon>201503051830570_AddEmpresaNoCentroCusto.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\RepositorioBanco.cs" />
@@ -163,6 +167,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201502261716396_ConsertoTipoNomeEmpresa.resx">
       <DependentUpon>201502261716396_ConsertoTipoNomeEmpresa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503051830570_AddEmpresaNoCentroCusto.resx">
+      <DependentUpon>201503051830570_AddEmpresaNoCentroCusto.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

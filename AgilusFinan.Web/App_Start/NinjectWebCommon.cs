@@ -66,6 +66,7 @@ namespace AgilusFinan.Web.App_Start
         {
             kernel.Bind(typeof (IRepositorioPadrao<>)).To(typeof (RepositorioPadrao<>));
             kernel.Bind<IRepositorioBanco>().To<RepositorioBanco>();
+            kernel.Bind<IRepositorioCentroCusto>().To<RepositorioCentroCusto>();
         }        
     }
 }
