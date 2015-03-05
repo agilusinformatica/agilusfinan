@@ -52,7 +52,17 @@
     <Compile Include="Entities\TipoTelefone.cs" />
     <Compile Include="Entities\Transferencia.cs" />
     <Compile Include="Interfaces\IRepositorioBanco.cs" />
+    <Compile Include="Interfaces\IRepositorioCategoria.cs" />
+    <Compile Include="Interfaces\IRepositorioCentroCusto.cs" />
+    <Compile Include="Interfaces\IRepositorioConta.cs" />
+    <Compile Include="Interfaces\IRepositorioEmpresa.cs" />
     <Compile Include="Interfaces\IRepositorioPadrao.cs" />
+    <Compile Include="Interfaces\IRepositorioPagamento.cs" />
+    <Compile Include="Interfaces\IRepositorioPessoa.cs" />
+    <Compile Include="Interfaces\IRepositorioRecebimento.cs" />
+    <Compile Include="Interfaces\IRepositorioTipoPessoa.cs" />
+    <Compile Include="Interfaces\IRepositorioTipoTelefone.cs" />
+    <Compile Include="Interfaces\IRepositorioTransferencia.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

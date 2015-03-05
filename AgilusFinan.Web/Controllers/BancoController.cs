@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
-using AgilusFinan.Domain.Entities;
 using AgilusFinan.Domain.Interfaces;
 using AgilusFinan.Infra.Context;
 
@@ -21,9 +17,9 @@ namespace AgilusFinan.Web.Controllers
         // GET: Banco
         public ActionResult Index()
         {
-            //return View(_repo.Listar2(b => b.EmpresaId == 2));
-            var db = new Contexto();
-            return View(db.Bancos.Where(b => b.EmpresaId == 2).ToList());
+            return View(_repo.Listar(b => b.EmpresaId == 2));
+            /*var db = new Contexto();
+            return View(db.Bancos.Where(b => b.EmpresaId == 2).ToList());*/
         }
 
         // GET: Banco/Details/5

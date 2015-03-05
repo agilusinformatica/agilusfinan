@@ -2,8 +2,7 @@
 
 namespace AgilusFinan.Domain.Interfaces
 {
-    public interface IRepositorioBanco : IRepositorioPadrao<Banco>
+    public interface IRepositorioTipoTelefone : IRepositorioPadrao<TipoTelefone>
     {
-        
     }
 }
