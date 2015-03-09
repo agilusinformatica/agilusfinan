@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
+using System.Linq;
 
 namespace AgilusFinan.Infra.Context
 {
@@ -30,7 +31,8 @@ namespace AgilusFinan.Infra.Context
         { 
             get 
             {
-                return 2;
+                //return 2;
+                return this.Database.SqlQuery<int>("select top 1 Id from Empresa order by Id").ToList<int>()[0];
             } 
         }
         
