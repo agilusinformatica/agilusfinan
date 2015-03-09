@@ -103,13 +103,20 @@
     <Compile Include="Migrations\201503051830570_AddEmpresaNoCentroCusto.Designer.cs">
       <DependentUpon>201503051830570_AddEmpresaNoCentroCusto.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201503082035022_InclusaoEmpresaNaClasseConta.cs" />
+    <Compile Include="Migrations\201503082035022_InclusaoEmpresaNaClasseConta.Designer.cs">
+      <DependentUpon>201503082035022_InclusaoEmpresaNaClasseConta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503082042081_CriarEmpresaOndeFalta.cs" />
+    <Compile Include="Migrations\201503082042081_CriarEmpresaOndeFalta.Designer.cs">
+      <DependentUpon>201503082042081_CriarEmpresaOndeFalta.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\RepositorioBanco.cs" />
     <Compile Include="Services\RepositorioCategoria.cs" />
     <Compile Include="Services\RepositorioCentroCusto.cs" />
     <Compile Include="Services\RepositorioConta.cs" />
-    <Compile Include="Services\RepositorioEmpresa.cs" />
     <Compile Include="Services\RepositorioPadrao.cs" />
     <Compile Include="Services\RepositorioPagamento.cs" />
     <Compile Include="Services\RepositorioPessoa.cs" />
@@ -170,6 +177,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201503051830570_AddEmpresaNoCentroCusto.resx">
       <DependentUpon>201503051830570_AddEmpresaNoCentroCusto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503082035022_InclusaoEmpresaNaClasseConta.resx">
+      <DependentUpon>201503082035022_InclusaoEmpresaNaClasseConta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503082042081_CriarEmpresaOndeFalta.resx">
+      <DependentUpon>201503082042081_CriarEmpresaOndeFalta.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

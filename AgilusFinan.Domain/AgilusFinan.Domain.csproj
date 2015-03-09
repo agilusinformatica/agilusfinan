@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\Banco.cs" />
@@ -41,6 +42,7 @@
     <Compile Include="Entities\Empresa.cs" />
     <Compile Include="Entities\Endereco.cs" />
     <Compile Include="Entities\FormaPagamento.cs" />
+    <Compile Include="Entities\Padrao.cs" />
     <Compile Include="Entities\Pagamento.cs" />
     <Compile Include="Entities\Pessoa.cs" />
     <Compile Include="Entities\Recebimento.cs" />

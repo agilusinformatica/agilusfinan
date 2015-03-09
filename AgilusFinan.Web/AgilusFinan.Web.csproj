@@ -137,6 +137,7 @@
     <Compile Include="Controllers\CentroCustoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PagamentoController.cs" />
+    <Compile Include="Controllers\TipoTelefoneController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -183,6 +184,10 @@
     <Content Include="Views\CentroCusto\Create.cshtml" />
     <Content Include="Views\CentroCusto\Delete.cshtml" />
     <Content Include="Views\CentroCusto\Edit.cshtml" />
+    <Content Include="Views\TipoTelefone\Index.cshtml" />
+    <Content Include="Views\TipoTelefone\Create.cshtml" />
+    <Content Include="Views\TipoTelefone\Edit.cshtml" />
+    <Content Include="Views\TipoTelefone\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

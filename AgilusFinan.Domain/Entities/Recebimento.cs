@@ -2,11 +2,9 @@
 
 namespace AgilusFinan.Domain.Entities
 {
-    public class Recebimento
+    public class Recebimento : Padrao
     {
         public int Id { get; set; }
-        public int EmpresaId { get; set; }
-        public virtual Empresa Empresa { get; set; }
         public int ContaId { get; set; }
         public virtual Conta Conta { get; set; }
         public DateTime DataVencimento { get; set; }

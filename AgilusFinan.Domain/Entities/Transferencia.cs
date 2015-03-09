@@ -2,7 +2,7 @@
 
 namespace AgilusFinan.Domain.Entities
 {
-    public class Transferencia
+    public class Transferencia : Padrao
     {
         public int Id { get; set; }
         public int ContaOrigemId { get; set; }

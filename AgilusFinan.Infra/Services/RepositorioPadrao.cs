@@ -8,7 +8,7 @@ using AgilusFinan.Infra.Context;
 
 namespace AgilusFinan.Infra.Services
 {
-    public class RepositorioPadrao<T> : IRepositorioPadrao<T> where T : class
+    public class RepositorioPadrao<T> : IRepositorioPadrao<T> where T : Padrao
     {
 
         Contexto db = new Contexto();
@@ -16,12 +16,14 @@ namespace AgilusFinan.Infra.Services
         public void Incluir(T obj)
         {
             db.Set<T>().Add(obj);
+            obj.EmpresaId = db.EmpresaId; 
             db.SaveChanges();
         }
 
         public void Alterar(T obj)
         {
             db.Entry<T>(obj).State = System.Data.Entity.EntityState.Modified;
+            obj.EmpresaId = db.EmpresaId; 
             db.SaveChanges();
         }
 
@@ -39,7 +41,7 @@ namespace AgilusFinan.Infra.Services
 
         public IEnumerable<T> Listar()
         {
-            return db.Set<T>().ToList();
+            return db.Set<T>().Where(e => e.EmpresaId == db.EmpresaId).ToList();
         }
 
         public T BuscarPorId(int id)
@@ -49,7 +51,7 @@ namespace AgilusFinan.Infra.Services
 
         public IEnumerable<T> Listar(Func<T, bool> predicate)
         {
-            return db.Set<T>().Where(predicate).ToList();
+            return db.Set<T>().Where(e => e.EmpresaId == db.EmpresaId).Where(predicate).ToList();
         }
     }
 }

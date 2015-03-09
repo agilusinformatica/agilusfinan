@@ -1,4 +1,5 @@
 ﻿using AgilusFinan.Domain.Entities;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 
@@ -9,7 +10,6 @@ namespace AgilusFinan.Infra.Context
         public Contexto()
             : base("dbAgilusFinan")
         {
-
         }
 
         public DbSet<Banco> Bancos { get; set; }
@@ -25,13 +25,21 @@ namespace AgilusFinan.Infra.Context
         public DbSet<Pagamento> Pagamentos { get; set; }
         public DbSet<Recebimento> Recebimentos { get; set; }
         public DbSet<Transferencia> Transferencias { get; set; }
-        
 
+        public int EmpresaId 
+        { 
+            get 
+            {
+                return 2;
+            } 
+        }
+        
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
             modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
         }
+
     }
 }

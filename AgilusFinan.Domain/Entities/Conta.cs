@@ -5,7 +5,7 @@ using System.Text;
 
 namespace AgilusFinan.Domain.Entities
 {
-    public class Conta
+    public class Conta : Padrao
     {
         public int Id { get; set; }
         public string Nome { get; set; }
