@@ -5,6 +5,7 @@ using System.Text;
 using AgilusFinan.Domain.Interfaces;
 using AgilusFinan.Domain.Entities;
 using AgilusFinan.Infra.Context;
+using System.Linq.Expressions;
 
 namespace AgilusFinan.Infra.Services
 {
@@ -41,7 +42,7 @@ namespace AgilusFinan.Infra.Services
 
         public IEnumerable<T> Listar()
         {
-            return db.Set<T>().Where(e => e.EmpresaId == db.EmpresaId).ToList();
+            return db.Set<T>().Where(e => e.EmpresaId == db.EmpresaId);
         }
 
         public T BuscarPorId(int id)
@@ -49,9 +50,9 @@ namespace AgilusFinan.Infra.Services
             return db.Set<T>().Find(id);
         }
 
-        public IEnumerable<T> Listar(Func<T, bool> predicate)
+        public List<T> Listar(Expression<Func<T, bool>> predicate)
         {
-            return db.Set<T>().Where(e => e.EmpresaId == db.EmpresaId).Where(predicate).ToList();
+            return db.Set<T>().Where(predicate).Where(e => e.EmpresaId == db.EmpresaId).ToList();
         }
     }
 }

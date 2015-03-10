@@ -8,20 +8,20 @@ namespace AgilusFinan.Web.Bases
     {
         protected R repo = new R();
         
-        public ActionResult Index()
+        public virtual ActionResult Index()
         {
             return View(repo.Listar());
         }
 
         [HttpGet]
-        public ActionResult Create()
+        public virtual ActionResult Create()
         {
             PreInclusao();
             return View();
         }
 
         [HttpPost]
-        public ActionResult Create(T model)
+        public virtual ActionResult Create(T model)
         {
             if (ModelState.IsValid)
             {
@@ -32,7 +32,7 @@ namespace AgilusFinan.Web.Bases
         }
 
         [HttpGet]
-        public ActionResult Edit(int id)
+        public virtual ActionResult Edit(int id)
         {
             PreAlteracao();
             T model = repo.BuscarPorId(id);
@@ -40,7 +40,7 @@ namespace AgilusFinan.Web.Bases
         }
 
         [HttpPost]
-        public ActionResult Edit(T model)
+        public virtual ActionResult Edit(T model)
         {
             if (ModelState.IsValid)
             {
@@ -51,7 +51,7 @@ namespace AgilusFinan.Web.Bases
         }
 
         [HttpGet]
-        public ActionResult Delete(int id)
+        public virtual ActionResult Delete(int id)
         {
             PreExclusao();
             T model = repo.BuscarPorId(id);
@@ -59,7 +59,7 @@ namespace AgilusFinan.Web.Bases
         }
 
         [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int id)
+        public virtual ActionResult DeleteConfirmed(int id)
         {
             repo.ExcluirPorId(id);
             return RedirectToAction("Index");

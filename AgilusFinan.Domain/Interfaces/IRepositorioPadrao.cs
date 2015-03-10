@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace AgilusFinan.Domain.Interfaces
@@ -12,7 +13,7 @@ namespace AgilusFinan.Domain.Interfaces
         void Excluir(T obj);
         void ExcluirPorId(int id);
         IEnumerable<T> Listar();
-        IEnumerable<T> Listar(Func<T, bool> predicate );
+        List<T> Listar(Expression<Func<T, bool>> predicate );
         T BuscarPorId(int id);
     }
 }

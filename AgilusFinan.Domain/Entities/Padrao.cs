@@ -6,7 +6,7 @@ using System.Text;
 
 namespace AgilusFinan.Domain.Entities
 {
-    public class Padrao
+    public abstract class Padrao
     {
         [ScaffoldColumn(false)]
         public int EmpresaId { get; set; }
