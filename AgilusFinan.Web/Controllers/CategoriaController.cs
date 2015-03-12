@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
 using AgilusFinan.Domain.Entities;
 using AgilusFinan.Infra.Context;
 using AgilusFinan.Infra.Services;
@@ -8,11 +9,41 @@ namespace AgilusFinan.Web.Controllers
 {
     public class CategoriaController : ControllerPadrao<Categoria, RepositorioCategoria>
     {
-        Contexto db = new Contexto();
+        
+        Dictionary<int, string> lista;
 
         protected override void PreInclusao()
         {
-            ViewBag.IdCategoria = new SelectList(db.Categorias, "Id", "Nome");
+            lista = new Dictionary<int, string>();
+            var root = repo.Listar(c => c.Id == c.CategoriaPaiId);
+            foreach (var item in root)
+            {
+                AdicionaItem(item, 0);
+
+            }
+            ViewBag.CategoriasPai = lista;
+        }
+
+        private void AdicionaItem(Categoria c, int nivel)
+        {
+            lista.Add(c.Id, Repete("++_", nivel) + c.Nome);
+            var filhas = repo.Listar(f => f.CategoriaPaiId == c.Id && f.Id != f.CategoriaPaiId);
+            foreach (var item in filhas)
+            {
+                AdicionaItem(item, ++nivel);
+                --nivel;
+            }
+        }
+
+        private string Repete(string texto, int qtde)
+        {
+            string retorno = "";
+            for (int i = 0; i < qtde; i++)
+            {
+                retorno += texto;
+            }
+            return retorno;
         }
     }
+
 }

@@ -35,8 +35,14 @@
         <div class="form-group">
             @Html.LabelFor(model => model.CategoriaPaiId, htmlAttributes: new {@class = "control-label col-md-2"})
             <div class="col-md-10">
-                @Html.DropDownList("CategoriasFilhas", , String.Empty, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.CategoriaPaiId, "", new { @class = "text-danger" })
+                <select name="CategoriaPaiId" class="form-control">
+                    @foreach (var c in ViewBag.CategoriasPai)
+                    {
+                        <option value="@(c.Key)">@(c.Value)</option> 
+                    }
+                </select>
+
+                @Html.ValidationMessageFor(model => model.CategoriaPaiId, "", new {@class = "text-danger"})
             </div>
         </div>
 
