@@ -23,10 +23,11 @@ namespace AgilusFinan.Web.Controllers
             }
             ViewBag.CategoriasPai = lista;
         }
-
+        
         private void AdicionaItem(Categoria c, int nivel)
         {
-            lista.Add(c.Id, Repete("++_", nivel) + c.Nome);
+            string identador = System.Net.WebUtility.HtmlDecode("&nbsp;");
+            lista.Add(c.Id, Repete(identador, nivel*2) + c.Nome);
             var filhas = repo.Listar(f => f.CategoriaPaiId == c.Id && f.Id != f.CategoriaPaiId);
             foreach (var item in filhas)
             {

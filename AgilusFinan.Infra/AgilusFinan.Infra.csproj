@@ -111,6 +111,10 @@
     <Compile Include="Migrations\201503082042081_CriarEmpresaOndeFalta.Designer.cs">
       <DependentUpon>201503082042081_CriarEmpresaOndeFalta.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201503131824371_AlteracaoEntidadeTitulo.cs" />
+    <Compile Include="Migrations\201503131824371_AlteracaoEntidadeTitulo.Designer.cs">
+      <DependentUpon>201503131824371_AlteracaoEntidadeTitulo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\RepositorioBanco.cs" />
@@ -183,6 +187,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201503082042081_CriarEmpresaOndeFalta.resx">
       <DependentUpon>201503082042081_CriarEmpresaOndeFalta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503131824371_AlteracaoEntidadeTitulo.resx">
+      <DependentUpon>201503131824371_AlteracaoEntidadeTitulo.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
