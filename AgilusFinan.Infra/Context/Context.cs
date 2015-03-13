@@ -1,4 +1,6 @@
 ﻿using AgilusFinan.Domain.Entities;
+//using AgilusFinan.Infra.EntityConfig;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
@@ -31,17 +33,19 @@ namespace AgilusFinan.Infra.Context
         { 
             get 
             {
-                //return 2;
-                return this.Database.SqlQuery<int>("select top 1 Id from Empresa order by Id").ToList<int>()[0];
+                return this.Database.SqlQuery<int>("select top 1 Id from Empresa order by Id").First<int>();
             } 
         }
-        
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
             modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
-        }
 
+            modelBuilder.Properties<string>().Configure(p => p.HasColumnType("varchar"));
+            modelBuilder.Properties<string>().Configure(p => p.HasMaxLength(100));
+        }
     }
 }
