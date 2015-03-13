@@ -4,7 +4,20 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
+@{
+    var result = "";
+    if (IsPost)
+    {
+        result = "POST";
+    }
+    else
+    {
+        result = "GET";
+    }
+}
+<h2>Create - Metodo: @result</h2>
+
+
 
 
 @using (Html.BeginForm()) 

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using AgilusFinan.Domain.Entities;
 using AgilusFinan.Infra.Context;
@@ -11,24 +12,18 @@ namespace AgilusFinan.Web.Controllers
     {
         
         Dictionary<int, string> lista;
+        private List<Categoria> itens;
 
         protected override void PreInclusao()
         {
-            lista = new Dictionary<int, string>();
-            var root = repo.Listar(c => c.Id == c.CategoriaPaiId);
-            foreach (var item in root)
-            {
-                AdicionaItem(item, 0);
-
-            }
-            ViewBag.CategoriasPai = lista;
+            
         }
         
         private void AdicionaItem(Categoria c, int nivel)
         {
             string identador = System.Net.WebUtility.HtmlDecode("&nbsp;");
             lista.Add(c.Id, Repete(identador, nivel*2) + c.Nome);
-            var filhas = repo.Listar(f => f.CategoriaPaiId == c.Id && f.Id != f.CategoriaPaiId);
+            var filhas = itens.Where(f => f.CategoriaPaiId == c.Id && f.Id != f.CategoriaPaiId);
             foreach (var item in filhas)
             {
                 AdicionaItem(item, ++nivel);
@@ -44,6 +39,19 @@ namespace AgilusFinan.Web.Controllers
                 retorno += texto;
             }
             return retorno;
+        }
+
+        public ActionResult BuscaCategorias(DirecaoCategoria direcao)
+        {
+            itens = repo.Listar(c => c.Direcao == direcao);
+            lista = new Dictionary<int, string>();
+            var root = itens.Where(c => c.Id == c.CategoriaPaiId);
+            foreach (var item in root)
+            {
+                AdicionaItem(item, 0);
+
+            }
+            return PartialView("_ItensCategoria", lista);
         }
     }
 

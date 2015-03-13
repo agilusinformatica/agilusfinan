@@ -17,31 +17,17 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Nome, htmlAttributes: new {@class = "control-label col-md-2"})
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CategoriaPaiId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <select name="CategoriaPaiId" class="form-control">
-                    @foreach (var c in ViewBag.CategoriasPai)
-                    {
-                        <option value="@(c.Key)">@(c.Value)</option>
-                    }
-                </select>
-
-                @Html.ValidationMessageFor(model => model.CategoriaPaiId, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Nome, new {htmlAttributes = new {@class = "form-control"}})
+                @Html.ValidationMessageFor(model => model.Nome, "", new {@class = "text-danger"})
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Cor, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-               <input type="color" name="Cor" id="Cor" class="form-control"/>
+                <input type="color" name="Cor" id="Cor" class="form-control" />
                 @Html.ValidationMessageFor(model => model.Cor, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -52,6 +38,17 @@
                 @Html.RadioButtonFor(model => model.Direcao, "Recebimento", new { htmlAttributes = new { @class = "form-control" } }) Recebimento
                 @Html.RadioButtonFor(model => model.Direcao, "Pagamento", new { htmlAttributes = new { @class = "form-control" } }) Pagamento
                 @Html.ValidationMessageFor(model => model.Direcao, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CategoriaPaiId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select name="CategoriaPaiId" id="CategoriaPaiId" class="form-control">
+                    
+                </select>
+
+                @Html.ValidationMessageFor(model => model.CategoriaPaiId, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -67,7 +64,24 @@
     @Html.ActionLink("Voltar", "Index")
 </div>
 
+<script>
+    $("#Direcao").click(function() {
+        var result = $.ajax({
+            url: "@Url.Action("BuscaCategorias")",
+            method: "POST",
+            data:{direcao:$(this).attr("value")}
+        });
 
+        //result.done(function (content) {
+        //    document.getElementById("CategoriaPaiId").innerHTML = "";
+        //    $("#CategoriaPaiId").append(content);
+        //});        
+
+        result.done(function(content) {
+            $("#CategoriaPaiId").html(content);
+        });
+    });
+</script>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
