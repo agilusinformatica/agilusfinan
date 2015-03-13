@@ -13,7 +13,7 @@ namespace AgilusFinan.Domain.Interfaces
         void Excluir(T obj);
         void ExcluirPorId(int id);
         IEnumerable<T> Listar();
-        List<T> Listar(Expression<Func<T, bool>> predicate );
+        List<T> Listar(Expression<Func<T, bool>> predicate);
         T BuscarPorId(int id);
     }
 }
