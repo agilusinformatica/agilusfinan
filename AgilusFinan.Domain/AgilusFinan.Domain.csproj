@@ -52,7 +52,9 @@
     <Compile Include="Entities\TipoPessoa.cs" />
     <Compile Include="Entities\TipoPessoaPorPessoa.cs" />
     <Compile Include="Entities\TipoTelefone.cs" />
+    <Compile Include="Entities\Titulo.cs" />
     <Compile Include="Entities\Transferencia.cs" />
+    <Compile Include="Entities\Usuario.cs" />
     <Compile Include="Interfaces\IRepositorioBanco.cs" />
     <Compile Include="Interfaces\IRepositorioCategoria.cs" />
     <Compile Include="Interfaces\IRepositorioCentroCusto.cs" />
