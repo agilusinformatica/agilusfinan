@@ -10,7 +10,7 @@ namespace AgilusFinan.Infra.Migrations
             DropIndex("dbo.Categoria", new[] { "CategoriaPaiId" });
             AlterColumn("dbo.Categoria", "CategoriaPaiId", c => c.Int());
             CreateIndex("dbo.Categoria", "CategoriaPaiId");
-            Sql("update dbo.Categoria set CategoriaPaiId = null where Id = CategoriaPai");
+            Sql("update dbo.Categoria set CategoriaPaiId = null where Id = CategoriaPaiId");
         }
         
         public override void Down()

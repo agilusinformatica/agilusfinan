@@ -17,7 +17,7 @@
         <th>
             @Html.DisplayNameFor(model => model.Nome)
         </th>
-        <th></th>
+        <th>@ViewData["horaServer"]</th> @*Ao finalizar os testes de cache, apagar o conteúdo desta tag.*@
     </tr>
 
 @foreach (var item in Model) {

@@ -7,9 +7,15 @@ namespace AgilusFinan.Web.Bases
     public class ControllerPadrao<T, R> : Controller where T : class where R : IRepositorioPadrao<T>, new()
     {
         protected R repo = new R();
-        
+
+        // Com esta annotation "Profile", caso seja necessário alterar as configurações de cache não é necessário recompilar a aplicação, basta alterar as configurações no web.config.
+        [OutputCache(CacheProfile="IndexPage")]
         public virtual ActionResult Index()
         {
+            //variável de teste
+            var hora = System.DateTime.Now;
+            ViewData.Add("horaServer", hora);
+
             return View(repo.Listar());
         }
 
