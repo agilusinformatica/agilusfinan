@@ -13,7 +13,7 @@ namespace AgilusFinan.Domain.Entities
         public int Cor { get; set; }
 
         [Display(Name = "Categoria Pai")]
-        public int CategoriaPaiId { get; set; }
+        public int? CategoriaPaiId { get; set; }
         public virtual Categoria CategoriaPai { get; set; }
         public virtual IEnumerable<Categoria> CategoriasFilhas { get; set; } 
     }

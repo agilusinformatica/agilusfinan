@@ -29,7 +29,7 @@
             @Html.DisplayFor(modelItem => item.Nome)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Cor)
+            <div id="selectedcolor" style="background-color: #@item.Cor.ToString("X"); width: 20px; height: 20px;"></div>
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.CategoriaPai.Nome)

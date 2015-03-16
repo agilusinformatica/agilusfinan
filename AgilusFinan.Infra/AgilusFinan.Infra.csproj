@@ -115,6 +115,14 @@
     <Compile Include="Migrations\201503131824371_AlteracaoEntidadeTitulo.Designer.cs">
       <DependentUpon>201503131824371_AlteracaoEntidadeTitulo.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201503141507311_AlteracaoTipoStringParaVarchar.cs" />
+    <Compile Include="Migrations\201503141507311_AlteracaoTipoStringParaVarchar.Designer.cs">
+      <DependentUpon>201503141507311_AlteracaoTipoStringParaVarchar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503151552218_NullCategoriaPaiId.cs" />
+    <Compile Include="Migrations\201503151552218_NullCategoriaPaiId.Designer.cs">
+      <DependentUpon>201503151552218_NullCategoriaPaiId.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\RepositorioBanco.cs" />
@@ -190,6 +198,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201503131824371_AlteracaoEntidadeTitulo.resx">
       <DependentUpon>201503131824371_AlteracaoEntidadeTitulo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503141507311_AlteracaoTipoStringParaVarchar.resx">
+      <DependentUpon>201503141507311_AlteracaoTipoStringParaVarchar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503151552218_NullCategoriaPaiId.resx">
+      <DependentUpon>201503151552218_NullCategoriaPaiId.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

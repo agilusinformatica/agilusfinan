@@ -1,7 +1,8 @@
 ﻿@model Dictionary<int, string>
 
+<option value=""></option>
 @foreach (var item in Model)
 {
-    <option value="@(item.Key)">@(item.Value)</option>
+    <option value="@item.Key">@item.Value</option>
 }
 

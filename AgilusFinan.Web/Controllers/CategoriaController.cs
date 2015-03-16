@@ -22,7 +22,7 @@ namespace AgilusFinan.Web.Controllers
         private void AdicionaItem(Categoria c, int nivel)
         {
             string identador = System.Net.WebUtility.HtmlDecode("&nbsp;");
-            lista.Add(c.Id, Repete(identador, nivel*2) + c.Nome);
+            lista.Add(c.Id, Repete(identador, nivel*3) + c.Nome);
             var filhas = itens.Where(f => f.CategoriaPaiId == c.Id && f.Id != f.CategoriaPaiId);
             foreach (var item in filhas)
             {
@@ -45,7 +45,7 @@ namespace AgilusFinan.Web.Controllers
         {
             itens = repo.Listar(c => c.Direcao == direcao);
             lista = new Dictionary<int, string>();
-            var root = itens.Where(c => c.Id == c.CategoriaPaiId);
+            var root = itens.Where(c => c.CategoriaPaiId == null);
             foreach (var item in root)
             {
                 AdicionaItem(item, 0);

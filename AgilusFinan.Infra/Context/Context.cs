@@ -46,6 +46,7 @@ namespace AgilusFinan.Infra.Context
 
             modelBuilder.Properties<string>().Configure(p => p.HasColumnType("varchar"));
             modelBuilder.Properties<string>().Configure(p => p.HasMaxLength(100));
+            modelBuilder.Entity<Categoria>().Property(p => p.CategoriaPaiId).IsOptional();
         }
     }
 }

@@ -27,7 +27,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Cor, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <input type="color" name="Cor" id="Cor" class="form-control" />
+                <input type="color" name="Cor" id="Cor" class="form-control" @*value="@Model.Cor"*@/>
                 @Html.ValidationMessageFor(model => model.Cor, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -35,8 +35,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Direcao, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.RadioButtonFor(model => model.Direcao, "Recebimento", new { htmlAttributes = new { @class = "form-control" } }) Recebimento
-                @Html.RadioButtonFor(model => model.Direcao, "Pagamento", new { htmlAttributes = new { @class = "form-control" } }) Pagamento
+                <label class="radio-inline"><input id="DirecaoR" name="Direcao" type="radio" value="Recebimento" /> Recebimento</label>
+                <label class="radio-inline"><input id="DirecaoP" name="Direcao" type="radio" value="Pagamento" /> Pagamento</label>
                 @Html.ValidationMessageFor(model => model.Direcao, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -45,9 +45,7 @@
             @Html.LabelFor(model => model.CategoriaPaiId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <select name="CategoriaPaiId" id="CategoriaPaiId" class="form-control">
-                    
                 </select>
-
                 @Html.ValidationMessageFor(model => model.CategoriaPaiId, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -65,20 +63,15 @@
 </div>
 
 <script>
-    $("#Direcao").click(function() {
+    $("#DirecaoR, #DirecaoP").bind('click',function() {
         var result = $.ajax({
             url: "@Url.Action("BuscaCategorias")",
             method: "POST",
-            data:{direcao:$(this).attr("value")}
+            data: { direcao: $(this).val() }
         });
 
-        //result.done(function (content) {
-        //    document.getElementById("CategoriaPaiId").innerHTML = "";
-        //    $("#CategoriaPaiId").append(content);
-        //});        
-
-        result.done(function(content) {
-            $("#CategoriaPaiId").html(content);
+        result.done(function(conteudo) {
+            $("#CategoriaPaiId").html(conteudo);
         });
     });
 </script>
