@@ -1,0 +1,29 @@
+﻿@using AgilusFinan.Domain.Entities
+@model AgilusFinan.Domain.Entities.Categoria
+<tr>
+    <td>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Cor, htmlAttributes: new {@class = "control-label col-md-2"})
+            <div class="col-md-10">
+                <input type="color" name="Cor" id="Cor" class="form-control" @*value="@Model.Cor"*@/>
+                @Html.ValidationMessageFor(model => model.Cor, "", new {@class = "text-danger"})
+            </div>
+        </div>
+    </td>
+    @Model.
+    <td>
+        <input type="Submit" value="Salvar"/>
+    </td>
+</tr>
+
+

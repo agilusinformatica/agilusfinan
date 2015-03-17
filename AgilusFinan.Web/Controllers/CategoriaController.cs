@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web.Mvc;
 using AgilusFinan.Domain.Entities;
-using AgilusFinan.Infra.Context;
 using AgilusFinan.Infra.Services;
 using AgilusFinan.Web.Bases;
 
@@ -14,14 +14,16 @@ namespace AgilusFinan.Web.Controllers
         Dictionary<int, string> lista;
         private List<Categoria> itens;
 
-        protected override void PreInclusao()
+        protected override void PreListagem()
         {
-            
+            ViewBag.ListaCategoria = CategoriasIdentadas(null);
         }
+
+     
         
         private void AdicionaItem(Categoria c, int nivel)
         {
-            string identador = System.Net.WebUtility.HtmlDecode("&nbsp;");
+            string identador = WebUtility.HtmlDecode("&nbsp;");
             lista.Add(c.Id, Repete(identador, nivel*3) + c.Nome);
             var filhas = itens.Where(f => f.CategoriaPaiId == c.Id && f.Id != f.CategoriaPaiId);
             foreach (var item in filhas)
@@ -43,7 +45,27 @@ namespace AgilusFinan.Web.Controllers
 
         public ActionResult BuscaCategorias(DirecaoCategoria direcao)
         {
-            itens = repo.Listar(c => c.Direcao == direcao);
+            
+            return PartialView("_ItensCategoria", CategoriasIdentadas(direcao));
+        }
+
+        public ActionResult Teste()
+        {
+            return PartialView("_Teste");
+        }
+        
+
+        public Dictionary<int, string> CategoriasIdentadas(DirecaoCategoria? direcao)
+        {
+            if (direcao != null)
+            {
+                itens = repo.Listar(c => c.Direcao == direcao);
+            }
+            else
+            {
+                itens = repo.Listar().ToList();
+            }
+            
             lista = new Dictionary<int, string>();
             var root = itens.Where(c => c.CategoriaPaiId == null);
             foreach (var item in root)
@@ -51,7 +73,8 @@ namespace AgilusFinan.Web.Controllers
                 AdicionaItem(item, 0);
 
             }
-            return PartialView("_ItensCategoria", lista);
+
+            return lista;
         }
     }
 

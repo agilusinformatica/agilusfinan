@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
 using AgilusFinan.Domain.Interfaces;
 using AgilusFinan.Infra.Services;
 
@@ -10,6 +11,7 @@ namespace AgilusFinan.Web.Bases
         
         public virtual ActionResult Index()
         {
+            PreListagem();
             return View(repo.Listar());
         }
 
@@ -79,6 +81,11 @@ namespace AgilusFinan.Web.Bases
         protected virtual void PreExclusao()
         {
 
+        }
+
+        protected virtual void PreListagem()
+        {
+            
         }
     }
 }

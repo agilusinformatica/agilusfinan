@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using AgilusFinan.Domain.Interfaces;
-using AgilusFinan.Domain.Entities;
-using AgilusFinan.Infra.Context;
 using System.Linq.Expressions;
+using AgilusFinan.Domain.Entities;
+using AgilusFinan.Domain.Interfaces;
+using AgilusFinan.Infra.Context;
 
 namespace AgilusFinan.Infra.Services
 {
@@ -23,14 +23,14 @@ namespace AgilusFinan.Infra.Services
 
         public void Alterar(T obj)
         {
-            db.Entry<T>(obj).State = System.Data.Entity.EntityState.Modified;
+            db.Entry<T>(obj).State = EntityState.Modified;
             obj.EmpresaId = db.EmpresaId; 
             db.SaveChanges();
         }
 
         public void Excluir(T obj)
         {
-            db.Entry<T>(obj).State = System.Data.Entity.EntityState.Deleted;
+            db.Entry<T>(obj).State = EntityState.Deleted;
             db.SaveChanges();
         }
 
