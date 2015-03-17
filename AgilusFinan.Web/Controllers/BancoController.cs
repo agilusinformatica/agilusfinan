@@ -6,6 +6,5 @@ namespace AgilusFinan.Web.Controllers
 {
     public class BancoController : ControllerPadrao<Banco, RepositorioBanco>
     {
-
     }
 }
