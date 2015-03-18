@@ -10,13 +10,13 @@ namespace AgilusFinan.Web.Controllers
 {
     public class CategoriaController : ControllerPadrao<Categoria, RepositorioCategoria>
     {
-        
         Dictionary<int, string> lista;
         private List<Categoria> itens;
 
-        protected override void PreInclusao()
+        protected override void PreListagem()
         {
-            
+            ViewBag.ListaIdentada = CategoriasIdentadas(null);
+            var l = CategoriasIdentadas(null);
         }
         
         private void AdicionaItem(Categoria c, int nivel)
@@ -43,16 +43,28 @@ namespace AgilusFinan.Web.Controllers
 
         public ActionResult BuscaCategorias(DirecaoCategoria direcao)
         {
-            itens = repo.Listar(c => c.Direcao == direcao);
+            return PartialView("_ItensCategoria", CategoriasIdentadas(direcao));
+        }
+
+        public Dictionary<int, string> CategoriasIdentadas(DirecaoCategoria? direcao)
+        {
+            if (direcao != null) 
+            { 
+                itens = repo.Listar(c => c.Direcao == direcao);
+            }
+            else
+            {
+                itens = repo.Listar().ToList();
+            }
+            
             lista = new Dictionary<int, string>();
             var root = itens.Where(c => c.CategoriaPaiId == null);
             foreach (var item in root)
             {
                 AdicionaItem(item, 0);
-
             }
-            return PartialView("_ItensCategoria", lista);
+
+            return lista;
         }
     }
-
 }

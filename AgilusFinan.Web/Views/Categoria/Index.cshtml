@@ -17,26 +17,24 @@
         <th>
             @Html.DisplayNameFor(model => model.Cor)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CategoriaPaiId)
-        </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in ViewBag.ListaIdentada)
+{
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Nome)
+            @item.Value
         </td>
         <td>
-            <div id="selectedcolor" style="background-color: #@item.Cor.ToString("X"); width: 20px; height: 20px;"></div>
+            @{
+                int cor = Model.Where(x => x.Id == item.Key).First().Cor;
+            }
+            <div id="selectedcolor" style="background-color: #@cor.ToString("X"); width: 100px; height: 20px;"></div>
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CategoriaPai.Nome)
-        </td>
-        <td>
-            @Html.ActionLink("Editar", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Excluir", "Delete", new { id=item.Id })
+            @Html.ActionLink("Editar", "Edit", new { id=item.Key }) |
+            @Html.ActionLink("Excluir", "Delete", new { id=item.Key })
         </td>
     </tr>
 }
