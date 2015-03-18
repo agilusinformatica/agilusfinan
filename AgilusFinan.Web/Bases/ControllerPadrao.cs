@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
 using AgilusFinan.Domain.Interfaces;
 using AgilusFinan.Infra.Services;
 
@@ -7,7 +8,7 @@ namespace AgilusFinan.Web.Bases
     public class ControllerPadrao<T, R> : Controller where T : class where R : IRepositorioPadrao<T>, new()
     {
         protected R repo = new R();
-
+        
         public virtual ActionResult Index()
         {
             PreListagem();
@@ -84,7 +85,7 @@ namespace AgilusFinan.Web.Bases
 
         protected virtual void PreListagem()
         {
-           
+            
         }
     }
 }
