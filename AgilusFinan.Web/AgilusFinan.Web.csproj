@@ -196,7 +196,8 @@
     <Content Include="Views\Categoria\Edit.cshtml" />
     <Content Include="Views\Categoria\Delete.cshtml" />
     <Content Include="Views\Categoria\_ItensCategoria.cshtml" />
-    <Content Include="Views\Categoria\_Teste.cshtml" />
+    <Content Include="Views\Categoria\_Cadastro.cshtml" />
+    <Content Include="Views\Categoria\CreateFilha.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

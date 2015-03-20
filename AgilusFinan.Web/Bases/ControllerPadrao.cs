@@ -1,11 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using AgilusFinan.Domain.Interfaces;
-using AgilusFinan.Infra.Services;
 
 namespace AgilusFinan.Web.Bases
 {
-    public class ControllerPadrao<T, R> : Controller where T : class where R : IRepositorioPadrao<T>, new()
+    public class ControllerPadrao<T, R> : Controller where T : class, new() where R : IRepositorioPadrao<T>, new()
     {
         protected R repo = new R();
         
@@ -19,7 +17,9 @@ namespace AgilusFinan.Web.Bases
         public virtual ActionResult Create()
         {
             PreInclusao();
-            return View();
+            T model = new T();
+            ViewBag.TipoOperacao = "Incluindo";
+            return View(model);
         }
 
         [HttpPost]
@@ -38,6 +38,7 @@ namespace AgilusFinan.Web.Bases
         {
             PreAlteracao();
             T model = repo.BuscarPorId(id);
+            ViewBag.TipoOperacao = "Alterando";
             return View(model);
         }
 
@@ -89,3 +90,5 @@ namespace AgilusFinan.Web.Bases
         }
     }
 }
+
+enum TipoOperacao { Incluindo, Alterando}

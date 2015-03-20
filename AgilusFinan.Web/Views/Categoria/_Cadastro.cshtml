@@ -1,0 +1,85 @@
+﻿@using AgilusFinan.Domain.Entities
+@model AgilusFinan.Domain.Entities.Categoria
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Categoria</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Cor, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="color" name="Cor" id="Cor" class="form-control" value="#@Model.Cor.ToString("X").PadLeft(6,'0')" />
+                @Html.ValidationMessageFor(model => model.Cor, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @if (ViewBag.Operacao != "IncluindoFilha")
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.Direcao, htmlAttributes: new {@class = "control-label col-md-2"})
+                <div class="col-md-10">
+                    <label class="radio-inline"><input id="DirecaoR" name="Direcao" type="radio" value="Recebimento" @(ViewBag.TipoOperacao == "Alterando" && Model.Direcao == DirecaoCategoria.Recebimento ? "checked" : "")/> Recebimento</label>
+                    <label class="radio-inline"><input id="DirecaoP" name="Direcao" type="radio" value="Pagamento" @(ViewBag.TipoOperacao == "Alterando" && Model.Direcao == DirecaoCategoria.Pagamento ? "checked" : "")/> Pagamento</label>
+                    @Html.ValidationMessageFor(model => model.Direcao, "", new {@class = "text-danger"})
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.CategoriaPaiId, htmlAttributes: new {@class = "control-label col-md-2"})
+                <div class="col-md-10">
+                    <select name="CategoriaPaiId" id="CategoriaPaiId" class="form-control"></select>
+                    @Html.ValidationMessageFor(model => model.CategoriaPaiId, "", new {@class = "text-danger"})
+                </div>
+            </div>
+
+        }
+        else
+        {
+            <input name="Direcao" type="hidden" value="@Model.Direcao"/>
+            <input name="CategoriaPaiId" type="hidden" value="@Model.CategoriaPaiId" />
+        }
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Salvar" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Voltar", "Index")
+</div>
+
+<script>
+    $("#DirecaoR, #DirecaoP").bind("click",function() {
+        var result = $.ajax({
+            url: "@Url.Action("BuscaCategorias")",
+            method: "POST",
+            data: { direcao: $(this).val() }
+        });
+
+        result.done(function(conteudo) {
+            $("#CategoriaPaiId").html(conteudo);
+        });
+    });
+
+    
+</script>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

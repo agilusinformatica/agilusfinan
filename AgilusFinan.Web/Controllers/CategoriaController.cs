@@ -18,7 +18,10 @@ namespace AgilusFinan.Web.Controllers
             ViewBag.ListaIdentada = CategoriasIdentadas(null);
             var l = CategoriasIdentadas(null);
         }
+
         
+        
+
         private void AdicionaItem(Categoria c, int nivel)
         {
             string identador = System.Net.WebUtility.HtmlDecode("&nbsp;");
@@ -31,6 +34,23 @@ namespace AgilusFinan.Web.Controllers
             }
         }
 
+        [HttpGet]
+        public ActionResult CreateFilha(DirecaoCategoria direcao, int categoriaPaiId)
+        {
+            Categoria c = new Categoria();
+            c.Direcao = direcao;
+            c.CategoriaPaiId = categoriaPaiId;
+            PreInclusao();
+            ViewBag.Operacao = "IncluindoFilha";
+            return View(c);
+        }
+
+        [HttpPost]
+        public ActionResult CreateFilha(Categoria categoria)
+        {
+            return base.Create(categoria);
+            
+        }
         private string Repete(string texto, int qtde)
         {
             string retorno = "";
@@ -65,6 +85,11 @@ namespace AgilusFinan.Web.Controllers
             }
 
             return lista;
+        }
+
+        protected override void PreInclusao()
+        {
+            
         }
     }
 }
