@@ -61,8 +61,9 @@ namespace AgilusFinan.Web.Controllers
             return retorno;
         }
 
-        public ActionResult BuscaCategorias(DirecaoCategoria direcao)
+        public ActionResult BuscaCategorias(DirecaoCategoria direcao, int? categoriaPaiId)
         {
+            ViewBag.CategoriaPaiId = categoriaPaiId;
             return PartialView("_ItensCategoria", CategoriasIdentadas(direcao));
         }
 

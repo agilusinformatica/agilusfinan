@@ -3,6 +3,6 @@
 <option value=""></option>
 @foreach (var item in Model)
 {
-    <option value="@item.Key">@item.Value</option>
+    <option value="@item.Key" @(ViewBag.CategoriaPaiId != null && item.Key == ViewBag.CategoriaPaiId ? "selected" : "")  >@item.Value</option>
 }
 

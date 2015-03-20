@@ -8,37 +8,37 @@
 
     <div class="form-horizontal">
         <h4>Categoria</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <hr/>
+        @Html.ValidationSummary(true, "", new {@class = "text-danger"})
         <div class="form-group">
-            @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Nome, htmlAttributes: new {@class = "control-label col-md-2"})
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Nome, new {htmlAttributes = new {@class = "form-control"}})
+                @Html.ValidationMessageFor(model => model.Nome, "", new {@class = "text-danger"})
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Cor, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Cor, htmlAttributes: new {@class = "control-label col-md-2"})
             <div class="col-md-10">
-                <input type="color" name="Cor" id="Cor" class="form-control" value="#@Model.Cor.ToString("X").PadLeft(6,'0')" />
-                @Html.ValidationMessageFor(model => model.Cor, "", new { @class = "text-danger" })
+                <input type="color" name="Cor" id="Cor" class="form-control" value="#@Model.Cor.ToString("X").PadLeft(6, '0')"/>
+                @Html.ValidationMessageFor(model => model.Cor, "", new {@class = "text-danger"})
             </div>
         </div>
 
         @if (ViewBag.Operacao != "IncluindoFilha")
         {
             <div class="form-group">
-                @Html.LabelFor(model => model.Direcao, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.Direcao, htmlAttributes: new {@class = "control-label col-md-2"})
                 <div class="col-md-10">
-                    <label class="radio-inline"><input id="DirecaoR" name="Direcao" type="radio" value="Recebimento" @(ViewBag.TipoOperacao == "Alterando" && Model.Direcao == DirecaoCategoria.Recebimento ? "checked" : "") /> Recebimento</label>
-                    <label class="radio-inline"><input id="DirecaoP" name="Direcao" type="radio" value="Pagamento" @(ViewBag.TipoOperacao == "Alterando" && Model.Direcao == DirecaoCategoria.Pagamento ? "checked" : "") /> Pagamento</label>
-                    @Html.ValidationMessageFor(model => model.Direcao, "", new { @class = "text-danger" })
+                    <label class="radio-inline"><input id="DirecaoR" name="Direcao" type="radio" value="Recebimento" @(ViewBag.TipoOperacao == "Alterando" && Model.Direcao == DirecaoCategoria.Recebimento ? "checked" : "")/> Recebimento</label>
+                    <label class="radio-inline"><input id="DirecaoP" name="Direcao" type="radio" value="Pagamento" @(ViewBag.TipoOperacao == "Alterando" && Model.Direcao == DirecaoCategoria.Pagamento ? "checked" : "")/> Pagamento</label>
+                    @Html.ValidationMessageFor(model => model.Direcao, "", new {@class = "text-danger"})
                 </div>
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.CategoriaPaiId, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.CategoriaPaiId, htmlAttributes: new {@class = "control-label col-md-2"})
                 <div class="col-md-4">
                     <select name="CategoriaPaiId" id="CategoriaPaiId" class="form-control"></select>
                     @Html.ValidationMessageFor(model => model.CategoriaPaiId, "", new {@class = "text-danger"})
@@ -48,13 +48,13 @@
         }
         else
         {
-            <input name="Direcao" type="hidden" value="@Model.Direcao" />
-            <input name="CategoriaPaiId" type="hidden" value="@Model.CategoriaPaiId" />
+            <input name="Direcao" type="hidden" value="@Model.Direcao"/>
+            <input name="CategoriaPaiId" type="hidden" value="@Model.CategoriaPaiId"/>
         }
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Salvar" class="btn btn-default" />
+                <input type="submit" value="Salvar" class="btn btn-default"/>
             </div>
         </div>
     </div>
@@ -65,13 +65,15 @@
 </div>
 
 <script>
-    $("#DirecaoR, #DirecaoP").bind("click", function () {
+    var direcao = $("#DirecaoR, #DirecaoP").bind("click", function () {
         var result = $.ajax({
             url: "@Url.Action("BuscaCategorias")",
             method: "POST",
-            data: { direcao: $(this).val() },
-            beforeSend: function () {                
-                $("#loading").html("<img src='http://www.beaurivage.com/images/shared/image-loading.gif' />");
+            data: {
+                direcao: $(this).val(),
+                categoriaPaiId: @(Model.CategoriaPaiId == null ? "null" : Model.CategoriaPaiId.ToString()) },
+            beforeSend: function () {
+                $("#loading").html('<img src="/Content/Images/loading.gif">');
             }
         });
 
@@ -79,6 +81,10 @@
             $("#loading>img").remove();
             $("#CategoriaPaiId").html(conteudo);
         });
+    });
+
+    $(document).ready(function() {
+        $("input:checked").click();
     });
 </script>
 
