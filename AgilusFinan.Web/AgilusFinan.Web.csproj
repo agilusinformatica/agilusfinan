@@ -208,6 +208,9 @@
     <Content Include="Views\Shared\EditorTemplates\ContaBancaria.cshtml" />
     <Content Include="Views\Pessoa\_Cadastro.cshtml" />
     <Content Include="Views\Pessoa\Edit.cshtml" />
+    <Content Include="Views\Banco\_Cadastro.cshtml" />
+    <Content Include="Views\Banco\Delete.cshtml" />
+    <Content Include="Views\Banco\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
