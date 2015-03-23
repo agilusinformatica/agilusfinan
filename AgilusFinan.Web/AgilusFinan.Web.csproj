@@ -210,6 +210,9 @@
     <Content Include="Views\Shared\EditorTemplates\ContaBancaria.cshtml" />
     <Content Include="Views\Pessoa\_Cadastro.cshtml" />
     <Content Include="Views\Pessoa\Edit.cshtml" />
+    <Content Include="Views\Banco\_Cadastro.cshtml" />
+    <Content Include="Views\Banco\Delete.cshtml" />
+    <Content Include="Views\Banco\Details.cshtml" />
     <Content Include="Views\Pessoa\Details.cshtml" />
     <Content Include="Views\Pessoa\Delete.cshtml" />
     <Content Include="Views\TipoPessoa\Index.cshtml" />
