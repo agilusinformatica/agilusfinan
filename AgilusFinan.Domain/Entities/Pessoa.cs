@@ -12,6 +12,7 @@ namespace AgilusFinan.Domain.Entities
         public string Cpf { get; set; }
         public string Rg { get; set; }
         [Display(Name="Data de Nascimento")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime DataNascimento { get; set; }
         [Display(Name="Endereço")]
         public Endereco Endereco { get; set; }

@@ -139,11 +139,13 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PagamentoController.cs" />
     <Compile Include="Controllers\PessoaController.cs" />
+    <Compile Include="Controllers\TipoPessoaController.cs" />
     <Compile Include="Controllers\TipoTelefoneController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\PessoaViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -208,6 +210,12 @@
     <Content Include="Views\Shared\EditorTemplates\ContaBancaria.cshtml" />
     <Content Include="Views\Pessoa\_Cadastro.cshtml" />
     <Content Include="Views\Pessoa\Edit.cshtml" />
+    <Content Include="Views\Pessoa\Details.cshtml" />
+    <Content Include="Views\Pessoa\Delete.cshtml" />
+    <Content Include="Views\TipoPessoa\Index.cshtml" />
+    <Content Include="Views\TipoPessoa\Create.cshtml" />
+    <Content Include="Views\TipoPessoa\Edit.cshtml" />
+    <Content Include="Views\TipoPessoa\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

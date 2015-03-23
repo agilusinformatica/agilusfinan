@@ -1,5 +1,4 @@
-﻿@using AgilusFinan.Domain.Entities
-@model AgilusFinan.Domain.Entities.Pessoa
+﻿@model AgilusFinan.Web.ViewModels.PessoaViewModel
 
 @using (Html.BeginForm()) 
 {
@@ -41,7 +40,6 @@
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.Endereco, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Endereco, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Endereco, "", new { @class = "text-danger" })
@@ -49,12 +47,46 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ContaBancaria, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ContaBancaria, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ContaBancaria, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.ContaBancaria, new {htmlAttributes = new {@class = "form-control"}})
+                @Html.ValidationMessageFor(model => model.ContaBancaria, "", new {@class = "text-danger"})
             </div>
         </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TiposPorPessoa, htmlAttributes: new {@class = "control-label col-md-2"})
+            @foreach (var tipo in Model.TiposPorPessoa)
+            {
+                <div class="col-md-1">
+                    @Html.LabelFor(model => model.TiposPorPessoa, tipo.Nome, htmlAttributes: new {@class = "control-label col-md-1"})
+                    <input class="form-control" type="checkbox" @(tipo.Marcado ? "checked" : "")/>
+                </div>
+            }
+        </div>
+
+        <input class="btn btn-default" id="Adicionar" type="button" value="Adiciona Telefone"/>
+
+        <table class="table">
+            @foreach (var telefone in Model.Telefones)
+            {
+
+                <tr>
+                    <td>
+                        <label>Telefone: </label>
+                        <input type="text" value="@(telefone.Ddd)" />
+                    </td>
+                    <td>
+                        <input type="text" value="@(telefone.Numero)" />
+                        <label>Tipo telefone: </label>
+                    </td>
+                    <td>
+                        <input type="text" value="@telefone.TipoTelefoneId" />
+                    </td>
+                </tr>
+            }
+        </table>
+
+                
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -67,6 +99,15 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
+<script>
+
+    $("#Adicionar").click(function() {
+        $(".table").append('<tr><td><label>Telefone: </label><input type="text" /></td><td><input type="text" /><label>Tipo telefone: </label></td><td><input type="text"/></td>'+
+                           '<td><input type="submit" value="Salvar"/></td></tr>');
+    });
+
+</script>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

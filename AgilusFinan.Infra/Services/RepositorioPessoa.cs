@@ -5,5 +5,6 @@ namespace AgilusFinan.Infra.Services
 {
     public class RepositorioPessoa : RepositorioPadrao<Pessoa>, IRepositorioPessoa
     {
+
     }
 }
