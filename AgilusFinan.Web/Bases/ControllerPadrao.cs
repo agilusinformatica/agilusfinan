@@ -30,6 +30,7 @@ namespace AgilusFinan.Web.Bases
                 repo.Incluir(model);
                 return RedirectToAction("Index");
             }
+            PreInclusao();
             return View(model);
         }
 
@@ -50,6 +51,7 @@ namespace AgilusFinan.Web.Bases
                 repo.Alterar(model);
                 return RedirectToAction("Index");
             }
+            PreAlteracao();
             return View(model);
         }
 

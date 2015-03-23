@@ -125,6 +125,22 @@
     <Compile Include="Migrations\201503151552218_NullCategoriaPaiId.Designer.cs">
       <DependentUpon>201503151552218_NullCategoriaPaiId.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201503212224078_AdicionaDataNascimentoPessoa.cs" />
+    <Compile Include="Migrations\201503212224078_AdicionaDataNascimentoPessoa.Designer.cs">
+      <DependentUpon>201503212224078_AdicionaDataNascimentoPessoa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503212336226_RemocaoPaisClasseEndereco.cs" />
+    <Compile Include="Migrations\201503212336226_RemocaoPaisClasseEndereco.Designer.cs">
+      <DependentUpon>201503212336226_RemocaoPaisClasseEndereco.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503212338209_ContaBancariaNaoObrigatoria.cs" />
+    <Compile Include="Migrations\201503212338209_ContaBancariaNaoObrigatoria.Designer.cs">
+      <DependentUpon>201503212338209_ContaBancariaNaoObrigatoria.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503222149372_PoupancaAceitaNulo.cs" />
+    <Compile Include="Migrations\201503222149372_PoupancaAceitaNulo.Designer.cs">
+      <DependentUpon>201503222149372_PoupancaAceitaNulo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\RepositorioBanco.cs" />
@@ -206,6 +222,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201503151552218_NullCategoriaPaiId.resx">
       <DependentUpon>201503151552218_NullCategoriaPaiId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503212224078_AdicionaDataNascimentoPessoa.resx">
+      <DependentUpon>201503212224078_AdicionaDataNascimentoPessoa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503212336226_RemocaoPaisClasseEndereco.resx">
+      <DependentUpon>201503212336226_RemocaoPaisClasseEndereco.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503212338209_ContaBancariaNaoObrigatoria.resx">
+      <DependentUpon>201503212338209_ContaBancariaNaoObrigatoria.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503222149372_PoupancaAceitaNulo.resx">
+      <DependentUpon>201503222149372_PoupancaAceitaNulo.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

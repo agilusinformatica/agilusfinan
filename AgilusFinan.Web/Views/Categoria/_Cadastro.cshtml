@@ -21,7 +21,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Cor, htmlAttributes: new {@class = "control-label col-md-2"})
             <div class="col-md-10">
-                <input type="color" name="Cor" id="Cor" class="form-control" value="#@Model.Cor.ToString("X").PadLeft(6, '0')"/>
+                @Html.EditorFor(model => model.Cor)
                 @Html.ValidationMessageFor(model => model.Cor, "", new {@class = "text-danger"})
             </div>
         </div>

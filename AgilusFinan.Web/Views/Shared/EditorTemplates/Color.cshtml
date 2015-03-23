@@ -1,0 +1,2 @@
+﻿@inherits System.Web.Mvc.WebViewPage<int>
+<input type="color" name="@ViewData.ModelMetadata.PropertyName" id="@ViewData.ModelMetadata.PropertyName" class="form-control" value="#@Model.ToString("X").PadLeft(6, '0')"/>

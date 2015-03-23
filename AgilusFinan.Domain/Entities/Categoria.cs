@@ -10,6 +10,7 @@ namespace AgilusFinan.Domain.Entities
 
         [Display(Name = "Direção")]
         public DirecaoCategoria Direcao { get; set; }
+        [DataType("Color")]
         public int Cor { get; set; }
 
         [Display(Name = "Categoria Pai")]

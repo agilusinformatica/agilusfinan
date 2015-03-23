@@ -138,6 +138,7 @@
     <Compile Include="Controllers\CentroCustoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PagamentoController.cs" />
+    <Compile Include="Controllers\PessoaController.cs" />
     <Compile Include="Controllers\TipoTelefoneController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -199,10 +200,17 @@
     <Content Include="Views\Categoria\_ItensCategoria.cshtml" />
     <Content Include="Views\Categoria\_Cadastro.cshtml" />
     <Content Include="Views\Categoria\CreateFilha.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Color.cshtml" />
+    <Content Include="Views\Pessoa\Index.cshtml" />
+    <Content Include="Views\Pessoa\Create.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DateTime.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Endereco.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\ContaBancaria.cshtml" />
+    <Content Include="Views\Pessoa\_Cadastro.cshtml" />
+    <Content Include="Views\Pessoa\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\ContaBancaria\" />
     <Folder Include="Views\Pagamento\" />
   </ItemGroup>
   <ItemGroup>
