@@ -1,11 +1,8 @@
-﻿using AgilusFinan.Domain.Entities;
+﻿using System.Web.Mvc;
+using AgilusFinan.Domain.Entities;
 using AgilusFinan.Infra.Services;
 using AgilusFinan.Web.Bases;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+using AgilusFinan.Web.ViewModels;
 
 namespace AgilusFinan.Web.Controllers
 {
@@ -22,6 +19,21 @@ namespace AgilusFinan.Web.Controllers
             base.PreAlteracao();
             ViewBag.ListaBancos = new RepositorioBanco().Listar();
         }
-      
+
+
+        public virtual ActionResult Details(int id)
+        {
+            Pessoa p = repo.BuscarPorId(id);
+            return View(p);
+        }
+
+        [HttpGet]
+        public override ActionResult Create()
+        {
+            PreInclusao();
+            PessoaViewModel model = new PessoaViewModel();
+            ViewBag.TipoOperacao = "Incluindo";
+            return View(model);
+        }
     }
 }
