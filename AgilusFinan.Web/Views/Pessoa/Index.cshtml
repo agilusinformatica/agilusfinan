@@ -38,7 +38,7 @@
             @Html.DisplayFor(modelItem => item.Rg)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.DataNascimento)
+            @Html.DisplayFor(modelItem => item.DataNascimento.GetDateTimeFormats()[0])
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
