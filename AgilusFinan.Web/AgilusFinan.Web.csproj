@@ -132,6 +132,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Bases\ControllerViewModelPadrao.cs" />
     <Compile Include="Bases\ControllerPadrao.cs" />
     <Compile Include="Controllers\BancoController.cs" />
     <Compile Include="Controllers\CategoriaController.cs" />

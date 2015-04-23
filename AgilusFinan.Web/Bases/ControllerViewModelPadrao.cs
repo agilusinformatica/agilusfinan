@@ -4,9 +4,11 @@ using AgilusFinan.Domain.Entities;
 
 namespace AgilusFinan.Web.Bases
 {
-    public class ControllerPadrao<T, R> : Controller 
+    public class ControllerViewModelPadrao<T, R, V> : Controller
         where T : Padrao, new() 
         where R : IRepositorioPadrao<T>, new()
+        where V : class, new() 
+
     {
         protected R repo = new R();
 
@@ -21,19 +23,23 @@ namespace AgilusFinan.Web.Bases
         {
             PreInclusao();
             ViewBag.TipoOperacao = "Incluindo";
-            return View(new T());
+
+            return View(new V());
         }
 
         [HttpPost]
-        public virtual ActionResult Create(T model)
+        public virtual ActionResult Create(V viewModel)
         {
             if (ModelState.IsValid)
             {
-                repo.Incluir(model);
+                var _model = new T();
+                ViewModelToModel(viewModel, _model);
+                repo.Incluir(_model);
+
                 return RedirectToAction("Index");
             }
             PreInclusao();
-            return View(model);
+            return View(viewModel);
         }
 
         [HttpGet]
@@ -42,19 +48,24 @@ namespace AgilusFinan.Web.Bases
             PreAlteracao();
             T model = repo.BuscarPorId(id);
             ViewBag.TipoOperacao = "Alterando";
-            return View(model);
+            V viewModel = new V();
+            ModelToViewModel(model, viewModel);
+            return View(viewModel);
         }
 
         [HttpPost]
-        public virtual ActionResult Edit(T model)
+        public virtual ActionResult Edit(V viewModel)
         {
             if (ModelState.IsValid)
             {
-                repo.Alterar(model);
+                var _model = new T();
+                ViewModelToModel(viewModel, _model);
+                repo.Alterar(_model);
+                
                 return RedirectToAction("Index");
             }
             PreAlteracao();
-            return View(model);
+            return View(viewModel);
         }
 
         [HttpGet]
@@ -91,7 +102,16 @@ namespace AgilusFinan.Web.Bases
         {
             
         }
+
+        protected virtual void ViewModelToModel(V viewModel, T model)
+        {
+            
+        }
+
+        protected virtual void ModelToViewModel(T model, V viewModel)
+        {
+            
+        }
+
     }
 }
-
-//enum TipoOperacao { Incluindo, Alterando}

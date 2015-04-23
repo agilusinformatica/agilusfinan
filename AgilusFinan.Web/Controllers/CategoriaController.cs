@@ -87,10 +87,5 @@ namespace AgilusFinan.Web.Controllers
 
             return lista;
         }
-
-        protected override void PreInclusao()
-        {
-            
-        }
     }
 }

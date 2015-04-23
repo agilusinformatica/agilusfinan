@@ -18,8 +18,8 @@ namespace AgilusFinan.Domain.Entities
         public Endereco Endereco { get; set; }
         [Display(Name="Conta Bancária")]
         public ContaBancaria ContaBancaria { get; set; }
-        public virtual IEnumerable<TelefonePessoa> Telefones { get; set; }
-        public virtual IEnumerable<TipoPessoaPorPessoa> TiposPessoa { get; set; }
+        public virtual IList<TelefonePessoa> Telefones { get; set; }
+        public virtual IList<TipoPessoaPorPessoa> TiposPessoa { get; set; }
 
         public Pessoa()
         {
