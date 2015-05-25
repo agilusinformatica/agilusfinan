@@ -55,13 +55,18 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.TiposPorPessoa, htmlAttributes: new {@class = "control-label col-md-2"})
-            @foreach (var tipo in Model.TiposPorPessoa)
-            {
-                <div class="col-md-1">
-                    @Html.LabelFor(model => model.TiposPorPessoa, tipo.Nome, htmlAttributes: new {@class = "control-label col-md-1"})
-                    <input class="form-control" type="checkbox" @(tipo.Marcado ? "checked" : "")/>
-                </div>
-            }
+            <table id="tabTiposPessoa">
+                <tr>
+                    @foreach (var tipo in Model.TiposPorPessoa)
+                    {
+                        <td>
+                            @Html.LabelFor(model => model.TiposPorPessoa, tipo.Nome, htmlAttributes: new {@class = "control-label col-md-1"})
+                            <input type="hidden" value="@(tipo.Id)" />
+                            <input class="form-control" type="checkbox" @(tipo.Marcado ? "checked" : "")/>
+                        </td>
+                    }
+                </tr>
+            </table>
         </div>
 
         <input class="btn btn-default" id="Adicionar" type="button" value="Adiciona Telefone"/>
@@ -69,7 +74,6 @@
         <table class="table">
             @foreach (var telefone in Model.Telefones)
             {
-
                 <tr>
                     <td>
                         <label>Telefone: </label>
@@ -87,10 +91,10 @@
         </table>
 
                 
-
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                @*<input type="submit" value="Create" class="btn btn-default" />*@
+                <button class="btn btn-default" onclick="UpdatePessoa();">Create</button>
             </div>
         </div>
     </div>
@@ -106,6 +110,66 @@
         $(".table").append('<tr><td><label>Telefone: </label><input type="text" /></td><td><input type="text" /><label>Tipo telefone: </label></td><td><input type="text"/></td>'+
                            '<td><input type="submit" value="Salvar"/></td></tr>');
     });
+
+    function UpdatePessoa() {
+        var pessoaJson = GetData();
+        $.ajax({
+            type: "POST",
+            url: '/Pessoa/Create',
+            data: { "pessoa": pessoaJson }
+        });
+    }
+    function GetData() {
+        var pessoa = {};
+
+        pessoa.Telefones = [{}];
+        pessoa.Nome = $('#Nome').val();
+        pessoa.Cpf = $('#Cpf').val();
+        pessoa.Rg = $('#Rg').val();
+        pessoa.DataNascimento = $('#DataNascimento').val();
+
+        pessoa.Endereco = {};
+        pessoa.Endereco.Logradouro = $('#Endereco_Logradouro').val();
+        pessoa.Endereco.Numero = $('#Endereco_Numero').val();
+        pessoa.Endereco.Complemento = $('#Endereco_Complemento').val();
+        pessoa.Endereco.Bairro = $('#Endereco_Bairro').val();
+        pessoa.Endereco.Cidade = $('#Endereco_Cidade').val();
+        pessoa.Endereco.Uf = $('#Endereco_Uf').val();
+        pessoa.Endereco.Cep = $('#Endereco_Cep').val();
+
+        pessoa.ContaBancaria = {};
+        pessoa.ContaBancaria.BancoId = $('#Endereco_BancoId').val();
+        pessoa.ContaBancaria.Agencia = $('#Endereco_Agencia').val();
+        pessoa.ContaBancaria.Numero = $('#Endereco_Numero').val();
+        pessoa.ContaBancaria.Poupanca = $('#Endereco_Poupanca').val();
+        pessoa.ContaBancaria.NomeTitular = $('#Endereco_NomeTitular').val();
+        pessoa.ContaBancaria.CpfTitular = $('#Endereco_CpfTitular').val();
+
+        pessoa.TiposPorPessoa = [{}];
+
+        var tab = document.getElementById('tabTiposPessoa');
+        for (var i = 0, cell; cell = tab.rows[0].cells[i]; i++) {
+            var TipoPorPessoa = {};
+            TipoPorPessoa.Id = cell.getElementsByTagName('input')[0].value;
+            TipoPorPessoa.Marcado = cell.getElementsByTagName('input')[1].checked;
+            pessoa.TiposPorPessoa[i] = TipoPorPessoa;
+        }
+
+        /*var telefone = {};
+        telefone.Ddd = $('#ddd1').val();
+        telefone.Numero = $('#numero1').val();
+        pessoa.Telefones[0] = telefone;
+        var telefone = {};
+        telefone.Ddd = $('#ddd2').val();
+        telefone.Numero = $('#numero2').val();
+        pessoa.Telefones[1] = telefone;
+        var telefone = {};
+        telefone.Ddd = $('#ddd3').val();
+        telefone.Numero = $('#numero3').val();
+        pessoa.Telefones[2] = telefone;*/
+
+        return JSON.stringify(pessoa);
+    }
 
 </script>
 
