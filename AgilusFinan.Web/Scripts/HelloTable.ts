@@ -19,111 +19,168 @@ class ColumnTable {
 } 
 
 class CellTable {
-    private _column: ColumnTable;
-    private _value: any;
-    
+    public column: ColumnTable;
+    private value: any;
+    private selected: number;
+    private control;
+
     constructor(column: ColumnTable, value: any) {
-        this._column = column;
-        this._value = value;
+        this.column = column;
+        this.value = value;
     }
 
     get Value() {
-        return this._value;
-    }
-    set Value(val: any) {
-        this._value = val;
+
+        if (this.column.Type === ColumnType.text || this.column.Type === ColumnType.date || this.column.Type === ColumnType.number) {
+            return this.control.value;
+        }
+
+        if (this.column.Type === ColumnType.list) {
+            for (var i = 0; i < this.control.options.length; i++) {
+                if (this.control.options[i].selected) {
+                    return this.control.options[i].value;
+                }
+            }
+        }
+
+        if (this.column.Type === ColumnType.boolean) {
+            return this.control.checked;
+        }
+
     }
 
-    public CreateInput(): HTMLTableCellElement {  
+    set Value(val: any) {
+        this.value = val;
+    }
+
+    public createInput(): HTMLTableCellElement {  
         var cell = document.createElement("td");
-        if (this._column.Type === ColumnType.text) {
+
+        if (this.column.Type === ColumnType.text || this.column.Type === ColumnType.date || this.column.Type === ColumnType.number) {
             var input = document.createElement("input");
-            input.type = String(this._column.Type);
-            input.value = this._value;
+            input.type = String(ColumnType[this.column.Type]);
+            input.value = this.value;
             cell.appendChild(input);
-        }              
+            this.control = input;            
+        }  
+
+        if (this.column.Type === ColumnType.list) {
+            var select = document.createElement("select");
+            var optionBlank = document.createElement("option");
+            select.appendChild(optionBlank);
+            for (var i = 0; i < this.column.Elements.length; i++) {
+                var option = document.createElement("option");
+                var text = document.createTextNode(this.column.Elements[i].value);
+                option.value = String(this.column.Elements[i].key);
+                option.selected = this.value == this.column.Elements[i].key;
+                option.appendChild(text);
+                select.add(option);
+                cell.appendChild(select);                
+            }
+            this.control = select;
+        }
+
+        if (this.column.Type === ColumnType.boolean) {
+            var checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.checked = this.value;
+            cell.appendChild(checkbox);
+            this.control = checkbox;
+        }
+
         return cell;
     }
 }
 
 class RowTable {
-    private _cells = new Array<CellTable>();
+    public Cells = new Array<CellTable>();
+    public row: HTMLTableRowElement;
 
-    set Cells(cell: CellTable) {
-        this._cells.push(cell);
-    }
-
-    get Cells() {
-        return null;
-    }
-
-    public CreateRow(): HTMLTableRowElement {
+    public createRow(table: HTMLTableElement) {
         var rowElement = document.createElement("tr");
-        for (var i = 0; i < this._cells.length; i++) {
-            var cellElement = this._cells[i].CreateInput();
-            rowElement.appendChild(cellElement);
+        for (var i = 0; i < this.Cells.length; i++) {
+            var cellElement = this.Cells[i].createInput();            
+            rowElement.appendChild(cellElement);            
         }
-        return rowElement;
+        this.row = rowElement;
+        table.appendChild(rowElement);
+    }
+
+    public delete(table: HTMLTableElement) {
+        table.removeChild(this.row);
     }
 }
 
 class HelloTable {
     public Columns: ColumnTable[];
     public Rows = new Array<RowTable>();
-    private _data: string;
+    private _data: any;
     private _table: HTMLTableElement;
     constructor(tagTableId: string) {
         this._table = <HTMLTableElement>(document.getElementById(tagTableId));
         this.Columns = new Array();
     }
-    get Data() {
-        return this._data;
+
+    get data() {
+        var result = [];
+
+        for (var r = 0; r < this.Rows.length; r++) {
+            var row = {};
+            for (var c = 0; c < this.Rows[r].Cells.length; c++) {
+                row[this.Rows[r].Cells[c].column.FieldName] = this.Rows[r].Cells[c].Value;
+            }
+            result.push(row);
+        }
+        return result;
     }
-    set Data(JsonContent: string) {
-        this._data = JsonContent;
-        this.Clean();
+
+    set data(jsonContent: string) {
+        this._data = jsonContent;
+        this.clean();
 
         var header = document.createElement("thead");
         
-        for (var i:number = 0; i < this.Columns.length; i++) {
+        for (var i = 0; i < this.Columns.length; i++) {
             var hCell = document.createElement("th");
             hCell.innerHTML = this.Columns[i].Caption;
             header.appendChild(hCell);            
         }
         this._table.appendChild(header);
 
-        var d = JSON.parse(JsonContent);
+        var d = JSON.parse(jsonContent);
 
-        for (var i: number = 0; i < d.length; i++) {
-            //var row = this.AddRow();
+        for (var i = 0; i < d.length; i++) {
             var row = new RowTable();
-            for (var j: number = 0; j < this.Columns.length; j++) {
+            for (var j = 0; j < this.Columns.length; j++) {
                 var cell = new CellTable(this.Columns[j], d[i][this.Columns[j].FieldName]);
-                row.Cells = cell;              
-                //this.Rows.push(cell);
-                //row.appendChild(cell.CreateInput(this.Columns[j], d[i][this.Columns[j].FieldName]));
+                row.Cells.push(cell);              
             }
-            this._table.appendChild(row.CreateRow());
+            this.Rows.push(row);
+            row.createRow(this._table);
         }
     }
 
-    private AddRow(): HTMLTableRowElement {
-        var row = document.createElement("tr");
-        return row;
+    public insertRow() {
+        var row = new RowTable();
+        for (var i = 0; i < this.Columns.length; i++) {
+            var cell = new CellTable(this.Columns[i], "");
+            row.Cells.push(cell);
+        }
+        this.Rows.push(row);
+        row.createRow(this._table);
     }
 
-    private Clean() {
+    public deleteRow(row:RowTable) {
+        row.delete(this._table);
+        var index = this.Rows.indexOf(row);
+        this.Rows.splice(index, 1);
+    }
+
+    private clean() {
         var rowsLength = this._table.rows.length;
-        for (var i: number = rowsLength - 1; i >= 0; i--) {
+        for (var i = rowsLength - 1; i >= 0; i--) {
             this._table.deleteRow(i);    
         }        
-    }
-
-    private DeleteRow(lineNumber: number) {
-    }
-
-    private GetInputValue(lineNumber: number, column: ColumnTable): string {
-        return "";
     }
 }
 
