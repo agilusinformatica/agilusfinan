@@ -94,7 +94,7 @@ class CellTable {
 
 class RowTable {
     public Cells = new Array<CellTable>();
-    public row: HTMLTableRowElement;
+    public Row: HTMLTableRowElement;
 
     public createRow(table: HTMLTableElement) {
         var rowElement = document.createElement("tr");
@@ -102,12 +102,12 @@ class RowTable {
             var cellElement = this.Cells[i].createInput();            
             rowElement.appendChild(cellElement);            
         }
-        this.row = rowElement;
+        this.Row = rowElement;
         table.appendChild(rowElement);
     }
 
-    public delete(table: HTMLTableElement) {
-        table.removeChild(this.row);
+    public deleteRow(table: HTMLTableElement) {
+        table.removeChild(this.Row);
     }
 }
 
@@ -116,9 +116,18 @@ class HelloTable {
     public Rows = new Array<RowTable>();
     private _data: any;
     private _table: HTMLTableElement;
+
     constructor(tagTableId: string) {
         this._table = <HTMLTableElement>(document.getElementById(tagTableId));
         this.Columns = new Array();
+    }
+
+    get jsonData() {
+        return null;
+    }
+
+    set jsonData(value: any) {
+        
     }
 
     get data() {
@@ -131,7 +140,7 @@ class HelloTable {
             }
             result.push(row);
         }
-        return result;
+        return <any>result;
     }
 
     set data(jsonContent: string) {
@@ -171,7 +180,7 @@ class HelloTable {
     }
 
     public deleteRow(row:RowTable) {
-        row.delete(this._table);
+        row.deleteRow(this._table);
         var index = this.Rows.indexOf(row);
         this.Rows.splice(index, 1);
     }
