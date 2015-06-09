@@ -71,23 +71,7 @@
 
         <input class="btn btn-default" id="Adicionar" type="button" value="Adiciona Telefone"/>
 
-        <table class="table">
-            @foreach (var telefone in Model.Telefones)
-            {
-                <tr>
-                    <td>
-                        <label>Telefone: </label>
-                        <input type="text" value="@(telefone.Ddd)" />
-                    </td>
-                    <td>
-                        <input type="text" value="@(telefone.Numero)" />
-                        <label>Tipo telefone: </label>
-                    </td>
-                    <td>
-                        <input type="text" value="@telefone.TipoTelefoneId" />
-                    </td>
-                </tr>
-            }
+        <table class="table" id="tabTelefones">
         </table>
 
                 
@@ -104,12 +88,38 @@
     @Html.ActionLink("Back to List", "Index")
 </div>
 
+<script src="~/Scripts/HelloTable.js"></script>
+
 <script>
 
-    $("#Adicionar").click(function() {
-        $(".table").append('<tr><td><label>Telefone: </label><input type="text" /></td><td><input type="text" /><label>Tipo telefone: </label></td><td><input type="text"/></td>'+
-                           '<td><input type="submit" value="Salvar"/></td></tr>');
-    });
+    var tabTelefones = new HelloTable('tabTelefones');
+
+    var coluna = new ColumnTable();
+    coluna.Caption = 'DDD';
+    coluna.FieldName = 'Ddd';
+    coluna.Type = ColumnType.text;
+    tabTelefones.Columns.push(coluna);
+
+    var coluna = new ColumnTable();
+    coluna.Caption = 'Número';
+    coluna.FieldName = 'Numero';
+    coluna.Type = ColumnType.text;
+    tabTelefones.Columns.push(coluna);
+
+    var jsonTipos = '@Html.Raw(Json.Encode(ViewBag.ListaTiposTelefone))'
+    var coluna = new ColumnTable();
+    coluna.Caption = 'Tipo';
+    coluna.FieldName = 'TipoTelefoneId';
+    coluna.Type = ColumnType.list;
+    var tipos = JSON.parse(jsonTipos);
+    for (var i = 0; i < tipos.length; i++) {
+        coluna.Elements.push(new SelectElement(tipos[i].Id, tipos[i].Nome));
+    }
+    tabTelefones.Columns.push(coluna);
+
+    var jsonData = '@Html.Raw(Json.Encode(Model.Telefones))';
+    tabTelefones.data = jsonData;
+
 
     function UpdatePessoa() {
         var pessoaJson = GetData();

@@ -15,7 +15,7 @@ class ColumnTable {
     Type: ColumnType;
     Mask: string;
     CssClass: string;
-    Elements: SelectElement[];
+    Elements: SelectElement[] = [];
 } 
 
 class CellTable {

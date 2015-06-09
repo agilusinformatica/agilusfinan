@@ -13,12 +13,14 @@ namespace AgilusFinan.Web.Controllers
         {
             base.PreInclusao();
             ViewBag.ListaBancos = new RepositorioBanco().Listar();
+            ViewBag.ListaTiposTelefone = new RepositorioTipoTelefone().Listar();
         }
 
         protected override void PreAlteracao()
         {
             base.PreAlteracao();
             ViewBag.ListaBancos = new RepositorioBanco().Listar();
+            ViewBag.ListaTiposTelefone = new RepositorioTipoTelefone().Listar();
         }
 
         protected override void ModelToViewModel(Pessoa model, PessoaViewModel viewModel)
