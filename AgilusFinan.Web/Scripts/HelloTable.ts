@@ -115,6 +115,14 @@ class RowTable {
             var cellElement = this.Cells[i].createInput();            
             rowElement.appendChild(cellElement);            
         }
+
+        var cellButton = document.createElement("td");
+        var deleteButton = document.createElement("button");
+        deleteButton.onclick = e => this.deleteRow(table);
+        deleteButton.textContent = "Delete";
+        cellButton.appendChild(deleteButton);        
+        rowElement.appendChild(cellButton);
+
         this.Row = rowElement;
         table.appendChild(rowElement);
     }
@@ -135,7 +143,7 @@ class HelloTable {
 
         if (tagInsertButtonId) {
             var button = document.getElementById(tagInsertButtonId);
-            button.onclick = e => this.insertRow()
+            button.onclick = e => this.insertRow();
         }
     }
 
@@ -194,7 +202,7 @@ class HelloTable {
         row.createRow(this._table);
     }
 
-    public deleteRow(row:RowTable) {
+    public removeRow(row:RowTable) {
         row.deleteRow(this._table);
         var index = this.Rows.indexOf(row);
         this.Rows.splice(index, 1);
