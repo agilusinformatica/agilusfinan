@@ -1,5 +1,11 @@
 ﻿@model AgilusFinan.Web.ViewModels.PessoaViewModel
 
+<style>
+    textarea:focus, input:focus{
+        outline: 0;
+    }
+</style>
+
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
@@ -69,7 +75,7 @@
             </table>
         </div>
 
-        <input class="btn btn-default" id="Adicionar" type="button" value="Adiciona Telefone"/>
+        <input class="btn btn-default" id="AdicionarTelefone" type="button" value="Adiciona Telefone"/>
 
         <table class="table" id="tabTelefones">
         </table>
@@ -77,8 +83,7 @@
                 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                @*<input type="submit" value="Create" class="btn btn-default" />*@
-                <button class="btn btn-default" onclick="UpdatePessoa();">Create</button>
+                <button class="btn btn-default" onclick="UpdatePessoa();">Gravar</button>
             </div>
         </div>
     </div>
@@ -91,35 +96,17 @@
 <script src="~/Scripts/HelloTable.js"></script>
 
 <script>
-
-    var tabTelefones = new HelloTable('tabTelefones');
-
-    var coluna = new ColumnTable();
-    coluna.Caption = 'DDD';
-    coluna.FieldName = 'Ddd';
-    coluna.Type = ColumnType.text;
-    tabTelefones.Columns.push(coluna);
-
-    var coluna = new ColumnTable();
-    coluna.Caption = 'Número';
-    coluna.FieldName = 'Numero';
-    coluna.Type = ColumnType.text;
-    tabTelefones.Columns.push(coluna);
-
-    var jsonTipos = '@Html.Raw(Json.Encode(ViewBag.ListaTiposTelefone))'
-    var coluna = new ColumnTable();
-    coluna.Caption = 'Tipo';
-    coluna.FieldName = 'TipoTelefoneId';
-    coluna.Type = ColumnType.list;
-    var tipos = JSON.parse(jsonTipos);
+    var tabTelefones = new HelloTable('tabTelefones', 'AdicionarTelefone');
+    var tipos = JSON.parse('@Html.Raw(Json.Encode(ViewBag.ListaTiposTelefone))');
+    var elementos = [];
     for (var i = 0; i < tipos.length; i++) {
-        coluna.Elements.push(new SelectElement(tipos[i].Id, tipos[i].Nome));
+        elementos.push(new SelectElement(tipos[i].Id, tipos[i].Nome));
     }
-    tabTelefones.Columns.push(coluna);
+    tabTelefones.Columns.push(new ColumnTable('DDD', 'Ddd', ColumnType.text));
+    tabTelefones.Columns.push(new ColumnTable('Número', 'Numero', ColumnType.text));
+    tabTelefones.Columns.push(new ColumnTable('Tipo', 'TipoTelefoneId', ColumnType.list, elementos));
 
-    var jsonData = '@Html.Raw(Json.Encode(Model.Telefones))';
-    tabTelefones.data = jsonData;
-
+    tabTelefones.jsonData = '@Html.Raw(Json.Encode(Model.Telefones))';
 
     function UpdatePessoa() {
         var pessoaJson = GetData();
@@ -131,7 +118,7 @@
     }
     function GetData() {
         var pessoa = {};
-
+            
         pessoa.Telefones = [{}];
         pessoa.Nome = $('#Nome').val();
         pessoa.Cpf = $('#Cpf').val();
@@ -186,4 +173,7 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
+
+
 

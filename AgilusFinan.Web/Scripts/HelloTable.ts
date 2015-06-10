@@ -16,6 +16,19 @@ class ColumnTable {
     Mask: string;
     CssClass: string;
     Elements: SelectElement[] = [];
+
+    constructor(_caption: string, _fieldName: string, _type: ColumnType, _elements?: SelectElement[], _mask?: string, _cssClass?: string) {
+        this.Caption = _caption;
+        this.FieldName = _fieldName;
+        this.Type = _type;
+        this.Mask = _mask;
+        this.CssClass = _cssClass;
+        if(_elements) {
+            for (var i = 0; i < _elements.length; i++) {
+                this.Elements.push(_elements[i]);
+            }
+        }
+    }
 } 
 
 class CellTable {
@@ -31,7 +44,7 @@ class CellTable {
 
     get Value() {
 
-        if (this.column.Type === ColumnType.text || this.column.Type === ColumnType.date || this.column.Type === ColumnType.number) {
+        if (this.column.Type === ColumnType.text || this.column.Type === ColumnType.date || this.column.Type === ColumnType.number || this.column.Type === ColumnType.hidden) {
             return this.control.value;
         }
 
@@ -56,7 +69,7 @@ class CellTable {
     public createInput(): HTMLTableCellElement {  
         var cell = document.createElement("td");
 
-        if (this.column.Type === ColumnType.text || this.column.Type === ColumnType.date || this.column.Type === ColumnType.number) {
+        if (this.column.Type === ColumnType.text || this.column.Type === ColumnType.date || this.column.Type === ColumnType.number || this.column.Type === ColumnType.hidden) {
             var input = document.createElement("input");
             input.type = String(ColumnType[this.column.Type]);
             input.value = this.value;
@@ -114,20 +127,25 @@ class RowTable {
 class HelloTable {
     public Columns: ColumnTable[];
     public Rows = new Array<RowTable>();
-    private _data: any;
     private _table: HTMLTableElement;
 
-    constructor(tagTableId: string) {
+    constructor(tagTableId: string, tagInsertButtonId?: string) {
         this._table = <HTMLTableElement>(document.getElementById(tagTableId));
         this.Columns = new Array();
+
+        if (tagInsertButtonId) {
+            var button = document.getElementById(tagInsertButtonId);
+            button.onclick = e => this.insertRow()
+        }
     }
 
     get jsonData() {
-        return null;
+        return JSON.stringify(this.data);
     }
 
-    set jsonData(value: any) {
-        
+    set jsonData(jsonContent: string) {
+        var _obj = JSON.parse(jsonContent);
+        this.data = _obj;
     }
 
     get data() {
@@ -143,8 +161,7 @@ class HelloTable {
         return <any>result;
     }
 
-    set data(jsonContent: string) {
-        this._data = jsonContent;
+    set data(value: any) {
         this.clean();
 
         var header = document.createElement("thead");
@@ -156,12 +173,10 @@ class HelloTable {
         }
         this._table.appendChild(header);
 
-        var d = JSON.parse(jsonContent);
-
-        for (var i = 0; i < d.length; i++) {
+        for (var i = 0; i < value.length; i++) {
             var row = new RowTable();
             for (var j = 0; j < this.Columns.length; j++) {
-                var cell = new CellTable(this.Columns[j], d[i][this.Columns[j].FieldName]);
+                var cell = new CellTable(this.Columns[j], value[i][this.Columns[j].FieldName]);
                 row.Cells.push(cell);              
             }
             this.Rows.push(row);
@@ -192,8 +207,3 @@ class HelloTable {
         }        
     }
 }
-
-//var c = new ColumnTable();
-//c.Type = ColumnType.list;
-//c.Elements.push(new SelectElement(1, "item 1"));
-//c.Elements.push(new SelectElement(2, "item 2"));
