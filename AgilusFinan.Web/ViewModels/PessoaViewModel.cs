@@ -2,6 +2,7 @@
 using AgilusFinan.Infra.Services;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace AgilusFinan.Web.ViewModels
 {
@@ -11,6 +12,7 @@ namespace AgilusFinan.Web.ViewModels
         public string Nome { get; set; }
         public string Cpf { get; set; }
         public string Rg { get; set; }
+        [Display(Name = "Data de Nascimento")]
         public DateTime DataNascimento { get; set; }
         public Endereco Endereco { get; set; }
         public ContaBancaria ContaBancaria { get; set; }

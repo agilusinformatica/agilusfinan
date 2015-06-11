@@ -114,6 +114,11 @@ class CellTable {
 class RowTable {
     public Cells = new Array<CellTable>();
     public Row: HTMLTableRowElement;
+    private _helloTable: HelloTable;
+
+    constructor(helloTable: HelloTable) {
+        this._helloTable = helloTable;
+    }
 
     public createRow(table: HTMLTableElement) {
         var rowElement = document.createElement("tr");
@@ -135,6 +140,8 @@ class RowTable {
 
     public deleteRow(table: HTMLTableElement) {
         table.removeChild(this.Row);
+        this._helloTable.removeRow(this);
+
     }
 }
 
@@ -188,7 +195,7 @@ class HelloTable {
         this._table.appendChild(header);
 
         for (var i = 0; i < value.length; i++) {
-            var row = new RowTable();
+            var row = new RowTable(this);
             for (var j = 0; j < this.Columns.length; j++) {
                 var cell = new CellTable(this.Columns[j], value[i][this.Columns[j].FieldName]);
                 row.Cells.push(cell);              
@@ -199,7 +206,7 @@ class HelloTable {
     }
 
     public insertRow() {
-        var row = new RowTable();
+        var row = new RowTable(this);
         for (var i = 0; i < this.Columns.length; i++) {
             var cell = new CellTable(this.Columns[i], "");
             row.Cells.push(cell);
@@ -209,7 +216,6 @@ class HelloTable {
     }
 
     public removeRow(row:RowTable) {
-        row.deleteRow(this._table);
         var index = this.Rows.indexOf(row);
         this.Rows.splice(index, 1);
     }

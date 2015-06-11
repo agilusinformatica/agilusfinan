@@ -52,6 +52,7 @@ namespace AgilusFinan.Web.Controllers
         {
             base.ViewModelToModel(viewModel, model);
             model.ContaBancaria = viewModel.ContaBancaria;
+            model.Id = viewModel.Id;
             model.Cpf = viewModel.Cpf;
             model.DataNascimento = viewModel.DataNascimento;
             model.Endereco = viewModel.Endereco;
@@ -60,14 +61,14 @@ namespace AgilusFinan.Web.Controllers
 
             foreach (var t in viewModel.Telefones)
             {
-                model.Telefones.Add(new TelefonePessoa() { Telefone = t });
+                model.Telefones.Add(new TelefonePessoa() { Telefone = t, PessoaId = viewModel.Id });
             }
 
             foreach (var tp in viewModel.TiposPorPessoa)
             {
                 if (tp.Marcado)
                 {
-                    model.TiposPessoa.Add(new TipoPessoaPorPessoa() { TipoPessoaId = tp.Id });
+                    model.TiposPessoa.Add(new TipoPessoaPorPessoa() { TipoPessoaId = tp.Id, PessoaId = viewModel.Id });
                 }
             }
         }

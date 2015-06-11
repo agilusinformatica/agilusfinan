@@ -12,7 +12,7 @@ namespace AgilusFinan.Infra.Services
     public class RepositorioPadrao<T> : IRepositorioPadrao<T> where T : Padrao
     {
 
-        Contexto db = new Contexto();
+        protected Contexto db = new Contexto();
 
         public void Incluir(T obj)
         {
@@ -23,9 +23,15 @@ namespace AgilusFinan.Infra.Services
 
         public void Alterar(T obj)
         {
+            PreAlteracao(obj);
             db.Entry<T>(obj).State = EntityState.Modified;
             obj.EmpresaId = db.EmpresaId; 
             db.SaveChanges();
+        }
+
+        public virtual void PreAlteracao(T obj)
+        {
+            
         }
 
         public void Excluir(T obj)
