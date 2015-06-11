@@ -73,12 +73,16 @@ class CellTable {
             var input = document.createElement("input");
             input.type = String(ColumnType[this.column.Type]);
             input.value = this.value;
+            if (this.column.CssClass)
+                input.className = this.column.CssClass;
             cell.appendChild(input);
             this.control = input;            
         }  
 
         if (this.column.Type === ColumnType.list) {
             var select = document.createElement("select");
+            if (this.column.CssClass)
+                select.className = this.column.CssClass;
             var optionBlank = document.createElement("option");
             select.appendChild(optionBlank);
             for (var i = 0; i < this.column.Elements.length; i++) {
@@ -97,6 +101,8 @@ class CellTable {
             var checkbox = document.createElement("input");
             checkbox.type = "checkbox";
             checkbox.checked = this.value;
+            if (this.column.CssClass)
+                checkbox.className = this.column.CssClass;
             cell.appendChild(checkbox);
             this.control = checkbox;
         }

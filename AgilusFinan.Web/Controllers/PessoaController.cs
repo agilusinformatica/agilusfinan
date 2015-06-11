@@ -48,8 +48,6 @@ namespace AgilusFinan.Web.Controllers
             }
         }
 
-
-
         protected override void ViewModelToModel(PessoaViewModel viewModel, Pessoa model)
         {
             base.ViewModelToModel(viewModel, model);
@@ -72,8 +70,6 @@ namespace AgilusFinan.Web.Controllers
                     model.TiposPessoa.Add(new TipoPessoaPorPessoa() { TipoPessoaId = tp.Id });
                 }
             }
-
         }
-
     }
 }

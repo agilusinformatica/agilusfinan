@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using AgilusFinan.Domain.Interfaces;
 using AgilusFinan.Domain.Entities;
+using System.Web.Script.Serialization;
 
 namespace AgilusFinan.Web.Bases
 {
@@ -28,8 +29,10 @@ namespace AgilusFinan.Web.Bases
         }
 
         [HttpPost]
-        public virtual ActionResult Create(V viewModel)
+        public virtual ActionResult Create(string postedData)
         {
+            var js = new JavaScriptSerializer();
+            V viewModel = js.Deserialize<V>(postedData);
             if (ModelState.IsValid)
             {
                 var _model = new T();
@@ -54,8 +57,10 @@ namespace AgilusFinan.Web.Bases
         }
 
         [HttpPost]
-        public virtual ActionResult Edit(V viewModel)
+        public virtual ActionResult Edit(string postedData)
         {
+            var js = new JavaScriptSerializer();
+            V viewModel = js.Deserialize<V>(postedData);
             if (ModelState.IsValid)
             {
                 var _model = new T();
