@@ -1,13 +1,16 @@
 ﻿@model AgilusFinan.Web.ViewModels.PessoaViewModel
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Pessoa</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @Html.HiddenFor(model => model.Id)
+
         <div class="form-group">
             @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -48,68 +51,110 @@
 
         <div class="form-group">
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ContaBancaria, new {htmlAttributes = new {@class = "form-control"}})
-                @Html.ValidationMessageFor(model => model.ContaBancaria, "", new {@class = "text-danger"})
+                @Html.EditorFor(model => model.ContaBancaria, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ContaBancaria, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.TiposPorPessoa, htmlAttributes: new {@class = "control-label col-md-2"})
-            @foreach (var tipo in Model.TiposPorPessoa)
-            {
-                <div class="col-md-1">
-                    @Html.LabelFor(model => model.TiposPorPessoa, tipo.Nome, htmlAttributes: new {@class = "control-label col-md-1"})
-                    <input class="form-control" type="checkbox" @(tipo.Marcado ? "checked" : "")/>
-                </div>
-            }
-        </div>
-
-        <input class="btn btn-default" id="Adicionar" type="button" value="Adiciona Telefone"/>
-
-        <table class="table">
-            @foreach (var telefone in Model.Telefones)
-            {
-
+            @Html.LabelFor(model => model.TiposPorPessoa, htmlAttributes: new { @class = "control-label col-md-2" })
+            <table id="tabTiposPessoa">
                 <tr>
-                    <td>
-                        <label>Telefone: </label>
-                        <input type="text" value="@(telefone.Ddd)" />
-                    </td>
-                    <td>
-                        <input type="text" value="@(telefone.Numero)" />
-                        <label>Tipo telefone: </label>
-                    </td>
-                    <td>
-                        <input type="text" value="@telefone.TipoTelefoneId" />
-                    </td>
+                    @foreach (var tipo in Model.TiposPorPessoa)
+                    {
+                        <td>
+                            @Html.LabelFor(model => model.TiposPorPessoa, tipo.Nome, htmlAttributes: new { @class = "control-label col-md-1" })
+                            <input type="hidden" value="@(tipo.Id)" />
+                            <input class="form-control" type="checkbox" @(tipo.Marcado ? "checked" : "") />
+                        </td>
+                    }
                 </tr>
-            }
-        </table>
-
-                
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
+            </table>
         </div>
+
+        <input class="btn btn-default" id="AdicionarTelefone" type="button" value="Adiciona Telefone" />
+
+        <table class="table table-bordered" id="tabTelefones"></table>
+
+
     </div>
 }
+<button class="btn btn-default" onclick="UpdatePessoa();">Gravar</button>
 
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
 
+<script src="~/Scripts/HelloTable.js"></script>
+
 <script>
 
-    $("#Adicionar").click(function() {
-        $(".table").append('<tr><td><label>Telefone: </label><input type="text" /></td><td><input type="text" /><label>Tipo telefone: </label></td><td><input type="text"/></td>'+
-                           '<td><input type="submit" value="Salvar"/></td></tr>');
-    });
+    // montagem da tabela de telefones
+    var tabTelefones = new HelloTable('tabTelefones', 'AdicionarTelefone');
+    var tipos = JSON.parse('@Html.Raw(Json.Encode(ViewBag.ListaTiposTelefone))');
+    var elementos = [];
+    for (var i = 0; i < tipos.length; i++) {
+        elementos.push(new SelectElement(tipos[i].Id, tipos[i].Nome));
+    }
+    tabTelefones.Columns.push(new ColumnTable('DDD', 'Ddd', ColumnType.text, null, null, 'form-control'));
+    tabTelefones.Columns.push(new ColumnTable('Número', 'Numero', ColumnType.text, null, null, 'form-control'));
+    tabTelefones.Columns.push(new ColumnTable('Tipo', 'TipoTelefoneId', ColumnType.list, elementos, null, 'form-control'));
 
+    tabTelefones.jsonData = '@Html.Raw(Json.Encode(Model.Telefones))';
+
+    function UpdatePessoa() {
+        var pessoaJson = GetData();
+        $.ajax({
+            type: "POST",
+            url: '/Pessoa/@(ViewBag.TipoOperacao == "Incluindo" ? "Create" : "Edit")',
+            data: { "postedData": pessoaJson }
+        });
+    }
+    function GetData() {
+        var pessoa = {};
+
+        pessoa.Telefones = [{}];
+        pessoa.Id = $('#Id').val();
+        pessoa.Nome = $('#Nome').val();
+        pessoa.Cpf = $('#Cpf').val();
+        pessoa.Rg = $('#Rg').val();
+        pessoa.DataNascimento = $('#DataNascimento').val();
+
+        pessoa.Endereco = {};
+        pessoa.Endereco.Logradouro = $('#Endereco_Logradouro').val();
+        pessoa.Endereco.Numero = $('#Endereco_Numero').val();
+        pessoa.Endereco.Complemento = $('#Endereco_Complemento').val();
+        pessoa.Endereco.Bairro = $('#Endereco_Bairro').val();
+        pessoa.Endereco.Cidade = $('#Endereco_Cidade').val();
+        pessoa.Endereco.Uf = $('#Endereco_Uf').val();
+        pessoa.Endereco.Cep = $('#Endereco_Cep').val();
+
+        pessoa.ContaBancaria = {};
+        pessoa.ContaBancaria.BancoId = $('#ContaBancaria_BancoId').val();
+        pessoa.ContaBancaria.Agencia = $('#ContaBancaria_Agencia').val();
+        pessoa.ContaBancaria.Numero = $('#ContaBancaria_Numero').val();
+        pessoa.ContaBancaria.Poupanca = $('#ContaBancaria_Poupanca').val();
+        pessoa.ContaBancaria.NomeTitular = $('#ContaBancaria_NomeTitular').val();
+        pessoa.ContaBancaria.CpfTitular = $('#ContaBancaria_CpfTitular').val();
+
+        pessoa.TiposPorPessoa = [{}];
+
+        var tab = document.getElementById('tabTiposPessoa');
+        for (var i = 0, cell; cell = tab.rows[0].cells[i]; i++) {
+            var TipoPorPessoa = {};
+            TipoPorPessoa.Id = cell.getElementsByTagName('input')[0].value;
+            TipoPorPessoa.Marcado = cell.getElementsByTagName('input')[1].checked;
+            pessoa.TiposPorPessoa[i] = TipoPorPessoa;
+        }
+        pessoa.Telefones = tabTelefones.data;
+        return JSON.stringify(pessoa);
+    }
 </script>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
+
+
 
