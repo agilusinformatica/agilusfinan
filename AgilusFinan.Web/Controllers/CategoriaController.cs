@@ -19,9 +19,6 @@ namespace AgilusFinan.Web.Controllers
             var l = CategoriasIdentadas(null);
         }
 
-        
-        
-
         private void AdicionaItem(Categoria c, int nivel)
         {
             string identador = System.Net.WebUtility.HtmlDecode("&nbsp;");
