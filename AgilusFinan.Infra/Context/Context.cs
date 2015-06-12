@@ -47,6 +47,8 @@ namespace AgilusFinan.Infra.Context
             modelBuilder.Properties<string>().Configure(p => p.HasColumnType("varchar"));
             modelBuilder.Properties<string>().Configure(p => p.HasMaxLength(100));
             modelBuilder.Entity<Categoria>().Property(p => p.CategoriaPaiId).IsOptional();
+            modelBuilder.Entity<TipoPessoaPorPessoa>().HasRequired(t => t.Pessoa).WithMany(t => t.TiposPessoa).HasForeignKey(d => d.PessoaId).WillCascadeOnDelete(true);
+            modelBuilder.Entity<TelefonePessoa>().HasRequired(t => t.Pessoa).WithMany(t => t.Telefones).HasForeignKey(d => d.PessoaId).WillCascadeOnDelete(true);
         }
     }
 }
