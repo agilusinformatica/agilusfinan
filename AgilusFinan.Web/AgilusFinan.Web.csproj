@@ -139,9 +139,11 @@
     <Compile Include="Controllers\BancoController.cs" />
     <Compile Include="Controllers\CategoriaController.cs" />
     <Compile Include="Controllers\CentroCustoController.cs" />
+    <Compile Include="Controllers\ContaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PagamentoController.cs" />
     <Compile Include="Controllers\PessoaController.cs" />
+    <Compile Include="Controllers\RecebimentoController.cs" />
     <Compile Include="Controllers\TipoPessoaController.cs" />
     <Compile Include="Controllers\TipoTelefoneController.cs" />
     <Compile Include="Global.asax.cs">
@@ -222,6 +224,13 @@
     <Content Include="Views\TipoPessoa\Create.cshtml" />
     <Content Include="Views\TipoPessoa\Edit.cshtml" />
     <Content Include="Views\TipoPessoa\Delete.cshtml" />
+    <Content Include="Views\Recebimento\Index.cshtml" />
+    <Content Include="Views\Recebimento\Create.cshtml" />
+    <Content Include="Views\Conta\Index.cshtml" />
+    <Content Include="Views\Conta\Create.cshtml" />
+    <Content Include="Views\Recebimento\_Cadastro.cshtml" />
+    <Content Include="Views\Recebimento\Edit.cshtml" />
+    <Content Include="Views\Recebimento\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

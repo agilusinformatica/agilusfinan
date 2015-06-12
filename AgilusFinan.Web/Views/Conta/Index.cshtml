@@ -1,0 +1,87 @@
+﻿@model IEnumerable<AgilusFinan.Domain.Entities.Conta>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.BancoBoleto.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Empresa.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SaldoInicial)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataSaldoInicial)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Agencia)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ContaCorrente)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Carteira)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Convenio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CodigoCedente)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.BancoBoleto.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Empresa.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SaldoInicial)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataSaldoInicial)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Agencia)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ContaCorrente)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Carteira)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Convenio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CodigoCedente)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
