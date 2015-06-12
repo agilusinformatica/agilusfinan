@@ -1,0 +1,138 @@
+﻿@model AgilusFinan.Domain.Entities.Pagamento
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Pagamento</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Categoria.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Categoria.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CentroCusto.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CentroCusto.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Conta.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Conta.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Empresa.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Empresa.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pessoa.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pessoa.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataVencimento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataVencimento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataLiquidacao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataLiquidacao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ValorLiquidado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ValorLiquidado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Descricao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descricao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Valor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Valor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Competencia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Competencia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FormaPagamento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FormaPagamento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.JurosMulta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.JurosMulta)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Observacao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Observacao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Recorrencia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Recorrencia)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

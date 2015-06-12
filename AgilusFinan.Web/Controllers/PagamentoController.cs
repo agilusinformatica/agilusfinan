@@ -11,10 +11,25 @@ namespace AgilusFinan.Web.Controllers
 {
     public class PagamentoController : ControllerPadrao<Pagamento, RepositorioPagamento>
     {
-        public ActionResult Baixar(int id)
+        protected override void PreInclusao()
         {
-            repo.Baixar(id);
-            return View();
-        }      
+            base.PreInclusao();
+            GerarLista();
+        }
+
+        protected override void PreAlteracao()
+        {
+            base.PreAlteracao();
+            GerarLista();
+        }
+
+        private void GerarLista()
+        {
+            ViewBag.ContaId = new SelectList(new RepositorioConta().Listar(), "Id", "nome");
+            ViewBag.CategoriaId = new SelectList(new RepositorioCategoria().Listar().Where(c => c.Direcao == DirecaoCategoria.Pagamento), "Id", "nome");
+            ViewBag.PessoaId = new SelectList(new RepositorioPessoa().Listar(), "Id", "nome");
+            ViewBag.CentroCustoId = new SelectList(new RepositorioCentroCusto().Listar(), "Id", "nome");
+        }
+
     }
 }
