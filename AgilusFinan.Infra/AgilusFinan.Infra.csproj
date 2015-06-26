@@ -155,6 +155,7 @@
     <Compile Include="Services\RepositorioCategoria.cs" />
     <Compile Include="Services\RepositorioCentroCusto.cs" />
     <Compile Include="Services\RepositorioConta.cs" />
+    <Compile Include="Services\RepositorioLiquidacao.cs" />
     <Compile Include="Services\RepositorioPadrao.cs" />
     <Compile Include="Services\RepositorioPagamento.cs" />
     <Compile Include="Services\RepositorioPessoa.cs" />

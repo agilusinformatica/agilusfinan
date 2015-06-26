@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 
@@ -20,7 +21,7 @@ namespace AgilusFinan.Domain.Entities
         public int? CentroCustoId { get; set; }
         public virtual CentroCusto CentroCusto { get; set; }
         public DateTime? Competencia { get; set; }
-        public String Observacao { get; set; }
+        public string Observacao { get; set; }
         public int? TituloRecorrenteId { get; set; }
         public virtual TituloRecorrente TituloRecorrente { get; set; }
         public virtual IList<Liquidacao> Liquidacoes { get; set; }

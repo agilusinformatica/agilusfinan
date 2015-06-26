@@ -6,9 +6,9 @@ using System.Web.Script.Serialization;
 namespace AgilusFinan.Web.Bases
 {
     public class ControllerViewModelPadrao<T, R, V> : Controller
-        where T : Padrao, new() 
+        where T : Padrao, new()
         where R : IRepositorioPadrao<T>, new()
-        where V : class, new() 
+        where V : class, new()
 
     {
         protected R repo = new R();
