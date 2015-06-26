@@ -224,21 +224,13 @@
     <Content Include="Views\TipoPessoa\Create.cshtml" />
     <Content Include="Views\TipoPessoa\Edit.cshtml" />
     <Content Include="Views\TipoPessoa\Delete.cshtml" />
-    <Content Include="Views\Recebimento\Index.cshtml" />
-    <Content Include="Views\Recebimento\Create.cshtml" />
     <Content Include="Views\Conta\Index.cshtml" />
     <Content Include="Views\Conta\Create.cshtml" />
-    <Content Include="Views\Recebimento\_Cadastro.cshtml" />
-    <Content Include="Views\Recebimento\Edit.cshtml" />
-    <Content Include="Views\Recebimento\Delete.cshtml" />
-    <Content Include="Views\Pagamento\Index.cshtml" />
-    <Content Include="Views\Pagamento\Create.cshtml" />
-    <Content Include="Views\Pagamento\_Cadastro.cshtml" />
-    <Content Include="Views\Pagamento\Edit.cshtml" />
-    <Content Include="Views\Pagamento\Delete.cshtml" />
+    <Content Include="Views\Titulo\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Recebimento\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

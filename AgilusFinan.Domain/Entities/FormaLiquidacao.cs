@@ -5,5 +5,5 @@ using System.Text;
 
 namespace AgilusFinan.Domain.Entities
 {
-    public enum FormaPagamento { Boleto, Dinheiro, CartaoDebito, CartaoCredito, Transferencia }
+    public enum FormaLiquidacao { Boleto, Dinheiro, CartaoDebito, CartaoCredito, Transferencia }
 }

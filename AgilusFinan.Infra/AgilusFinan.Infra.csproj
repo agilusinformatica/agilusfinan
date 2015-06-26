@@ -145,6 +145,10 @@
     <Compile Include="Migrations\201506121735430_AddCascadeOnPessoaDependents.Designer.cs">
       <DependentUpon>201506121735430_AddCascadeOnPessoaDependents.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201506252039389_AlteracaoTitulo.cs" />
+    <Compile Include="Migrations\201506252039389_AlteracaoTitulo.Designer.cs">
+      <DependentUpon>201506252039389_AlteracaoTitulo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\RepositorioBanco.cs" />
@@ -241,6 +245,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201506121735430_AddCascadeOnPessoaDependents.resx">
       <DependentUpon>201506121735430_AddCascadeOnPessoaDependents.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506252039389_AlteracaoTitulo.resx">
+      <DependentUpon>201506252039389_AlteracaoTitulo.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

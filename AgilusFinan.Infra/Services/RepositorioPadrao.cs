@@ -46,7 +46,7 @@ namespace AgilusFinan.Infra.Services
             Excluir(obj);
         }
 
-        public IEnumerable<T> Listar()
+        public virtual IEnumerable<T> Listar()
         {
             return db.Set<T>().Where(e => e.EmpresaId == db.EmpresaId);
         }
@@ -56,7 +56,7 @@ namespace AgilusFinan.Infra.Services
             return db.Set<T>().Find(id);
         }
 
-        public List<T> Listar(Expression<Func<T, bool>> predicate)
+        public virtual List<T> Listar(Expression<Func<T, bool>> predicate)
         {
             return db.Set<T>().Where(predicate).Where(e => e.EmpresaId == db.EmpresaId).ToList();
         }

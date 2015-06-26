@@ -25,8 +25,8 @@ namespace AgilusFinan.Infra.Context
         public DbSet<CentroCusto> CentrosCusto { get; set; }
         public DbSet<Categoria> Categorias { get; set; }
         public DbSet<Conta> Contas { get; set; }
-        public DbSet<Pagamento> Pagamentos { get; set; }
-        public DbSet<Recebimento> Recebimentos { get; set; }
+        public DbSet<Titulo> Titulos { get; set; }
+        public DbSet<TituloRecorrente> TitulosRecorrentes  { get; set; }
         public DbSet<Transferencia> Transferencias { get; set; }
 
         public int EmpresaId 

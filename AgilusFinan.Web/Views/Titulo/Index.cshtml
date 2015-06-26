@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AgilusFinan.Domain.Entities.Pagamento>
+﻿@model IEnumerable<AgilusFinan.Domain.Entities.Titulo>
 
 @{
     ViewBag.Title = "Index";
@@ -27,13 +27,10 @@
             @Html.DisplayNameFor(model => model.Pessoa.Nome)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.TituloRecorrente.Nome)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.DataVencimento)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DataLiquidacao)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ValorLiquidado)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Descricao)
@@ -45,16 +42,7 @@
             @Html.DisplayNameFor(model => model.Competencia)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FormaPagamento)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.JurosMulta)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Observacao)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Recorrencia)
         </th>
         <th></th>
     </tr>
@@ -77,13 +65,10 @@
             @Html.DisplayFor(modelItem => item.Pessoa.Nome)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.TituloRecorrente.Nome)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.DataVencimento)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DataLiquidacao)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ValorLiquidado)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Descricao)
@@ -95,16 +80,7 @@
             @Html.DisplayFor(modelItem => item.Competencia)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.FormaPagamento)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.JurosMulta)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Observacao)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Recorrencia)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

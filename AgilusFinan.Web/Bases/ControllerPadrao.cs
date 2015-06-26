@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using AgilusFinan.Domain.Interfaces;
 using AgilusFinan.Domain.Entities;
+using System;
 
 namespace AgilusFinan.Web.Bases
 {
@@ -12,8 +13,14 @@ namespace AgilusFinan.Web.Bases
 
         public virtual ActionResult Index()
         {
+            string folder = FolderViewName();
             PreListagem();
-            return View(repo.Listar());
+            if (folder == String.Empty)
+            {
+                return View(repo.Listar());    
+            }
+            else
+                return View("~/Views/"+folder+"/Index.cshtml", repo.Listar());    
         }
 
         [HttpGet]
@@ -91,6 +98,12 @@ namespace AgilusFinan.Web.Bases
         {
             
         }
+
+        protected virtual string FolderViewName()
+        {
+            return "";
+        }
+
     }
 }
 

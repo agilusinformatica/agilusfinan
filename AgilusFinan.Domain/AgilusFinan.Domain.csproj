@@ -41,18 +41,17 @@
     <Compile Include="Entities\ContaBancaria.cs" />
     <Compile Include="Entities\Empresa.cs" />
     <Compile Include="Entities\Endereco.cs" />
-    <Compile Include="Entities\FormaPagamento.cs" />
+    <Compile Include="Entities\FormaLiquidacao.cs" />
+    <Compile Include="Entities\Liquidacao.cs" />
     <Compile Include="Entities\Padrao.cs" />
-    <Compile Include="Entities\Pagamento.cs" />
     <Compile Include="Entities\Pessoa.cs" />
-    <Compile Include="Entities\Recebimento.cs" />
-    <Compile Include="Entities\Recorrencia.cs" />
     <Compile Include="Entities\Telefone.cs" />
     <Compile Include="Entities\TelefonePessoa.cs" />
     <Compile Include="Entities\TipoPessoa.cs" />
     <Compile Include="Entities\TipoPessoaPorPessoa.cs" />
     <Compile Include="Entities\TipoTelefone.cs" />
     <Compile Include="Entities\Titulo.cs" />
+    <Compile Include="Entities\TituloRecorrente.cs" />
     <Compile Include="Entities\Transferencia.cs" />
     <Compile Include="Entities\Usuario.cs" />
     <Compile Include="Interfaces\IRepositorioBanco.cs" />
@@ -61,11 +60,10 @@
     <Compile Include="Interfaces\IRepositorioConta.cs" />
     <Compile Include="Interfaces\IRepositorioEmpresa.cs" />
     <Compile Include="Interfaces\IRepositorioPadrao.cs" />
-    <Compile Include="Interfaces\IRepositorioPagamento.cs" />
     <Compile Include="Interfaces\IRepositorioPessoa.cs" />
-    <Compile Include="Interfaces\IRepositorioRecebimento.cs" />
     <Compile Include="Interfaces\IRepositorioTipoPessoa.cs" />
     <Compile Include="Interfaces\IRepositorioTipoTelefone.cs" />
+    <Compile Include="Interfaces\IRepositorioTitulo.cs" />
     <Compile Include="Interfaces\IRepositorioTransferencia.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
