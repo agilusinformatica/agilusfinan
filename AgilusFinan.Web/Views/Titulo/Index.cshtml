@@ -12,22 +12,16 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Categoria.Nome)
+            Categoria
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CentroCusto.Nome)
+            Centro de Custo
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Conta.Nome)
+            Conta
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Empresa.Nome)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Pessoa.Nome)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TituloRecorrente.Nome)
+            Pessoa
         </th>
         <th>
             @Html.DisplayNameFor(model => model.DataVencimento)
@@ -40,9 +34,6 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Competencia)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Observacao)
         </th>
         <th></th>
     </tr>
@@ -59,13 +50,7 @@
             @Html.DisplayFor(modelItem => item.Conta.Nome)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Empresa.Nome)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Pessoa.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TituloRecorrente.Nome)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.DataVencimento)
@@ -80,12 +65,8 @@
             @Html.DisplayFor(modelItem => item.Competencia)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Observacao)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("Alterar", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Excluir", "Delete", new { id=item.Id })
         </td>
     </tr>
 }
