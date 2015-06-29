@@ -13,7 +13,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ContaId, "ContaId", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("ContaId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("ContaId", null, Model.Conta.Nome, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.ContaId, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -97,7 +97,10 @@
         $.ajax({
             type: "POST",
             url: '/@(ViewBag.TipoTitulo)/@(ViewBag.TipoOperacao == "Incluindo" ? "Create" : "Edit")',
-            data: { "postedData": tituloJson }
+            data: { "postedData": tituloJson },
+            success: function () {
+                window.location = '@Url.Action("Index", ViewBag.TipoTitulo)';
+            }
         });
     }
     function GetData() {

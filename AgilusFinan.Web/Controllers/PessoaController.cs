@@ -16,9 +16,9 @@ namespace AgilusFinan.Web.Controllers
             ViewBag.ListaTiposTelefone = new RepositorioTipoTelefone().Listar();
         }
 
-        protected override void PreAlteracao()
+        protected override void PreAlteracao(PessoaViewModel viewModel)
         {
-            base.PreAlteracao();
+            base.PreAlteracao(viewModel);
             ViewBag.ListaBancos = new RepositorioBanco().Listar();
             ViewBag.ListaTiposTelefone = new RepositorioTipoTelefone().Listar();
         }

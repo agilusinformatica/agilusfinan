@@ -107,7 +107,10 @@
         $.ajax({
             type: "POST",
             url: '/Pessoa/@(ViewBag.TipoOperacao == "Incluindo" ? "Create" : "Edit")',
-            data: { "postedData": pessoaJson }
+            data: { "postedData": pessoaJson },
+            success: function() {
+                window.location = '@Url.Action("Index", "Pessoa")';
+            }
         });
     }
     function GetData() {

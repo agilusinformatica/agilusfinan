@@ -20,22 +20,27 @@ namespace AgilusFinan.Web.Controllers
         protected override void PreInclusao()
         {
             base.PreInclusao();
+            ViewBag.ContaId = new SelectList(new RepositorioConta().Listar(), "Id", "Nome");
+            ViewBag.CategoriaId = new SelectList(new RepositorioCategoria().Listar().Where(c => c.Direcao == DirecaoCategoria.Pagamento), "Id", "Nome");
+            ViewBag.PessoaId = new SelectList(new RepositorioPessoa().Listar(), "Id", "Nome");
+            ViewBag.CentroCustoId = new SelectList(new RepositorioCentroCusto().Listar(), "Id", "Nome");
             GerarLista();
         }
 
-        protected override void PreAlteracao()
+        protected override void PreAlteracao(TituloViewModel viewModel)
         {
-            base.PreAlteracao();
+            base.PreAlteracao(viewModel);
+            ViewBag.ContaId = new SelectList(new RepositorioConta().Listar(), "Id", "Nome", viewModel.ContaId);
+            ViewBag.CategoriaId = new SelectList(new RepositorioCategoria().Listar().Where(c => c.Direcao == DirecaoCategoria.Pagamento), "Id", "Nome", viewModel.CategoriaId);
+            ViewBag.PessoaId = new SelectList(new RepositorioPessoa().Listar(), "Id", "Nome", viewModel.PessoaId);
+            ViewBag.CentroCustoId = new SelectList(new RepositorioCentroCusto().Listar(), "Id", "Nome", viewModel.CentroCustoId);
             GerarLista();
         }
 
         private void GerarLista()
         {
             ViewBag.ListaLiquidacoes = new RepositorioLiquidacao().Listar();
-            ViewBag.ContaId = new SelectList(new RepositorioConta().Listar(), "Id", "nome");
-            ViewBag.CategoriaId = new SelectList(new RepositorioCategoria().Listar().Where(c => c.Direcao == DirecaoCategoria.Pagamento), "Id", "nome");
-            ViewBag.PessoaId = new SelectList(new RepositorioPessoa().Listar(), "Id", "nome");
-            ViewBag.CentroCustoId = new SelectList(new RepositorioCentroCusto().Listar(), "Id", "nome");
+            
             ViewBag.TipoTitulo = "Pagamento";
         }
 
