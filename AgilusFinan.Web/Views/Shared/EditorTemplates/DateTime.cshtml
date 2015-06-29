@@ -1,2 +1,2 @@
-﻿@inherits System.Web.Mvc.WebViewPage<DateTime>
-<input type="date" name="@ViewData.ModelMetadata.PropertyName" id="@ViewData.ModelMetadata.PropertyName" class="form-control" value="@Model.ToString("yyyy-MM-dd")"/>
+﻿@inherits System.Web.Mvc.WebViewPage<DateTime?>
+<input type="date" name="@ViewData.ModelMetadata.PropertyName" id="@ViewData.ModelMetadata.PropertyName" class="form-control" value="@((Model.HasValue && Model.Value > DateTime.MinValue) ? Model.Value.ToString("yyyy-MM-dd") : "")"/>

@@ -13,22 +13,19 @@ namespace AgilusFinan.Web.Bases
 
         public virtual ActionResult Index()
         {
-            string folder = FolderViewName();
             PreListagem();
-            if (folder == String.Empty)
-            {
-                return View(repo.Listar());    
-            }
-            else
-                return View("~/Views/"+folder+"/Index.cshtml", repo.Listar());    
+            return FolderViewName() == String.Empty ? View(repo.Listar()) : View("~/Views/" + FolderViewName() + "/Index.cshtml", repo.Listar());
+ 
         }
 
         [HttpGet]
         public virtual ActionResult Create()
         {
+            
             PreInclusao();
             ViewBag.TipoOperacao = "Incluindo";
-            return View(new T());
+            return FolderViewName() == String.Empty ? View(new T()) : View("~/Views/" + FolderViewName() + "/Create.cshtml", new T());
+
         }
 
         [HttpPost]
@@ -40,7 +37,8 @@ namespace AgilusFinan.Web.Bases
                 return RedirectToAction("Index");
             }
             PreInclusao();
-            return View(model);
+            return FolderViewName() == String.Empty ? View(model) : View("~/Views/" + FolderViewName() + "/Create.cshtml", model);
+
         }
 
         [HttpGet]
@@ -49,7 +47,8 @@ namespace AgilusFinan.Web.Bases
             PreAlteracao();
             T model = repo.BuscarPorId(id);
             ViewBag.TipoOperacao = "Alterando";
-            return View(model);
+            return FolderViewName() == String.Empty ? View(model) : View("~/Views/" + FolderViewName() + "/Edit.cshtml", model);
+
         }
 
         [HttpPost]
@@ -61,7 +60,8 @@ namespace AgilusFinan.Web.Bases
                 return RedirectToAction("Index");
             }
             PreAlteracao();
-            return View(model);
+            return FolderViewName() == String.Empty ? View(model) : View("~/Views/" + FolderViewName() + "/Edit.cshtml", model);
+
         }
 
         [HttpGet]
@@ -69,7 +69,8 @@ namespace AgilusFinan.Web.Bases
         {
             PreExclusao();
             T model = repo.BuscarPorId(id);
-            return View(model);
+            return FolderViewName() == String.Empty ? View(model) : View("~/Views/" + FolderViewName() + "/Delete.cshtml", model);
+
         }
 
         [HttpPost, ActionName("Delete")]
@@ -101,10 +102,9 @@ namespace AgilusFinan.Web.Bases
 
         protected virtual string FolderViewName()
         {
-            return "";
+            return string.Empty;
         }
 
     }
 }
 
-//enum TipoOperacao { Incluindo, Alterando}

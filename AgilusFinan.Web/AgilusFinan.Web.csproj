@@ -228,6 +228,9 @@
     <Content Include="Views\Conta\Index.cshtml" />
     <Content Include="Views\Conta\Create.cshtml" />
     <Content Include="Views\Titulo\Index.cshtml" />
+    <Content Include="Views\Titulo\Create.cshtml" />
+    <Content Include="Views\Titulo\_Cadastro.cshtml" />
+    <Content Include="Views\Titulo\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

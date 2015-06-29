@@ -20,11 +20,10 @@ namespace AgilusFinan.Web.ViewModels
         public Pessoa Pessoa { get; set; }
         public int? CentroCustoId { get; set; }
         public CentroCusto CentroCusto { get; set; }
+        [DisplayFormat(NullDisplayText = "", DataFormatString = "{0:yyyy-MM-dd}")]
         public DateTime? Competencia { get; set; }
         public string Observacao { get; set; }
-        public int? TituloRecorrenteId { get; set; }
-        public TituloRecorrente TituloRecorrente { get; set; }
-
+        
         public List<Liquidado> Liquidacoes { get; set; }
 
         public TituloViewModel()
@@ -33,7 +32,6 @@ namespace AgilusFinan.Web.ViewModels
             Categoria = new Categoria();
             Pessoa = new Pessoa();
             CentroCusto = new CentroCusto();
-            TituloRecorrente = new TituloRecorrente();
             Liquidacoes = new List<Liquidado>(); 
 
             foreach (var liquidacao in new RepositorioLiquidacao().Listar())

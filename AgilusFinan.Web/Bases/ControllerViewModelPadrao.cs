@@ -2,6 +2,7 @@
 using AgilusFinan.Domain.Interfaces;
 using AgilusFinan.Domain.Entities;
 using System.Web.Script.Serialization;
+using System;
 
 namespace AgilusFinan.Web.Bases
 {
@@ -16,7 +17,8 @@ namespace AgilusFinan.Web.Bases
         public virtual ActionResult Index()
         {
             PreListagem();
-            return View(repo.Listar());
+            return FolderViewName() == String.Empty ? View(repo.Listar()) : View("~/Views/" + FolderViewName() + "/Index.cshtml", repo.Listar());
+
         }
 
         [HttpGet]
@@ -24,8 +26,7 @@ namespace AgilusFinan.Web.Bases
         {
             PreInclusao();
             ViewBag.TipoOperacao = "Incluindo";
-
-            return View(new V());
+            return FolderViewName() == String.Empty ? View(new V()) : View("~/Views/" + FolderViewName() + "/Create.cshtml", new V());
         }
 
         [HttpPost]
@@ -42,7 +43,7 @@ namespace AgilusFinan.Web.Bases
                 return RedirectToAction("Index");
             }
             PreInclusao();
-            return View(viewModel);
+            return FolderViewName() == String.Empty ? View(viewModel) : View("~/Views/" + FolderViewName() + "/Create.cshtml", viewModel);
         }
 
         [HttpGet]
@@ -53,7 +54,8 @@ namespace AgilusFinan.Web.Bases
             ViewBag.TipoOperacao = "Alterando";
             V viewModel = new V();
             ModelToViewModel(model, viewModel);
-            return View(viewModel);
+            return FolderViewName() == String.Empty ? View(viewModel) : View("~/Views/" + FolderViewName() + "/Edit.cshtml", viewModel);
+
         }
 
         [HttpPost]
@@ -70,7 +72,7 @@ namespace AgilusFinan.Web.Bases
                 return RedirectToAction("Index");
             }
             PreAlteracao();
-            return View(viewModel);
+            return FolderViewName() == String.Empty ? View(viewModel) : View("~/Views/" + FolderViewName() + "/Edit.cshtml", viewModel);
         }
 
         [HttpGet]
@@ -78,7 +80,9 @@ namespace AgilusFinan.Web.Bases
         {
             PreExclusao();
             T model = repo.BuscarPorId(id);
-            return View(model);
+            return FolderViewName() == String.Empty ? View(model) : View("~/Views/" + FolderViewName() + "/Delete.cshtml", model);
+
+
         }
 
         [HttpPost, ActionName("Delete")]
@@ -116,6 +120,11 @@ namespace AgilusFinan.Web.Bases
         protected virtual void ModelToViewModel(T model, V viewModel)
         {
             
+        }
+
+        protected virtual string FolderViewName()
+        {
+            return string.Empty;
         }
 
     }

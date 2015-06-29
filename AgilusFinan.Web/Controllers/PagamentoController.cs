@@ -20,27 +20,38 @@ namespace AgilusFinan.Web.Controllers
         protected override void PreInclusao()
         {
             base.PreInclusao();
-            ViewBag.Liquidacoes = new RepositorioLiquidacao().Listar();
+            GerarLista();
         }
 
         protected override void PreAlteracao()
         {
             base.PreAlteracao();
+            GerarLista();
+        }
+
+        private void GerarLista()
+        {
             ViewBag.ListaLiquidacoes = new RepositorioLiquidacao().Listar();
+            ViewBag.ContaId = new SelectList(new RepositorioConta().Listar(), "Id", "nome");
+            ViewBag.CategoriaId = new SelectList(new RepositorioCategoria().Listar().Where(c => c.Direcao == DirecaoCategoria.Pagamento), "Id", "nome");
+            ViewBag.PessoaId = new SelectList(new RepositorioPessoa().Listar(), "Id", "nome");
+            ViewBag.CentroCustoId = new SelectList(new RepositorioCentroCusto().Listar(), "Id", "nome");
+            ViewBag.TipoTitulo = "Pagamento";
         }
 
         protected override void ModelToViewModel(Titulo model, TituloViewModel viewModel)
         {
             base.ModelToViewModel(model, viewModel);
-            viewModel.Categoria = model.Categoria;
+            viewModel.Id = model.Id;
             viewModel.CategoriaId = model.CategoriaId;
-            viewModel.CentroCusto = model.CentroCusto;
             viewModel.CentroCustoId = model.CentroCustoId;
+            viewModel.PessoaId = model.PessoaId;
             viewModel.Competencia = model.Competencia;
-            viewModel.Conta = model.Conta;
-            viewModel.Id = model.ContaId;
+            viewModel.ContaId = model.ContaId;
             viewModel.DataVencimento = model.DataVencimento;
             viewModel.Descricao = model.Descricao;
+            viewModel.Valor = model.Valor;
+            viewModel.Observacao = model.Observacao;
 
             foreach (var l in model.Liquidacoes)
             {
@@ -59,15 +70,16 @@ namespace AgilusFinan.Web.Controllers
         protected override void ViewModelToModel(TituloViewModel viewModel, Titulo model)
         {
             base.ViewModelToModel(viewModel, model);
-            model.Categoria = viewModel.Categoria;
+            model.Id = viewModel.Id;
             model.CategoriaId = viewModel.CategoriaId;
-            model.CentroCusto = viewModel.CentroCusto;
             model.CentroCustoId = viewModel.CentroCustoId;
+            model.PessoaId = viewModel.PessoaId;
             model.Competencia = viewModel.Competencia;
-            model.Conta = viewModel.Conta;
-            model.ContaId = viewModel.Id;
+            model.ContaId = viewModel.ContaId;
             model.DataVencimento = viewModel.DataVencimento;
             model.Descricao = viewModel.Descricao;
+            model.Valor = viewModel.Valor;
+            model.Observacao = viewModel.Observacao;
 
             foreach (var l in viewModel.Liquidacoes)
             {
