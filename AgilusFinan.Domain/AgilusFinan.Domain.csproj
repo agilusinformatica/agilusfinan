@@ -59,7 +59,6 @@
     <Compile Include="Interfaces\IRepositorioCentroCusto.cs" />
     <Compile Include="Interfaces\IRepositorioConta.cs" />
     <Compile Include="Interfaces\IRepositorioEmpresa.cs" />
-    <Compile Include="Interfaces\IRepositorioLiquidacao.cs" />
     <Compile Include="Interfaces\IRepositorioPadrao.cs" />
     <Compile Include="Interfaces\IRepositorioPessoa.cs" />
     <Compile Include="Interfaces\IRepositorioTipoPessoa.cs" />

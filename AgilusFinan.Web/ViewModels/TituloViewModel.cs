@@ -1,8 +1,9 @@
 ﻿using System;
 using AgilusFinan.Domain.Entities;
-using AgilusFinan.Infra.Services;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace AgilusFinan.Web.ViewModels
 {
@@ -24,7 +25,7 @@ namespace AgilusFinan.Web.ViewModels
         public DateTime? Competencia { get; set; }
         public string Observacao { get; set; }
         
-        public List<Liquidado> Liquidacoes { get; set; }
+        public List<LiquidacaoViewModel> Liquidacoes { get; set; }
 
         public TituloViewModel()
         {
@@ -32,30 +33,19 @@ namespace AgilusFinan.Web.ViewModels
             Categoria = new Categoria();
             Pessoa = new Pessoa();
             CentroCusto = new CentroCusto();
-            Liquidacoes = new List<Liquidado>(); 
+            Liquidacoes = new List<LiquidacaoViewModel>(); 
 
-            foreach (var liquidacao in new RepositorioLiquidacao().Listar())
-            {
-                Liquidacoes.Add(new Liquidado()
-                {
-                    Id = liquidacao.Id,
-                    Data = liquidacao.Data,
-                    Valor = liquidacao.Valor,
-                    JurosMulta = liquidacao.JurosMulta,
-                    FormaLiquidacao = liquidacao.FormaLiquidacao,
-                    TituloId = liquidacao.TituloId
-                });
-            }
         }
     }
 
-    public class Liquidado
+    public class LiquidacaoViewModel
     {
         public int Id { get; set; }
         public DateTime Data { get; set; }
         public decimal Valor { get; set; }
         public decimal JurosMulta { get; set; }
+
+        [JsonConverter(typeof(StringEnumConverter))]
         public FormaLiquidacao FormaLiquidacao { get; set; }
-        public int TituloId { get; set; }
     }
 }

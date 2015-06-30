@@ -67,10 +67,21 @@ var CellTable = (function () {
     CellTable.prototype.createInput = function () {
         var cell = document.createElement("td");
 
-        if (this.column.Type === 0 /* text */ || this.column.Type === 1 /* date */ || this.column.Type === 2 /* number */ || this.column.Type === 5 /* hidden */) {
+        if (this.column.Type === 0 /* text */ || this.column.Type === 2 /* number */ || this.column.Type === 5 /* hidden */) {
             var input = document.createElement("input");
             input.type = String(ColumnType[this.column.Type]);
             input.value = this.value;
+            if (this.column.CssClass)
+                input.className = this.column.CssClass;
+            cell.appendChild(input);
+            this.control = input;
+        }
+
+        if (this.column.Type === 1 /* date */) {
+            var input = document.createElement("input");
+            input.type = String(ColumnType[this.column.Type]);
+            var date = new Date(Number(this.value.substring(6, this.value.length - 2)));
+            input.value = date.toISOString().substring(0, 10);
             if (this.column.CssClass)
                 input.className = this.column.CssClass;
             cell.appendChild(input);
@@ -152,8 +163,10 @@ var HelloTable = (function () {
 
         if (tagInsertButtonId) {
             var button = document.getElementById(tagInsertButtonId);
+
             button.onclick = function (e) {
-                return _this.insertRow();
+                e.preventDefault();
+                _this.insertRow();
             };
         }
     }

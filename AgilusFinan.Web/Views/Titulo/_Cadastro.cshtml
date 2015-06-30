@@ -1,4 +1,5 @@
-﻿@model AgilusFinan.Web.ViewModels.TituloViewModel
+﻿@using AgilusFinan.Web.ViewModels
+@model TituloViewModel
 
 @using (Html.BeginForm()) 
 {
@@ -45,7 +46,9 @@
         <div class="form-group">
             @Html.LabelFor(model => model.CategoriaId, "CategoriaId", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("CategoriaId", null, String.Empty, htmlAttributes: new { @class = "form-control" })
+                <select name="CategoriaId" id="CategoriaId" class="form-control">
+                    @Html.Partial("~/Views/Categoria/_ItensCategoria.cshtml", new ItensCategoria() { Id = Model.CategoriaId, Lista = ViewBag.ListaCategorias })
+                </select>
                 @Html.ValidationMessageFor(model => model.CategoriaId, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -75,6 +78,15 @@
         </div>
 
         <div class="form-group">
+            <input type="checkbox" id="estapago">
+            <label class="control-label col-md-2">Pago?</label>
+            <div class="col-md-10" id="divLiquidacoes" style="display: none;">
+                @Html.Partial("~/Views/Titulo/_Liquidacao.cshtml", Model.Liquidacoes)
+            </div>
+        </div>
+
+
+        <div class="form-group">
             @Html.LabelFor(model => model.Observacao, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Observacao, new { htmlAttributes = new { @class = "form-control" } })
@@ -91,6 +103,10 @@
 <button class="btn btn-default" onclick="UpdateTitulo();">Gravar</button>
 
 <script>
+
+    $('#estapago').click(function () {
+        $('#divLiquidacoes').toggle();
+    })
 
     function UpdateTitulo() {
         var tituloJson = GetData();
@@ -116,6 +132,8 @@
         titulo.CentroCustoId = $('#CentroCustoId').val();
         titulo.Competencia = $('#Competencia').val();
         titulo.Observacao = $('#Observacao').val();
+        titulo.Liquidacoes = tabLiquidacoes.data;
+
 
         return JSON.stringify(titulo);
     }

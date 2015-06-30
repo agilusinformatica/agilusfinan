@@ -1,8 +1,9 @@
-﻿@model Dictionary<int, string>
+﻿@model AgilusFinan.Web.ViewModels.ItensCategoria
+
 
 <option value=""></option>
-@foreach (var item in Model)
+@foreach (var item in Model.Lista)
 {
-    <option value="@item.Key" @(ViewBag.CategoriaPaiId != null && item.Key == ViewBag.CategoriaPaiId ? "selected" : "")  >@item.Value</option>
+    <option value="@item.Key" @(Model.Id != null && item.Key == Model.Id ? "selected" : "")  >@item.Value</option>
 }
 

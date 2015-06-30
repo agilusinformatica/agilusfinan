@@ -21,7 +21,7 @@ namespace AgilusFinan.Web.Controllers
         {
             base.PreInclusao();
             ViewBag.ContaId = new SelectList(new RepositorioConta().Listar(), "Id", "Nome");
-            ViewBag.CategoriaId = new SelectList(new RepositorioCategoria().Listar().Where(c => c.Direcao == DirecaoCategoria.Pagamento), "Id", "Nome");
+            ViewBag.ListaCategorias = Util.CategoriasIdentadas(DirecaoCategoria.Pagamento);
             ViewBag.PessoaId = new SelectList(new RepositorioPessoa().Listar(), "Id", "Nome");
             ViewBag.CentroCustoId = new SelectList(new RepositorioCentroCusto().Listar(), "Id", "Nome");
             GerarLista();
@@ -31,7 +31,7 @@ namespace AgilusFinan.Web.Controllers
         {
             base.PreAlteracao(viewModel);
             ViewBag.ContaId = new SelectList(new RepositorioConta().Listar(), "Id", "Nome", viewModel.ContaId);
-            ViewBag.CategoriaId = new SelectList(new RepositorioCategoria().Listar().Where(c => c.Direcao == DirecaoCategoria.Pagamento), "Id", "Nome", viewModel.CategoriaId);
+            ViewBag.ListaCategorias = Util.CategoriasIdentadas(DirecaoCategoria.Pagamento);
             ViewBag.PessoaId = new SelectList(new RepositorioPessoa().Listar(), "Id", "Nome", viewModel.PessoaId);
             ViewBag.CentroCustoId = new SelectList(new RepositorioCentroCusto().Listar(), "Id", "Nome", viewModel.CentroCustoId);
             GerarLista();
@@ -39,7 +39,6 @@ namespace AgilusFinan.Web.Controllers
 
         private void GerarLista()
         {
-            ViewBag.ListaLiquidacoes = new RepositorioLiquidacao().Listar();
             
             ViewBag.TipoTitulo = "Pagamento";
         }
@@ -60,14 +59,13 @@ namespace AgilusFinan.Web.Controllers
 
             foreach (var l in model.Liquidacoes)
             {
-                model.Liquidacoes.Add(new Liquidacao()
+                viewModel.Liquidacoes.Add(new LiquidacaoViewModel()
                 {
                     Id = l.Id,
                     Data = l.Data,
                     Valor = l.Valor,
                     JurosMulta = l.JurosMulta,
-                    FormaLiquidacao = l.FormaLiquidacao,
-                    TituloId = l.TituloId
+                    FormaLiquidacao = l.FormaLiquidacao
                 });
             }
         }
@@ -90,12 +88,11 @@ namespace AgilusFinan.Web.Controllers
             {
                 model.Liquidacoes.Add(new Liquidacao()
                 {
-                    Id = l.Id,
                     Data = l.Data,
                     Valor = l.Valor,
                     JurosMulta = l.JurosMulta,
                     FormaLiquidacao = l.FormaLiquidacao,
-                    TituloId = l.TituloId
+                    TituloId = viewModel.Id
                 });
             }
         }
