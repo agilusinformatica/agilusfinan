@@ -28,6 +28,7 @@ namespace AgilusFinan.Infra.Context
         public DbSet<Titulo> Titulos { get; set; }
         public DbSet<TituloRecorrente> TitulosRecorrentes  { get; set; }
         public DbSet<Transferencia> Transferencias { get; set; }
+        public DbSet<Liquidacao> Liquidacoes { get; set; }
 
         public int EmpresaId 
         { 

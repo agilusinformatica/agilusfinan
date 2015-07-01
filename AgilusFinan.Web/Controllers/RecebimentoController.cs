@@ -66,11 +66,11 @@ namespace AgilusFinan.Web.Controllers
                     Data = l.Data,
                     Valor = l.Valor,
                     JurosMulta = l.JurosMulta,
-                    FormaLiquidacao = l.FormaLiquidacao,
-                    TituloId = l.TituloId
+                    FormaLiquidacao = l.FormaLiquidacao
                 });
             }
         }
+
         protected override void ViewModelToModel(TituloViewModel viewModel, Titulo model)
         {
             base.ViewModelToModel(viewModel, model);
@@ -89,11 +89,11 @@ namespace AgilusFinan.Web.Controllers
             {
                 model.Liquidacoes.Add(new Liquidacao()
                 {
-                    Id = l.Id,
                     Data = l.Data,
                     Valor = l.Valor,
                     JurosMulta = l.JurosMulta,
-                    FormaLiquidacao = l.FormaLiquidacao
+                    FormaLiquidacao = l.FormaLiquidacao,
+                    TituloId = viewModel.Id
                 });
             }
         }

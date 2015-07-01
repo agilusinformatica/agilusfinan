@@ -1,10 +1,10 @@
 ﻿@using AgilusFinan.Web.ViewModels
 @model TituloViewModel
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     @Html.HiddenFor(model => model.Id)
 
     <div class="form-horizontal">
@@ -78,9 +78,15 @@
         </div>
 
         <div class="form-group">
-            <input type="checkbox" id="estapago">
+            <input type="checkbox" id="estapago" @(Model.Liquidacoes.Count > 0 ? "checked" : "")>
             <label class="control-label col-md-2">Pago?</label>
-            <div class="col-md-10" id="divLiquidacoes" style="display: none;">
+            <div class="col-md-10" id="divLiquidacoes"
+                @{
+                if(Model.Liquidacoes.Count == 0) 
+                {
+                    <text>style="display: none;"</text>
+                }
+                }>
                 @Html.Partial("~/Views/Titulo/_Liquidacao.cshtml", Model.Liquidacoes)
             </div>
         </div>
@@ -126,19 +132,20 @@
         titulo.ContaId = $('#ContaId').val();
         titulo.DataVencimento = $('#DataVencimento').val();
         titulo.Descricao = $('#Descricao').val();
-        titulo.Valor = $('#Valor').val().replace(',','.');
+        titulo.Valor = $('#Valor').val().replace(',', '.');
         titulo.CategoriaId = $('#CategoriaId').val();
         titulo.PessoaId = $('#PessoaId').val();
         titulo.CentroCustoId = $('#CentroCustoId').val();
         titulo.Competencia = $('#Competencia').val();
         titulo.Observacao = $('#Observacao').val();
-        titulo.Liquidacoes = tabLiquidacoes.data;
+        if (document.getElementById('estapago').checked) {
+            titulo.Liquidacoes = tabLiquidacoes.data;
+        }
 
 
         return JSON.stringify(titulo);
     }
 </script>
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

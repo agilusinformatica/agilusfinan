@@ -19,5 +19,21 @@ namespace AgilusFinan.Infra.Services
         {
             return db.Set<Titulo>().Where(predicate).Where(e => e.EmpresaId == db.EmpresaId && e.Categoria.Direcao == DirecaoCategoria.Recebimento).ToList();
         }
+
+        public override void PreAlteracao(Titulo obj)
+        {
+            base.PreAlteracao(obj);
+            var liquidacoes = db.Liquidacoes.Where(l => l.TituloId == obj.Id);
+
+            foreach (var liquidacao in liquidacoes)
+            {
+                db.Liquidacoes.Remove(liquidacao);
+            }
+
+            foreach (var liquidacao in obj.Liquidacoes)
+            {
+                db.Liquidacoes.Add(liquidacao);
+            }
+        }
     }
 }
