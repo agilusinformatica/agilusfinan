@@ -165,6 +165,7 @@
     <Compile Include="Services\RepositorioRecebimento.cs" />
     <Compile Include="Services\RepositorioTipoPessoa.cs" />
     <Compile Include="Services\RepositorioTipoTelefone.cs" />
+    <Compile Include="Services\RepositorioTituloRecorrente.cs" />
     <Compile Include="Services\RepositorioTransferencia.cs" />
   </ItemGroup>
   <ItemGroup>

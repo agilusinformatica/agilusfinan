@@ -147,6 +147,7 @@
     <Compile Include="Controllers\RecebimentoController.cs" />
     <Compile Include="Controllers\TipoPessoaController.cs" />
     <Compile Include="Controllers\TipoTelefoneController.cs" />
+    <Compile Include="Controllers\TituloRecorrenteController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -235,6 +236,8 @@
     <Content Include="Views\Titulo\Edit.cshtml" />
     <Content Include="Views\Titulo\Delete.cshtml" />
     <Content Include="Views\Titulo\_Liquidacao.cshtml" />
+    <Content Include="Views\TituloRecorrente\Index.cshtml" />
+    <Content Include="Views\TituloRecorrente\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

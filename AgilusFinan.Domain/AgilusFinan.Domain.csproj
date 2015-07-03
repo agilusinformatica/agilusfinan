@@ -64,6 +64,7 @@
     <Compile Include="Interfaces\IRepositorioTipoPessoa.cs" />
     <Compile Include="Interfaces\IRepositorioTipoTelefone.cs" />
     <Compile Include="Interfaces\IRepositorioTitulo.cs" />
+    <Compile Include="Interfaces\IRepositorioTituloRecorrente.cs" />
     <Compile Include="Interfaces\IRepositorioTransferencia.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
