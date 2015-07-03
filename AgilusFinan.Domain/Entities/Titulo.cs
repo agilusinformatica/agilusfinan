@@ -25,11 +25,26 @@ namespace AgilusFinan.Domain.Entities
         public int? TituloRecorrenteId { get; set; }
         public virtual TituloRecorrente TituloRecorrente { get; set; }
         public virtual IList<Liquidacao> Liquidacoes { get; set; }
+        public string Liquidado 
+        {
+            get
+            {
+                decimal soma = Liquidacoes.Sum(d => d.Valor);
+
+                if (soma >= Valor) 
+                    return "Pago";
+                else if (soma > 0)
+                    return "Parcialmente";
+                else
+                    return "Não Pago";
+            }
+        }
 
 
         public Titulo()
         {
             Liquidacoes = new List<Liquidacao>();
         }
+
     }
 }

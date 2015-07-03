@@ -1,5 +1,4 @@
 ﻿@model IEnumerable<AgilusFinan.Domain.Entities.Titulo>
-
 @{
     ViewBag.Title = "Index";
 }
@@ -35,6 +34,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Competencia)
         </th>
+        <th>
+            Pago?
+        </th>
         <th></th>
     </tr>
 
@@ -63,6 +65,24 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Competencia)
+        </td>
+        <td>
+            @if (item.Liquidado == "Pago")
+            {
+                <span class="label label-success">@Html.DisplayFor(modelItem => item.Liquidado)</span>
+            }
+            @if (item.Liquidado == "Parcialmente")
+            {
+                <span class="label label-warning">@Html.DisplayFor(modelItem => item.Liquidado)</span>
+            }
+            @if (item.Liquidado == "Não Pago" && item.DataVencimento <= DateTime.Today)
+            {
+                <span class="label label-danger">@Html.DisplayFor(modelItem => item.Liquidado)</span>
+            }
+            @if (item.Liquidado == "Não Pago" && item.DataVencimento > DateTime.Today)
+            {
+                <span class="label label-primary">@Html.DisplayFor(modelItem => item.Liquidado)</span>
+            }
         </td>
         <td>
             @Html.ActionLink("Alterar", "Edit", new { id=item.Id }) |
