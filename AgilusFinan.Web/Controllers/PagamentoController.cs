@@ -101,7 +101,6 @@ namespace AgilusFinan.Web.Controllers
         [HttpGet]
         public ActionResult Liquidar(int id)
         {
-            var liquidacoes = new List<LiquidacaoViewModel>();
             var titulo = repo.BuscarPorId(id);
             var tituloVm = new TituloViewModel();
             ModelToViewModel(titulo, tituloVm);

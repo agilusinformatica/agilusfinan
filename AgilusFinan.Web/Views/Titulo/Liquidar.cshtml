@@ -23,6 +23,12 @@
 
     function getData()
     {
+        delete titulo.Conta;
+        delete titulo.Categoria;
+        delete titulo.Pessoa;
+        delete titulo.CentroCusto;
+
+        titulo.DataVencimento = new Date(Number(titulo.DataVencimento.substring(6, titulo.DataVencimento.length - 2)));
         titulo.Liquidacoes = tabLiquidacoes.data;
 
         return JSON.stringify(titulo);
