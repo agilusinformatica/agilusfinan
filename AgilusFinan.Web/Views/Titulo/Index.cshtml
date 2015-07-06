@@ -87,8 +87,30 @@
         <td>
             @Html.ActionLink("Alterar", "Edit", new { id=item.Id }) |
             @Html.ActionLink("Excluir", "Delete", new { id=item.Id })
+            @Html.ActionLink("Pagar", "Pagar", null, new { @class= "PagarLink" })
         </td>
     </tr>
 }
 
 </table>
+
+<script>
+    (function() {
+        var table = $("table")[0];
+        console.log(table);
+
+        $(".PagarLink").click(function (e) {
+            e.preventDefault();
+            var row = $(this)[0].closest("tr");
+            console.log(row);
+            table.insertRow(row.index);
+            console.log(row.index);
+        });
+
+    })(jQuery);
+
+
+</script>
+
+
+

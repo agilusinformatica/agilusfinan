@@ -82,7 +82,7 @@ class CellTable {
         if (this.column.Type === ColumnType.date) {
             var input = document.createElement("input");
             input.type = String(ColumnType[this.column.Type]);
-            var date = new Date(Number(this.value.substring(6, this.value.length-2)));
+            var date = new Date(Number(this.value.substring(6, this.value.length - 2)));
             input.value = date.toISOString().substring(0, 10);
             if (this.column.CssClass)
                 input.className = this.column.CssClass;
