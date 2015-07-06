@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 
 namespace AgilusFinan.Web.Controllers
 {
@@ -95,6 +96,23 @@ namespace AgilusFinan.Web.Controllers
                     TituloId = viewModel.Id
                 });
             }
+        }
+
+        [HttpGet]
+        public ActionResult Liquidar(int id)
+        {
+            var liquidacoes = new List<LiquidacaoViewModel>();
+            var titulo = repo.BuscarPorId(id);
+            var tituloVm = new TituloViewModel();
+            ModelToViewModel(titulo, tituloVm);
+            ViewBag.TipoTitulo = "Pagamento";
+            return View("~/Views/" + FolderViewName() + "/Liquidar.cshtml", tituloVm);
+        }
+
+        [HttpPost]
+        public void Liquidar(string postedData)
+        {
+            Edit(postedData);
         }
     }
 }

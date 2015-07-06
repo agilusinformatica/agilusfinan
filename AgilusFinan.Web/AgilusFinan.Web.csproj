@@ -238,6 +238,7 @@
     <Content Include="Views\Titulo\_Liquidacao.cshtml" />
     <Content Include="Views\TituloRecorrente\Index.cshtml" />
     <Content Include="Views\TituloRecorrente\Create.cshtml" />
+    <Content Include="Views\Titulo\Liquidar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

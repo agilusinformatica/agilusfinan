@@ -86,7 +86,8 @@
         </td>
         <td>
             @Html.ActionLink("Alterar", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Excluir", "Delete", new { id=item.Id })
+            @Html.ActionLink("Excluir", "Delete", new { id=item.Id }) |
+            @Html.ActionLink("Liquidar", "Liquidar", new { id = item.Id })
         </td>
     </tr>
 }

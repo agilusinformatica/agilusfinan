@@ -1,0 +1,30 @@
+﻿@model AgilusFinan.Web.ViewModels.TituloViewModel
+
+@{
+    ViewBag.Title = "Liquidar";
+}
+
+<h2>Liquidar</h2>
+@Html.Partial("~/Views/Titulo/_Liquidacao.cshtml", Model.Liquidacoes)
+<button class="btn btn-default" onclick="UpdateTitulo();">Gravar</button>
+<script>
+    var titulo = JSON.parse('@Html.Raw(Json.Encode(Model))');
+    function UpdateTitulo() {
+        var tituloJson = getData();
+        $.ajax({
+            type: "POST",
+            url: '/@(ViewBag.TipoTitulo)/Liquidar',
+            data: { "postedData": tituloJson },
+            success: function () {
+                window.location = '@Url.Action("Index", ViewBag.TipoTitulo)';
+            }
+        });
+    }
+
+    function getData()
+    {
+        titulo.Liquidacoes = tabLiquidacoes.data;
+
+        return JSON.stringify(titulo);
+    }
+</script>
