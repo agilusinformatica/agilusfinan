@@ -12,6 +12,7 @@ namespace AgilusFinan.Web.ViewModels
         public int Id { get; set; }
         public int ContaId { get; set; }
         public Conta Conta { get; set; }
+        [Display(Name = "Data de Vencimento")]
         public DateTime DataVencimento { get; set; }
         public String Descricao { get; set; }
         public decimal Valor { get; set; }
