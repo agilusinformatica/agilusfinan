@@ -48,17 +48,15 @@
 
     function getData()
     {
-        
+
         delete titulo.Conta;
         delete titulo.Categoria;
         delete titulo.Pessoa;
         delete titulo.CentroCusto;
-        var datavencimento = titulo.DataVencimento.substring(6, titulo.DataVencimento.length - 2);
-        console.log(datavencimento);
-
-        titulo.DataVencimento = datavencimento.toISOString().substring(0, 10);
+        delete titulo.Competencia;
+        var datavencimento = '@Model.DataVencimento.ToString("s", System.Globalization.CultureInfo.InvariantCulture)';
+        titulo.DataVencimento = datavencimento.substring(0, 10);
         titulo.Liquidacoes = tabLiquidacoes.data;
-
         return JSON.stringify(titulo);
     }
 </script>
