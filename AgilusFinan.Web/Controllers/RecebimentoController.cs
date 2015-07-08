@@ -60,7 +60,7 @@ namespace AgilusFinan.Web.Controllers
 
             foreach (var l in model.Liquidacoes)
             {
-                model.Liquidacoes.Add(new Liquidacao()
+                viewModel.Liquidacoes.Add(new LiquidacaoViewModel()
                 {
                     Id = l.Id,
                     Data = l.Data,
@@ -96,6 +96,22 @@ namespace AgilusFinan.Web.Controllers
                     TituloId = viewModel.Id
                 });
             }
+        }
+
+        [HttpGet]
+        public ActionResult Liquidar(int id)
+        {
+            var titulo = repo.BuscarPorId(id);
+            var tituloVm = new TituloViewModel();
+            ModelToViewModel(titulo, tituloVm);
+            ViewBag.TipoTitulo = "Pagamento";
+            return View("~/Views/" + FolderViewName() + "/Liquidar.cshtml", tituloVm);
+        }
+
+        [HttpPost]
+        public void Liquidar(string postedData)
+        {
+            Edit(postedData);
         }
 
     }
