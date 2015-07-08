@@ -55,7 +55,7 @@
             @Html.DisplayFor(modelItem => item.Pessoa.Nome)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.DataVencimento)
+            @Html.DisplayFor(modelItem => item.DataVencimento.GetDateTimeFormats()[0])
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Descricao)

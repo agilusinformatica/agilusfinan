@@ -4,9 +4,34 @@
     ViewBag.Title = "Liquidar";
 }
 
+
+
 <h2>Liquidar</h2>
-@Html.Partial("~/Views/Titulo/_Liquidacao.cshtml", Model.Liquidacoes)
-<button class="btn btn-default" onclick="UpdateTitulo();">Gravar</button>
+<div class="container">
+    <h4> Informações do Titulo</h4>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Titulo</th>
+                <th>Data de Vencimento</th>
+                <th>Valor</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@Html.DisplayFor(item => Model.Descricao)</td>
+                <td>@Html.DisplayFor(item => Model.DataVencimento.GetDateTimeFormats()[0])</td>
+                <td>@Html.DisplayFor(item => Model.Valor)</td>
+            </tr>
+        </tbody>
+
+    </table>
+
+    @Html.Partial("~/Views/Titulo/_Liquidacao.cshtml", Model.Liquidacoes)
+</div>
+<div class="col-md-2">
+    <button class="btn btn-default" onclick="UpdateTitulo();">Gravar</button>
+</div>
 <script>
     var titulo = JSON.parse('@Html.Raw(Json.Encode(Model))');
     function UpdateTitulo() {
@@ -23,14 +48,15 @@
 
     function getData()
     {
+
         delete titulo.Conta;
         delete titulo.Categoria;
         delete titulo.Pessoa;
         delete titulo.CentroCusto;
-
-        titulo.DataVencimento = new Date(Number(titulo.DataVencimento.substring(6, titulo.DataVencimento.length - 2)));
+        delete titulo.Competencia;
+        var datavencimento = '@Model.DataVencimento.ToString("s", System.Globalization.CultureInfo.InvariantCulture)';
+        titulo.DataVencimento = datavencimento.substring(0, 10);
         titulo.Liquidacoes = tabLiquidacoes.data;
-
         return JSON.stringify(titulo);
     }
 </script>
