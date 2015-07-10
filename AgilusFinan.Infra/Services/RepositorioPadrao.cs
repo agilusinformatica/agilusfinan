@@ -16,6 +16,7 @@ namespace AgilusFinan.Infra.Services
 
         public void Incluir(T obj)
         {
+            PreInclusao(obj);
             db.Set<T>().Add(obj);
             obj.EmpresaId = db.EmpresaId; 
             db.SaveChanges();
@@ -27,6 +28,11 @@ namespace AgilusFinan.Infra.Services
             db.Entry<T>(obj).State = EntityState.Modified;
             obj.EmpresaId = db.EmpresaId; 
             db.SaveChanges();
+        }
+
+        public virtual void PreInclusao(T obj)
+        {
+
         }
 
         public virtual void PreAlteracao(T obj)

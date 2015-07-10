@@ -44,8 +44,8 @@ namespace AgilusFinan.Web.Bases
         [HttpGet]
         public virtual ActionResult Edit(int id)
         {
-            PreAlteracao();
             T model = repo.BuscarPorId(id);
+            PreAlteracao(model);
             ViewBag.TipoOperacao = "Alterando";
             return FolderViewName() == String.Empty ? View(model) : View("~/Views/" + FolderViewName() + "/Edit.cshtml", model);
 
@@ -59,7 +59,7 @@ namespace AgilusFinan.Web.Bases
                 repo.Alterar(model);
                 return RedirectToAction("Index");
             }
-            PreAlteracao();
+            PreAlteracao(model);
             return FolderViewName() == String.Empty ? View(model) : View("~/Views/" + FolderViewName() + "/Edit.cshtml", model);
 
         }
@@ -80,7 +80,7 @@ namespace AgilusFinan.Web.Bases
             return RedirectToAction("Index");
         }
 
-        protected virtual void PreAlteracao()
+        protected virtual void PreAlteracao(T model)
         {
             
         }

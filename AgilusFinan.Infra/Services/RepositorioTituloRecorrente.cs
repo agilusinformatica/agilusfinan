@@ -9,5 +9,10 @@ namespace AgilusFinan.Infra.Services
 {
     public class RepositorioTituloRecorrente : RepositorioPadrao<TituloRecorrente>, IRepositorioTituloRecorrente
     {
+        public override void PreInclusao(TituloRecorrente obj)
+        {
+            base.PreInclusao(obj);
+            obj.DataCadastro = DateTime.Now;
+        }
     }
 }
