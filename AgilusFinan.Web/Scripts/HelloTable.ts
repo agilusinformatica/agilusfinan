@@ -45,7 +45,12 @@ class CellTable {
     get Value() {
 
         if (this.column.Type === ColumnType.text || this.column.Type === ColumnType.date || this.column.Type === ColumnType.number || this.column.Type === ColumnType.hidden) {
-            return this.control.value;
+            if (this.control.value.match(/\d+,\d+/g)) {                
+                return this.control.value.replace(",", ".");
+            } else {
+                return this.control.value;    
+            }
+            
         }
 
         if (this.column.Type === ColumnType.list) {

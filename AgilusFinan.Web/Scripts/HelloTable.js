@@ -41,7 +41,11 @@ var CellTable = (function () {
     Object.defineProperty(CellTable.prototype, "Value", {
         get: function () {
             if (this.column.Type === 0 /* text */ || this.column.Type === 1 /* date */ || this.column.Type === 2 /* number */ || this.column.Type === 5 /* hidden */) {
-                return this.control.value;
+                if (this.control.value.match(/\d+,\d+/g)) {
+                    return this.control.value.replace(",", ".");
+                } else {
+                    return this.control.value;
+                }
             }
 
             if (this.column.Type === 3 /* list */) {
