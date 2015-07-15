@@ -242,6 +242,8 @@
     <Content Include="Views\TituloRecorrente\Delete.cshtml" />
     <Content Include="Views\TituloRecorrente\_Cadastro.cshtml" />
     <Content Include="Views\Titulo\Liquidar.cshtml" />
+    <Content Include="Views\Conta\Edit.cshtml" />
+    <Content Include="Views\Conta\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
