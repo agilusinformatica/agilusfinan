@@ -265,7 +265,10 @@
       <DependentUpon>201507082038418_Create DataCadastro on TítuloRecorrente.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Scripts\fn_gerador_vencimentos.sql" />
+    <Content Include="Scripts\pr_cria_titulo_virtual.sql" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
