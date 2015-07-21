@@ -34,7 +34,7 @@ Begin
 	begin
 		insert into @titulo_virtual
 		select @id, @nome, vencimento.*, @valor, @categoria_id, @pessoa_id, @centro_custo_id, @id_empresa
-		from dbo.fn_gerador_vencimentos_recorrentes(@data_inicial_analise, @data_final_analise, @dia_vencimento, @recorrencia, @qtde_parcelas, @data_cadastro) as vencimento
+		from dbo.fn_gerador_vencimentos(@id, @data_inicial_analise, @data_final_analise, @dia_vencimento, @qtde_parcelas, @data_cadastro, @recorrencia) as vencimento
 
 		Fetch cur into @id, @nome, @dia_vencimento, @valor, @recorrencia, @qtde_parcelas, @categoria_id, @pessoa_id, @centro_custo_id, @data_cadastro
 	end
@@ -44,5 +44,6 @@ Begin
 	select *
 	from @titulo_virtual
 end
+
 
 

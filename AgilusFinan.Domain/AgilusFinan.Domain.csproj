@@ -52,6 +52,7 @@
     <Compile Include="Entities\TipoTelefone.cs" />
     <Compile Include="Entities\Titulo.cs" />
     <Compile Include="Entities\TituloRecorrente.cs" />
+    <Compile Include="Entities\TituloPendentes.cs" />
     <Compile Include="Entities\Transferencia.cs" />
     <Compile Include="Entities\Usuario.cs" />
     <Compile Include="Interfaces\IRepositorioBanco.cs" />
@@ -64,6 +65,7 @@
     <Compile Include="Interfaces\IRepositorioTipoPessoa.cs" />
     <Compile Include="Interfaces\IRepositorioTipoTelefone.cs" />
     <Compile Include="Interfaces\IRepositorioTitulo.cs" />
+    <Compile Include="Interfaces\IRepositorioTituloPendente.cs" />
     <Compile Include="Interfaces\IRepositorioTituloRecorrente.cs" />
     <Compile Include="Interfaces\IRepositorioTransferencia.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
