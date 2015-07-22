@@ -157,6 +157,14 @@
     <Compile Include="Migrations\201507082038418_Create DataCadastro on TítuloRecorrente.Designer.cs">
       <DependentUpon>201507082038418_Create DataCadastro on TítuloRecorrente.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201507221646339_CriacaoFunctionGeradorVencimentos.cs" />
+    <Compile Include="Migrations\201507221646339_CriacaoFunctionGeradorVencimentos.Designer.cs">
+      <DependentUpon>201507221646339_CriacaoFunctionGeradorVencimentos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507221648368_CriacaoProcedureCriaTituloVirtual.cs" />
+    <Compile Include="Migrations\201507221648368_CriacaoProcedureCriaTituloVirtual.Designer.cs">
+      <DependentUpon>201507221648368_CriacaoProcedureCriaTituloVirtual.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\RepositorioBanco.cs" />
@@ -264,6 +272,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201507082038418_Create DataCadastro on TítuloRecorrente.resx">
       <DependentUpon>201507082038418_Create DataCadastro on TítuloRecorrente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507221646339_CriacaoFunctionGeradorVencimentos.resx">
+      <DependentUpon>201507221646339_CriacaoFunctionGeradorVencimentos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507221648368_CriacaoProcedureCriaTituloVirtual.resx">
+      <DependentUpon>201507221648368_CriacaoProcedureCriaTituloVirtual.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

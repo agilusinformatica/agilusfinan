@@ -9,6 +9,5 @@ namespace AgilusFinan.Infra.Services
 {
     public class RepositorioTituloPendente : RepositorioPadrao<TituloPendente>, IRepositorioTituloPendente
     {
-
     }
 }
