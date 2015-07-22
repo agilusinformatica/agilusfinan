@@ -1,10 +1,33 @@
-create function fn_gerador_vencimentos(@id_titulo_recorrente int,@data_inicial datetime, @data_final datetime, @dia_vencimento tinyint, @qtde_parcelas int, @data_primeiro_vencimento datetime, @tipo_recorrencia tinyint)
-RETURNS @vencimentos table(data_vencimento datetime)  AS
-BEGIN 
-	declare 
-	   @cont int = 0,
-      @data_final_analise datetime = dateadd(week, +1, @data_final)
+if object_id('fn_gerador_vencimentos') > 0
+begin
+   drop function fn_gerador_vencimentos
+   print '<< DROP fn_gerador_vencimentos >>'
+end
 
+GO
+
+create function fn_gerador_vencimentos(@id_titulo_recorrente int,@data_inicial datetime, @data_final datetime, @dia_vencimento tinyint, @qtde_parcelas int, @data_primeiro_vencimento datetime, @tipo_recorrencia tinyint)
+/*----------------------------------------------------------------------------------------------------------------------
+NOME: fn_gerador_vencimentos
+OBJETIVO: Gerar os vencimentos de acordo com recorrência de cada título
+DATA: 22/07/2015
+TESTES: 
+select * from fn_gerador_vencimentos(1,'2015-07-01', '2015-07-31', 2, null, '2015-07-15', 0)
+select * from fn_gerador_vencimentos(1,'2015-07-01', '2015-07-31', 2, null, '2015-07-01', 1)
+select * from fn_gerador_vencimentos(1,'2015-07-01', '2015-07-31', 2, null, '2015-07-15', 2)
+select * from fn_gerador_vencimentos(1,'2015-01-01', '2015-12-31', 2, null, '2015-01-01', 3)
+select * from fn_gerador_vencimentos(1,'2015-01-01', '2015-12-31', 2, null, '2015-01-01', 4)
+select * from fn_gerador_vencimentos(1,'2015-01-01', '2015-12-31', 2, null, '2015-01-01', 5)
+select * from fn_gerador_vencimentos(1,'2015-01-01', '2016-12-31', 2, null, '2015-01-01', 6)
+----------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------*/
+RETURNS @vencimentos table(data_vencimento datetime) 
+with encryption
+AS
+BEGIN 
+
+	declare @cont int = 0,
+			@data_final_analise datetime = dateadd(week, +1, @data_final)
    declare 
       @data_base datetime = @data_primeiro_vencimento
 
@@ -48,12 +71,10 @@ BEGIN
    return
 END
 
-/*
-select * from fn_gerador_vencimentos(1,'2015-07-01', '2015-07-31', 2, null, '2015-07-15', 0)
-select * from fn_gerador_vencimentos(1,'2015-07-01', '2015-07-31', 2, null, '2015-07-01', 1)
-select * from fn_gerador_vencimentos(1,'2015-07-01', '2015-07-31', 2, null, '2015-07-15', 2)
-select * from fn_gerador_vencimentos(1,'2015-01-01', '2015-12-31', 2, null, '2015-01-01', 3)
-select * from fn_gerador_vencimentos(1,'2015-01-01', '2015-12-31', 2, null, '2015-01-01', 4)
-select * from fn_gerador_vencimentos(1,'2015-01-01', '2015-12-31', 2, null, '2015-01-01', 5)
-select * from fn_gerador_vencimentos(1,'2015-01-01', '2016-12-31', 2, null, '2015-01-01', 6)
-*/
+GO
+
+if object_id('fn_gerador_vencimentos') > 0
+begin
+   print '<< CREATE fn_gerador_vencimentos >>'
+end
+GO

@@ -1,6 +1,21 @@
-create procedure pr_cria_titulo_virtual(@id_empresa int, @data_inicial_analise smalldatetime, @data_final_analise smalldatetime) as
-Begin
+if object_id('pr_cria_titulo_virtual') > 0
+begin
+   drop procedure pr_cria_titulo_virtual
+   print '<< DROP pr_cria_titulo_virtual >>'
+end
 
+GO
+
+create procedure pr_cria_titulo_virtual(@id_empresa int, @data_inicial_analise smalldatetime, @data_final_analise smalldatetime)
+/*----------------------------------------------------------------------------------------------------------------------
+NOME: pr_cria_titulo_virtual
+OBJETIVO: Criação de títulos virtuais
+DATA: 22/07/2015
+----------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------*/
+with encryption
+as
+Begin
 	declare @titulo_virtual table(
 	TituloRecorrenteId int,
 	nome varchar(100),
@@ -45,5 +60,10 @@ Begin
 	from @titulo_virtual
 end
 
+GO
 
-
+if object_id('pr_cria_titulo_virtual') > 0
+begin
+   print '<< CREATE pr_cria_titulo_virtual >>'
+end
+GO
