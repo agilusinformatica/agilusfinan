@@ -1,0 +1,59 @@
+﻿@model IEnumerable<AgilusFinan.Domain.Entities.TituloPendente>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TituloRecorrenteId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataVencimento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Valor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CategoriaId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PessoaId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CentroCustoId)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TituloRecorrenteId)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataVencimento)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Valor)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CategoriaId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PessoaId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CentroCustoId)
+        </td>
+        <td>
+            @Html.ActionLink("Liquidar", "Liquidar", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>

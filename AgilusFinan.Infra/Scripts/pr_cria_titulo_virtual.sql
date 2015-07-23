@@ -56,7 +56,7 @@ Begin
 	close cur
 	deallocate cur
 
-	select *
+	select TituloRecorrenteId,nome,	DataVencimento,	Valor, CategoriaId,	PessoaId, CentroCustoId
 	from @titulo_virtual
 end
 

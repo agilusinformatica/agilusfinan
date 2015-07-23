@@ -7,8 +7,8 @@ namespace AgilusFinan.Domain.Entities
 {
     public class TituloPendente : Padrao
     {
-        public int? tituloRecorrenteId { get; set; }
-        public string Descricao { get; set; }
+        public int? TituloRecorrenteId { get; set; }
+        public string nome { get; set; }
         public DateTime DataVencimento { get; set; }
         public decimal Valor { get; set; }
         public int CategoriaId { get; set; }

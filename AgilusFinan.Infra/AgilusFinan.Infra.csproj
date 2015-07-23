@@ -167,6 +167,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\GeradorTitulosPendentes.cs" />
     <Compile Include="Services\RepositorioBanco.cs" />
     <Compile Include="Services\RepositorioCategoria.cs" />
     <Compile Include="Services\RepositorioCentroCusto.cs" />
@@ -177,7 +178,6 @@
     <Compile Include="Services\RepositorioRecebimento.cs" />
     <Compile Include="Services\RepositorioTipoPessoa.cs" />
     <Compile Include="Services\RepositorioTipoTelefone.cs" />
-    <Compile Include="Services\RepositorioTituloPendente.cs" />
     <Compile Include="Services\RepositorioTituloRecorrente.cs" />
     <Compile Include="Services\RepositorioTransferencia.cs" />
   </ItemGroup>
