@@ -56,9 +56,12 @@ Begin
 	close cur
 	deallocate cur
 
-	select tv.TituloRecorrenteId, tv.nome, tv.DataVencimento, tv.Valor, tv.CategoriaId,	tv.PessoaId, tv.CentroCustoId, t.id as IdTitulo
+	select tv.TituloRecorrenteId, tv.nome, tv.DataVencimento, tv.Valor, tv.CategoriaId,	tv.PessoaId, tv.CentroCustoId, null as IdTitulo
 	from @titulo_virtual as tv
-	left join Titulo as t on t.TituloRecorrenteId = tv.TituloRecorrenteId and tv.DataVencimento = t.DataVencimento
+	where not exists(select 1
+					from Titulo as T
+					where tv.TituloRecorrenteId = T.TituloRecorrenteId 
+					and convert(date,tv.DataVencimento) = convert(date,T.DataVencimento))
 	union
 
 	select TituloRecorrenteId, Descricao, DataVencimento, Valor, CategoriaId, PessoaId, CentroCustoId, Id
