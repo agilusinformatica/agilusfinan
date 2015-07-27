@@ -148,7 +148,7 @@
     <Compile Include="Controllers\TipoPessoaController.cs" />
     <Compile Include="Controllers\TipoTelefoneController.cs" />
     <Compile Include="Controllers\TituloRecorrenteController.cs" />
-    <Compile Include="Controllers\TitulosPendentesController.cs" />
+    <Compile Include="Controllers\TituloPendenteController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -245,7 +245,9 @@
     <Content Include="Views\Titulo\Liquidar.cshtml" />
     <Content Include="Views\Conta\Edit.cshtml" />
     <Content Include="Views\Conta\Delete.cshtml" />
-    <Content Include="Views\TitulosPendentes\Index.cshtml" />
+    <Content Include="Views\TituloPendente\Index.cshtml" />
+    <Content Include="Views\TituloPendente\Liquidar.cshtml" />
+    <Content Include="Views\TituloPendente\_Liquidacao.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

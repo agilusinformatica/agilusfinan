@@ -55,7 +55,7 @@ BEGIN
 			set @data_base = @data_base-1
 		END
 		
-      if (@data_base between @data_inicial and @data_final and @data_base >= @data_primeiro_vencimento) 
+      if (@data_base >= @data_inicial and @data_base < @data_final+1 and @data_base >= @data_primeiro_vencimento) 
 			insert into @vencimentos(data_vencimento)
 			select @data_base
 			where not exists (

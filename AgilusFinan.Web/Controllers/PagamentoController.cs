@@ -40,7 +40,6 @@ namespace AgilusFinan.Web.Controllers
 
         private void GerarLista()
         {
-            
             ViewBag.TipoTitulo = "Pagamento";
         }
 
@@ -103,6 +102,7 @@ namespace AgilusFinan.Web.Controllers
         {
             var titulo = repo.BuscarPorId(id);
             var tituloVm = new TituloViewModel();
+            ViewBag.ContaId = new SelectList(new RepositorioConta().Listar(), "Id", "Nome"); //Lista de contas para qualquer título ser liquidado
             ModelToViewModel(titulo, tituloVm);
             ViewBag.TipoTitulo = "Pagamento";
             return View("~/Views/" + FolderViewName() + "/Liquidar.cshtml", tituloVm);

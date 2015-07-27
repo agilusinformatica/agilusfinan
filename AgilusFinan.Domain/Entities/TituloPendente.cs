@@ -5,7 +5,7 @@ using System.Text;
 
 namespace AgilusFinan.Domain.Entities
 {
-    public class TituloPendente : Padrao
+    public class TituloPendente
     {
         public int? TituloRecorrenteId { get; set; }
         public string nome { get; set; }
@@ -14,5 +14,6 @@ namespace AgilusFinan.Domain.Entities
         public int CategoriaId { get; set; }
         public int PessoaId { get; set; }
         public int? CentroCustoId { get; set; }
+        public int? IdTitulo { get; set; }
     }
 }

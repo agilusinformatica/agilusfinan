@@ -9,16 +9,16 @@ using System.Text;
 
 namespace AgilusFinan.Infra.Services
 {
-    public class GeradorTitulosPendentes
+    public static class GeradorTitulosPendentes
     {
-        public List<TituloPendente> ChamarProcedimento(int idEmpresa, DateTime dataInicial, DateTime dataFinal)
+        public static List<TituloPendente> ChamarProcedimento(DateTime dataInicial, DateTime dataFinal)
         {
             List<TituloPendente> Lista = new List<TituloPendente>();
 
             using (Contexto context = new Contexto())
             {
                 Lista = context.Database.SqlQuery<TituloPendente>("pr_cria_titulo_virtual @id_empresa, @data_inicial_analise, @data_final_analise",
-                new SqlParameter("@id_empresa", idEmpresa),
+                new SqlParameter("@id_empresa", context.EmpresaId),
                 new SqlParameter("@data_inicial_analise", dataInicial),
                 new SqlParameter("@data_final_analise", dataFinal)).ToList();
             }

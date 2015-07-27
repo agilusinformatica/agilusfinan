@@ -56,8 +56,19 @@ Begin
 	close cur
 	deallocate cur
 
-	select TituloRecorrenteId,nome,	DataVencimento,	Valor, CategoriaId,	PessoaId, CentroCustoId
-	from @titulo_virtual
+	select tv.TituloRecorrenteId, tv.nome, tv.DataVencimento, tv.Valor, tv.CategoriaId,	tv.PessoaId, tv.CentroCustoId, t.id as IdTitulo
+	from @titulo_virtual as tv
+	left join Titulo as t on t.TituloRecorrenteId = tv.TituloRecorrenteId and tv.DataVencimento = t.DataVencimento
+	union
+
+	select TituloRecorrenteId, Descricao, DataVencimento, Valor, CategoriaId, PessoaId, CentroCustoId, Id
+	from Titulo as T
+	where not exists(select sum(valor) as valor
+					from Liquidacao as L
+					where T.Id = L.TituloId
+					group by L.TituloId
+					having sum(valor) = T.valor)
+	order by DataVencimento
 end
 
 GO

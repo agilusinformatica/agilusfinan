@@ -51,7 +51,15 @@
             @Html.DisplayFor(modelItem => item.CentroCustoId)
         </td>
         <td>
-            @Html.ActionLink("Liquidar", "Liquidar", new { /* id=item.PrimaryKey */ })
+            @if (!String.IsNullOrEmpty(item.IdTitulo.ToString()))
+            {
+                @Html.ActionLink("Liquidar", "../Pagamento/Liquidar", new { id = item.IdTitulo }) 
+            }
+            else
+            {
+                @Html.ActionLink("Liquidar", "Liquidar", new {dataVencimento = item.DataVencimento, tituloRecorrenteId = item.TituloRecorrenteId })  
+            }
+            
         </td>
     </tr>
 }
