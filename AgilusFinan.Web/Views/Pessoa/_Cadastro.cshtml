@@ -96,8 +96,8 @@
     for (var i = 0; i < tipos.length; i++) {
         elementos.push(new SelectElement(tipos[i].Id, tipos[i].Nome));
     }
-    tabTelefones.Columns.push(new ColumnTable('DDD', 'Ddd', ColumnType.text, null, null, 'form-control'));
-    tabTelefones.Columns.push(new ColumnTable('Número', 'Numero', ColumnType.text, null, null, 'form-control'));
+    tabTelefones.Columns.push(new ColumnTable('DDD', 'Ddd', ColumnType.text, null, '00', 'form-control'));
+    tabTelefones.Columns.push(new ColumnTable('Número', 'Numero', ColumnType.text, null, 'telefone', 'form-control'));
     tabTelefones.Columns.push(new ColumnTable('Tipo', 'TipoTelefoneId', ColumnType.list, elementos, null, 'form-control'));
 
     tabTelefones.jsonData = '@Html.Raw(Json.Encode(Model.Telefones))';

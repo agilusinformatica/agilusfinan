@@ -124,6 +124,9 @@ var CellTable = (function () {
             this.control = checkbox;
         }
 
+        if (this.column.Mask)
+            Utils.createMask(this.control, this.column.Mask);
+
         return cell;
     };
     return CellTable;
