@@ -57,6 +57,7 @@ namespace AgilusFinan.Web.Controllers
             viewModel.Descricao = model.Descricao;
             viewModel.Valor = model.Valor;
             viewModel.Observacao = model.Observacao;
+            viewModel.TituloRecorrenteId = model.TituloRecorrenteId;
 
             foreach (var l in model.Liquidacoes)
             {
@@ -84,6 +85,7 @@ namespace AgilusFinan.Web.Controllers
             model.Descricao = viewModel.Descricao;
             model.Valor = viewModel.Valor;
             model.Observacao = viewModel.Observacao;
+            model.TituloRecorrenteId = viewModel.TituloRecorrenteId;
 
             foreach (var l in viewModel.Liquidacoes)
             {
@@ -103,8 +105,9 @@ namespace AgilusFinan.Web.Controllers
         {
             var titulo = repo.BuscarPorId(id);
             var tituloVm = new TituloViewModel();
+            ViewBag.ContaId = new SelectList(new RepositorioConta().Listar(), "Id", "Nome", new RepositorioPadrao<Titulo>().BuscarPorId(id).ContaId);
             ModelToViewModel(titulo, tituloVm);
-            ViewBag.TipoTitulo = "Pagamento";
+            ViewBag.TipoTitulo = "Recebimento";
             return View("~/Views/" + FolderViewName() + "/Liquidar.cshtml", tituloVm);
         }
 

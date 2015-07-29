@@ -252,8 +252,6 @@
     <Content Include="Views\Conta\Edit.cshtml" />
     <Content Include="Views\Conta\Delete.cshtml" />
     <Content Include="Views\TituloPendente\Index.cshtml" />
-    <Content Include="Views\TituloPendente\Liquidar.cshtml" />
-    <Content Include="Views\TituloPendente\_Liquidacao.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
