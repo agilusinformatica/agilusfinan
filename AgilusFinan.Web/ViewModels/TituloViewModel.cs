@@ -25,6 +25,7 @@ namespace AgilusFinan.Web.ViewModels
         [DisplayFormat(NullDisplayText = "", DataFormatString = "{0:yyyy-MM-dd}")]
         public DateTime? Competencia { get; set; }
         public string Observacao { get; set; }
+        public int? TituloRecorrenteId { get; set; }
         
         public List<LiquidacaoViewModel> Liquidacoes { get; set; }
 

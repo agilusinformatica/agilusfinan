@@ -22,7 +22,7 @@ namespace AgilusFinan.Domain.Entities
         public int PessoaId { get; set; }
         public int CategoriaId { get; set; }
         public int? CentroCustoId { get; set; }
-        public virtual DateTime DataCadastro { get; set; }
+        public virtual DateTime DataCadastro { get { return DateTime.Now.Date; } set {} }
 
         public virtual IList<Titulo> Titulos { get; set; }
 

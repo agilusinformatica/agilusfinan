@@ -6,7 +6,8 @@
     @Html.AntiForgeryToken()
 
     @Html.HiddenFor(model => model.Id)
-
+    @Html.HiddenFor(model => model.TituloRecorrenteId)
+    
     <div class="form-horizontal">
         <h4>Titulo</h4>
         <hr />
@@ -129,6 +130,7 @@
         var titulo = {};
 
         titulo.Id = $('#Id').val();
+        titulo.TituloRecorrenteId = $('#TituloRecorrenteId').val();
         titulo.ContaId = $('#ContaId').val();
         titulo.DataVencimento = $('#DataVencimento').val();
         titulo.Descricao = $('#Descricao').val();

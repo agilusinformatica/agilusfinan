@@ -28,6 +28,9 @@
 
 <script type="text/javascript">
 
+    Utils.createMask(document.getElementById("@(nomePropriedade + "_" + "Cep")"), '00000-000');
+
+
     function limpa_formulário_cep() {
             //Limpa valores do formulário de cep.
         document.getElementById('@(nomePropriedade + "_" + "Logradouro")').value = ("");

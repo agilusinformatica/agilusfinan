@@ -114,7 +114,7 @@ class CellTable {
                 select.add(option);
                 cell.appendChild(select);                
             }
-            this.control = select;
+            this.control = select;            
         }
 
         if (this.column.Type === ColumnType.boolean) {
@@ -126,6 +126,8 @@ class CellTable {
             cell.appendChild(checkbox);
             this.control = checkbox;
         }
+
+        if(this.column.Mask) Utils.createMask(this.control, this.column.Mask);
 
         return cell;
     }

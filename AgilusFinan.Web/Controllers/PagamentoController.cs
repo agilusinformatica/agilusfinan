@@ -56,6 +56,7 @@ namespace AgilusFinan.Web.Controllers
             viewModel.Descricao = model.Descricao;
             viewModel.Valor = model.Valor;
             viewModel.Observacao = model.Observacao;
+            viewModel.TituloRecorrenteId = model.TituloRecorrenteId;
 
             foreach (var l in model.Liquidacoes)
             {
@@ -83,6 +84,7 @@ namespace AgilusFinan.Web.Controllers
             model.Descricao = viewModel.Descricao;
             model.Valor = viewModel.Valor;
             model.Observacao = viewModel.Observacao;
+            model.TituloRecorrenteId = viewModel.TituloRecorrenteId;
 
             foreach (var l in viewModel.Liquidacoes)
             {
