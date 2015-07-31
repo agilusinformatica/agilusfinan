@@ -125,11 +125,11 @@ var CellTable = (function () {
             this.control = checkbox;
         }
 
-        if (this.column.Mask)
+        if (this.column.Mask) {
             Utils.createMask(this.control, this.column.Mask);
+        }
+        ;
 
-        //var tooltip = document.createAttribute = 'data-toggle="tooltip" data-placement="left" title="Tooltip on left"';
-        //this.control.setAttribute = this.control.setAttribute + ' ' + tooltip;
         return cell;
     };
     return CellTable;
@@ -193,7 +193,7 @@ var HelloTable = (function () {
 
             for (var i in obj) {
                 var valor = obj[i].Valor;
-                obj[i].Valor = Utils.converteFormatoMoeda(obj[i].Valor);
+                obj[i].Valor = Utils.moneyFormatConvert(obj[i].Valor);
             }
 
             this.data = obj;

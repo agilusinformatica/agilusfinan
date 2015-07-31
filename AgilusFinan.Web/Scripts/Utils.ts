@@ -1,7 +1,9 @@
 ﻿module Utils {
     declare var $;
     declare var RegExp;
-    export function createMask(input: HTMLInputElement, mask?: any) {        
+
+    export function createMask(input: HTMLInputElement, mask: any) {          
+           
         switch (mask) {
 
             case "telefone":
@@ -14,9 +16,34 @@
                 });
                 break;
 
-            case "moeda":
-                input.addEventListener("input", e => {
-                    $(input).mask("000.000.000,00", { reverse: true });
+            case "moeda":                
+                $(input).mask("000.000.000,00", {
+                    onChange: function (e) {
+
+                        var once = true;      
+
+                        if (input.value.length === 0) {
+                            once = true;
+                        }
+
+                        if ((input.value.length === 1 && once) && event.keyCode != 8) {
+                            console.log(e.keyCode);
+                            input.value = '0,0' + input.value;
+                            once = false;
+                        }
+
+                        if ((input.value.length === 2 || input.value.length === 3) && event.keyCode != 8) {
+                            input.value = '0,' + input.value;                            
+                        }
+
+                        if (input.value.length > 5) {
+                            input.value = input.value.replace(/^0+/, "");
+                        } else {
+                            input.value = input.value.replace(/^0+(?=\d)\.?/, "");
+                        }
+                    },
+                    reverse: true,
+                    watchInterval: 200
                 });
                 break;
 
@@ -33,23 +60,20 @@
         }
     }
 
-    export function converteFormatoMoeda(valor: number) {
+    export function moneyFormatConvert(value: number) {
         var joined,
             temp = [],
-            inteiros = new RegExp(/\d+(?=\.|$)/g).exec(valor),
-            decimais = new RegExp(/[(?=\.)](\d+$)/g).exec(valor),
-            tamanho = inteiros.toString().length,
+            inteiros = new RegExp(/\d+(?=\.|$)/g).exec(value)[0],
+            regDec = new RegExp(/[(?=\.)](\d+$)/g).exec(value),
+            decimais = regDec === null? '': regDec[0],
+            tamanhoInt = inteiros.length,
             separadorLen = 3,
-            resto = tamanho % separadorLen,
+            resto = tamanhoInt % separadorLen,
             i = 0,
-            total = inteiros.length + resto + tamanho
-            temp = inteiros.toString().split('');
+            total = resto + tamanhoInt
+            temp = inteiros.split('');
 
-        console.log(decimais);
-            
-        //if (!valor) throw 'Valor Nulo';
-        //var inteiros = new RegExp(/\d+(?=\,)/).exec(valor).toString();
-        if (tamanho > separadorLen) {
+        if (tamanhoInt > separadorLen) {
             while (i < total - separadorLen) {
 
                 if (i === 0 && resto !== 0) {
@@ -60,23 +84,19 @@
                     temp.splice(i, 0, '.');
                     i++;
                 }
-
                 i += separadorLen;
             }
 
             joined = temp.join('')
 
         } else {
-            joined = valor;
+            joined = inteiros;
         }
-        console.log(joined);
         if (decimais) {
-            console.log(decimais[0].replace(".", ","));
-            joined += decimais[0].replace(".", ",") ;
+            joined = decimais.length === 2 ? joined += decimais.replace(".", ",") + "0" : joined += decimais.replace(".", ",");
         } else {
             joined += ",00";
-        }
-                         
+        }                         
         return joined;            
     }
 } 

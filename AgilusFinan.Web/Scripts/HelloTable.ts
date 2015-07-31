@@ -128,9 +128,9 @@ class CellTable {
             this.control = checkbox;
         }
 
-        if (this.column.Mask) Utils.createMask(this.control, this.column.Mask);
-        //var tooltip = document.createAttribute = 'data-toggle="tooltip" data-placement="left" title="Tooltip on left"';
-        //this.control.setAttribute = this.control.setAttribute + ' ' + tooltip;
+        if (this.column.Mask) {
+            Utils.createMask(this.control, this.column.Mask)
+        };
 
         return cell;
     }
@@ -198,7 +198,7 @@ class HelloTable {
 
         for (var i in obj) {
            var valor = obj[i].Valor;            
-           obj[i].Valor = Utils.converteFormatoMoeda(obj[i].Valor); 
+            obj[i].Valor = Utils.moneyFormatConvert(obj[i].Valor); 
         }
                 
         this.data = obj;
