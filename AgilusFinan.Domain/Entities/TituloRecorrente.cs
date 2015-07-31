@@ -11,6 +11,8 @@ namespace AgilusFinan.Domain.Entities
         public string Nome { get; set; }
         public int DiaVencimento { get; set; }
         public decimal? Valor { get; set; }
+        public int ContaId { get; set; }
+        public virtual Conta Conta { get; set; }
         public PeriodoRecorrencia Recorrencia { get; set; }
         public int? QtdeParcelas { get; set; }
         public bool Ativo { get; set; }
@@ -23,6 +25,8 @@ namespace AgilusFinan.Domain.Entities
         public virtual DateTime DataCadastro { get { return DateTime.Now.Date; } set {} }
 
         public virtual IList<Titulo> Titulos { get; set; }
+
+        
     }
 
     public enum PeriodoRecorrencia { Semanal, Quinzenal, Mensal, Bimestral, Trimestral, Semestral, Anual }

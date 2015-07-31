@@ -25,7 +25,7 @@ namespace AgilusFinan.Web.Controllers
         public ActionResult Liquidar(DateTime dataVencimento, int tituloRecorrenteId)
         {
             ViewBag.TipoTitulo = "TituloPendente";
-            ViewBag.ContaId = new SelectList(new RepositorioConta().Listar(), "Id", "Nome");
+            ViewBag.ContaId = new SelectList(new RepositorioConta().Listar(), "Id", "Nome", new RepositorioTituloRecorrente().BuscarPorId(tituloRecorrenteId).ContaId);
             RepositorioTituloRecorrente repo = new RepositorioTituloRecorrente();
             TituloRecorrente tituloR = repo.BuscarPorId(tituloRecorrenteId);
             TituloViewModel tituloVm =

@@ -10,9 +10,11 @@ namespace AgilusFinan.Web.Controllers
         protected override void PreInclusao()
         {
             base.PreInclusao();
+            ViewBag.ContaId = new SelectList(new RepositorioConta().Listar(), "Id", "Nome");
             ViewBag.PessoaId = new SelectList(new RepositorioPessoa().Listar(), "Id", "Nome");
             ViewBag.CategoriaId = new SelectList(new RepositorioCategoria().Listar(), "Id", "Nome");
             ViewBag.CentroCustoId = new SelectList(new RepositorioCentroCusto().Listar(), "Id", "Nome");
+
             ViewBag.ListaCategorias = Util.CategoriasIdentadas(null);
 
         }
@@ -20,6 +22,7 @@ namespace AgilusFinan.Web.Controllers
         protected override void PreAlteracao(TituloRecorrente model)
         {
             base.PreAlteracao(model);
+            ViewBag.ContaId = new SelectList(new RepositorioConta().Listar(), "Id", "Nome", model.ContaId);
             ViewBag.PessoaId = new SelectList(new RepositorioPessoa().Listar(), "Id", "Nome", model.PessoaId);
             ViewBag.CategoriaId = new SelectList(new RepositorioCategoria().Listar(), "Id", "Nome", model.CategoriaId);
             ViewBag.CentroCustoId = new SelectList(new RepositorioCentroCusto().Listar(), "Id", "Nome", model.CentroCustoId);
