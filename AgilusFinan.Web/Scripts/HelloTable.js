@@ -42,7 +42,8 @@ var CellTable = (function () {
         get: function () {
             if (this.column.Type === 0 /* text */ || this.column.Type === 1 /* date */ || this.column.Type === 2 /* number */ || this.column.Type === 5 /* hidden */) {
                 if (this.control.value.match(/\d+,\d+/g)) {
-                    return this.control.value.replace(",", ".");
+                    var valor = this.control.value.replace(".", "");
+                    return valor.replace(",", ".");
                 } else {
                     return this.control.value;
                 }
@@ -124,8 +125,10 @@ var CellTable = (function () {
             this.control = checkbox;
         }
 
-        if (this.column.Mask)
+        if (this.column.Mask) {
             Utils.createMask(this.control, this.column.Mask);
+        }
+        ;
 
         return cell;
     };
@@ -186,8 +189,14 @@ var HelloTable = (function () {
             return JSON.stringify(this.data);
         },
         set: function (jsonContent) {
-            var _obj = JSON.parse(jsonContent);
-            this.data = _obj;
+            var obj = JSON.parse(jsonContent);
+
+            for (var i in obj) {
+                var valor = obj[i].Valor;
+                obj[i].Valor = Utils.moneyFormatConvert(obj[i].Valor);
+            }
+
+            this.data = obj;
         },
         enumerable: true,
         configurable: true
