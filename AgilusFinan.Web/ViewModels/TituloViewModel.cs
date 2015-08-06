@@ -15,7 +15,7 @@ namespace AgilusFinan.Web.ViewModels
         [Display(Name = "Data de Vencimento")]
         public DateTime DataVencimento { get; set; }
         public String Descricao { get; set; }
-        public decimal Valor { get; set; }
+        public decimal? Valor { get; set; }
         public int CategoriaId { get; set; }
         public Categoria Categoria { get; set; }
         public int PessoaId { get; set; }

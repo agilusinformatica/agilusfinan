@@ -83,7 +83,7 @@ namespace AgilusFinan.Web.Controllers
             model.ContaId = viewModel.ContaId;
             model.DataVencimento = viewModel.DataVencimento;
             model.Descricao = viewModel.Descricao;
-            model.Valor = viewModel.Valor;
+            model.Valor = viewModel.Valor > 0 ? (decimal)viewModel.Valor : 0 ;
             model.Observacao = viewModel.Observacao;
             model.TituloRecorrenteId = viewModel.TituloRecorrenteId;
 

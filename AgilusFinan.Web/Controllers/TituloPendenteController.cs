@@ -37,7 +37,7 @@ namespace AgilusFinan.Web.Controllers
                     CentroCustoId = tituloR.CentroCustoId,
                     DataVencimento = dataVencimento,
                     PessoaId = tituloR.PessoaId,
-                    Valor = tituloR.Valor > 0 ? (decimal)tituloR.Valor : 0
+                    Valor = tituloR.Valor
                 };
             return View("~/Views/Titulo/Liquidar.cshtml", tituloVm);
         }
@@ -67,7 +67,7 @@ namespace AgilusFinan.Web.Controllers
             model.Descricao = viewModel.Descricao;
             model.TituloRecorrenteId = viewModel.Id;
             model.PessoaId = viewModel.PessoaId;
-            model.Valor = viewModel.Valor;
+            model.Valor = viewModel.Valor != null ? (decimal)viewModel.Valor : viewModel.Liquidacoes.Sum(m => m.Valor);
             
            foreach (var l in viewModel.Liquidacoes)
             {
