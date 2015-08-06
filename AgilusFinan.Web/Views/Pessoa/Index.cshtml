@@ -21,7 +21,7 @@
             @Html.DisplayNameFor(model => model.Rg)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DataNascimento)
+            @Html.DisplayNameFor(model => model.DataNascimento);
         </th>
         <th></th>
     </tr>
@@ -31,7 +31,7 @@
         <td>
             @Html.DisplayFor(modelItem => item.Nome)
         </td>
-        <td>
+        <td id="Cpf">
             @Html.DisplayFor(modelItem => item.Cpf)
         </td>
         <td>
@@ -49,3 +49,7 @@
 }
 
 </table>
+
+<script>
+    Utils.createMask(document.getElementById("Cpf"), "cpf");
+</script>

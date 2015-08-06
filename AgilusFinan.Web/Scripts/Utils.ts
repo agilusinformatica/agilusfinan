@@ -48,12 +48,16 @@
                 break;
 
             case "cpf":
-                input.addEventListener("input", e => {
-                    $(input).mask("900.000.000-00", { reverse: true });
-                });
+                $(input).mask("900.000.000-00", { reverse: true });
+                break;
+
+            case "numero":
+                $(input).mask("#", {reverse:true});
+                break;
 
             case "":
-                console.log();
+                console.log("Vazio");
+                break;
 
             default:
                 if (mask) $(input).mask(mask);
