@@ -134,7 +134,7 @@
         titulo.ContaId = $('#ContaId').val();
         titulo.DataVencimento = $('#DataVencimento').val();
         titulo.Descricao = $('#Descricao').val();
-        titulo.Valor = $('#Valor').val().replace(',', '.');
+        titulo.Valor = $('#Valor').val().replace('.','').replace(',', '.');
         titulo.CategoriaId = $('#CategoriaId').val();
         titulo.PessoaId = $('#PessoaId').val();
         titulo.CentroCustoId = $('#CentroCustoId').val();
@@ -152,3 +152,6 @@
     @Scripts.Render("~/bundles/jqueryval")
 }
 
+<script>
+    Utils.createMask(document.getElementById("Valor"), "moeda");
+</script>
