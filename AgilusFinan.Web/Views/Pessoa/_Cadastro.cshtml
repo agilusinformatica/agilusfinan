@@ -119,8 +119,8 @@
         pessoa.Telefones = [{}];
         pessoa.Id = $('#Id').val();
         pessoa.Nome = $('#Nome').val();
-        pessoa.Cpf = $('#Cpf').unmask().val();
-        pessoa.Rg = $('#Rg').val();
+        pessoa.Cpf = $('#Cpf').cleanVal(); //cleanVal() - valor sem a máscara
+        pessoa.Rg = $('#Rg').cleanVal();
         pessoa.DataNascimento = $('#DataNascimento').val();
 
         pessoa.Endereco = {};
@@ -130,7 +130,7 @@
         pessoa.Endereco.Bairro = $('#Endereco_Bairro').val();
         pessoa.Endereco.Cidade = $('#Endereco_Cidade').val();
         pessoa.Endereco.Uf = $('#Endereco_Uf').val();
-        pessoa.Endereco.Cep = $('#Endereco_Cep').unmask().val();
+        pessoa.Endereco.Cep = $('#Endereco_Cep').cleanVal();
 
         pessoa.ContaBancaria = {};
         pessoa.ContaBancaria.BancoId = $('#ContaBancaria_BancoId').val();
@@ -138,7 +138,7 @@
         pessoa.ContaBancaria.Numero = $('#ContaBancaria_Numero').val();
         pessoa.ContaBancaria.Poupanca = document.getElementById('ContaBancaria_Poupanca').checked;
         pessoa.ContaBancaria.NomeTitular = $('#ContaBancaria_NomeTitular').val();
-        pessoa.ContaBancaria.CpfTitular = $('#ContaBancaria_CpfTitular').unmask().val();
+        pessoa.ContaBancaria.CpfTitular = $('#ContaBancaria_CpfTitular').cleanVal();
 
         pessoa.TiposPorPessoa = [{}];
 
@@ -156,6 +156,7 @@
     var mascarasPessoas = (function () {
         Utils.createMask(document.getElementById("Cpf"), "cpf");
         Utils.createMask(document.getElementById("ContaBancaria_CpfTitular"), "cpf");
+        Utils.createMask(document.getElementById("Rg"), "rg");
     })();
 
 </script>

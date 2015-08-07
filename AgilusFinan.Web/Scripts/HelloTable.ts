@@ -45,8 +45,8 @@ class CellTable {
     get Value() {
 
         if (this.column.Type === ColumnType.text || this.column.Type === ColumnType.date || this.column.Type === ColumnType.number || this.column.Type === ColumnType.hidden) {
-            if (this.control.value.match(/\d+,\d+/g)) {      
-                var valor = this.control.value.replace(".", "")                                           
+            if (this.control.value.match(/\d+,\d+/g)) {
+                var valor = this.control.value.replace(".", "");                                           
                 return valor.replace(",", ".");
             } else {
                 return this.control.value;    
@@ -129,7 +129,7 @@ class CellTable {
         }
 
         if (this.column.Mask) {
-            Utils.createMask(this.control, this.column.Mask)
+            Utils.createMask(this.control, this.column.Mask);
         };
 
         return cell;
@@ -194,14 +194,7 @@ class HelloTable {
     }
 
     set jsonData(jsonContent: string) {
-        var obj = JSON.parse(jsonContent);
-
-        for (var i in obj) {
-           var valor = obj[i].Valor;            
-            obj[i].Valor = Utils.moneyFormatConvert(obj[i].Valor); 
-        }
-                
-        this.data = obj;
+        this.data = JSON.parse(jsonContent);
     }
 
     get data() {

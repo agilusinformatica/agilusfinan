@@ -16,24 +16,27 @@
                 });
                 break;
 
-            case "moeda":                
+            case "moeda":
+                if (input.value) {
+                    input.value = Utils.moneyFormatConvert(input.value.replace(",", "."));
+                }
+
                 $(input).mask("000.000.000,00", {
                     onChange: function (e) {
-
-                        var once = true;      
+                        
+                        var once = false;      
 
                         if (input.value.length === 0) {
+                            //input.value = "";
                             once = true;
                         }
 
                         if ((input.value.length === 1 && once) && event.keyCode != 8) {
-                            console.log(e.keyCode);
-                            input.value = '0,0' + input.value;
-                            once = false;
+                            input.value = "0,0" + input.value;
                         }
 
                         if ((input.value.length === 2 || input.value.length === 3) && event.keyCode != 8) {
-                            input.value = '0,' + input.value;                            
+                            input.value = "0," + input.value;                            
                         }
 
                         if (input.value.length > 5) {
@@ -55,8 +58,8 @@
                 $(input).mask("#", {reverse:true});
                 break;
 
-            case "":
-                console.log("Vazio");
+            case "rg":
+                $(input).mask("900.000.000-0", { reverse: true });
                 break;
 
             default:
@@ -64,43 +67,43 @@
         }
     }
 
-    export function moneyFormatConvert(value: number) {
+    export function moneyFormatConvert(value: string) {
         var joined,
             temp = [],
-            inteiros = new RegExp(/\d+(?=\.|$)/g).exec(value)[0],
+            inteiros = new RegExp(/\d+(?=\.|$)/g).exec(value),
             regDec = new RegExp(/[(?=\.)](\d+$)/g).exec(value),
-            decimais = regDec === null? '': regDec[0],
-            tamanhoInt = inteiros.length,
+            decimais = regDec === null ? "" : regDec[0],
+            tamanhoInt = inteiros[0].length,
             separadorLen = 3,
             resto = tamanhoInt % separadorLen,
             i = 0,
-            total = resto + tamanhoInt
-            temp = inteiros.split('');
+            total = resto + tamanhoInt;
+            temp = inteiros[0].split("");
 
         if (tamanhoInt > separadorLen) {
             while (i < total - separadorLen) {
 
                 if (i === 0 && resto !== 0) {
-                    temp.splice(resto, 0, '.');
+                    temp.splice(resto, 0, ".");
                     i += resto + 1;
                 } else {
                     i = resto === 0 && i === 0 ? i + separadorLen : i;
-                    temp.splice(i, 0, '.');
+                    temp.splice(i, 0, ".");
                     i++;
                 }
                 i += separadorLen;
             }
-
-            joined = temp.join('')
-
+            joined = temp.join("");
         } else {
-            joined = inteiros;
+                joined = inteiros;
+                
         }
-        if (decimais) {
+        if (decimais !== "") {
             joined = decimais.length === 2 ? joined += decimais.replace(".", ",") + "0" : joined += decimais.replace(".", ",");
         } else {
-            joined += ",00";
-        }                         
+            joined += ",00";            
+        }
+        console.log(joined);
         return joined;            
     }
 } 

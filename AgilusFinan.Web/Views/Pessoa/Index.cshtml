@@ -34,7 +34,7 @@
         <td id="Cpf">
             @Html.DisplayFor(modelItem => item.Cpf)
         </td>
-        <td>
+        <td id="Rg">
             @Html.DisplayFor(modelItem => item.Rg)
         </td>
         <td>
@@ -51,5 +51,8 @@
 </table>
 
 <script>
-    Utils.createMask(document.getElementById("Cpf"), "cpf");
+    (function () {
+        Utils.createMask(document.getElementById("Cpf"), "cpf");
+        Utils.createMask(document.getElementById("Rg"), "rg");
+    })();
 </script>

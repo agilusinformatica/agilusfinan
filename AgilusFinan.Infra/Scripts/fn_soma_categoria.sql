@@ -35,7 +35,7 @@ begin
 
 	While @@FETCH_STATUS = 0
 	begin
-		set @soma = isnull(@soma,0) + dbo.fn_soma_categoria(@idFilha, @data_inicial, @data_final)
+		set @soma = isnull(@soma,0) + isnull(dbo.fn_soma_categoria(@idFilha, @data_inicial, @data_final),0)
 		fetch curSoma into @idFilha
 	end
 

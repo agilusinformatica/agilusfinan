@@ -189,14 +189,7 @@ var HelloTable = (function () {
             return JSON.stringify(this.data);
         },
         set: function (jsonContent) {
-            var obj = JSON.parse(jsonContent);
-
-            for (var i in obj) {
-                var valor = obj[i].Valor;
-                obj[i].Valor = Utils.moneyFormatConvert(obj[i].Valor);
-            }
-
-            this.data = obj;
+            this.data = JSON.parse(jsonContent);
         },
         enumerable: true,
         configurable: true
