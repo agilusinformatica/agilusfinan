@@ -173,6 +173,10 @@
     <Compile Include="Migrations\201508071614151_CriacaoFunctionSomaCategoria.Designer.cs">
       <DependentUpon>201508071614151_CriacaoFunctionSomaCategoria.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201508071957133_CriacaoProcedureConsultaResumoTituloCategoria.cs" />
+    <Compile Include="Migrations\201508071957133_CriacaoProcedureConsultaResumoTituloCategoria.Designer.cs">
+      <DependentUpon>201508071957133_CriacaoProcedureConsultaResumoTituloCategoria.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\GeradorTitulosPendentes.cs" />
@@ -293,10 +297,14 @@
     <EmbeddedResource Include="Migrations\201508071614151_CriacaoFunctionSomaCategoria.resx">
       <DependentUpon>201508071614151_CriacaoFunctionSomaCategoria.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508071957133_CriacaoProcedureConsultaResumoTituloCategoria.resx">
+      <DependentUpon>201508071957133_CriacaoProcedureConsultaResumoTituloCategoria.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\fn_gerador_vencimentos.sql" />
     <Content Include="Scripts\fn_soma_categoria.sql" />
+    <Content Include="Scripts\pr_resumo_titulo_categoria.sql" />
     <Content Include="Scripts\pr_cria_titulo_virtual.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
