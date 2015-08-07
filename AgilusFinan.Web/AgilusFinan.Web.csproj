@@ -145,6 +145,7 @@
     <Compile Include="Controllers\PagamentoController.cs" />
     <Compile Include="Controllers\PessoaController.cs" />
     <Compile Include="Controllers\RecebimentoController.cs" />
+    <Compile Include="Controllers\ResumoTituloCategoriaController.cs" />
     <Compile Include="Controllers\TipoPessoaController.cs" />
     <Compile Include="Controllers\TipoTelefoneController.cs" />
     <Compile Include="Controllers\TituloRecorrenteController.cs" />
@@ -254,6 +255,7 @@
     <Content Include="Views\Conta\Edit.cshtml" />
     <Content Include="Views\Conta\Delete.cshtml" />
     <Content Include="Views\TituloPendente\Index.cshtml" />
+    <Content Include="Views\ResumoTituloCategoria\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
