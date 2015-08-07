@@ -45,6 +45,7 @@
     <Compile Include="Entities\Liquidacao.cs" />
     <Compile Include="Entities\Padrao.cs" />
     <Compile Include="Entities\Pessoa.cs" />
+    <Compile Include="Entities\ResumoTituloCategoria.cs" />
     <Compile Include="Entities\Telefone.cs" />
     <Compile Include="Entities\TelefonePessoa.cs" />
     <Compile Include="Entities\TipoPessoa.cs" />

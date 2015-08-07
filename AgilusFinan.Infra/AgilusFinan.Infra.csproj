@@ -179,6 +179,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\GeradorResumoTituloCategoria.cs" />
     <Compile Include="Services\GeradorTitulosPendentes.cs" />
     <Compile Include="Services\RepositorioBanco.cs" />
     <Compile Include="Services\RepositorioCategoria.cs" />
