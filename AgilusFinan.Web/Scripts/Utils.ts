@@ -2,6 +2,15 @@
     declare var $;
     declare var RegExp;
 
+    //Cria mascara de um lista de Inputs, selecionados pela classe (document.getElementsByClassName("classe"))
+    export function createMaskClass(input: Array<HTMLInputElement>, mask: any) {
+        for (var element in input) {
+            if (input.hasOwnProperty(element)) {
+                createMask(input[element], mask);
+            }
+        }
+    }
+
     export function createMask(input: HTMLInputElement, mask: any) {          
            
         switch (mask) {
