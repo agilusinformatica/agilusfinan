@@ -8,7 +8,7 @@ using System.Data.SqlClient;
 
 namespace AgilusFinan.Infra.Services
 {
-    public class GeradorResumoTituloCategoria
+    public static class GeradorResumoTituloCategoria
     {
 
         public static List<ResumoTituloCategoria> ChamarProcedimentoResumoCategoria(DateTime dataInicial, DateTime dataFinal)
