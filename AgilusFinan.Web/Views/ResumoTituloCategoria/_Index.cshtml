@@ -1,0 +1,42 @@
+﻿@model IEnumerable<AgilusFinan.Domain.Entities.ResumoTituloCategoria>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Resumo de Títulos</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Valor)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                <div id="selectedcolor" style="background-color: #@item.Cor.ToString("X").PadLeft(6,'0'); width: 100px; height: 20px;"></div>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Valor)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+    }
+
+</table>
+

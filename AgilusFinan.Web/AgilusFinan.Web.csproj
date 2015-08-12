@@ -254,8 +254,8 @@
     <Content Include="Views\Titulo\Liquidar.cshtml" />
     <Content Include="Views\Conta\Edit.cshtml" />
     <Content Include="Views\Conta\Delete.cshtml" />
-    <Content Include="Views\TituloPendente\Index.cshtml" />
-    <Content Include="Views\ResumoTituloCategoria\Index.cshtml" />
+    <Content Include="Views\ResumoTituloCategoria\_Index.cshtml" />
+    <Content Include="Views\TituloPendente\_Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
