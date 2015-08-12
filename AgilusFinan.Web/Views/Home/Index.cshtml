@@ -17,7 +17,7 @@
     (function(){
     
         var result = $.ajax({
-            url: "ResumoTituloCategoria",
+            url: "../ResumoTituloCategoria",
             method: "GET",
             beforeSend: function () {
                 $("#resumoTitulos").html('<img src="/Content/Images/loading.gif">');
@@ -33,7 +33,7 @@
         });
 
         var result2 = $.ajax({
-            url: "TituloPendente",
+            url: "../TituloPendente",
             method: "GET",
             beforeSend: function () {
                 $("#TitulosPendentes").html('<img src="/Content/Images/loading.gif">');
