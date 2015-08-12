@@ -2,6 +2,7 @@
     ViewBag.Title = "Home Page";
 }
 
+
 <div class="row">
     <div class="col-md-4" id="resumoTitulos">
     </div>
@@ -13,7 +14,7 @@
 
 <script>
 
-    var teste = (function(){
+    (function(){
     
         var result = $.ajax({
             url: "ResumoTituloCategoria",
@@ -46,10 +47,5 @@
                 $("#TitulosPendentes").html(e);
             }
         });
-
-        return {
-            result1: result
-        }
-
     })();
 </script>
