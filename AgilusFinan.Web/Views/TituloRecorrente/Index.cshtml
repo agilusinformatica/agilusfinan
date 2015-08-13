@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<AgilusFinan.Domain.Entities.TituloRecorrente>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Títulos Recorrentes";
 }
 
-<h2>Index</h2>
+<h2>Títulos Recorrentes</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Adicionar", "Create")
 </p>
 <table class="table">
     <tr>
@@ -83,9 +83,8 @@
             @Html.DisplayFor(modelItem => item.Ativo)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("Alterar", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Excluir", "Delete", new { id=item.Id })
         </td>
     </tr>
 }

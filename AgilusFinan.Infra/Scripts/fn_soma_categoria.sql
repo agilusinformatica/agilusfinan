@@ -42,5 +42,5 @@ begin
 	close curSoma
 	deallocate curSoma
 
-	return @soma
+	return isnull(@soma,0)
 end

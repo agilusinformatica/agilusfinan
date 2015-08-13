@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<AgilusFinan.Domain.Entities.Conta>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Contas";
 }
 
-<h2>Index</h2>
+<h2>Contas</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Adicionar", "Create")
 </p>
 <table class="table">
     <tr>
@@ -77,8 +77,8 @@
             @Html.DisplayFor(modelItem => item.CodigoCedente)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("Alterar", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Excluir", "Delete", new { id=item.Id })
         </td>
     </tr>
 }

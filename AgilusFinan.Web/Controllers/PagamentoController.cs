@@ -43,6 +43,12 @@ namespace AgilusFinan.Web.Controllers
             ViewBag.TipoTitulo = "Pagamento";
         }
 
+        protected override void PreListagem()
+        {
+            base.PreListagem();
+            GerarLista();
+        }
+
         protected override void ModelToViewModel(Titulo model, TituloViewModel viewModel)
         {
             base.ModelToViewModel(model, viewModel);

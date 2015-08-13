@@ -4,7 +4,7 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Resumo de Títulos</h2>
+<div class="panel-heading">Resumo de Títulos</div>
 
 <table class="table">
     <tr>
@@ -33,7 +33,7 @@
                 @Html.DisplayFor(modelItem => item.Valor)
             </td>
             <td>
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Detalhes", "Details", new { /* id=item.PrimaryKey */ })
             </td>
         </tr>
     }
