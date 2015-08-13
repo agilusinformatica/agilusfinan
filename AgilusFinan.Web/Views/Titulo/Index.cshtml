@@ -11,10 +11,13 @@
 <table class="table">
     <tr>
         <th>
-            Categoria
+            @Html.DisplayNameFor(model => model.DataVencimento)
         </th>
         <th>
-            Centro de Custo
+            @Html.DisplayNameFor(model => model.Descricao)
+        </th>
+        <th>
+            Categoria
         </th>
         <th>
             Conta
@@ -23,16 +26,7 @@
             Pessoa
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DataVencimento)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Descricao)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Valor)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Competencia)
         </th>
         <th>
             Pago?
@@ -43,10 +37,13 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Categoria.Nome)
+            @Html.DisplayFor(modelItem => item.DataVencimento.GetDateTimeFormats()[0])
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CentroCusto.Nome)
+            @Html.DisplayFor(modelItem => item.Descricao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Categoria.Nome)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Conta.Nome)
@@ -55,16 +52,7 @@
             @Html.DisplayFor(modelItem => item.Pessoa.Nome)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.DataVencimento.GetDateTimeFormats()[0])
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Descricao)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Valor)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Competencia)
         </td>
         <td>
             @if (item.Liquidado == "Pago")

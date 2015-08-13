@@ -18,9 +18,9 @@ namespace AgilusFinan.Infra.Services
             using (Contexto context = new Contexto())
             {
                 Lista = context.Database.SqlQuery<TituloPendente>("pr_cria_titulo_virtual @id_empresa, @data_inicial_analise, @data_final_analise",
-                new SqlParameter("@id_empresa", context.EmpresaId),
-                new SqlParameter("@data_inicial_analise", dataInicial),
-                new SqlParameter("@data_final_analise", dataFinal)).ToList();
+                            new SqlParameter("@id_empresa", context.EmpresaId),
+                            new SqlParameter("@data_inicial_analise", dataInicial),
+                            new SqlParameter("@data_final_analise", dataFinal)).ToList();
             }
             return Lista;
         }

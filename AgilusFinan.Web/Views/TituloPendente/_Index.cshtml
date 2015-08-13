@@ -5,25 +5,19 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.TituloRecorrenteId)
+            Descrição
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.nome)
+            Vencimento
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DataVencimento)
+            Valor
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Valor)
+            Categoria
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CategoriaId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PessoaId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CentroCustoId)
+            Pessoa
         </th>
         <th></th>
     </tr>
@@ -32,16 +26,12 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.TituloRecorrenteId)
-            </td>
-
-            <td>
                 @Html.DisplayFor(modelItem => item.nome)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DataVencimento)
+                @item.DataVencimento.ToString("d")
             </td>
-            <td>
+            <td align="right">
                 @Html.DisplayFor(modelItem => item.Valor)
             </td>
             <td>
@@ -49,9 +39,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.PessoaId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CentroCustoId)
             </td>
             <td>
                 @if (!String.IsNullOrEmpty(item.IdTitulo.ToString()))

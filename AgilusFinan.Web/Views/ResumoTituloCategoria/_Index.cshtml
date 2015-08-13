@@ -9,10 +9,10 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Nome)
+            Categoria
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Cor)
+            
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Valor)
@@ -27,13 +27,13 @@
                 @Html.DisplayFor(modelItem => item.Nome)
             </td>
             <td>
-                <div id="selectedcolor" style="background-color: #@item.Cor.ToString("X").PadLeft(6,'0'); width: 80%; height: 20px;"></div>
+                <div style="background-color: #@item.Cor.ToString("X").PadLeft(6,'0'); width: 20px; height: 20px;"></div>
             </td>
-            <td>
+            <td align="right">
                 @Html.DisplayFor(modelItem => item.Valor)
             </td>
             <td>
-                @Html.ActionLink("Detalhes", "Details", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Detalhes", "Details")
             </td>
         </tr>
     }
