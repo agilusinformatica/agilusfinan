@@ -71,6 +71,8 @@ Begin
 					where T.Id = L.TituloId
 					group by L.TituloId
 					having sum(valor) = T.valor)
+	and DataVencimento >= @data_inicial_analise
+	and DataVencimento < @data_final_analise+1
 	order by DataVencimento
 end
 

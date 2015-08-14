@@ -177,6 +177,10 @@
     <Compile Include="Migrations\201508071957133_CriacaoProcedureConsultaResumoTituloCategoria.Designer.cs">
       <DependentUpon>201508071957133_CriacaoProcedureConsultaResumoTituloCategoria.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201508141907074_ConsertoProcedureCriaTituloVirtual.cs" />
+    <Compile Include="Migrations\201508141907074_ConsertoProcedureCriaTituloVirtual.Designer.cs">
+      <DependentUpon>201508141907074_ConsertoProcedureCriaTituloVirtual.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\GeradorResumoTituloCategoria.cs" />
@@ -300,6 +304,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201508071957133_CriacaoProcedureConsultaResumoTituloCategoria.resx">
       <DependentUpon>201508071957133_CriacaoProcedureConsultaResumoTituloCategoria.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508141907074_ConsertoProcedureCriaTituloVirtual.resx">
+      <DependentUpon>201508141907074_ConsertoProcedureCriaTituloVirtual.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
