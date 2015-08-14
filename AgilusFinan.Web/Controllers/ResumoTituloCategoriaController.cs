@@ -12,10 +12,11 @@ namespace AgilusFinan.Web.Controllers
     public class ResumoTituloCategoriaController : Controller
     {
         // GET: ResumoTituloCategoria
-        public PartialViewResult Index()
+        public PartialViewResult Index(DateTime dataInicial, DateTime dataFinal)
         {
-            DateTime dataInicial = DateTime.Now.AddDays(-DateTime.Now.Day).AddDays(1).Date,
-                     dataFinal = dataInicial.AddMonths(1).AddDays(-1).Date;
+            //dataInicial = DateTime.Now.AddDays(-DateTime.Now.Day).AddDays(1).Date;
+
+           //dataFinal = dataInicial.AddMonths(1).AddDays(-1).Date;
 
             var identadas = from c in Util.CategoriasIdentadas(null)
                             join g in GeradorResumoTituloCategoria.ChamarProcedimentoResumoCategoria(dataInicial, dataFinal) on c.Key equals g.CategoriaId

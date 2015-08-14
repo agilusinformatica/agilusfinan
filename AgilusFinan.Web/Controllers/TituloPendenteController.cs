@@ -13,10 +13,10 @@ namespace AgilusFinan.Web.Controllers
     public class TituloPendenteController : Controller
     {
         // GET: TitulosPendentes
-        public PartialViewResult Index()
+        public PartialViewResult Index(DateTime dataInicial, DateTime dataFinal)
         {
-            DateTime dataInicial = DateTime.Now.AddDays(-DateTime.Now.Day).AddDays(1).Date, 
-                     dataFinal = dataInicial.AddMonths(1).AddDays(-1).Date;
+            //DateTime dataInicial = DateTime.Now.AddDays(-DateTime.Now.Day).AddDays(1).Date, 
+                     //dataFinal = dataInicial.AddMonths(1).AddDays(-1).Date;
 
             return PartialView("~/Views/TituloPendente/_Index.cshtml", GeradorTitulosPendentes.ChamarProcedimento(dataInicial, dataFinal));
         }

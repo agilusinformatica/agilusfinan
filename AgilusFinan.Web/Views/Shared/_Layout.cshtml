@@ -43,9 +43,12 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Agilus Informática</p>
-        </footer>
+        <div id="footer">
+            <footer>
+                <p>&copy; @DateTime.Now.Year - Agilus Informática</p>
+            </footer>
+        </div>
+
     </div>
     
     @Scripts.Render("~/bundles/bootstrap")
