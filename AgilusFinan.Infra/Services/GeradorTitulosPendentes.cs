@@ -17,10 +17,10 @@ namespace AgilusFinan.Infra.Services
 
             using (Contexto context = new Contexto())
             {
-                Lista = context.Database.SqlQuery<TituloPendente>("pr_cria_titulo_virtual @id_empresa, @data_inicial_analise, @data_final_analise",
+                Lista = context.Database.SqlQuery<TituloPendente>("pr_titulos_pendentes @id_empresa, @data_inicial, @data_final",
                             new SqlParameter("@id_empresa", context.EmpresaId),
-                            new SqlParameter("@data_inicial_analise", dataInicial),
-                            new SqlParameter("@data_final_analise", dataFinal)).ToList();
+                            new SqlParameter("@data_inicial", dataInicial),
+                            new SqlParameter("@data_final", dataFinal)).ToList();
             }
             return Lista;
         }

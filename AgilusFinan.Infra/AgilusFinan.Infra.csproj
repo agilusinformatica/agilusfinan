@@ -181,8 +181,13 @@
     <Compile Include="Migrations\201508141907074_ConsertoProcedureCriaTituloVirtual.Designer.cs">
       <DependentUpon>201508141907074_ConsertoProcedureCriaTituloVirtual.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201508162133571_ProceduresDiversas.cs" />
+    <Compile Include="Migrations\201508162133571_ProceduresDiversas.Designer.cs">
+      <DependentUpon>201508162133571_ProceduresDiversas.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\GeradorPrevistoRealizado.cs" />
     <Compile Include="Services\GeradorResumoTituloCategoria.cs" />
     <Compile Include="Services\GeradorTitulosPendentes.cs" />
     <Compile Include="Services\RepositorioBanco.cs" />
@@ -308,10 +313,15 @@
     <EmbeddedResource Include="Migrations\201508141907074_ConsertoProcedureCriaTituloVirtual.resx">
       <DependentUpon>201508141907074_ConsertoProcedureCriaTituloVirtual.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508162133571_ProceduresDiversas.resx">
+      <DependentUpon>201508162133571_ProceduresDiversas.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\fn_gerador_vencimentos.sql" />
     <Content Include="Scripts\fn_soma_categoria.sql" />
+    <Content Include="Scripts\pr_titulos_pendentes.sql" />
+    <Content Include="Scripts\pr_previsto_realizado.sql" />
     <Content Include="Scripts\pr_resumo_titulo_categoria.sql" />
     <Content Include="Scripts\pr_cria_titulo_virtual.sql" />
   </ItemGroup>

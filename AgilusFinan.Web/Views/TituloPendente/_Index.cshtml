@@ -26,7 +26,7 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.nome)
+                @Html.DisplayFor(modelItem => item.Descricao)
             </td>
             <td>
                 @item.DataVencimento.ToString("d")
@@ -41,9 +41,9 @@
                 @Html.DisplayFor(modelItem => item.PessoaId)
             </td>
             <td>
-                @if (!String.IsNullOrEmpty(item.IdTitulo.ToString()))
+                @if (!String.IsNullOrEmpty(item.TituloId.ToString()))
                 {
-                    @Html.ActionLink("Liquidar", "../Pagamento/Liquidar", new { id = item.IdTitulo })
+                    @Html.ActionLink("Liquidar", "../Pagamento/Liquidar", new { id = item.TituloId })
                 }
                 else
                 {

@@ -20,3 +20,10 @@ Begin
 	 from Categoria 
 	 where EmpresaId = @id_empresa
 end
+GO
+
+if object_id('pr_resumo_titulo_categoria') > 0
+begin
+   print '<< CREATE pr_resumo_titulo_categoria >>'
+end
+GO

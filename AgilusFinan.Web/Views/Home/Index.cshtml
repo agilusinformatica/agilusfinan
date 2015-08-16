@@ -27,6 +27,7 @@
                     Consultar
                 </span>
             </div>
+        </div>
     </div>
 </div>
 
@@ -35,12 +36,16 @@
          <div class="panel panel-primary" id="resumoTitulos">
          </div>
     </div>
-
     <div class="col-md-8">
         <div class="panel panel-primary" id="TitulosPendentes">
         </div>
     </div>
+    <div class="col-md-8">
+        <div class="panel panel-primary" id="PrevistosRealizados">
+        </div>
+    </div>
 </div>
+
 
 <script>
 
@@ -56,12 +61,15 @@
 
     var consultaDashboard = function () {
 
-        var result = $.ajax({
+        var dataInicial = $('#dataInicial').val();
+        var dataFinal = $('#dataFinal').val();
+
+        $.ajax({
             url: "../ResumoTituloCategoria",
             method: "GET",
             data: {
-                dataInicial: $('#dataInicial').val(),
-                dataFinal: $('#dataFinal').val()
+                dataInicial: dataInicial,
+                dataFinal: dataFinal
             },
             beforeSend: function () {
                 $("#resumoTitulos").html('<img src="/Content/Images/loading.gif">');
@@ -76,12 +84,12 @@
             }
         });
 
-        var result2 = $.ajax({
+        $.ajax({
             url: "../TituloPendente",
             method: "GET",
             data: {
-                dataInicial: $('#dataInicial').val(),
-                dataFinal: $('#dataFinal').val()
+                dataInicial: dataInicial,
+                dataFinal: dataFinal
             },
             beforeSend: function () {
                 $("#TitulosPendentes").html('<img src="/Content/Images/loading.gif">');
@@ -95,9 +103,32 @@
                 $("#TitulosPendentes").html(e.message);
             }
         });
+
+        $.ajax({
+            url: "../PrevistoRealizado",
+            method: "GET",
+            data: {
+                dataInicial: dataInicial,
+                dataFinal: dataFinal
+            },
+            beforeSend: function () {
+                $("#PrevistosRealizados").html('<img src="/Content/Images/loading.gif">');
+            },
+            success: function (conteudo) {
+                $("#PrevistosRealizados>img").remove();
+                $("#PrevistosRealizados").html(conteudo);
+            },
+            error: function (e) {
+                $("#PrevistosRealizados>img").remove();
+                $("#PrevistosRealizados").html(e.message);
+            }
+        })
     };
     consultaDashboard();
 
     $('#consultar').click(consultaDashboard);
 
 </script>
+
+
+    

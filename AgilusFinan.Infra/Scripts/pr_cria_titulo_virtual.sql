@@ -56,7 +56,7 @@ Begin
 	close cur
 	deallocate cur
 
-	select tv.TituloRecorrenteId, tv.nome, tv.DataVencimento, tv.Valor, tv.CategoriaId,	tv.PessoaId, tv.CentroCustoId, null as IdTitulo
+	select tv.TituloRecorrenteId, tv.nome, tv.DataVencimento, tv.Valor, tv.CategoriaId,	tv.PessoaId, tv.CentroCustoId, null as TituloId
 	from @titulo_virtual as tv
 	where not exists(select 1
 					from Titulo as T
@@ -66,12 +66,7 @@ Begin
 
 	select TituloRecorrenteId, Descricao, DataVencimento, Valor, CategoriaId, PessoaId, CentroCustoId, Id
 	from Titulo as T
-	where not exists(select sum(valor) as valor
-					from Liquidacao as L
-					where T.Id = L.TituloId
-					group by L.TituloId
-					having sum(valor) = T.valor)
-	and DataVencimento >= @data_inicial_analise
+	where DataVencimento >= @data_inicial_analise
 	and DataVencimento < @data_final_analise+1
 	order by DataVencimento
 end

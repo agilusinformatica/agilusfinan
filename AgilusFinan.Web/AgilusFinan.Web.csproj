@@ -144,6 +144,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PagamentoController.cs" />
     <Compile Include="Controllers\PessoaController.cs" />
+    <Compile Include="Controllers\PrevistoRealizadoController.cs" />
     <Compile Include="Controllers\RecebimentoController.cs" />
     <Compile Include="Controllers\ResumoTituloCategoriaController.cs" />
     <Compile Include="Controllers\TipoPessoaController.cs" />
@@ -256,6 +257,7 @@
     <Content Include="Views\Conta\Delete.cshtml" />
     <Content Include="Views\ResumoTituloCategoria\_Index.cshtml" />
     <Content Include="Views\TituloPendente\_Index.cshtml" />
+    <Content Include="Views\PrevistoRealizado\_Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
