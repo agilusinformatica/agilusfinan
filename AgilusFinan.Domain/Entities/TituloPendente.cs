@@ -15,7 +15,9 @@ namespace AgilusFinan.Domain.Entities
         public int PessoaId { get; set; }
         public int? CentroCustoId { get; set; }
         public int? TituloId { get; set; }
-
-        public virtual Categoria Categoria { get; set; }
+        public string NomeCategoria { get; set; }
+        public string NomePessoa { get; set; }
+        public string NomeCentroCusto { get; set; }
+        public DirecaoCategoria Direcao { get; set; }
     }
 }

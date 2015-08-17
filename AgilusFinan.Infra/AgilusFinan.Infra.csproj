@@ -185,6 +185,10 @@
     <Compile Include="Migrations\201508162133571_ProceduresDiversas.Designer.cs">
       <DependentUpon>201508162133571_ProceduresDiversas.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201508172140386_Alteração procedure pr_titulos_pendentes.cs" />
+    <Compile Include="Migrations\201508172140386_Alteração procedure pr_titulos_pendentes.Designer.cs">
+      <DependentUpon>201508172140386_Alteração procedure pr_titulos_pendentes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\GeradorPrevistoRealizado.cs" />
@@ -315,6 +319,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201508162133571_ProceduresDiversas.resx">
       <DependentUpon>201508162133571_ProceduresDiversas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508172140386_Alteração procedure pr_titulos_pendentes.resx">
+      <DependentUpon>201508172140386_Alteração procedure pr_titulos_pendentes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

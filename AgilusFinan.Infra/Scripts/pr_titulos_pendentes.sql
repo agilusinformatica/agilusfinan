@@ -30,8 +30,11 @@ Begin
 	insert into @titulos
 	exec pr_cria_titulo_virtual @id_empresa, @data_inicial, @data_final
 
-	select *
+	select T.*, c.Nome as NomeCategoria, P.Nome as NomePessoa, cc.Nome as NomeCentroCusto, c.Direcao
 	from @titulos as T
+	inner join categoria as c on T.CategoriaId = c.Id
+	inner join pessoa as p on T.PessoaId = p.Id
+	left join CentroCusto as cc on T.CentroCustoId = cc.Id
 	where not exists(
 		select sum(valor) as valor
 		from Liquidacao as L

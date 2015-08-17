@@ -1,4 +1,5 @@
-﻿@model IEnumerable<AgilusFinan.Domain.Entities.TituloPendente>
+﻿@using AgilusFinan.Domain.Entities
+@model IEnumerable<TituloPendente>
 
 <div class="panel-heading">Titulos Pendentes</div>
 
@@ -24,7 +25,7 @@
 
     @foreach (var item in Model)
     {
-        <tr>
+        <tr @(item.Direcao == DirecaoCategoria.Pagamento ? "style=color:#d9534f" : "")>
             <td>
                 @Html.DisplayFor(modelItem => item.Descricao)
             </td>
@@ -32,13 +33,14 @@
                 @item.DataVencimento.ToString("d")
             </td>
             <td align="right">
+                @(item.Direcao == DirecaoCategoria.Pagamento ? "-" : "")
                 @Html.DisplayFor(modelItem => item.Valor)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CategoriaId)
+                @Html.DisplayFor(modelItem => item.NomeCategoria)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PessoaId)
+                @Html.DisplayFor(modelItem => item.NomePessoa)
             </td>
             <td>
                 @if (!String.IsNullOrEmpty(item.TituloId.ToString()))
