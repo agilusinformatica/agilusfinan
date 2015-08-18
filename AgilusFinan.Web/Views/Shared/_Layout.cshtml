@@ -18,24 +18,47 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("AgilusFinan", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @*@Html.ActionLink("AgilusFinan", "Index", "Home", new { area = "" }, new { @class = "navbar-brand"})*@
+                <a href="Home" class="navbar-brand">
+                    <img src="~/Content/Images/agilus.jpg" width="20" height="20" />
+                    AgilusFinan
+                </a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pessoa</a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Movimentações</a>
                         <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Pagamento", "Index", "Pagamento")</li>
+                            <li>@Html.ActionLink("Recebimento", "Index", "Recebimento")</li>
+                            <li>@Html.ActionLink(" Transferência", "Index", "Transferencia")</li>
+                            <li>@Html.ActionLink("Titulo Recorrente", "Index", "TituloRecorrente")</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Cadastros</a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Conta", "Index", "Conta")</li>
+                            <li>@Html.ActionLink("Banco", "Index", "Banco")</li>
+                            <li>@Html.ActionLink("Categoria", "Index", "Categoria")</li>
+                            <li>@Html.ActionLink("Centro de Custo", "Index", "CentroCusto")</li>  
                             <li>@Html.ActionLink("Tipo de Pessoa", "Index", "TipoPessoa")</li>
                             <li>@Html.ActionLink("Pessoa", "Index", "Pessoa")</li>
                         </ul>
                     </li>
-                    <li>@Html.ActionLink("Banco", "Index", "Banco")</li>
-                    <li>@Html.ActionLink("Categoria", "Index", "Categoria")</li>
-                    <li>@Html.ActionLink("Centro de Custo", "Index", "CentroCusto")</li>
-                    <li>@Html.ActionLink("Pagamento", "Index", "Pagamento")</li>
-                    <li>@Html.ActionLink("Recebimento", "Index", "Recebimento")</li>
-                    <li>@Html.ActionLink("Titulo Recorrente", "Index", "TituloRecorrente")</li>
-                    <li>@Html.ActionLink("Conta", "Index", "Conta")</li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Segurança</a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Usuários", "Index", "Usuario")</li>
+                            <li>@Html.ActionLink("Perfil", "Index", "Perfil")</li>
+                            <li>@Html.ActionLink("Acesso", "Index", "Acesso")</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Relatórios</a>
+                        <ul class="dropdown-menu">
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>
