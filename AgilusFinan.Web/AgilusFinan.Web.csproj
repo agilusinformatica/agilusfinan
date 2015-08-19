@@ -151,6 +151,7 @@
     <Compile Include="Controllers\TipoTelefoneController.cs" />
     <Compile Include="Controllers\TituloRecorrenteController.cs" />
     <Compile Include="Controllers\TituloPendenteController.cs" />
+    <Compile Include="Controllers\TransferenciaController.cs" />
     <Compile Include="DecimalModelBinder.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -258,6 +259,9 @@
     <Content Include="Views\ResumoTituloCategoria\_Index.cshtml" />
     <Content Include="Views\TituloPendente\_Index.cshtml" />
     <Content Include="Views\PrevistoRealizado\_Index.cshtml" />
+    <Content Include="Views\Transferencia\Index.cshtml" />
+    <Content Include="Views\Transferencia\Create.cshtml" />
+    <Content Include="Views\Transferencia\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
