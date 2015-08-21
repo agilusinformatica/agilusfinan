@@ -325,6 +325,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Scripts\pr_extrato.sql" />
     <Content Include="Scripts\fn_gerador_vencimentos.sql" />
     <Content Include="Scripts\fn_soma_categoria.sql" />
     <Content Include="Scripts\pr_titulos_pendentes.sql" />
