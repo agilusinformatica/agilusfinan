@@ -12,6 +12,7 @@ namespace AgilusFinan.Infra.Migrations
         
         public override void Down()
         {
+
         }
     }
 }

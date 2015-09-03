@@ -1,6 +1,7 @@
 ﻿using AgilusFinan.Domain.Entities;
 using AgilusFinan.Infra.Context;
 using AgilusFinan.Infra.Services;
+using AgilusFinan.Web.Bases;
 using AgilusFinan.Web.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -78,6 +79,5 @@ namespace AgilusFinan.Web.Controllers
                 });
             }
         }
-      
     }
 }

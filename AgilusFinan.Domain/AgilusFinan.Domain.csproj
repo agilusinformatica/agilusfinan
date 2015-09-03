@@ -34,16 +34,20 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Acesso.cs" />
     <Compile Include="Entities\Banco.cs" />
     <Compile Include="Entities\Categoria.cs" />
     <Compile Include="Entities\CentroCusto.cs" />
     <Compile Include="Entities\Conta.cs" />
     <Compile Include="Entities\ContaBancaria.cs" />
+    <Compile Include="Entities\Convite.cs" />
     <Compile Include="Entities\Empresa.cs" />
     <Compile Include="Entities\Endereco.cs" />
     <Compile Include="Entities\FormaLiquidacao.cs" />
+    <Compile Include="Entities\Funcao.cs" />
     <Compile Include="Entities\Liquidacao.cs" />
     <Compile Include="Entities\Padrao.cs" />
+    <Compile Include="Entities\Perfil.cs" />
     <Compile Include="Entities\Pessoa.cs" />
     <Compile Include="Entities\PrevistoRealizado.cs" />
     <Compile Include="Entities\ResumoTituloCategoria.cs" />
@@ -57,18 +61,22 @@
     <Compile Include="Entities\TituloPendente.cs" />
     <Compile Include="Entities\Transferencia.cs" />
     <Compile Include="Entities\Usuario.cs" />
+    <Compile Include="Entities\UsuarioLogado.cs" />
+    <Compile Include="Interfaces\IRepositorioConvite.cs" />
     <Compile Include="Interfaces\IRepositorioBanco.cs" />
     <Compile Include="Interfaces\IRepositorioCategoria.cs" />
     <Compile Include="Interfaces\IRepositorioCentroCusto.cs" />
     <Compile Include="Interfaces\IRepositorioConta.cs" />
     <Compile Include="Interfaces\IRepositorioEmpresa.cs" />
     <Compile Include="Interfaces\IRepositorioPadrao.cs" />
+    <Compile Include="Interfaces\IRepositorioPerfil.cs" />
     <Compile Include="Interfaces\IRepositorioPessoa.cs" />
     <Compile Include="Interfaces\IRepositorioTipoPessoa.cs" />
     <Compile Include="Interfaces\IRepositorioTipoTelefone.cs" />
     <Compile Include="Interfaces\IRepositorioTitulo.cs" />
     <Compile Include="Interfaces\IRepositorioTituloRecorrente.cs" />
     <Compile Include="Interfaces\IRepositorioTransferencia.cs" />
+    <Compile Include="Interfaces\IRepositorioUsuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

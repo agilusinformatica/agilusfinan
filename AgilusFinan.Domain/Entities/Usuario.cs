@@ -5,8 +5,20 @@ using System.Text;
 
 namespace AgilusFinan.Domain.Entities
 {
-    public class Usuario
+    public class Usuario : Padrao
     {
-        //Classe com dados, para serem usados na autenticação
+        public int Id { get; set; }
+        public string Nome { get; set; }
+        public string Email { get; set; }
+        public int PerfilId { get; set; }
+        public string Senha { get; set; }
+        public bool Ativo { get; set; }
+        public Endereco Endereco { get; set; }
+        public virtual Perfil Perfil { get; set; }
+
+        public Usuario()
+        {
+            Endereco = new Endereco();
+        }
     }
 }
