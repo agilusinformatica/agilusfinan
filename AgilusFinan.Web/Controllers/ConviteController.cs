@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using AgilusFinan.Web.Bases;
 using AgilusFinan.Domain.Entities;
 using AgilusFinan.Infra.Services;
+using AgilusFinan.Domain.Utils;
 
 namespace AgilusFinan.Web.Controllers
 {
@@ -19,9 +20,16 @@ namespace AgilusFinan.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(Usuario usuario)
+        public ActionResult Create(Convite convite)
         {
-            return RedirectToAction("Usuario");
+            string token = Criptografia.Encriptar(convite.Email + "|" + convite.PerfilId.ToString() + "|" + UsuarioLogado.EmpresaId.ToString());
+            var repo = new RepositorioConvite();
+            repo.Incluir(convite);
+            string remetente = new RepositorioUsuario().BuscarPorId(UsuarioLogado.UsuarioId).Email;
+            var Email = new Email(convite.Email, "http://localhost:8197/Login/EfetivarConvite?token=" + token, "Convite", remetente);
+            Email.DispararMensagem();
+
+            return RedirectToAction("Index", "Usuario");
         }
     }
 }

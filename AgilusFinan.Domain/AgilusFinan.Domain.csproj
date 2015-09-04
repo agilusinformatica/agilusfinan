@@ -41,6 +41,8 @@
     <Compile Include="Entities\Conta.cs" />
     <Compile Include="Entities\ContaBancaria.cs" />
     <Compile Include="Entities\Convite.cs" />
+    <Compile Include="Utils\Criptografia.cs" />
+    <Compile Include="Utils\Email.cs" />
     <Compile Include="Entities\Empresa.cs" />
     <Compile Include="Entities\Endereco.cs" />
     <Compile Include="Entities\FormaLiquidacao.cs" />

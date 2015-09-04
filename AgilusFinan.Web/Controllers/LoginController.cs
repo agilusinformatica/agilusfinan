@@ -1,4 +1,6 @@
 ﻿using AgilusFinan.Domain.Entities;
+using AgilusFinan.Domain.Utils;
+using AgilusFinan.Infra.Context;
 using AgilusFinan.Infra.Services;
 using AgilusFinan.Web.Model;
 using System;
@@ -42,6 +44,34 @@ namespace AgilusFinan.Web.Controllers
         public ActionResult Logoff()
         {
             FormsAuthentication.SignOut();
+            return RedirectToAction("Index", "Home");
+        }
+        [AllowAnonymous]
+        [HttpGet]
+        public ActionResult EfetivarConvite(string token)
+        {
+            string decriptToken = Criptografia.Decriptar(token);
+            string[] array = decriptToken.Split('|');
+            string email = array[0];
+            Session["perfilIdConvite"] = Convert.ToInt16(array[1]);
+            Session["empresaIdConvite"] = Convert.ToInt16(array[2]);
+
+            return View(new Usuario() { Email = email });
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public ActionResult EfetivarConvite(Usuario user)
+        {
+            var db = new Contexto();
+            user.Ativo = true;
+            user.PerfilId =  (short)Session["perfilIdConvite"];
+            user.EmpresaId = (short)Session["empresaIdConvite"];
+            Session.Remove("perfilIdConvite");
+            Session.Remove("empresaIdConvite");
+            db.Usuarios.Add(user);
+            db.SaveChanges();
+
             return RedirectToAction("Index", "Home");
         }
 

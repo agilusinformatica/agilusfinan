@@ -276,6 +276,7 @@
     <Content Include="Views\Usuario\Edit.cshtml" />
     <Content Include="Views\Usuario\Delete.cshtml" />
     <Content Include="Views\Convite\Create.cshtml" />
+    <Content Include="Views\Login\EfetivarConvite.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
