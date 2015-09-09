@@ -11,16 +11,16 @@ as
 begin
 
 	--pegar saldo inicial e data inicial da conta em questão
-	declare @saldoInicial decimal
+	declare @saldoConta money
 	declare @DataSaldoInicial smalldatetime
-	declare @Saldo decimal
+	declare @Saldo money
+	declare @SaldoInicial money
 
-	select @saldoInicial = SaldoInicial, 
+	select @saldoConta = SaldoInicial, 
 	@DataSaldoInicial = DataSaldoInicial
 	from Conta 
 	where id = @conta 
 	and EmpresaId = @empresa
-
 
 	--verificar oq teve de movimentações na conta antes da data inicial do extrato, se a data inicial da conta for antes
 
@@ -28,48 +28,80 @@ begin
 	begin
 
 		--definir o saldo na data inicial do extrato
-		select @saldo = @saldoInicial + SUM(case c.Direcao when 0 then l.valor + l.JurosMulta else -( l.valor + l.JurosMulta) end)
+		select @SaldoInicial = @saldoConta + isnull(SUM(case c.Direcao when 0 then l.valor + isnull(l.JurosMulta, 0.0) else -( l.valor + isnull(l.JurosMulta, 0.0)) end), 0.0)
 		from liquidacao l
 		join titulo t on l.TituloId = t.Id
 		join categoria c on t.CategoriaId = c.Id
 		where data <= @DataSaldoInicial 
 		and t.ContaId = @conta
 
-		select @saldo = @saldo + SUM(case when ContaOrigemId = @conta then -valor when contaDestinoId = @conta then valor else 0 end)
+		select @saldoInicial = @saldoInicial + isnull(SUM(case when ContaOrigemId = @conta then -valor when contaDestinoId = @conta then valor else 0.0 end), 0.0)
 		from Transferencia	
 		where data <= @DataSaldoInicial
 	end
 	else
 	begin
-		set @saldo = @saldoInicial
+		set @SaldoInicial = @saldoConta
 	end
 
 	--pegar as movimentações realizadas até a data final do extrato
-	select Data, case c.Direcao when 0 then l.valor + l.JurosMulta else -(l.valor+JurosMulta) end Valor, t.Descricao
+	select Data, case c.Direcao when 0 then l.valor + isnull(l.JurosMulta, 0.0) else -(l.valor+isnull(l.JurosMulta, 0.0)) end Valor, t.Descricao, convert(money,null) Saldo 
 	into #movimentacoes
 	from Liquidacao l
 	join titulo t on l.TituloId = t.Id
 	join categoria c on t.CategoriaId = c.Id
-	where Data between @dataInicial and isnull(@dataFinal,getDate())
+	where Data >= @dataInicial
+	and (@dataFinal is null or Data < @dataFinal+1)
 	and t.ContaId = @conta
 	and t.EmpresaId = @empresa
 	union
-	select Data, case when ContaOrigemId = @conta then -valor when contaDestinoId = @conta then valor else 0 end Valor, Descricao
+	select Data, case when ContaOrigemId = @conta then -valor when contaDestinoId = @conta then valor else 0.0 end Valor, Descricao, null
 	from transferencia
-	where Data between @dataInicial and isnull(@dataFinal,getDate())
+	where Data >= @dataInicial
+	and (@dataFinal is null or Data < @dataFinal+1)
 	and EmpresaId = @empresa
 
+	--calcular saldos por movimentação
+	declare @valor money
+	declare @acumulador money
+
+	declare curSaldo cursor for 
+	select valor
+	from #movimentacoes
+	for update of saldo
+
+	set @acumulador = @saldoInicial
+
+	OPEN curSaldo
+	fetch curSaldo into @valor
+	while @@FETCH_STATUS = 0
+	begin
+		set @acumulador = @acumulador + @valor
+
+		update #movimentacoes
+		set Saldo = @acumulador 
+		where current of curSaldo
+
+		fetch curSaldo into @valor
+
+	end
+	close curSaldo
+	deallocate curSaldo
+
+	insert into #movimentacoes
+	values
+	(@dataInicial-1, null, 'Saldo Inicial', @SaldoInicial)
 
 	--retornar uma lista com as movimentações
-
 	select *
 	from #movimentacoes
 	order by Data
 
-	select @saldo = @saldo + SUM(Valor)
+
+	select @saldo = @SaldoInicial + SUM(Valor)
 	from #movimentacoes
 
-	select @saldo
+
 
 end
 
@@ -80,7 +112,4 @@ begin
    print '<< CREATE pr_extrato >>'
 end
 GO
-
---exec pr_extrato 1, 1, '2015-01-01', '2015-09-09'
-
 
