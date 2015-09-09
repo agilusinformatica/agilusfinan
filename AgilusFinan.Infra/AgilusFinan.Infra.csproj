@@ -189,23 +189,51 @@
     <Compile Include="Migrations\201508172140386_Alteração procedure pr_titulos_pendentes.Designer.cs">
       <DependentUpon>201508172140386_Alteração procedure pr_titulos_pendentes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201509021541578_CriacaoUsuarioPerfil.cs" />
+    <Compile Include="Migrations\201509021541578_CriacaoUsuarioPerfil.Designer.cs">
+      <DependentUpon>201509021541578_CriacaoUsuarioPerfil.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201509021650490_CriacaoAcessoFuncao.cs" />
+    <Compile Include="Migrations\201509021650490_CriacaoAcessoFuncao.Designer.cs">
+      <DependentUpon>201509021650490_CriacaoAcessoFuncao.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201509021657408_AddEmpresaIdPerfilUsuario.cs" />
+    <Compile Include="Migrations\201509021657408_AddEmpresaIdPerfilUsuario.Designer.cs">
+      <DependentUpon>201509021657408_AddEmpresaIdPerfilUsuario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201509022122524_AddCampoAtivoEmEmpresaEUsuario.cs" />
+    <Compile Include="Migrations\201509022122524_AddCampoAtivoEmEmpresaEUsuario.Designer.cs">
+      <DependentUpon>201509022122524_AddCampoAtivoEmEmpresaEUsuario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201509032044545_SenhaEmailNaoNulo.cs" />
+    <Compile Include="Migrations\201509032044545_SenhaEmailNaoNulo.Designer.cs">
+      <DependentUpon>201509032044545_SenhaEmailNaoNulo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201509032152439_CriacaoEntidadeConvite.cs" />
+    <Compile Include="Migrations\201509032152439_CriacaoEntidadeConvite.Designer.cs">
+      <DependentUpon>201509032152439_CriacaoEntidadeConvite.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\GeradorPrevistoRealizado.cs" />
     <Compile Include="Services\GeradorResumoTituloCategoria.cs" />
     <Compile Include="Services\GeradorTitulosPendentes.cs" />
+    <Compile Include="Services\Login.cs" />
     <Compile Include="Services\RepositorioBanco.cs" />
     <Compile Include="Services\RepositorioCategoria.cs" />
     <Compile Include="Services\RepositorioCentroCusto.cs" />
     <Compile Include="Services\RepositorioConta.cs" />
+    <Compile Include="Services\RepositorioConvite.cs" />
     <Compile Include="Services\RepositorioPadrao.cs" />
     <Compile Include="Services\RepositorioPagamento.cs" />
+    <Compile Include="Services\RepositorioPerfil.cs" />
     <Compile Include="Services\RepositorioPessoa.cs" />
     <Compile Include="Services\RepositorioRecebimento.cs" />
     <Compile Include="Services\RepositorioTipoPessoa.cs" />
     <Compile Include="Services\RepositorioTipoTelefone.cs" />
     <Compile Include="Services\RepositorioTituloRecorrente.cs" />
     <Compile Include="Services\RepositorioTransferencia.cs" />
+    <Compile Include="Services\RepositorioUsuario.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -322,6 +350,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201508172140386_Alteração procedure pr_titulos_pendentes.resx">
       <DependentUpon>201508172140386_Alteração procedure pr_titulos_pendentes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509021541578_CriacaoUsuarioPerfil.resx">
+      <DependentUpon>201509021541578_CriacaoUsuarioPerfil.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509021650490_CriacaoAcessoFuncao.resx">
+      <DependentUpon>201509021650490_CriacaoAcessoFuncao.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509021657408_AddEmpresaIdPerfilUsuario.resx">
+      <DependentUpon>201509021657408_AddEmpresaIdPerfilUsuario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509022122524_AddCampoAtivoEmEmpresaEUsuario.resx">
+      <DependentUpon>201509022122524_AddCampoAtivoEmEmpresaEUsuario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509032044545_SenhaEmailNaoNulo.resx">
+      <DependentUpon>201509032044545_SenhaEmailNaoNulo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509032152439_CriacaoEntidadeConvite.resx">
+      <DependentUpon>201509032152439_CriacaoEntidadeConvite.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

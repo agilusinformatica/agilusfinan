@@ -1,0 +1,36 @@
+﻿@model AgilusFinan.Web.ViewModels.LoginViewModel
+
+@{
+    Layout = null;
+    ViewBag.Title = "Login AgilusFinan";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login AgilusFinan</title>
+    @Styles.Render("~/Content/css")
+    <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    <script src="~/Scripts/jquery-ui-1.10.4.js"></script>
+</head>
+<body>
+    <div class="jumbotron">
+        <div class="col-md-3">
+            <h3>Login AgilusFinan</h3> <br />
+            <form action="/Login/Index" method="post">
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)<br />
+                Usuário: <input type="text" name="Usuario" id="Usuario" class="form-control" /> <br />
+                Senha: <input type="password" name="Senha" id="Senha" class="form-control" /> <br />
+                <input type="hidden" name="returnUrl" id="returnUrl" value="@Request["ReturnUrl"]" />
+                <input type="submit" value="Login" class="btn btn-primary" @*onclick="document.getElementById('Senha').value = Sha256.hash(document.getElementById('Senha').value);"*@ />
+            </form>
+        </div>
+    </div>
+    @*<script src="~/Scripts/sha256.js"></script>*@
+</body>
+</html>

@@ -136,12 +136,15 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Bases\ControllerViewModelPadrao.cs" />
     <Compile Include="Bases\ControllerPadrao.cs" />
+    <Compile Include="Bases\Permissao.cs" />
     <Compile Include="Bases\Util.cs" />
     <Compile Include="Controllers\BancoController.cs" />
     <Compile Include="Controllers\CategoriaController.cs" />
     <Compile Include="Controllers\CentroCustoController.cs" />
     <Compile Include="Controllers\ContaController.cs" />
+    <Compile Include="Controllers\ConviteController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PagamentoController.cs" />
     <Compile Include="Controllers\PessoaController.cs" />
     <Compile Include="Controllers\PrevistoRealizadoController.cs" />
@@ -152,12 +155,15 @@
     <Compile Include="Controllers\TituloRecorrenteController.cs" />
     <Compile Include="Controllers\TituloPendenteController.cs" />
     <Compile Include="Controllers\TransferenciaController.cs" />
+    <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="DecimalModelBinder.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Model\Sessao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\ItensCategoria.cs" />
+    <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\PessoaViewModel.cs" />
     <Compile Include="ViewModels\TituloViewModel.cs" />
   </ItemGroup>
@@ -189,8 +195,11 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\sha256.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -262,6 +271,12 @@
     <Content Include="Views\Transferencia\Index.cshtml" />
     <Content Include="Views\Transferencia\Create.cshtml" />
     <Content Include="Views\Transferencia\Delete.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Usuario\Index.cshtml" />
+    <Content Include="Views\Usuario\Edit.cshtml" />
+    <Content Include="Views\Usuario\Delete.cshtml" />
+    <Content Include="Views\Convite\Create.cshtml" />
+    <Content Include="Views\Login\EfetivarConvite.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -26,16 +26,22 @@ namespace AgilusFinan.Infra.Context
         public DbSet<Categoria> Categorias { get; set; }
         public DbSet<Conta> Contas { get; set; }
         public DbSet<Titulo> Titulos { get; set; }
-        public DbSet<TituloRecorrente> TitulosRecorrentes  { get; set; }
+        public DbSet<TituloRecorrente> TitulosRecorrentes { get; set; }
         public DbSet<Transferencia> Transferencias { get; set; }
         public DbSet<Liquidacao> Liquidacoes { get; set; }
+        public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<Perfil> Perfis { get; set; }
+        public DbSet<Acesso> Acessos { get; set; }
+        public DbSet<Funcao> Funcoes { get; set; }
+        public DbSet<Convite> Convites { get; set; }
 
-        public int EmpresaId 
-        { 
-            get 
+        public int EmpresaId
+        {
+            get
             {
-                return this.Database.SqlQuery<int>("select top 1 Id from Empresa order by Id").First<int>();
-            } 
+                //return this.Database.SqlQuery<int>("select top 1 Id from Empresa order by Id").First<int>();
+                return UsuarioLogado.EmpresaId;
+            }
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -51,6 +57,8 @@ namespace AgilusFinan.Infra.Context
             modelBuilder.Entity<TipoPessoaPorPessoa>().HasRequired(t => t.Pessoa).WithMany(t => t.TiposPessoa).HasForeignKey(d => d.PessoaId).WillCascadeOnDelete(true);
             modelBuilder.Entity<TelefonePessoa>().HasRequired(t => t.Pessoa).WithMany(t => t.Telefones).HasForeignKey(d => d.PessoaId).WillCascadeOnDelete(true);
             modelBuilder.Entity<Titulo>().Ignore(d => d.Liquidado);
+            modelBuilder.Entity<Usuario>().Property(u => u.Email).IsRequired();
+            modelBuilder.Entity<Usuario>().Property(u => u.Senha).IsRequired();
         }
     }
 }
