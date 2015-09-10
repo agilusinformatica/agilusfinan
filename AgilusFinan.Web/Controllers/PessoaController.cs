@@ -23,11 +23,6 @@ namespace AgilusFinan.Web.Controllers
             ViewBag.ListaTiposTelefone = new RepositorioTipoTelefone().Listar();
         }
 
-        public ActionResult Teste()
-        {
-            return View();
-        }
-
         protected override void ModelToViewModel(Pessoa model, PessoaViewModel viewModel)
         {
             base.ModelToViewModel(model, viewModel);

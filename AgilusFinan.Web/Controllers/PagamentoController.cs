@@ -106,6 +106,7 @@ namespace AgilusFinan.Web.Controllers
         }
 
         [HttpGet]
+        [Permissao]
         public ActionResult Liquidar(int id)
         {
             var titulo = repo.BuscarPorId(id);
@@ -117,6 +118,7 @@ namespace AgilusFinan.Web.Controllers
         }
 
         [HttpPost]
+        [Permissao]
         public void Liquidar(string postedData)
         {
             Edit(postedData);

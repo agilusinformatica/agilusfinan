@@ -20,6 +20,7 @@ namespace AgilusFinan.Web.Controllers
         }
 
         [HttpGet]
+        [Permissao]
         public ActionResult Liquidar(DateTime dataVencimento, int tituloRecorrenteId)
         {
             ViewBag.TipoTitulo = "TituloPendente";
@@ -41,6 +42,7 @@ namespace AgilusFinan.Web.Controllers
         }
 
         [HttpPost]
+        [Permissao]
         public ActionResult Liquidar(string postedData)
         {
             RepositorioPadrao<Titulo> repo = new RepositorioPadrao<Titulo>();

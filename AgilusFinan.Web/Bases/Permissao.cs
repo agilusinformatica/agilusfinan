@@ -17,7 +17,8 @@ namespace AgilusFinan.Web.Bases
             if (UsuarioLogado.EmpresaId == 0)
             {
                 filterContext.RouteData.Values["controller"] = "Login";
-                filterContext.RouteData.Values["action"] = "Index";
+                filterContext.RouteData.Values["action"] = "Logoff";
+                                
                 return;
             }
             string caminho = filterContext.RouteData.Values["controller"].ToString();
@@ -30,34 +31,9 @@ namespace AgilusFinan.Web.Bases
 
             if (caminho != null)
             {
-                confirmacaoCaminho = encontrar(UsuarioLogado.Acessos, caminho);
+                if (!UsuarioLogado.Acessos.Exists(f => f.Endereco == caminho))
+                    throw new Exception("Você não tem privilégios suficientes para acessar este recurso. Para solicitar este acesso fale com o administrador do sistema.");
             }
-
-            if (String.IsNullOrEmpty(confirmacaoCaminho) || (caminho != confirmacaoCaminho))
-            {
-                throw new Exception("Você não tem privilégios suficientes para acessar este recurso. Para solicitar este acesso fale com o administrador do sistema.");
-            }
-        }
-
-        private string encontrar(List<Funcao> lista, string endereco)
-        {
-            string caminho;
-
-            try
-            {
-                // vamos pesquisar o valor na lista usando seu método Find()
-                // Aqui o primeiro endereço que passar no critério de busca será retornado
-                var encontrado = lista.Find(delegate(Funcao valor)
-                {
-                    return valor.Endereco.Contains(endereco);
-                });
-                caminho = encontrado.Endereco;
-            }
-            catch(Exception)
-            {
-                caminho = String.Empty;
-            }
-            return caminho;
         }
     }
 }

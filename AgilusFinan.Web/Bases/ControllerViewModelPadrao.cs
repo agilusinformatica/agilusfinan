@@ -14,6 +14,7 @@ namespace AgilusFinan.Web.Bases
     {
         protected R repo = new R();
 
+        [Permissao]
         public virtual ActionResult Index()
         {
             PreListagem();
@@ -30,6 +31,8 @@ namespace AgilusFinan.Web.Bases
             return FolderViewName() == String.Empty ? View(new V()) : View("~/Views/" + FolderViewName() + "/Create.cshtml", new V());
         }
 
+        [Permissao]
+        [HttpPost]
         public virtual ActionResult Create(string postedData)
         {
             var js = new JavaScriptSerializer();
@@ -47,6 +50,7 @@ namespace AgilusFinan.Web.Bases
         }
 
         [HttpGet]
+        [Permissao]
         public virtual ActionResult Edit(int id)
         {
             T model = repo.BuscarPorId(id);
@@ -59,6 +63,7 @@ namespace AgilusFinan.Web.Bases
         }
 
         [HttpPost]
+        [Permissao]
         public virtual ActionResult Edit(string postedData)
         {
             var js = new JavaScriptSerializer();
@@ -76,6 +81,7 @@ namespace AgilusFinan.Web.Bases
         }
 
         [HttpGet]
+        [Permissao]
         public virtual ActionResult Delete(int id)
         {
             PreExclusao();
@@ -86,6 +92,7 @@ namespace AgilusFinan.Web.Bases
         }
 
         [HttpPost, ActionName("Delete")]
+        [Permissao]
         public virtual ActionResult DeleteConfirmed(int id)
         {
             repo.ExcluirPorId(id);
