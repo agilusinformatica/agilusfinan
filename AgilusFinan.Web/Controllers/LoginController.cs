@@ -48,6 +48,7 @@ namespace AgilusFinan.Web.Controllers
             FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Home");
         }
+
         [AllowAnonymous]
         [HttpGet]
         public ActionResult EfetivarConvite(string token)

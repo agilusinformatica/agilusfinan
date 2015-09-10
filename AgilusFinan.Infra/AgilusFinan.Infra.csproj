@@ -213,6 +213,14 @@
     <Compile Include="Migrations\201509032152439_CriacaoEntidadeConvite.Designer.cs">
       <DependentUpon>201509032152439_CriacaoEntidadeConvite.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201509091817085_pr_extrato.cs" />
+    <Compile Include="Migrations\201509091817085_pr_extrato.Designer.cs">
+      <DependentUpon>201509091817085_pr_extrato.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201509101609452_atualizaProcedures.cs" />
+    <Compile Include="Migrations\201509101609452_atualizaProcedures.Designer.cs">
+      <DependentUpon>201509101609452_atualizaProcedures.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\201509101509256_CriacaoProcedureListarAcessos.cs" />
     <Compile Include="Migrations\201509101509256_CriacaoProcedureListarAcessos.Designer.cs">
       <DependentUpon>201509101509256_CriacaoProcedureListarAcessos.cs</DependentUpon>
@@ -373,6 +381,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201509032152439_CriacaoEntidadeConvite.resx">
       <DependentUpon>201509032152439_CriacaoEntidadeConvite.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509091817085_pr_extrato.resx">
+      <DependentUpon>201509091817085_pr_extrato.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509101609452_atualizaProcedures.resx">
+      <DependentUpon>201509101609452_atualizaProcedures.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201509101509256_CriacaoProcedureListarAcessos.resx">
       <DependentUpon>201509101509256_CriacaoProcedureListarAcessos.cs</DependentUpon>

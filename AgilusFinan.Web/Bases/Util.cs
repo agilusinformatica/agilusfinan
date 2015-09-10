@@ -1,4 +1,6 @@
 ﻿using AgilusFinan.Domain.Entities;
+using AgilusFinan.Domain.Utils;
+using AgilusFinan.Infra.Context;
 using AgilusFinan.Infra.Services;
 using System;
 using System.Collections.Generic;
@@ -57,6 +59,14 @@ namespace AgilusFinan.Web.Bases
                 retorno += texto;
             }
             return retorno;
+        }
+
+        public static void EnviarConvite(Convite convite, int empresaId, string remetente)
+        {
+            string token = Criptografia.Encriptar(convite.Email + "|" + convite.PerfilId.ToString() + "|" + empresaId.ToString());
+
+            var Email = new Email(convite.Email, "http://localhost:8197/Login/EfetivarConvite?token=" + token, "Convite", remetente);
+            Email.DispararMensagem();
         }
     }
 }

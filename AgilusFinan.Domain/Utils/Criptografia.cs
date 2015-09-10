@@ -11,6 +11,7 @@ namespace AgilusFinan.Domain.Utils
     {
         private static string chave = "ahfosfhoidj@plkwmrewibdidofkdvg&";
         private static string vetorInicializacao = "jutdffkflojdh537";
+
         private static Rijndael CriarInstanciaRijndael()
         {
             if (!(chave != null && (chave.Length == 16 || chave.Length == 24 || chave.Length == 32)))

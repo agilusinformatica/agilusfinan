@@ -24,11 +24,12 @@
             <form action="/Login/Index" method="post">
                 @Html.AntiForgeryToken()
                 @Html.ValidationSummary(true)<br />
-                Usuário: <input type="text" name="Usuario" id="Usuario" class="form-control" /> <br />
+                E-mail: <input type="text" name="Usuario" id="Usuario" class="form-control" /> <br />
                 Senha: <input type="password" name="Senha" id="Senha" class="form-control" /> <br />
                 <input type="hidden" name="returnUrl" id="returnUrl" value="@Request["ReturnUrl"]" />
                 <input type="submit" value="Login" class="btn btn-primary" @*onclick="document.getElementById('Senha').value = Sha256.hash(document.getElementById('Senha').value);"*@ />
             </form>
+            <a href="~/Empresa/Create">Cadastrar-se</a>
         </div>
     </div>
     @*<script src="~/Scripts/sha256.js"></script>*@
