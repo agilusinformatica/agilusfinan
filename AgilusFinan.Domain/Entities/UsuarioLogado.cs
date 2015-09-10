@@ -10,6 +10,6 @@ namespace AgilusFinan.Domain.Entities
         public static int UsuarioId { get; set; }
         public static int PerfilId { get; set; }
         public static int EmpresaId { get; set; }
-
+        public static List<Funcao> Acessos { get; set; }
     }
 }

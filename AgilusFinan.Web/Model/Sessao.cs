@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using AgilusFinan.Domain.Entities;
 
 namespace AgilusFinan.Web.Model
 {
@@ -26,6 +27,5 @@ namespace AgilusFinan.Web.Model
         }
         public static int PerfilId { get { return (int)HttpContext.Current.Session["IdPerfilLogado"]; } set { HttpContext.Current.Session["IdPerfilLogado"] = value; } }
         public static int EmpresaId { get { return (int)HttpContext.Current.Session["IdEmpresaLogada"]; } set { HttpContext.Current.Session["IdEmpresaLogada"] = value; } }
-        
     }
 }

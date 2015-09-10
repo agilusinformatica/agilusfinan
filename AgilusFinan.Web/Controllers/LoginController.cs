@@ -2,6 +2,7 @@
 using AgilusFinan.Domain.Utils;
 using AgilusFinan.Infra.Context;
 using AgilusFinan.Infra.Services;
+using AgilusFinan.Web.Bases;
 using AgilusFinan.Web.Model;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,7 @@ namespace AgilusFinan.Web.Controllers
 
         [HttpPost]
         [AllowAnonymous]
+        [CarregarPermissoes]
         public ActionResult Index(string usuario, string senha)
         {
             Login.ValidaLogin(usuario, senha);

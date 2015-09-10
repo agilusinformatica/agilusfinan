@@ -22,6 +22,7 @@ namespace AgilusFinan.Web.Bases
         }
 
         [HttpGet]
+        [Permissao]
         public virtual ActionResult Create()
         {
             PreInclusao();
