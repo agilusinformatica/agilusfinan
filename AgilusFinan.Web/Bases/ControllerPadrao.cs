@@ -19,6 +19,7 @@ namespace AgilusFinan.Web.Bases
         }
 
         [HttpGet]
+        [Permissao]
         public virtual ActionResult Create()
         {
             
@@ -29,6 +30,7 @@ namespace AgilusFinan.Web.Bases
         }
 
         [HttpPost]
+        [Permissao]
         public virtual ActionResult Create(T model)
         {
             if (ModelState.IsValid)

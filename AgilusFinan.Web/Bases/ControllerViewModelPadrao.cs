@@ -30,7 +30,6 @@ namespace AgilusFinan.Web.Bases
             return FolderViewName() == String.Empty ? View(new V()) : View("~/Views/" + FolderViewName() + "/Create.cshtml", new V());
         }
 
-        [HttpPost]
         public virtual ActionResult Create(string postedData)
         {
             var js = new JavaScriptSerializer();
