@@ -143,6 +143,7 @@
     <Compile Include="Controllers\CentroCustoController.cs" />
     <Compile Include="Controllers\ContaController.cs" />
     <Compile Include="Controllers\ConviteController.cs" />
+    <Compile Include="Controllers\EmpresaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PagamentoController.cs" />
@@ -277,6 +278,7 @@
     <Content Include="Views\Usuario\Delete.cshtml" />
     <Content Include="Views\Convite\Create.cshtml" />
     <Content Include="Views\Login\EfetivarConvite.cshtml" />
+    <Content Include="Views\Empresa\Create.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -22,13 +22,9 @@ namespace AgilusFinan.Web.Controllers
         [HttpPost]
         public ActionResult Create(Convite convite)
         {
-            string token = Criptografia.Encriptar(convite.Email + "|" + convite.PerfilId.ToString() + "|" + UsuarioLogado.EmpresaId.ToString());
+            Util.EnviarConvite(convite, UsuarioLogado.EmpresaId, new RepositorioUsuario().BuscarPorId(UsuarioLogado.UsuarioId).Email);
             var repo = new RepositorioConvite();
             repo.Incluir(convite);
-            string remetente = new RepositorioUsuario().BuscarPorId(UsuarioLogado.UsuarioId).Email;
-            var Email = new Email(convite.Email, "http://localhost:8197/Login/EfetivarConvite?token=" + token, "Convite", remetente);
-            Email.DispararMensagem();
-
             return RedirectToAction("Index", "Usuario");
         }
     }

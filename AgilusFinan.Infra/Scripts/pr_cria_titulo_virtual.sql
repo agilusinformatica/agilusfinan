@@ -68,6 +68,7 @@ Begin
 	from Titulo as T
 	where DataVencimento >= @data_inicial_analise
 	and DataVencimento < @data_final_analise+1
+	and empresaId = @id_empresa
 	order by DataVencimento
 end
 

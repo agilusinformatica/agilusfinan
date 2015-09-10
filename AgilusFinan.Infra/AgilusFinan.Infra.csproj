@@ -217,6 +217,10 @@
     <Compile Include="Migrations\201509091817085_pr_extrato.Designer.cs">
       <DependentUpon>201509091817085_pr_extrato.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201509101609452_atualizaProcedures.cs" />
+    <Compile Include="Migrations\201509101609452_atualizaProcedures.Designer.cs">
+      <DependentUpon>201509101609452_atualizaProcedures.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\GeradorPrevistoRealizado.cs" />
@@ -375,6 +379,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201509091817085_pr_extrato.resx">
       <DependentUpon>201509091817085_pr_extrato.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509101609452_atualizaProcedures.resx">
+      <DependentUpon>201509101609452_atualizaProcedures.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
