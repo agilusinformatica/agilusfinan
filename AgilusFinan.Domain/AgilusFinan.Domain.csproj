@@ -41,6 +41,8 @@
     <Compile Include="Entities\Conta.cs" />
     <Compile Include="Entities\ContaBancaria.cs" />
     <Compile Include="Entities\Convite.cs" />
+    <Compile Include="Entities\EsquecimentoSenha.cs" />
+    <Compile Include="Entities\UsuarioLogado.cs" />
     <Compile Include="Utils\Criptografia.cs" />
     <Compile Include="Utils\Email.cs" />
     <Compile Include="Entities\Empresa.cs" />
@@ -63,7 +65,6 @@
     <Compile Include="Entities\TituloPendente.cs" />
     <Compile Include="Entities\Transferencia.cs" />
     <Compile Include="Entities\Usuario.cs" />
-    <Compile Include="Entities\UsuarioLogado.cs" />
     <Compile Include="Interfaces\IRepositorioConvite.cs" />
     <Compile Include="Interfaces\IRepositorioBanco.cs" />
     <Compile Include="Interfaces\IRepositorioCategoria.cs" />

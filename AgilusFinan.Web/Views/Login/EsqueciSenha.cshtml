@@ -1,0 +1,25 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>EsqueciSenha</title>
+</head>
+<body>
+    <h2>Esqueci Senha</h2>
+
+    <p>Digite seu email para recuperar a senha:</p>
+
+    @using (Html.BeginForm())
+    {
+        <input type="text" id="email" name="email" />
+        <input type="submit" value="Enviar" class="btn btn-default" />
+    }
+    
+</body>
+</html>

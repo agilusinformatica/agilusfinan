@@ -42,7 +42,6 @@ namespace AgilusFinan.Web.Controllers
             //return View();
         }
 
-     
         public ActionResult Logoff()
         {
             FormsAuthentication.SignOut();
@@ -68,7 +67,7 @@ namespace AgilusFinan.Web.Controllers
         {
             var db = new Contexto();
             user.Ativo = true;
-            user.PerfilId =  (short)Session["perfilIdConvite"];
+            user.PerfilId = (short)Session["perfilIdConvite"];
             user.EmpresaId = (short)Session["empresaIdConvite"];
             Session.Remove("perfilIdConvite");
             Session.Remove("empresaIdConvite");
@@ -78,5 +77,74 @@ namespace AgilusFinan.Web.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [AllowAnonymous]
+        [HttpGet]
+        public ActionResult EsqueciSenha()
+        {
+            return View();
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public ActionResult EsqueciSenha(string email)
+        {
+            //string email = Request.Form["email"];
+            var db = new Contexto();
+            var usuario = db.Usuarios.FirstOrDefault(u => u.Email == email);
+
+            if (usuario != null)
+            {
+                var esquecimentoSenha = new EsquecimentoSenha()
+                {
+                    EmpresaId = usuario.EmpresaId,
+                    UsuarioId = usuario.Id
+                };
+
+                db.EsquecimentosSenha.Add(esquecimentoSenha);
+                db.SaveChanges();
+                
+                var token = Criptografia.Encriptar(esquecimentoSenha.Id.ToString());
+                var link = Util.EnderecoHost() + @"/Login/RedefinirSenha?token=" + token;
+                var emailSenha = new Email(email, "Clique aqui para redefinir sua senha: <br>" + link, "Recuperação de Senha AgilusFinan", "carlos@agilus.com.br");
+                emailSenha.DispararMensagem();
+            }
+            else
+            {
+                throw new Exception("Usuário não localizado");
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public ActionResult RedefinirSenha(string token)
+        {
+            ViewBag.MensagemErro = String.Empty;
+            return View();
+        }
+        [AllowAnonymous]
+        [HttpPost]
+        public ActionResult RedefinirSenha(string senha, string confirmaSenha)
+        {
+            string token = Request["token"];
+            int EsqueciSenhaId = Convert.ToInt32(Criptografia.Decriptar(token));
+            var db = new Contexto();
+            var usuario= db.Usuarios.FirstOrDefault(u=> u.Id == (db.EsquecimentosSenha.FirstOrDefault(e => e.Id == EsqueciSenhaId).UsuarioId));
+
+              //Alterar senha
+            if (senha == confirmaSenha)
+            {
+                usuario.Senha = senha;
+                db.Entry(usuario).State = System.Data.Entity.EntityState.Modified;     
+                db.SaveChanges();
+                return RedirectToAction("Index","Home");
+            }
+            else
+            {
+                ViewBag.MensagemErro = "Senhas não correspondem.";
+                return View();
+            }
+        }
     }
 }
