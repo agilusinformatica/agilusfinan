@@ -22,7 +22,8 @@ namespace AgilusFinan.Web.Controllers
         [HttpPost]
         public ActionResult Create(Convite convite)
         {
-            Util.EnviarConvite(convite, UsuarioLogado.EmpresaId, new RepositorioUsuario().BuscarPorId(UsuarioLogado.UsuarioId).Email);
+            string host = Request.Url.Scheme+@"://"+Request.Url.Host+":"+Request.Url.Port.ToString();
+            Util.EnviarConvite(convite, UsuarioLogado.EmpresaId, new RepositorioUsuario().BuscarPorId(UsuarioLogado.UsuarioId).Email, host);
             var repo = new RepositorioConvite();
             repo.Incluir(convite);
             return RedirectToAction("Index", "Usuario");
