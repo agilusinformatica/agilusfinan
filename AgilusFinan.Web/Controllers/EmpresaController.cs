@@ -48,8 +48,7 @@ namespace AgilusFinan.Web.Controllers
             db.Convites.Add(convite);
             db.SaveChanges();
 
-            string host = Request.Url.Scheme+@"://"+Request.Url.Host+":"+Request.Url.Port.ToString();
-            Util.EnviarConvite(convite, empresa.Id, "henrique@agilus.com.br", host);
+            Util.EnviarConvite(convite, empresa.Id, "henrique@agilus.com.br");
 
             return RedirectToAction("Index", "Login");
         }
