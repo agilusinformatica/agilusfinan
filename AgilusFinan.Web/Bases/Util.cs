@@ -14,16 +14,17 @@ namespace AgilusFinan.Web.Bases
     {
 
         static private Dictionary<int, string> lista;
-        static private List<Categoria> itens;
+        static private List<Categoria> itensCategoria;
+        static private List<Funcao> itensFuncao;
 
-        private static void AdicionaItem(Categoria c, int nivel)
+        private static void AdicionaItemCategoria(Categoria c, int nivel)
         {
             string identador = System.Net.WebUtility.HtmlDecode("&nbsp;");
             lista.Add(c.Id, Repete(identador, nivel * 3) + c.Nome);
-            var filhas = itens.Where(f => f.CategoriaPaiId == c.Id && f.Id != f.CategoriaPaiId);
+            var filhas = itensCategoria.Where(f => f.CategoriaPaiId == c.Id && f.Id != f.CategoriaPaiId);
             foreach (var item in filhas)
             {
-                AdicionaItem(item, ++nivel);
+                AdicionaItemCategoria(item, ++nivel);
                 --nivel;
             }
         }
@@ -34,18 +35,44 @@ namespace AgilusFinan.Web.Bases
 
             if (direcao != null)
             {
-                itens = repo.Listar(c => c.Direcao == direcao);
+                itensCategoria = repo.Listar(c => c.Direcao == direcao);
             }
             else
             {
-                itens = repo.Listar().ToList();
+                itensCategoria = repo.Listar().ToList();
             }
 
             lista = new Dictionary<int, string>();
-            var root = itens.Where(c => c.CategoriaPaiId == null);
+            var root = itensCategoria.Where(c => c.CategoriaPaiId == null);
             foreach (var item in root)
             {
-                AdicionaItem(item, 0);
+                AdicionaItemCategoria(item, 0);
+            }
+
+            return lista;
+        }
+
+        private static void AdicionaItemFuncao(Funcao c, int nivel)
+        {
+            string identador = System.Net.WebUtility.HtmlDecode("&nbsp;");
+            lista.Add(c.Id, Repete(identador, nivel * 3) + c.Descricao);
+            var filhas = itensFuncao.Where(f => f.FuncaoSuperiorId == c.Id && f.Id != f.FuncaoSuperiorId);
+            foreach (var item in filhas)
+            {
+                AdicionaItemFuncao(item, ++nivel);
+                --nivel;
+            }
+        }
+
+        public static Dictionary<int, string> FuncoesIdentadas()
+        {
+            itensFuncao = new Contexto().Funcoes.ToList();
+
+            lista = new Dictionary<int, string>();
+            var root = itensFuncao.Where(c => c.FuncaoSuperiorId == null);
+            foreach (var item in root)
+            {
+                AdicionaItemFuncao(item, 0);
             }
 
             return lista;
@@ -64,7 +91,6 @@ namespace AgilusFinan.Web.Bases
         public static void EnviarConvite(Convite convite, int empresaId, string remetente)
         {
             string token = Criptografia.Encriptar(convite.Email + "|" + convite.PerfilId.ToString() + "|" + empresaId.ToString());
-
             var Email = new Email(convite.Email, "http://localhost:8197/Login/EfetivarConvite?token=" + token, "Convite", remetente);
             Email.DispararMensagem();
         }

@@ -59,7 +59,6 @@ namespace AgilusFinan.Web.Bases
             ModelToViewModel(model, viewModel);
             PreAlteracao(viewModel);
             return FolderViewName() == String.Empty ? View(viewModel) : View("~/Views/" + FolderViewName() + "/Edit.cshtml", viewModel);
-
         }
 
         [HttpPost]

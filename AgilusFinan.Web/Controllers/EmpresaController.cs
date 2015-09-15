@@ -31,7 +31,6 @@ namespace AgilusFinan.Web.Controllers
             Perfil perfil = new Perfil()
             {
                 Descricao = "Administrador",
-                Acesso = null,
                 EmpresaId = empresa.Id
             };
 

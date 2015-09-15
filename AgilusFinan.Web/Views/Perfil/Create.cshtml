@@ -1,0 +1,52 @@
+﻿@model AgilusFinan.Web.ViewModels.PerfilViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>PerfilViewModel</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Descricao, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Descricao, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Descricao, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <h4>Acessos para este perfil</h4>
+        <div class="container">
+            <table class="table table-striped table-bordered" style="width: 50%">
+                <tr>
+                    <th>Função</th>
+                </tr>
+                @foreach (var f in ViewBag.ListaFuncoes)
+                {
+                    <tr>
+                        <td>
+                            <input name="s@(f.Key)" id="s@(f.Key)" type="checkbox" />&nbsp;@f.Value
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Voltar para a lista", "Index")
+</div>

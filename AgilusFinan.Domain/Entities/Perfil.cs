@@ -9,6 +9,6 @@ namespace AgilusFinan.Domain.Entities
     {
         public int Id { get; set; }
         public string Descricao { get; set; }
-        public virtual IEnumerable<Acesso> Acesso { get; set; }
+        public virtual List<Acesso> Acessos { get; set; }
     }
 }
