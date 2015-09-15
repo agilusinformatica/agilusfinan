@@ -90,14 +90,17 @@ namespace AgilusFinan.Web.Bases
 
         public static void EnviarConvite(Convite convite, int empresaId, string remetente)
         {
-            string host = 
-                System.Web.HttpContext.Current.Request.Url.Scheme+@"://"+
-                System.Web.HttpContext.Current.Request.Url.Host+":"+
-                System.Web.HttpContext.Current.Request.Url.Port.ToString();
-
             string token = Criptografia.Encriptar(convite.Email + "|" + convite.PerfilId.ToString() + "|" + empresaId.ToString());
-            var Email = new Email(convite.Email, host+"/Login/EfetivarConvite?token=" + token, "Convite", remetente);
+            var Email = new Email(convite.Email, EnderecoHost() + "/Login/EfetivarConvite?token=" + token, "Convite", remetente);
             Email.DispararMensagem();
+        }
+
+        public static string EnderecoHost()
+        {
+            return
+                System.Web.HttpContext.Current.Request.Url.Scheme + @"://" +
+                System.Web.HttpContext.Current.Request.Url.Host + ":" +
+                System.Web.HttpContext.Current.Request.Url.Port.ToString();
         }
     }
 }

@@ -285,6 +285,8 @@
     <Content Include="Views\Empresa\Create.cshtml" />
     <Content Include="Views\Perfil\Index.cshtml" />
     <Content Include="Views\Perfil\Create.cshtml" />
+    <Content Include="Views\Login\EsqueciSenha.cshtml" />
+    <Content Include="Views\Login\RedefinirSenha.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\RecuperarSenha\" />
@@ -325,7 +327,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>8197</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

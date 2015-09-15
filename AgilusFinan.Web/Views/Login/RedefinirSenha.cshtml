@@ -1,0 +1,47 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>RedefinirSenha</title>
+    @Styles.Render("~/Content/css")
+</head>
+<body>
+
+    @using (Html.BeginForm())
+    {
+
+        if (!(@ViewBag.MensagemErro == String.Empty))
+        {
+            <p>@ViewBag.MensagemErro</p>
+        }
+
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="control-label col-md-2">Digite sua Senha:</label>
+                <input class="form-control col-md-10" type="password" id="senha" name="senha" />
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2">Confirme sua Senha:</label>
+                <input class="form-control input-group-sm" type="password" id="confirmaSenha" name="confirmaSenha" />
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-1 col-md-10">
+                    <input type="submit" class="btn btn-default" value="Alterar" id="Enviar" />
+                </div>
+            </div>
+        </div>
+
+    }
+</body>
+
+</html>
+
+
