@@ -229,6 +229,10 @@
     <Compile Include="Migrations\201509152012008_Entidade_Esquecimento_Senha.Designer.cs">
       <DependentUpon>201509152012008_Entidade_Esquecimento_Senha.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201509162231312_DeleteCascadeOnPerfil.cs" />
+    <Compile Include="Migrations\201509162231312_DeleteCascadeOnPerfil.Designer.cs">
+      <DependentUpon>201509162231312_DeleteCascadeOnPerfil.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ListarAcessosUsuario.cs" />
@@ -388,6 +392,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201509152012008_Entidade_Esquecimento_Senha.resx">
       <DependentUpon>201509152012008_Entidade_Esquecimento_Senha.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509162231312_DeleteCascadeOnPerfil.resx">
+      <DependentUpon>201509162231312_DeleteCascadeOnPerfil.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

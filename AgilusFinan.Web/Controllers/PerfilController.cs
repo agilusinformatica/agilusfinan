@@ -18,6 +18,11 @@ namespace AgilusFinan.Web.Controllers
             base.PreInclusao();
             ViewBag.ListaFuncoes = Util.FuncoesIdentadas();
         }
+        protected override void PreAlteracao(PerfilViewModel viewModel)
+        {
+            base.PreAlteracao(viewModel);
+            ViewBag.ListaFuncoes = Util.FuncoesIdentadas();
+        }
 
         protected override void ModelToViewModel(Perfil model, PerfilViewModel viewModel)
         {
