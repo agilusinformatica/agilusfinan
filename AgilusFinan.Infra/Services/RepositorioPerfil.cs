@@ -4,6 +4,7 @@ using AgilusFinan.Infra.Context;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 
@@ -29,7 +30,7 @@ namespace AgilusFinan.Infra.Services
                 db.Acessos.Add(acesso);
             }
 
-            db.SaveChanges();
+            obj.Acessos = null;
         }
     }
 }
