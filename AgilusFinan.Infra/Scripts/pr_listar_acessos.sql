@@ -1,9 +1,8 @@
-﻿if object_id('pr_Acessar') > 0
+﻿if object_id('pr_listar_acessos') > 0
 begin
    drop procedure pr_listar_acessos
    print '<< DROP pr_listar_acessos >>'
 end
-
 GO
 
 create procedure pr_listar_acessos(@UsuarioId int) 
@@ -19,16 +18,10 @@ Begin
 	where u.id = @UsuarioId
 	and u.ativo = 1
 end
-
 GO
 
 if object_id('pr_listar_acessos') > 0
 begin
    print '<< CREATE pr_listar_acessos >>'
 end
-
 GO
-
---TESTE
---exec pr_listar_acessos 2
---

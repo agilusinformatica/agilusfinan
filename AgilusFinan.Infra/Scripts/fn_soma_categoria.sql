@@ -3,7 +3,6 @@ begin
    drop function fn_soma_categoria
    print '<< DROP fn_soma_categoria >>'
 end
-
 GO
 
 create function dbo.fn_soma_categoria(@id int, @data_inicial smalldatetime, @data_final smalldatetime)
@@ -44,3 +43,10 @@ begin
 
 	return isnull(@soma,0)
 end
+GO
+
+if object_id('fn_soma_categoria') > 0
+begin
+   print '<< CREATE fn_soma_categoria >>'
+end
+GO

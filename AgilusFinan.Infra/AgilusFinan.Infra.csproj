@@ -157,37 +157,9 @@
     <Compile Include="Migrations\201507082038418_Create DataCadastro on TítuloRecorrente.Designer.cs">
       <DependentUpon>201507082038418_Create DataCadastro on TítuloRecorrente.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201507221646339_CriacaoFunctionGeradorVencimentos.cs" />
-    <Compile Include="Migrations\201507221646339_CriacaoFunctionGeradorVencimentos.Designer.cs">
-      <DependentUpon>201507221646339_CriacaoFunctionGeradorVencimentos.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201507221648368_CriacaoProcedureCriaTituloVirtual.cs" />
-    <Compile Include="Migrations\201507221648368_CriacaoProcedureCriaTituloVirtual.Designer.cs">
-      <DependentUpon>201507221648368_CriacaoProcedureCriaTituloVirtual.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\201507291902445_CampoContaTituloRecorrente.cs" />
     <Compile Include="Migrations\201507291902445_CampoContaTituloRecorrente.Designer.cs">
       <DependentUpon>201507291902445_CampoContaTituloRecorrente.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201508071614151_CriacaoFunctionSomaCategoria.cs" />
-    <Compile Include="Migrations\201508071614151_CriacaoFunctionSomaCategoria.Designer.cs">
-      <DependentUpon>201508071614151_CriacaoFunctionSomaCategoria.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201508071957133_CriacaoProcedureConsultaResumoTituloCategoria.cs" />
-    <Compile Include="Migrations\201508071957133_CriacaoProcedureConsultaResumoTituloCategoria.Designer.cs">
-      <DependentUpon>201508071957133_CriacaoProcedureConsultaResumoTituloCategoria.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201508141907074_ConsertoProcedureCriaTituloVirtual.cs" />
-    <Compile Include="Migrations\201508141907074_ConsertoProcedureCriaTituloVirtual.Designer.cs">
-      <DependentUpon>201508141907074_ConsertoProcedureCriaTituloVirtual.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201508162133571_ProceduresDiversas.cs" />
-    <Compile Include="Migrations\201508162133571_ProceduresDiversas.Designer.cs">
-      <DependentUpon>201508162133571_ProceduresDiversas.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201508172140386_Alteração procedure pr_titulos_pendentes.cs" />
-    <Compile Include="Migrations\201508172140386_Alteração procedure pr_titulos_pendentes.Designer.cs">
-      <DependentUpon>201508172140386_Alteração procedure pr_titulos_pendentes.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201509021541578_CriacaoUsuarioPerfil.cs" />
     <Compile Include="Migrations\201509021541578_CriacaoUsuarioPerfil.Designer.cs">
@@ -213,18 +185,6 @@
     <Compile Include="Migrations\201509032152439_CriacaoEntidadeConvite.Designer.cs">
       <DependentUpon>201509032152439_CriacaoEntidadeConvite.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201509091817085_pr_extrato.cs" />
-    <Compile Include="Migrations\201509091817085_pr_extrato.Designer.cs">
-      <DependentUpon>201509091817085_pr_extrato.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201509101609452_atualizaProcedures.cs" />
-    <Compile Include="Migrations\201509101609452_atualizaProcedures.Designer.cs">
-      <DependentUpon>201509101609452_atualizaProcedures.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201509101509256_CriacaoProcedureListarAcessos.cs" />
-    <Compile Include="Migrations\201509101509256_CriacaoProcedureListarAcessos.Designer.cs">
-      <DependentUpon>201509101509256_CriacaoProcedureListarAcessos.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\201509152012008_Entidade_Esquecimento_Senha.cs" />
     <Compile Include="Migrations\201509152012008_Entidade_Esquecimento_Senha.Designer.cs">
       <DependentUpon>201509152012008_Entidade_Esquecimento_Senha.cs</DependentUpon>
@@ -235,7 +195,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\ListarAcessosUsuario.cs" />
+    <Compile Include="Services\AcessosUsuario.cs" />
     <Compile Include="Services\GeradorPrevistoRealizado.cs" />
     <Compile Include="Services\GeradorResumoTituloCategoria.cs" />
     <Compile Include="Services\GeradorTitulosPendentes.cs" />
@@ -348,29 +308,8 @@
     <EmbeddedResource Include="Migrations\201507082038418_Create DataCadastro on TítuloRecorrente.resx">
       <DependentUpon>201507082038418_Create DataCadastro on TítuloRecorrente.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201507221646339_CriacaoFunctionGeradorVencimentos.resx">
-      <DependentUpon>201507221646339_CriacaoFunctionGeradorVencimentos.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201507221648368_CriacaoProcedureCriaTituloVirtual.resx">
-      <DependentUpon>201507221648368_CriacaoProcedureCriaTituloVirtual.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201507291902445_CampoContaTituloRecorrente.resx">
       <DependentUpon>201507291902445_CampoContaTituloRecorrente.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201508071614151_CriacaoFunctionSomaCategoria.resx">
-      <DependentUpon>201508071614151_CriacaoFunctionSomaCategoria.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201508071957133_CriacaoProcedureConsultaResumoTituloCategoria.resx">
-      <DependentUpon>201508071957133_CriacaoProcedureConsultaResumoTituloCategoria.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201508141907074_ConsertoProcedureCriaTituloVirtual.resx">
-      <DependentUpon>201508141907074_ConsertoProcedureCriaTituloVirtual.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201508162133571_ProceduresDiversas.resx">
-      <DependentUpon>201508162133571_ProceduresDiversas.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201508172140386_Alteração procedure pr_titulos_pendentes.resx">
-      <DependentUpon>201508172140386_Alteração procedure pr_titulos_pendentes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201509021541578_CriacaoUsuarioPerfil.resx">
       <DependentUpon>201509021541578_CriacaoUsuarioPerfil.cs</DependentUpon>
@@ -399,14 +338,30 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\Config\Funcoes AgilusFinan.sql" />
-    <Content Include="Scripts\pr_listar_acessos.sql" />
-    <Content Include="Scripts\pr_extrato.sql" />
-    <Content Include="Scripts\fn_gerador_vencimentos.sql" />
-    <Content Include="Scripts\fn_soma_categoria.sql" />
-    <Content Include="Scripts\pr_titulos_pendentes.sql" />
-    <Content Include="Scripts\pr_previsto_realizado.sql" />
-    <Content Include="Scripts\pr_resumo_titulo_categoria.sql" />
-    <Content Include="Scripts\pr_cria_titulo_virtual.sql" />
+    <Content Include="Scripts\pr_listar_acessos.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\pr_extrato.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\fn_gerador_vencimentos.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\fn_soma_categoria.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\pr_titulos_pendentes.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\pr_previsto_realizado.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\pr_resumo_titulo_categoria.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\pr_cria_titulo_virtual.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
