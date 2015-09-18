@@ -1,17 +1,26 @@
-﻿@{
-    Layout = null;
+﻿@model System.Web.Mvc.HandleErrorInfo
+ 
+@{
+    ViewBag.Title = "Erro";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Error</title>
-</head>
-<body>
-    <hgroup>
-        <h1>Error.</h1>
-        <h2>An error occurred while processing your request.</h2>
-    </hgroup>
-</body>
-</html>
+ 
+<h1>Erro</h1>
+<div class="title">
+    @{
+        if (@Model != null && @Model.Exception != null)
+        {
+            <h4>@Model.Exception.Message</h4>
+            <h4>@Model.Exception.InnerException.Message;</h4>
+            <button id="voltar" class="btn btn-info" onclick="window.history.back();">Voltar</button>
+            <br /><br /><br /><br />
+            <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#stacktrace">Stack Trace</button>
+            <div id="stacktrace" class="collapse">@Model.Exception.StackTrace</div>
+        }
+        else
+        {
+            <h4>O erro foi reportado ao Administrador.</h4>
+            <button id="voltar" class="btn btn-info" onclick="window.history.back();">Voltar</button>
+        }
+}
+</div>

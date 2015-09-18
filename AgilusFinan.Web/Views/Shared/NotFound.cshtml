@@ -1,0 +1,29 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+@{
+    ViewBag.Title = "Ops!";
+}
+<html>
+<head>
+    <title>Ops!</title>
+</head>
+<body>
+    <hgroup class="title">
+        <h1 class="error">Erro.</h1>
+        @if (@Model != null)
+        {
+            <h2 class="error">@Model.Exception</h2>
+        }
+        else
+        {
+            <h2>
+                Ops! 404 (Page Not Found)!
+             
+ 
+                A página não foi encontrada, provavelmente o 
+                endereço foi movido ou removido. 
+                Contacte seu administrador de redes.
+            </h2>
+        }
+    </hgroup>
+</body>
+</html>
