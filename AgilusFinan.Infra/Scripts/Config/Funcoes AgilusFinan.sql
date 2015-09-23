@@ -52,4 +52,8 @@ INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) V
 INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (51, N'Alterar', N'Perfil/Edit', 47)
 INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (52, N'Excluir', N'Perfil/Delete', 47)
 INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (53, N'Incluir', N'Perfil/Create', 47)
+INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (54, N'Tipo de Telefone', N'TipoTelefone/Index', 20)
+INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (55, N'Alterar', N'TipoTelefone/Edit', 54)
+INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (56, N'Excluir', N'TipoTelefone/Delete', 54)
+INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (57, N'Incluir', N'TipoTelefone/Create', 54)
 SET IDENTITY_INSERT [dbo].[Funcao] OFF

@@ -37,6 +37,8 @@ namespace AgilusFinan.Web.Controllers
             db.Perfis.Add(perfil);
             db.SaveChanges();
 
+
+            // criação do convite
             Convite convite = new Convite()
             {
                 Email = empresa.EmailContato,
@@ -44,8 +46,15 @@ namespace AgilusFinan.Web.Controllers
                 Expirado = false,
                 PerfilId = perfil.Id
             };
-
             db.Convites.Add(convite);
+
+            // inclusão das permissões no perfil
+            foreach (var funcao in db.Funcoes)
+            {
+                Acesso acesso = new Acesso() {PerfilId = perfil.Id, FuncaoId = funcao.Id};
+                db.Acessos.Add(acesso);
+            }
+
             db.SaveChanges();
 
             Util.EnviarConvite(convite, empresa.Id, "henrique@agilus.com.br");
