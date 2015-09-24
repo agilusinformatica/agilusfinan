@@ -35,7 +35,8 @@ namespace AgilusFinan.Web.Controllers
 
             foreach (var t in model.Telefones)
             {
-                viewModel.Telefones.Add(t.Telefone);
+                //viewModel.Telefones.Add(new TelefonePessoaViewModel() {Telefone = t.Telefone, Id = t.Id});
+                viewModel.Telefones.Add(new TelefonePessoaViewModel() { Ddd = t.Telefone.Ddd, Numero = t.Telefone.Numero, TipoTelefoneId = t.Telefone.TipoTelefoneId, Id = t.Id });
             }
 
             foreach (var tp in model.TiposPessoa)
@@ -61,7 +62,17 @@ namespace AgilusFinan.Web.Controllers
 
             foreach (var t in viewModel.Telefones)
             {
-                model.Telefones.Add(new TelefonePessoa() { Telefone = t, PessoaId = viewModel.Id });
+                model.Telefones.Add(new TelefonePessoa() 
+                { 
+                    Id = t.Id, 
+                    PessoaId = viewModel.Id, 
+                    Telefone = new Telefone() 
+                    {
+                        Ddd = t.Ddd, 
+                        Numero = t.Numero, 
+                        TipoTelefoneId = t.TipoTelefoneId 
+                    } 
+                });
             }
 
             foreach (var tp in viewModel.TiposPorPessoa)

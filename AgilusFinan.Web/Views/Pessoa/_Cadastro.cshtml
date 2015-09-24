@@ -73,7 +73,6 @@
         </div>
 
         <input class="btn btn-default" id="AdicionarTelefone" type="button" value="Adiciona Telefone" />
-
         <table class="table table-bordered" id="tabTelefones"></table>
 
 
@@ -99,8 +98,11 @@
     tabTelefones.Columns.push(new ColumnTable('DDD', 'Ddd', ColumnType.text, null, '00', 'form-control'));
     tabTelefones.Columns.push(new ColumnTable('Número', 'Numero', ColumnType.text, null, 'telefone', 'form-control'));
     tabTelefones.Columns.push(new ColumnTable('Tipo', 'TipoTelefoneId', ColumnType.list, elementos, null, 'form-control'));
+    tabTelefones.Columns.push(new ColumnTable('Id', 'Id', ColumnType.hidden));
 
     tabTelefones.jsonData = '@Html.Raw(Json.Encode(Model.Telefones))';
+
+    console.log('@Html.Raw(Json.Encode(Model.Telefones))');
 
     function UpdatePessoa() {
         var pessoaJson = GetData();
@@ -149,7 +151,19 @@
             TipoPorPessoa.Marcado = cell.getElementsByTagName('input')[1].checked;
             pessoa.TiposPorPessoa[i] = TipoPorPessoa;
         }
-        pessoa.Telefones = tabTelefones.data;
+
+        var telefones = [];
+
+        Array.from(tabTelefones.data).forEach(function (t) {
+            if (t.Id === '') {
+                t.Id = 0;
+            }
+            t.Numero = t.Numero.replace('-', '');
+            telefones.push(t);
+        });
+
+        pessoa.Telefones = telefones;
+
         return JSON.stringify(pessoa);
     }
 
@@ -158,6 +172,17 @@
         Utils.createMask(document.getElementById("ContaBancaria_CpfTitular"), "cpf");
         Utils.createMask(document.getElementById("Rg"), "rg");
     })();
+
+    (function() {
+        $('#tabTelefones > tr > td:nth-of-type(2) > input').mask('0000-0000').on('keypress', function(e) {
+            if (this.value.replace(/\D/g, "").length === 9) {
+                $(this).mask("00000-0000");
+            } else {
+                $(this).mask("0000-00009");
+            }
+        });
+    })();
+
 
 </script>
 

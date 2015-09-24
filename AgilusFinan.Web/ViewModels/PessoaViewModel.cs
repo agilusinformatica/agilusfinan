@@ -18,13 +18,13 @@ namespace AgilusFinan.Web.ViewModels
         public ContaBancaria ContaBancaria { get; set; }
 
         public List<TipoPorPessoa> TiposPorPessoa { get; set; }
-        public List<Telefone> Telefones { get; set; }
+        public List<TelefonePessoaViewModel> Telefones { get; set; }
 
         public PessoaViewModel()
         {
             Endereco = new Endereco();
             ContaBancaria = new ContaBancaria();
-            Telefones = new List<Telefone>();
+            Telefones = new List<TelefonePessoaViewModel>();
             TiposPorPessoa = new List<TipoPorPessoa>();
 
             foreach (var tipo in new RepositorioTipoPessoa().Listar())
@@ -45,5 +45,17 @@ namespace AgilusFinan.Web.ViewModels
         public int Id { get; set; }
         public string Nome { get; set; }
         public bool Marcado { get; set; }
+    }
+
+    public class TelefonePessoaViewModel
+    {
+        public int Id { get; set; }
+        //public Telefone Telefone { get; set; }
+
+        public string Numero { get; set; }
+
+        public string Ddd { get; set; }
+
+        public int TipoTelefoneId { get; set; }
     }
 }
