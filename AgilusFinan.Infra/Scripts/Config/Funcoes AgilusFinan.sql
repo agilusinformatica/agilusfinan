@@ -56,4 +56,5 @@ INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) V
 INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (55, N'Alterar', N'TipoTelefone/Edit', 54)
 INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (56, N'Excluir', N'TipoTelefone/Delete', 54)
 INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (57, N'Incluir', N'TipoTelefone/Create', 54)
+INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (58, N'Liquidar Título Pendente', N'TituloPendente/Liquidar', null)
 SET IDENTITY_INSERT [dbo].[Funcao] OFF
