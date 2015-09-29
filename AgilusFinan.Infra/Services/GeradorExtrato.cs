@@ -8,7 +8,7 @@ using System.Text;
 
 namespace AgilusFinan.Infra.Services
 {
-    class GeradorExtrato
+    public static class GeradorExtrato
     {
         public static List<Extrato> ChamarProcedimento(int ContaId, DateTime dataInicial, DateTime dataFinal)
         {
