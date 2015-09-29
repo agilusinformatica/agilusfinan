@@ -196,6 +196,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AcessosUsuario.cs" />
+    <Compile Include="Services\GeradorExtrato.cs" />
     <Compile Include="Services\GeradorPrevistoRealizado.cs" />
     <Compile Include="Services\GeradorResumoTituloCategoria.cs" />
     <Compile Include="Services\GeradorTitulosPendentes.cs" />

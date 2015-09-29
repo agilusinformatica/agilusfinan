@@ -1,0 +1,27 @@
+﻿@model AgilusFinan.Domain.Entities.Filtro
+
+<form>
+    @foreach (var item in Model.Parametros)
+    {
+        @item.Label</br>
+        @switch (item.Tipo)
+        {
+            case AgilusFinan.Domain.Entities.TipoFiltro.texto:
+                <input type="text" />
+                break;
+            case AgilusFinan.Domain.Entities.TipoFiltro.valor:
+                break;
+            case AgilusFinan.Domain.Entities.TipoFiltro.monetario:
+                break;
+            case AgilusFinan.Domain.Entities.TipoFiltro.data:
+                break;
+            case AgilusFinan.Domain.Entities.TipoFiltro.tabela:
+                break;
+            default:
+                break;
+        }
+        
+    }
+
+
+</form>

@@ -42,6 +42,8 @@
     <Compile Include="Entities\ContaBancaria.cs" />
     <Compile Include="Entities\Convite.cs" />
     <Compile Include="Entities\EsquecimentoSenha.cs" />
+    <Compile Include="Entities\Extrato.cs" />
+    <Compile Include="Entities\Filtro.cs" />
     <Compile Include="Entities\UsuarioLogado.cs" />
     <Compile Include="Utils\Criptografia.cs" />
     <Compile Include="Utils\Email.cs" />

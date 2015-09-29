@@ -145,6 +145,7 @@
     <Compile Include="Controllers\ContaController.cs" />
     <Compile Include="Controllers\ConviteController.cs" />
     <Compile Include="Controllers\EmpresaController.cs" />
+    <Compile Include="Controllers\RelatorioController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PagamentoController.cs" />
@@ -297,8 +298,11 @@
     <Content Include="Views\Perfil\Edit.cshtml" />
     <Content Include="Views\Perfil\Delete.cshtml" />
     <Content Include="Views\Shared\NotFound.cshtml" />
+    <Content Include="Views\Shared\_Filtro.cshtml" />
+    <Content Include="Views\Relatorio\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Views\Extrato\" />
     <Folder Include="Views\RecuperarSenha\" />
   </ItemGroup>
   <ItemGroup>
