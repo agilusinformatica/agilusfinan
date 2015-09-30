@@ -3,25 +3,75 @@
 <form>
     @foreach (var item in Model.Parametros)
     {
-        @item.Label</br>
-        @switch (item.Tipo)
+        @item.Label
+        switch (item.Tipo)
         {
             case AgilusFinan.Domain.Entities.TipoFiltro.texto:
-                <input type="text" />
+                <input type="text" data-grupo="filtro" data-filtro="@item.Nome" />
                 break;
             case AgilusFinan.Domain.Entities.TipoFiltro.valor:
+            <input type="text" data-grupo="filtro" data-filtro="@item.Nome" />
                 break;
             case AgilusFinan.Domain.Entities.TipoFiltro.monetario:
+            <input type="text" data-grupo="filtro" data-filtro="@item.Nome" />
                 break;
             case AgilusFinan.Domain.Entities.TipoFiltro.data:
+            <input type="date" data-grupo="filtro" data-filtro="@item.Nome" />
                 break;
             case AgilusFinan.Domain.Entities.TipoFiltro.tabela:
+            <table></table>
                 break;
             default:
                 break;
         }
-        
+
     }
 
+    
+
+
+    <input type="submit" formmethod="post" id="consulta" value="Consultar" />
 
 </form>
+
+<div id="conteudo">
+
+</div>
+
+<script>
+
+    $("#consulta").bind("click", function (e) {
+        e.preventDefault();
+        var parametros = [];
+        var filtro = {};
+
+        $('[data-grupo="filtro"]').each(function () {
+            parametros.push({
+                Nome: $(this).attr('data-filtro'),
+                Valor: $(this).val()
+            });
+        });
+
+        filtro.Parametros = parametros;
+
+        var result = $.ajax({
+            url: "@Url.Action("Consulta")",
+            method: "POST",
+            data: {
+                jsonFiltros: JSON.stringify(filtro)
+            },
+            beforeSend: function () {
+                $("#loading").html('<img src="/Content/Images/loading.gif">');
+            },
+            success: function (data) {
+                $("#loading>img").remove();
+                $('#conteudo').html(data);
+            },
+            error: function () {
+                throw "Erro";
+            }
+        });
+
+    });
+
+</script>

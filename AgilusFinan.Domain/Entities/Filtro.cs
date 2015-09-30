@@ -5,20 +5,19 @@ using System.Text;
 
 namespace AgilusFinan.Domain.Entities
 {
-    //public class Filtro
-    //{
-    //    public DateTime DataInicial { get; set; }
-    //    public DateTime DataFinal { get; set; }
-    //    public Conta? Conta { get; set; }
-    //    public Categoria? Categoria { get; set; }
-    //}
-
     public class Filtro
     {
         public List<ParametroFiltro> Parametros { get; set; }
         public Filtro()
         {
             Parametros = new List<ParametroFiltro>();
+            
+        }
+
+        public dynamic ValorPorNome(string nome)
+        {
+            var parametro = Parametros.Find(p => p.Nome == nome);
+            return parametro.Valor;
         }
     }
 
@@ -39,12 +38,4 @@ namespace AgilusFinan.Domain.Entities
         public dynamic Valor { get; set; }
     }
 
-    class Main
-    {
-        public void Inicializa()
-        {
-            var filtro = new Filtro();
-            filtro.Parametros.Add( new ParametroFiltro() {Nome = "@data_inicial", Label = "Data Inicial", Tipo = TipoFiltro.data, Valor = DateTime.Today});
-        }
-    }
 }

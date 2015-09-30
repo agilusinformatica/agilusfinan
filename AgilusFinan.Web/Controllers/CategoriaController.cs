@@ -18,8 +18,6 @@ namespace AgilusFinan.Web.Controllers
             ViewBag.ListaIdentada = Util.CategoriasIdentadas(null);
         }
 
-
-
         [HttpGet]
         public ActionResult CreateFilha(DirecaoCategoria direcao, int categoriaPaiId)
         {

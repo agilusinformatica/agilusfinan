@@ -8,9 +8,9 @@ using System.Text;
 
 namespace AgilusFinan.Infra.Services
 {
-    public static class GeradorExtrato
+    public class GeradorExtrato : IConsulta<Extrato>
     {
-        public static List<Extrato> ChamarProcedimento(int ContaId, DateTime dataInicial, DateTime dataFinal)
+        public List<Extrato> ChamarProcedimento(Filtro filtro)
         {
             List<Extrato> Lista = new List<Extrato>();
 
@@ -18,11 +18,21 @@ namespace AgilusFinan.Infra.Services
             {
                 Lista = context.Database.SqlQuery<Extrato>("exec pr_extrato @id_empresa, @id_conta, @data_inicial, @data_final",
                             new SqlParameter("@id_empresa", context.EmpresaId),
-                            new SqlParameter("@id_conta", ContaId),
-                            new SqlParameter("@data_inicial", dataInicial),
-                            new SqlParameter("@data_final", dataFinal)).ToList();
+                            new SqlParameter("@id_conta", filtro.ValorPorNome("ContaId")),
+                            new SqlParameter("@data_inicial", filtro.ValorPorNome("data_inicial")),
+                            new SqlParameter("@data_final", filtro.ValorPorNome("data_final"))).ToList();
             }
             return Lista;
         }
+
+        public Filtro DefineFiltro()
+        {
+            var filtro = new Filtro();
+            filtro.Parametros.Add(new ParametroFiltro() { Nome = "ContaId", Label = "Conta", Tipo = TipoFiltro.texto });
+            filtro.Parametros.Add(new ParametroFiltro() { Nome = "data_inicial", Label = "Data Inicial", Tipo = TipoFiltro.data, Valor = DateTime.Today });
+            filtro.Parametros.Add(new ParametroFiltro() { Nome = "data_final", Label = "Data Final", Tipo = TipoFiltro.data, Valor = DateTime.Today });
+            return filtro;
+        }
+
     }
 }

@@ -134,6 +134,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Bases\ControllerConsultaPadrao.cs" />
     <Compile Include="Bases\ControllerViewModelPadrao.cs" />
     <Compile Include="Bases\ControllerPadrao.cs" />
     <Compile Include="Bases\CarregarPermissoes.cs" />
@@ -145,7 +146,7 @@
     <Compile Include="Controllers\ContaController.cs" />
     <Compile Include="Controllers\ConviteController.cs" />
     <Compile Include="Controllers\EmpresaController.cs" />
-    <Compile Include="Controllers\RelatorioController.cs" />
+    <Compile Include="Controllers\ExtratoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PagamentoController.cs" />
@@ -300,9 +301,9 @@
     <Content Include="Views\Shared\NotFound.cshtml" />
     <Content Include="Views\Shared\_Filtro.cshtml" />
     <Content Include="Views\Relatorio\Index.cshtml" />
+    <Content Include="Views\Extrato\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\Extrato\" />
     <Folder Include="Views\RecuperarSenha\" />
   </ItemGroup>
   <ItemGroup>

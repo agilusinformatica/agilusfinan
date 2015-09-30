@@ -200,6 +200,7 @@
     <Compile Include="Services\GeradorPrevistoRealizado.cs" />
     <Compile Include="Services\GeradorResumoTituloCategoria.cs" />
     <Compile Include="Services\GeradorTitulosPendentes.cs" />
+    <Compile Include="Services\IConsulta.cs" />
     <Compile Include="Services\Login.cs" />
     <Compile Include="Services\RepositorioBanco.cs" />
     <Compile Include="Services\RepositorioCategoria.cs" />

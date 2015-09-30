@@ -1,0 +1,17 @@
+﻿@model List<AgilusFinan.Domain.Entities.Extrato>
+
+<table>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Data</td>
+            <td>@item.Descricao</td>
+            <td>@item.Valor</td>
+            <td>@item.Saldo</td>
+        </tr>
+    }
+
+</table>
+
+
