@@ -15,5 +15,13 @@ namespace AgilusFinan.Web.Controllers
         {
             return "Extrato";
         }
+
+        public override void PreFiltro()
+        {
+            base.PreFiltro();
+            ViewBag.Contas = new RepositorioConta().Listar();
+        }
+
+
     }
 }

@@ -17,6 +17,7 @@ namespace AgilusFinan.Web.Bases
 
         public ActionResult Index()
         {
+            PreFiltro();
             return View("~/Views/Relatorio/Index.cshtml", gerador.DefineFiltro());
         }
 
@@ -31,6 +32,11 @@ namespace AgilusFinan.Web.Bases
         public virtual string FolderViewName()
         {
             return String.Empty;
+        }
+
+        public virtual void PreFiltro()
+        {
+
         }
     }
 }

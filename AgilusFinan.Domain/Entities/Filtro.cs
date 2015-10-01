@@ -23,13 +23,9 @@ namespace AgilusFinan.Domain.Entities
 
     public enum TipoFiltro
     {
-        texto, valor, monetario, data, tabela 
+        texto, valor, monetario, data, logico, conta, centrocusto, categoria, pessoa, tipopessoa, tipotelefone, usuario, perfil, banco
     }
 
-    public enum TabelasParametros
-    {
-        conta, centrocusto, categoria, pessoa, tipopessoa, tipotelefone, usuario, perfil, banco
-    }
     public class ParametroFiltro
     {
         public string Nome { get; set; }

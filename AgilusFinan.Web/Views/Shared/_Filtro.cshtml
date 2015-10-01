@@ -7,28 +7,31 @@
         switch (item.Tipo)
         {
             case AgilusFinan.Domain.Entities.TipoFiltro.texto:
-                <input type="text" data-grupo="filtro" data-filtro="@item.Nome" />
+                <input type="text" data-grupo="filtro" data-filtro="@item.Nome" value="@item.Valor" class="form-control" />
                 break;
             case AgilusFinan.Domain.Entities.TipoFiltro.valor:
-            <input type="text" data-grupo="filtro" data-filtro="@item.Nome" />
+                <input type="text" data-grupo="filtro" data-filtro="@item.Nome" value="@item.Valor"  class="form-control"/>
                 break;
             case AgilusFinan.Domain.Entities.TipoFiltro.monetario:
-            <input type="text" data-grupo="filtro" data-filtro="@item.Nome" />
+                <input type="text" data-grupo="filtro" data-filtro="@item.Nome" value="@item.Valor" class="form-control" />
                 break;
             case AgilusFinan.Domain.Entities.TipoFiltro.data:
-            <input type="date" data-grupo="filtro" data-filtro="@item.Nome" />
+                <input type="date" data-grupo="filtro" data-filtro="@item.Nome" value="@item.Valor.ToString("yyyy-MM-dd")" class="form-control" />
                 break;
-            case AgilusFinan.Domain.Entities.TipoFiltro.tabela:
-            <table></table>
+            case AgilusFinan.Domain.Entities.TipoFiltro.conta:
+                <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome">
+                    <option> </option>
+                    @foreach (var conta in ViewBag.Contas)
+                    {
+                        <option value="@conta.Id">@conta.Nome</option>
+                    }
+                </select>
                 break;
             default:
                 break;
         }
 
     }
-
-    
-
 
     <input type="submit" formmethod="post" id="consulta" value="Consultar" />
 

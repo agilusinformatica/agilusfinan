@@ -1,16 +1,27 @@
 ﻿@model List<AgilusFinan.Domain.Entities.Extrato>
 
-<table>
-
-    @foreach (var item in Model)
-    {
+<table class="table table-hover table-bordered">
+    <thead>
         <tr>
-            <td>@item.Data</td>
-            <td>@item.Descricao</td>
-            <td>@item.Valor</td>
-            <td>@item.Saldo</td>
+            <th>Data</th>
+            <th>Descrição</th>
+            <th>Valor</th>
+            <th>Saldo</th>
         </tr>
-    }
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+
+            <tr>
+                <td>@item.Data.GetDateTimeFormats()[0]</td>
+                <td>@item.Descricao</td>
+                <td>@item.Valor</td>
+                <td>@item.Saldo.ToString("C")</td>
+            </tr>
+
+        }
+    </tbody>
 
 </table>
 

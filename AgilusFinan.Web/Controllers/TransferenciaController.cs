@@ -17,6 +17,5 @@ namespace AgilusFinan.Web.Controllers
             ViewBag.ContaOrigemId = new SelectList(new RepositorioConta().Listar(), "Id", "Nome");
             ViewBag.ContaDestinoId = new SelectList(new RepositorioConta().Listar(), "Id", "Nome");
         }
-
     }
 }
