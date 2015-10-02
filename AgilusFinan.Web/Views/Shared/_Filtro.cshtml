@@ -2,53 +2,118 @@
 
 <div class="container">
     <form class="form-inline" role="form">
+        
         @foreach (var item in Model.Parametros)
         {
-            @item.Label
-            switch (item.Tipo)
-            {
-                case AgilusFinan.Domain.Entities.TipoFiltro.texto:
-                    <div class="form-group">
+            <div class="form-group">
+                <label> @item.Label </label>
+                @switch (item.Tipo)
+                {
+                    case AgilusFinan.Domain.Entities.TipoFiltro.texto:
                         <input type="text" data-grupo="filtro" data-filtro="@item.Nome" value="@item.Valor" class="form-control" />
-                    </div>
-                    break;
-                case AgilusFinan.Domain.Entities.TipoFiltro.valor:
-                <div class="form-group">
-                    <input type="text" data-grupo="filtro" data-filtro="@item.Nome" value="@item.Valor" class="form-control" />
-                </div>
-                    break;
-                case AgilusFinan.Domain.Entities.TipoFiltro.monetario:
-                <div class="form-group">
-                    <input type="text" data-grupo="filtro" data-filtro="@item.Nome" value="@item.Valor" class="form-control" />
-                </div>
-                    break;
-                case AgilusFinan.Domain.Entities.TipoFiltro.data:
-                <div class="form-group">
-                    <input type="date" data-grupo="filtro" data-filtro="@item.Nome" value="@item.Valor.ToString("yyyy-MM-dd")" class="form-control" />
-                </div>
-                    break;
-                case AgilusFinan.Domain.Entities.TipoFiltro.conta:
-                <div class="form-group">
-                    <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome">
-                        <option> </option>
-                        @foreach (var conta in ViewBag.Contas)
-                        {
-                            <option value="@conta.Id">@conta.Nome</option>
-                        }
-                    </select>
-                </div>
                         break;
-                default:
+                    case AgilusFinan.Domain.Entities.TipoFiltro.valor:
+                        <input type="text" data-grupo="filtro" data-filtro="@item.Nome" value="@item.Valor" class="form-control" />
                         break;
-            }
+                    case AgilusFinan.Domain.Entities.TipoFiltro.monetario:
+                        <input type="text" data-grupo="filtro" data-filtro="@item.Nome" value="@item.Valor" class="form-control" />
+                        break;
+                    case AgilusFinan.Domain.Entities.TipoFiltro.data:
+                        <input type="date" data-grupo="filtro" data-filtro="@item.Nome" value="@item.Valor.ToString("yyyy-MM-dd")" class="form-control" />
+                        break;
+                    case AgilusFinan.Domain.Entities.TipoFiltro.conta:
+                        <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome">
+                            <option> </option>
+                            @foreach (var conta in ViewBag.Contas)
+                            {
+                                <option value="@conta.Id">@conta.Nome</option>
+                            }
+                        </select>
+                            break;
+                    case AgilusFinan.Domain.Entities.TipoFiltro.banco:
+                        <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome">
+                            <option> </option>
+                            @foreach (var conta in ViewBag.Bancos)
+                            {
+                                <option value="@conta.Id">@conta.Nome</option>
+                            }
+                        </select>
+                        break;
+                    case AgilusFinan.Domain.Entities.TipoFiltro.categoria:
+                        <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome">
+                            <option> </option>
+                            @foreach (var conta in ViewBag.Categorias)
+                            {
+                                <option value="@conta.Id">@conta.Nome</option>
+                            }
+                        </select>
+                        break;
+                    case AgilusFinan.Domain.Entities.TipoFiltro.centrocusto:
+                            <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome">
+                                <option> </option>
+                                @foreach (var conta in ViewBag.Centroscusto)
+                                {
+                                    <option value="@conta.Id">@conta.Nome</option>
+                                }
+                            </select>
+                            break;
+                    case AgilusFinan.Domain.Entities.TipoFiltro.perfil:
+                        <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome">
+                            <option> </option>
+                            @foreach (var conta in ViewBag.Perfis)
+                            {
+                                <option value="@conta.Id">@conta.Nome</option>
+                            }
+                        </select>
+                        break;
+                    case AgilusFinan.Domain.Entities.TipoFiltro.pessoa:
+                        <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome">
+                            <option> </option>
+                            @foreach (var conta in ViewBag.Pessoas)
+                            {
+                                <option value="@conta.Id">@conta.Nome</option>
+                            }
+                        </select>
+                        break;
+                    case AgilusFinan.Domain.Entities.TipoFiltro.tipopessoa:
+                        <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome">
+                            <option> </option>
+                            @foreach (var conta in ViewBag.TiposPessoa)
+                            {
+                                <option value="@conta.Id">@conta.Nome</option>
+                            }
+                        </select>
+                        break;
+                    case AgilusFinan.Domain.Entities.TipoFiltro.tipotelefone:
+                        <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome">
+                            <option> </option>
+                            @foreach (var conta in ViewBag.TiposTelefone)
+                            {
+                                <option value="@conta.Id">@conta.Nome</option>
+                            }
+                        </select>
+                        break;
+                    case AgilusFinan.Domain.Entities.TipoFiltro.usuario:
+                        <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome">
+                            <option> </option>
+                            @foreach (var conta in ViewBag.Usuarios)
+                            {
+                                <option value="@conta.Id">@conta.Nome</option>
+                            }
+                        </select>
+                        break;
+                    default:
+                        break;
+                }
+            </div>
         }
-
-        <input type="submit" formmethod="post" id="consulta" value="Consultar" class="btn btn-default" />
-    </form>
-
+        <div class="form-group">
+            <button type="submit" formmethod="post" id="consulta" class="btn btn-default">Consultar</button>
+        </div>
+</form>
 </div>
 <br />
-<div id="conteudo" class="container">
+<div id="conteudo">
 
 </div>
 
