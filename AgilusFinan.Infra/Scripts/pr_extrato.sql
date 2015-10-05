@@ -32,12 +32,15 @@ begin
 		from liquidacao l
 		join titulo t on l.TituloId = t.Id
 		join categoria c on t.CategoriaId = c.Id
-		where data <= @DataSaldoInicial 
+		where data < @dataInicial 
+		and data >= @dataSaldoInicial 
 		and t.ContaId = @conta
 
 		select @saldoInicial = @saldoInicial + isnull(SUM(case when ContaOrigemId = @conta then -valor when contaDestinoId = @conta then valor else 0.0 end), 0.0)
 		from Transferencia	
-		where data <= @DataSaldoInicial
+		where data < @dataInicial
+		and data >= @dataSaldoInicial 
+
 	end
 	else
 	begin
