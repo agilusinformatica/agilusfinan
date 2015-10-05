@@ -16,8 +16,9 @@ begin
 	declare @Saldo money
 	declare @SaldoInicial money
 
-	select @saldoConta = SaldoInicial, 
-	@DataSaldoInicial = DataSaldoInicial
+	select 
+		@saldoConta = SaldoInicial, 
+		@DataSaldoInicial = DataSaldoInicial
 	from Conta 
 	where id = @conta 
 	and EmpresaId = @empresa
@@ -47,13 +48,16 @@ begin
 		set @SaldoInicial = @saldoConta
 	end
 
+	create table #movimentacoes(Data datetime, Valor decimal(18,2), Descricao varchar(100), Saldo money)
+
 	--pegar as movimentações realizadas até a data final do extrato
+	insert into #movimentacoes
 	select Data, case c.Direcao when 0 then l.valor + isnull(l.JurosMulta, 0.0) else -(l.valor+isnull(l.JurosMulta, 0.0)) end Valor, t.Descricao, convert(money,null) Saldo 
-	into #movimentacoes
 	from Liquidacao l
 	join titulo t on l.TituloId = t.Id
 	join categoria c on t.CategoriaId = c.Id
 	where Data >= @dataInicial
+	and Data >= @DataSaldoInicial
 	and (@dataFinal is null or Data < @dataFinal+1)
 	and t.ContaId = @conta
 	and t.EmpresaId = @empresa
@@ -61,6 +65,7 @@ begin
 	select Data, case when ContaOrigemId = @conta then -valor when contaDestinoId = @conta then valor else 0.0 end Valor, Descricao, null
 	from transferencia
 	where Data >= @dataInicial
+	and Data >= @DataSaldoInicial
 	and (@dataFinal is null or Data < @dataFinal+1)
 	and EmpresaId = @empresa
 
