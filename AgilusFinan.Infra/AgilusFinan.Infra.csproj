@@ -217,6 +217,7 @@
     <Compile Include="Services\RepositorioTituloRecorrente.cs" />
     <Compile Include="Services\RepositorioTransferencia.cs" />
     <Compile Include="Services\RepositorioUsuario.cs" />
+    <Compile Include="Services\SelectLista.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

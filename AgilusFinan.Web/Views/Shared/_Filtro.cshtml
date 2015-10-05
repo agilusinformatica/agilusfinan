@@ -1,5 +1,5 @@
 ﻿@model AgilusFinan.Domain.Entities.Filtro
-
+@using AgilusFinan.Infra.Services;
 <div class="container">
     <form class="form-inline" role="form">
         
@@ -24,7 +24,7 @@
                     case AgilusFinan.Domain.Entities.TipoFiltro.conta:
                         <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome">
                             <option> </option>
-                            @foreach (var conta in ViewBag.Contas)
+                            @foreach (var conta in new SelectLista(3, TipoLista.Conta).Listar())
                             {
                                 <option value="@conta.Id">@conta.Nome</option>
                             }
@@ -33,72 +33,72 @@
                     case AgilusFinan.Domain.Entities.TipoFiltro.banco:
                         <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome">
                             <option> </option>
-                            @foreach (var conta in ViewBag.Bancos)
+                            @foreach (var banco in new SelectLista(3, TipoLista.Banco).Listar())
                             {
-                                <option value="@conta.Id">@conta.Nome</option>
+                                <option value="@banco.Id">@banco.Nome</option>
                             }
                         </select>
                         break;
                     case AgilusFinan.Domain.Entities.TipoFiltro.categoria:
                         <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome">
                             <option> </option>
-                            @foreach (var conta in ViewBag.Categorias)
+                            @foreach (var categoria in new SelectLista(3, TipoLista.Categoria).Listar())
                             {
-                                <option value="@conta.Id">@conta.Nome</option>
+                                <option value="@categoria.Id">@categoria.Nome</option>
                             }
                         </select>
                         break;
                     case AgilusFinan.Domain.Entities.TipoFiltro.centrocusto:
                             <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome">
                                 <option> </option>
-                                @foreach (var conta in ViewBag.Centroscusto)
+                                @foreach (var centrocusto in new SelectLista(3, TipoLista.CentroCusto).Listar())
                                 {
-                                    <option value="@conta.Id">@conta.Nome</option>
+                                    <option value="@centrocusto.Id">@centrocusto.Nome</option>
                                 }
                             </select>
                             break;
                     case AgilusFinan.Domain.Entities.TipoFiltro.perfil:
                         <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome">
                             <option> </option>
-                            @foreach (var conta in ViewBag.Perfis)
+                            @foreach (var perfil in new SelectLista(3, TipoLista.Perfil).Listar())
                             {
-                                <option value="@conta.Id">@conta.Nome</option>
+                                <option value="@perfil.Id">@perfil.Nome</option>
                             }
                         </select>
                         break;
                     case AgilusFinan.Domain.Entities.TipoFiltro.pessoa:
                         <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome">
                             <option> </option>
-                            @foreach (var conta in ViewBag.Pessoas)
+                            @foreach (var pessoa in new SelectLista(3, TipoLista.Pessoa).Listar())
                             {
-                                <option value="@conta.Id">@conta.Nome</option>
+                                <option value="@pessoa.Id">@pessoa.Nome</option>
                             }
                         </select>
                         break;
                     case AgilusFinan.Domain.Entities.TipoFiltro.tipopessoa:
                         <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome">
                             <option> </option>
-                            @foreach (var conta in ViewBag.TiposPessoa)
+                            @foreach (var tipopessoa in new SelectLista(3, TipoLista.TipoPessoa).Listar())
                             {
-                                <option value="@conta.Id">@conta.Nome</option>
+                                <option value="@tipopessoa.Id">@tipopessoa.Nome</option>
                             }
                         </select>
                         break;
                     case AgilusFinan.Domain.Entities.TipoFiltro.tipotelefone:
                         <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome">
                             <option> </option>
-                            @foreach (var conta in ViewBag.TiposTelefone)
+                            @foreach (var tipotelefone in new SelectLista(3, TipoLista.TipoTelefone).Listar())
                             {
-                                <option value="@conta.Id">@conta.Nome</option>
+                                <option value="@tipotelefone.Id">@tipotelefone.Nome</option>
                             }
                         </select>
                         break;
                     case AgilusFinan.Domain.Entities.TipoFiltro.usuario:
                         <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome">
                             <option> </option>
-                            @foreach (var conta in ViewBag.Usuarios)
+                            @foreach (var usuario in new SelectLista(3, TipoLista.Usuario).Listar())
                             {
-                                <option value="@conta.Id">@conta.Nome</option>
+                                <option value="@usuario.Id">@usuario.Nome</option>
                             }
                         </select>
                         break;
@@ -108,6 +108,7 @@
             </div>
         }
         <div class="form-group">
+            <br />
             <button type="submit" formmethod="post" id="consulta" class="btn btn-default">Consultar</button>
         </div>
 </form>

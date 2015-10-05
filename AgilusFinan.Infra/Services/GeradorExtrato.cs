@@ -28,7 +28,7 @@ namespace AgilusFinan.Infra.Services
         public Filtro DefineFiltro()
         {
             var filtro = new Filtro();
-            filtro.Parametros.Add(new ParametroFiltro() { Nome = "ContaId", Label = "Conta", Tipo = TipoFiltro.texto });
+            filtro.Parametros.Add(new ParametroFiltro() { Nome = "ContaId", Label = "Conta", Tipo = TipoFiltro.conta });
             filtro.Parametros.Add(new ParametroFiltro() { Nome = "data_inicial", Label = "Data Inicial", Tipo = TipoFiltro.data, Valor = DateTime.Today });
             filtro.Parametros.Add(new ParametroFiltro() { Nome = "data_final", Label = "Data Final", Tipo = TipoFiltro.data, Valor = DateTime.Today });
             return filtro;
