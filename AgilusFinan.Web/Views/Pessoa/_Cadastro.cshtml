@@ -173,17 +173,6 @@
         Utils.createMask(document.getElementById("Rg"), "rg");
     })();
 
-    (function() {
-        $('#tabTelefones > tr > td:nth-of-type(2) > input').mask('0000-0000').on('keypress', function(e) {
-            if (this.value.replace(/\D/g, "").length === 9) {
-                $(this).mask("00000-0000");
-            } else {
-                $(this).mask("0000-00009");
-            }
-        });
-    })();
-
-
 </script>
 
 @section Scripts {

@@ -16,13 +16,8 @@
         switch (mask) {
 
             case "telefone":
-                input.addEventListener("input", e => {
-                    if (input.value.replace(/\D/g, "").length === 9) {
-                        $(input).mask("00000-0000");
-                    } else {
-                        $(input).mask("0000-00009");
-                    }
-                });
+                maskEvent(input, null);
+                input.addEventListener("input", e => maskEvent(input, e) );
                 break;
 
             case "moeda":
@@ -73,6 +68,14 @@
 
             default:
                 if (mask) $(input).mask(mask);
+        }
+    }
+
+    function maskEvent(input: HTMLInputElement, e: any) {
+        if (input.value.replace(/\D/g, "").length === 9) {
+            $(input).mask("00000-0000");
+        } else {
+            $(input).mask("0000-00009");
         }
     }
 
