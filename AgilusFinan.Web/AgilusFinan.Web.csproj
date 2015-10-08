@@ -147,6 +147,7 @@
     <Compile Include="Controllers\ConviteController.cs" />
     <Compile Include="Controllers\EmpresaController.cs" />
     <Compile Include="Controllers\ExtratoController.cs" />
+    <Compile Include="Controllers\FluxoCaixaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PagamentoController.cs" />
@@ -302,6 +303,7 @@
     <Content Include="Views\Shared\_Filtro.cshtml" />
     <Content Include="Views\Relatorio\Index.cshtml" />
     <Content Include="Views\Extrato\Index.cshtml" />
+    <Content Include="Views\FluxoCaixa\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\RecuperarSenha\" />

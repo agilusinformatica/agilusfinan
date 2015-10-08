@@ -1,0 +1,62 @@
+﻿@model List<AgilusFinan.Domain.Entities.FluxoCaixa>
+
+@{
+    Layout = null;
+}
+
+<table class="table table-hover table-bordered">
+    <thead>
+        <tr>
+            <th></th>
+            @foreach (var item in Model)
+            {
+                <th>@item.Periodo</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Saldo Inicial</td>
+            @foreach (var item in Model)
+            {
+                <td>@item.SaldoInicial</td>
+            }
+        </tr> 
+        <tr>
+            <td>Receitas</td>
+            @foreach (var item in Model)
+            {
+                <td>@item.Receitas</td>
+            }
+        </tr>
+        <tr>
+            <td>Despesas</td>
+            @foreach (var item in Model)
+            {
+                <td>@item.Despesas</td>
+            }
+        </tr>  
+        <tr>
+            <td>Lucro / Prejuízo</td>
+            @foreach (var item in Model)
+            {
+                <td>@item.LucroPrejuizo</td>
+            }
+        </tr> 
+        <tr>
+            <td>Acumulado</td>
+            @foreach (var item in Model)
+            {
+                <td>@item.Acumulado</td>
+            }
+        </tr> 
+        <tr>
+            <td>Lucratividade</td>
+            @foreach (var item in Model)
+            {
+                <td>@item.Lucratividade%</td>
+            }
+        </tr> 
+    </tbody>
+
+</table>

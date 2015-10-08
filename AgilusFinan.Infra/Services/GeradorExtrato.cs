@@ -29,8 +29,8 @@ namespace AgilusFinan.Infra.Services
         {
             var filtro = new Filtro();
             filtro.Parametros.Add(new ParametroFiltro() { Nome = "ContaId", Label = "Conta", Tipo = TipoFiltro.conta });
-            filtro.Parametros.Add(new ParametroFiltro() { Nome = "data_inicial", Label = "Data Inicial", Tipo = TipoFiltro.data, Valor = DateTime.Today });
-            filtro.Parametros.Add(new ParametroFiltro() { Nome = "data_final", Label = "Data Final", Tipo = TipoFiltro.data, Valor = DateTime.Today });
+            filtro.Parametros.Add(new ParametroFiltro() { Nome = "data_inicial", Label = "Data Inicial", Tipo = TipoFiltro.data, Valor = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1) /*DateTime.Now.AddDays(-DateTime.Now.Day).AddDays(1)*/ });
+            filtro.Parametros.Add(new ParametroFiltro() { Nome = "data_final", Label = "Data Final", Tipo = TipoFiltro.data, Valor = DateTime.Now.AddDays(-DateTime.Now.Day).AddDays(1).Date.AddMonths(1).AddDays(-1).Date });
             return filtro;
         }
 

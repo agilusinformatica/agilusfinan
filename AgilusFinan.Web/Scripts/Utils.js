@@ -13,12 +13,9 @@
     function createMask(input, mask) {
         switch (mask) {
             case "telefone":
+                maskEvent(input, null);
                 input.addEventListener("input", function (e) {
-                    if (input.value.replace(/\D/g, "").length === 9) {
-                        $(input).mask("00000-0000");
-                    } else {
-                        $(input).mask("0000-00009");
-                    }
+                    return maskEvent(input, e);
                 });
                 break;
 
@@ -73,6 +70,14 @@
         }
     }
     Utils.createMask = createMask;
+
+    function maskEvent(input, e) {
+        if (input.value.replace(/\D/g, "").length === 9) {
+            $(input).mask("00000-0000");
+        } else {
+            $(input).mask("0000-00009");
+        }
+    }
 
     function moneyFormatConvert(value) {
         var joined, temp = [], inteiros = new RegExp(/\d+(?=\.|$)/g).exec(value), regDec = new RegExp(/[(?=\.)](\d+$)/g).exec(value), decimais = regDec === null ? "" : regDec[0], tamanhoInt = inteiros[0].length, separadorLen = 3, resto = tamanhoInt % separadorLen, i = 0, total = resto + tamanhoInt;

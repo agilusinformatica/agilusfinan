@@ -11,42 +11,16 @@ as
 begin
 
 	--pegar saldo inicial e data inicial da conta em questão
-	declare @saldoConta money
 	declare @DataSaldoInicial smalldatetime
 	declare @Saldo money
 	declare @SaldoInicial money
 
-	select 
-		@saldoConta = SaldoInicial, 
-		@DataSaldoInicial = DataSaldoInicial
+	select @DataSaldoInicial = DataSaldoInicial
 	from Conta 
 	where id = @conta 
 	and EmpresaId = @empresa
 
-	--verificar oq teve de movimentações na conta antes da data inicial do extrato, se a data inicial da conta for antes
-
-	if @dataSaldoInicial < @dataInicial
-	begin
-
-		--definir o saldo na data inicial do extrato
-		select @SaldoInicial = @saldoConta + isnull(SUM(case c.Direcao when 0 then l.valor + isnull(l.JurosMulta, 0.0) else -( l.valor + isnull(l.JurosMulta, 0.0)) end), 0.0)
-		from liquidacao l
-		join titulo t on l.TituloId = t.Id
-		join categoria c on t.CategoriaId = c.Id
-		where data < @dataInicial 
-		and data >= @dataSaldoInicial 
-		and t.ContaId = @conta
-
-		select @saldoInicial = @saldoInicial + isnull(SUM(case when ContaOrigemId = @conta then -valor when contaDestinoId = @conta then valor else 0.0 end), 0.0)
-		from Transferencia	
-		where data < @dataInicial
-		and data >= @dataSaldoInicial 
-
-	end
-	else
-	begin
-		set @SaldoInicial = @saldoConta
-	end
+	set @saldoInicial = dbo.fn_saldo (@conta, @dataInicial-1)
 
 	create table #movimentacoes(Data datetime, Valor decimal(18,2), Descricao varchar(100), Saldo money)
 
@@ -120,4 +94,3 @@ begin
    print '<< CREATE pr_extrato >>'
 end
 GO
-

@@ -201,6 +201,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AcessosUsuario.cs" />
     <Compile Include="Services\GeradorExtrato.cs" />
+    <Compile Include="Services\GeradorFluxoCaixa.cs" />
     <Compile Include="Services\GeradorPrevistoRealizado.cs" />
     <Compile Include="Services\GeradorResumoTituloCategoria.cs" />
     <Compile Include="Services\GeradorTitulosPendentes.cs" />
@@ -348,6 +349,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\Config\Funcoes AgilusFinan.sql" />
+    <Content Include="Scripts\fn_saldo.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\pr_fluxo_caixa.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Scripts\pr_listar_acessos.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
