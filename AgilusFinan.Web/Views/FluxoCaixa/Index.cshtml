@@ -4,7 +4,37 @@
     Layout = null;
 }
 
-<table class="table table-hover table-bordered">
+<style>
+    td
+    {
+        text-align: right;
+    }
+
+    th
+    {
+        text-align: center;
+    }
+
+    .item_negativo 
+    {
+        color: #a94442;
+        background-color: #f2dede;
+    }
+
+    .item_positivo
+    {
+        color: #3c763d;
+        background-color: #dff0d8;
+    }
+    .cabecalho
+    {
+        text-align: left;
+        width: 15%;
+        font-weight: bold;
+    }
+</style>
+
+<table class="table table-bordered">
     <thead>
         <tr>
             <th></th>
@@ -16,45 +46,68 @@
     </thead>
     <tbody>
         <tr>
-            <td>Saldo Inicial</td>
+            <td class="cabecalho">Saldo Inicial</td>
             @foreach (var item in Model)
             {
-                <td>@item.SaldoInicial</td>
+                <td>@item.SaldoInicial.ToString("#,##0.00")</td>
             }
         </tr> 
         <tr>
-            <td>Receitas</td>
+            <td class="cabecalho">Receitas</td>
             @foreach (var item in Model)
             {
-                <td>@item.Receitas</td>
+                <td>@item.Receitas.ToString("#,##0.00")</td>
             }
         </tr>
         <tr>
-            <td>Despesas</td>
+            <td class="cabecalho">Despesas</td>
             @foreach (var item in Model)
             {
-                <td>@item.Despesas</td>
+                <td>@item.Despesas.ToString("#,##0.00")</td>
             }
         </tr>  
         <tr>
-            <td>Lucro / Prejuízo</td>
+            <td class="cabecalho">Lucro / Prejuízo</td>
             @foreach (var item in Model)
             {
-                <td>@item.LucroPrejuizo</td>
+                if (item.LucroPrejuizo > 0)
+                { 
+                    <td class="item_positivo">@item.LucroPrejuizo.ToString("#,##0.00")</td>
+                }
+                else
+                { 
+                    <td class="item_negativo">@item.LucroPrejuizo.ToString("#,##0.00")</td>
+                }
             }
         </tr> 
         <tr>
-            <td>Acumulado</td>
+            <td class="cabecalho">Acumulado</td>
             @foreach (var item in Model)
             {
-                <td>@item.Acumulado</td>
+                if (item.Acumulado > 0)
+                {
+                    <td class="item_positivo">@item.Acumulado.ToString("#,##0.00")</td>
+                }
+                else
+                {
+                    <td class="item_negativo">@item.Acumulado.ToString("#,##0.00")</td>
+                }
             }
         </tr> 
         <tr>
-            <td>Lucratividade</td>
+            <td class="cabecalho">Lucratividade</td>
             @foreach (var item in Model)
             {
-                <td>@item.Lucratividade%</td>
+                if (item.Lucratividade > 0d)
+                {
+                    <td class="item_positivo">@item.Lucratividade%</td>
+                }
+                else
+                {
+                    <td class="item_negativo">@item.Lucratividade%</td>
+                }
+
+
             }
         </tr> 
     </tbody>

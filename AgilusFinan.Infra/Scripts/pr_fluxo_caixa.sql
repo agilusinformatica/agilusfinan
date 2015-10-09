@@ -101,10 +101,7 @@ begin
 	open curFluxo
 	fetch curFluxo into @Receitas, @Despesas
 	
-	select @SaldoInicial = SUM(dbo.fn_saldo(Id, @dataInicial))
-	from conta 
-	where EmpresaId = @empresa
-
+	set @SaldoInicial = dbo.fn_saldo(null, @dataInicial, @empresa)
 
 	while @@FETCH_STATUS = 0
 	begin

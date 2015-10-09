@@ -157,6 +157,7 @@
     <Compile Include="Controllers\RecebimentoController.cs" />
     <Compile Include="Controllers\RecuperarSenhaController.cs" />
     <Compile Include="Controllers\ResumoTituloCategoriaController.cs" />
+    <Compile Include="Controllers\SaldoController.cs" />
     <Compile Include="Controllers\TipoPessoaController.cs" />
     <Compile Include="Controllers\TipoTelefoneController.cs" />
     <Compile Include="Controllers\TituloRecorrenteController.cs" />
@@ -304,6 +305,7 @@
     <Content Include="Views\Relatorio\Index.cshtml" />
     <Content Include="Views\Extrato\Index.cshtml" />
     <Content Include="Views\FluxoCaixa\Index.cshtml" />
+    <Content Include="Views\Saldo\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\RecuperarSenha\" />

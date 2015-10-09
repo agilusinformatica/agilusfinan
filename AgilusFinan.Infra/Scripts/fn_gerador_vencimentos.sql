@@ -34,13 +34,13 @@ BEGIN
 	BEGIN
       set @data_base = 
          case @tipo_recorrencia 
-            when 0 then dateadd(week, @cont, @data_primeiro_vencimento)
-            when 1 then dateadd(week, @cont*2, @data_primeiro_vencimento)
-            when 2 then dateadd(MONTH, @cont, @data_primeiro_vencimento)
-            when 3 then dateadd(MONTH, @cont*2, @data_primeiro_vencimento)
-            when 4 then dateadd(MONTH, @cont*3, @data_primeiro_vencimento)
-            when 5 then dateadd(MONTH, @cont*6, @data_primeiro_vencimento)
-            when 6 then dateadd(year, @cont, @data_primeiro_vencimento)
+            when 0 then dateadd(week, @cont, @data_primeiro_vencimento) -- semanal
+            when 1 then dateadd(week, @cont*2, @data_primeiro_vencimento) -- quinzenal (semana sim, semana não)
+            when 2 then dateadd(MONTH, @cont, @data_primeiro_vencimento) -- mensal
+            when 3 then dateadd(MONTH, @cont*2, @data_primeiro_vencimento) -- bimestral
+            when 4 then dateadd(MONTH, @cont*3, @data_primeiro_vencimento) -- trimestral
+            when 5 then dateadd(MONTH, @cont*6, @data_primeiro_vencimento) -- semestral
+            when 6 then dateadd(year, @cont, @data_primeiro_vencimento) -- anual
          end
       
       if @dia_vencimento is not null and @tipo_recorrencia >= 2

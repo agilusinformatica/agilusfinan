@@ -6,14 +6,14 @@ end
 
 GO
 
-create function fn_saldo (@contaId int, @data smalldatetime)
+create function fn_saldo (@contaId int, @data smalldatetime, @empresaId int)
 RETURNS money
 /*----------------------------------------------------------------------------------------------------------------------
 NOME: fn_saldo
 OBJETIVO: Define o saldo na data 
 DATA: 08/10/2015
 TESTES: 
-select dbo.fn_saldo(1, '2015-09-03')
+select dbo.fn_saldo(1, '2015-09-03', 1)
 select dbo.fn_saldo(1, '2015-09-03')
 ----------------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------*/
@@ -21,37 +21,44 @@ begin
 	--pegar saldo inicial e data inicial da conta em questão
 	declare @saldoInicial money
 	declare @DataSaldoInicial smalldatetime
-	declare @Saldo money
+	declare @Saldo money = 0
+	declare @contaIdCursor int
 
-	select 
-		@saldoInicial = SaldoInicial, 
-		@DataSaldoInicial = DataSaldoInicial
+	declare curSaldo cursor for
+	select SaldoInicial, DataSaldoInicial, Id
 	from Conta 
-	where id = @contaId 
+	where (@contaId is null or id = @contaId)
+	and EmpresaId = @empresaId
+	
+	open curSaldo 
+	fetch curSaldo into @saldoInicial, @DataSaldoInicial, @contaIdCursor
 
-	--verificar oq teve de movimentações na conta antes da data inicial do saldo, se a data inicial da conta for antes
-
-	if @dataSaldoInicial < @data
+	while @@FETCH_STATUS = 0
 	begin
+		if @dataSaldoInicial < @data
+		begin
+			
+			--definir o saldo na data 
+			select @Saldo = @Saldo + @saldoInicial + isnull(SUM(case c.Direcao when 0 then l.valor + isnull(l.JurosMulta, 0.0) else -( l.valor + isnull(l.JurosMulta, 0.0)) end), 0.0)
+			from liquidacao l
+			join titulo t on l.TituloId = t.Id
+			join categoria c on t.CategoriaId = c.Id
+			where data <= @data 
+			and data >= @dataSaldoInicial 
+			and t.ContaId = @contaIdCursor
 
-		--definir o saldo na data 
-		select @Saldo = @saldoInicial + isnull(SUM(case c.Direcao when 0 then l.valor + isnull(l.JurosMulta, 0.0) else -( l.valor + isnull(l.JurosMulta, 0.0)) end), 0.0)
-		from liquidacao l
-		join titulo t on l.TituloId = t.Id
-		join categoria c on t.CategoriaId = c.Id
-		where data <= @data 
-		and data >= @dataSaldoInicial 
-		and t.ContaId = @contaId
+			select @saldo = @saldo + isnull(SUM(case when ContaOrigemId = @contaIdCursor then -valor when contaDestinoId = @contaIdCursor then valor else 0.0 end), 0.0)
+			from Transferencia	
+			where data <= @data
+			and data >= @dataSaldoInicial 
 
-		select @saldo = @saldo + isnull(SUM(case when ContaOrigemId = @contaId then -valor when contaDestinoId = @contaId then valor else 0.0 end), 0.0)
-		from Transferencia	
-		where data <= @data
-		and data >= @dataSaldoInicial 
+		end
+		else
+		begin
+			set @Saldo = @Saldo +  @saldoInicial
+		end
 
-	end
-	else
-	begin
-		set @Saldo = @saldoInicial
+		fetch curSaldo into @saldoInicial, @DataSaldoInicial, @contaIdCursor
 	end
 
 	return isnull(@Saldo,0)

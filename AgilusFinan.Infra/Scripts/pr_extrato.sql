@@ -20,7 +20,7 @@ begin
 	where id = @conta 
 	and EmpresaId = @empresa
 
-	set @saldoInicial = dbo.fn_saldo (@conta, @dataInicial-1)
+	set @saldoInicial = dbo.fn_saldo (@conta, @dataInicial-1, @empresa)
 
 	create table #movimentacoes(Data datetime, Valor decimal(18,2), Descricao varchar(100), Saldo money)
 

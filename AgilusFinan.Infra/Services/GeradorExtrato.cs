@@ -12,17 +12,14 @@ namespace AgilusFinan.Infra.Services
     {
         public List<Extrato> ChamarProcedimento(Filtro filtro)
         {
-            List<Extrato> Lista = new List<Extrato>();
-
             using (Contexto context = new Contexto())
             {
-                Lista = context.Database.SqlQuery<Extrato>("exec pr_extrato @id_empresa, @id_conta, @data_inicial, @data_final",
+                return context.Database.SqlQuery<Extrato>("exec pr_extrato @id_empresa, @id_conta, @data_inicial, @data_final",
                             new SqlParameter("@id_empresa", context.EmpresaId),
                             new SqlParameter("@id_conta", filtro.ValorPorNome("ContaId")),
                             new SqlParameter("@data_inicial", filtro.ValorPorNome("data_inicial")),
                             new SqlParameter("@data_final", filtro.ValorPorNome("data_final"))).ToList();
             }
-            return Lista;
         }
 
         public Filtro DefineFiltro()
