@@ -197,6 +197,10 @@
     <Compile Include="Migrations\201510071247015_CreateUniqueIndexOnTitulo.Designer.cs">
       <DependentUpon>201510071247015_CreateUniqueIndexOnTitulo.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201510131601400_CampoDirecaoVencimentoCategoria.cs" />
+    <Compile Include="Migrations\201510131601400_CampoDirecaoVencimentoCategoria.Designer.cs">
+      <DependentUpon>201510131601400_CampoDirecaoVencimentoCategoria.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AcessosUsuario.cs" />
@@ -346,6 +350,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201510071247015_CreateUniqueIndexOnTitulo.resx">
       <DependentUpon>201510071247015_CreateUniqueIndexOnTitulo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510131601400_CampoDirecaoVencimentoCategoria.resx">
+      <DependentUpon>201510131601400_CampoDirecaoVencimentoCategoria.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

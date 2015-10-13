@@ -16,8 +16,11 @@ namespace AgilusFinan.Domain.Entities
         [Display(Name = "Categoria Pai")]
         public int? CategoriaPaiId { get; set; }
         public virtual Categoria CategoriaPai { get; set; }
-        public virtual IEnumerable<Categoria> CategoriasFilhas { get; set; } 
+        public virtual IEnumerable<Categoria> CategoriasFilhas { get; set; }
+        public DirecaoVencimento DirecaoVencimentoDiaNaoUtil { get; set; }
+
     }
 
     public enum DirecaoCategoria { Recebimento, Pagamento }
+    public enum DirecaoVencimento { Antecipado, Postergado }
 }

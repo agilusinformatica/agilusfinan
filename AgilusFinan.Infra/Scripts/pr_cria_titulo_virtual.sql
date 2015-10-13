@@ -25,32 +25,35 @@ Begin
 	CentroCustoId int,
 	EmpresaId int)
 
-	declare @id int,
-	@nome varchar(100),
-	@dia_vencimento tinyint,
-	@valor money,
-	@recorrencia tinyint,
-	@qtde_parcelas int,
-	@categoria_id int,
-	@pessoa_id int,
-	@centro_custo_id int,
-	@data_cadastro datetime
+	declare 
+		@id int,
+		@nome varchar(100),
+		@dia_vencimento tinyint,
+		@valor money,
+		@recorrencia tinyint,
+		@qtde_parcelas int,
+		@categoria_id int,
+		@pessoa_id int,
+		@centro_custo_id int,
+		@data_cadastro datetime,
+		@direcao_vencimento tinyint
 
 	declare cur cursor for
-	select id, nome, diaVencimento, valor, recorrencia, QtdeParcelas, CategoriaId, PessoaId, CentroCustoId, DataCadastro
-	from TituloRecorrente
-	where EmpresaId = @id_empresa
+	select t.Id, t.nome, t.diaVencimento, t.valor, t.recorrencia, t.QtdeParcelas, t.CategoriaId, t.PessoaId, t.CentroCustoId, t.DataCadastro, c.DirecaoVencimentoDiaNaoUtil
+	from TituloRecorrente as t
+	join Categoria as c on t.CategoriaId = c.Id
+	where t.EmpresaId = @id_empresa
 	and ativo = 1
 
 	open cur
-	Fetch cur into @id, @nome, @dia_vencimento, @valor, @recorrencia, @qtde_parcelas, @categoria_id, @pessoa_id, @centro_custo_id, @data_cadastro
+	Fetch cur into @id, @nome, @dia_vencimento, @valor, @recorrencia, @qtde_parcelas, @categoria_id, @pessoa_id, @centro_custo_id, @data_cadastro, @direcao_vencimento
 	While @@FETCH_STATUS = 0
 	begin
 		insert into @titulo_virtual
 		select @id, @nome, vencimento.*, @valor, @categoria_id, @pessoa_id, @centro_custo_id, @id_empresa
-		from dbo.fn_gerador_vencimentos(@id, @data_inicial_analise, @data_final_analise, @dia_vencimento, @qtde_parcelas, @data_cadastro, @recorrencia) as vencimento
+		from dbo.fn_gerador_vencimentos(@id, @data_inicial_analise, @data_final_analise, @dia_vencimento, @qtde_parcelas, @data_cadastro, @recorrencia, @direcao_vencimento) as vencimento
 
-		Fetch cur into @id, @nome, @dia_vencimento, @valor, @recorrencia, @qtde_parcelas, @categoria_id, @pessoa_id, @centro_custo_id, @data_cadastro
+		Fetch cur into @id, @nome, @dia_vencimento, @valor, @recorrencia, @qtde_parcelas, @categoria_id, @pessoa_id, @centro_custo_id, @data_cadastro, @direcao_vencimento
 	end
 	close cur
 	deallocate cur
