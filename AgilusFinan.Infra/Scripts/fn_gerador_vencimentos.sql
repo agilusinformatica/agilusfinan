@@ -56,7 +56,7 @@ BEGIN
          while datepart(dw, @data_base) != @dia_vencimento
 			   set @data_base = @data_base + 1
 			
-		WHILE /*dbo.fn_feriado(@data_base) = 1 or */ DATEPART(DW,@data_base) in (7, 1)
+		WHILE dbo.fn_feriado(@data_base) = 1 or DATEPART(DW,@data_base) in (7, 1)
 		BEGIN
 			if @direcao_vencimento = 0 -- antecipar
 				set @data_base = @data_base-1
