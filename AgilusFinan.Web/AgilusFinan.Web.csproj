@@ -147,6 +147,7 @@
     <Compile Include="Controllers\ConviteController.cs" />
     <Compile Include="Controllers\EmpresaController.cs" />
     <Compile Include="Controllers\ExtratoController.cs" />
+    <Compile Include="Controllers\FeriadoRegionalController.cs" />
     <Compile Include="Controllers\FluxoCaixaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -306,6 +307,10 @@
     <Content Include="Views\Extrato\Index.cshtml" />
     <Content Include="Views\FluxoCaixa\Index.cshtml" />
     <Content Include="Views\Saldo\Index.cshtml" />
+    <Content Include="Views\FeriadoRegional\Index.cshtml" />
+    <Content Include="Views\FeriadoRegional\Create.cshtml" />
+    <Content Include="Views\FeriadoRegional\Edit.cshtml" />
+    <Content Include="Views\FeriadoRegional\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\RecuperarSenha\" />

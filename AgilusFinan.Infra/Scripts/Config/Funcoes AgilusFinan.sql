@@ -57,4 +57,13 @@ INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) V
 INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (56, N'Excluir', N'TipoTelefone/Delete', 54)
 INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (57, N'Incluir', N'TipoTelefone/Create', 54)
 INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (58, N'Liquidar Título Pendente', N'TituloPendente/Liquidar', null)
+INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (59, N'FeriadoRegional', N'FeriadoRegional/Index', 20)
+INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (60, N'Incluir', N'FeriadoRegional/Create', 59)
+INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (61, N'Alterar', N'FeriadoRegional/Edit', 59)
+INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (62, N'Excluir', N'FeriadoRegional/Delete', 59)
 SET IDENTITY_INSERT [dbo].[Funcao] OFF
+
+
+
+
+
