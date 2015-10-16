@@ -44,9 +44,12 @@
     <Compile Include="Entities\Convite.cs" />
     <Compile Include="Entities\EsquecimentoSenha.cs" />
     <Compile Include="Entities\Extrato.cs" />
+    <Compile Include="Entities\FeriadoGeral.cs" />
+    <Compile Include="Entities\FeriadoRegional.cs" />
     <Compile Include="Entities\Filtro.cs" />
     <Compile Include="Entities\FluxoCaixa.cs" />
     <Compile Include="Entities\UsuarioLogado.cs" />
+    <Compile Include="Interfaces\IRepositorioFeriadoRegional.cs" />
     <Compile Include="Utils\Criptografia.cs" />
     <Compile Include="Utils\Email.cs" />
     <Compile Include="Entities\Empresa.cs" />

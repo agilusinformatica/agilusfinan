@@ -22,5 +22,5 @@ namespace AgilusFinan.Domain.Entities
     }
 
     public enum DirecaoCategoria { Recebimento, Pagamento }
-    public enum DirecaoVencimento { Antecipado, Postergado }
+    public enum DirecaoVencimento { Antecipado, Prorrogado }
 }

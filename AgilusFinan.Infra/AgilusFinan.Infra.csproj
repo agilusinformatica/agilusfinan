@@ -201,6 +201,14 @@
     <Compile Include="Migrations\201510131601400_CampoDirecaoVencimentoCategoria.Designer.cs">
       <DependentUpon>201510131601400_CampoDirecaoVencimentoCategoria.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201510141615467_Feriados.cs" />
+    <Compile Include="Migrations\201510141615467_Feriados.Designer.cs">
+      <DependentUpon>201510141615467_Feriados.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510141849317_CampoDirecaoVencimentoCategoria2.cs" />
+    <Compile Include="Migrations\201510141849317_CampoDirecaoVencimentoCategoria2.Designer.cs">
+      <DependentUpon>201510141849317_CampoDirecaoVencimentoCategoria2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\201510141733417_AdicionarCampoPadraoEmConta.cs" />
     <Compile Include="Migrations\201510141733417_AdicionarCampoPadraoEmConta.Designer.cs">
       <DependentUpon>201510141733417_AdicionarCampoPadraoEmConta.cs</DependentUpon>
@@ -221,6 +229,7 @@
     <Compile Include="Services\RepositorioCentroCusto.cs" />
     <Compile Include="Services\RepositorioConta.cs" />
     <Compile Include="Services\RepositorioConvite.cs" />
+    <Compile Include="Services\RepositorioFeriadoRegional.cs" />
     <Compile Include="Services\RepositorioPadrao.cs" />
     <Compile Include="Services\RepositorioPagamento.cs" />
     <Compile Include="Services\RepositorioPerfil.cs" />
@@ -358,12 +367,21 @@
     <EmbeddedResource Include="Migrations\201510131601400_CampoDirecaoVencimentoCategoria.resx">
       <DependentUpon>201510131601400_CampoDirecaoVencimentoCategoria.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510141615467_Feriados.resx">
+      <DependentUpon>201510141615467_Feriados.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510141849317_CampoDirecaoVencimentoCategoria2.resx">
+      <DependentUpon>201510141849317_CampoDirecaoVencimentoCategoria2.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201510141733417_AdicionarCampoPadraoEmConta.resx">
       <DependentUpon>201510141733417_AdicionarCampoPadraoEmConta.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\Config\Funcoes AgilusFinan.sql" />
+    <Content Include="Scripts\fn_feriado.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Scripts\fn_saldo.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
