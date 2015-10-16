@@ -20,7 +20,7 @@ namespace AgilusFinan.Web.Controllers
         protected override void PreInclusao()
         {
             base.PreInclusao();
-            ViewBag.ContaId = new SelectList(new RepositorioConta().Listar(), "Id", "Nome");
+            ViewBag.ContaId = new SelectList(new RepositorioConta().Listar(), "Id", "Nome", new RepositorioConta().Listar(x => x.Padrao).Any() ? new RepositorioConta().Listar(x => x.Padrao).Single().Id : 0);
             ViewBag.CategoriaId = new SelectList(new RepositorioCategoria().Listar().Where(c => c.Direcao == DirecaoCategoria.Recebimento), "Id", "Nome");
             ViewBag.ListaCategorias = Util.CategoriasIdentadas(DirecaoCategoria.Recebimento);
             ViewBag.PessoaId = new SelectList(new RepositorioPessoa().Listar(), "Id", "Nome");

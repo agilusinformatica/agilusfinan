@@ -1,30 +1,37 @@
 ﻿@inherits System.Web.Mvc.WebViewPage<AgilusFinan.Domain.Entities.Endereco>
-<fieldset>
+
     @{
         string nomePropriedade = ViewData.ModelMetadata.PropertyName;
     }
-    <label class="control-label col-md-2" for="@(nomePropriedade+"_"+"Cep")">Cep</label>
-    <input type="text" name="@(nomePropriedade + "." + "Cep")" id="@(nomePropriedade + "_" + "Cep")" class="form-control" value="@Model.Cep" onblur="pesquisacep(this.value);" />
+    <div class="form-group">
+        <label class="control-label col-md-2" for="@(nomePropriedade+"_"+"Cep")">Cep</label>
+        <input type="text" name="@(nomePropriedade + "." + "Cep")" id="@(nomePropriedade + "_" + "Cep")" class="form-control" value="@Model.Cep" onblur="pesquisacep(this.value);" />
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="@(nomePropriedade+"_"+"Logradouro")">Logradouro</label>
+        <input type="text" name="@(nomePropriedade + "." + "Logradouro")" id="@(nomePropriedade + "_" + "Logradouro")" class="form-control" value="@Model.Logradouro" />
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="@(nomePropriedade + "_" + "Numero")">Núm</label>
+        <input type="text" name="@(nomePropriedade + "." + "Numero")" id="@(nomePropriedade + "_" + "Numero")" class="form-control" value="@Model.Numero" />
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="@(nomePropriedade+"_"+"Complemento")">Complemento</label>
+        <input type="text" name="@(nomePropriedade + "." + "Complemento")" id="@(nomePropriedade + "_" + "Complemento")" class="form-control" value="@Model.Complemento" />
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="@(nomePropriedade+"_"+"Bairro")">Bairro</label>
+        <input type="text" name="@(nomePropriedade + "." + "Bairro")" id="@(nomePropriedade + "_" + "Bairro")" class="form-control" value="@Model.Bairro" />
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="@(nomePropriedade+"_"+"Cidade")">Cidade</label>
+        <input type="text" name="@(nomePropriedade + "." + "Cidade")" id="@(nomePropriedade + "_" + "Cidade")" class="form-control" value="@Model.Cidade" />
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="@(nomePropriedade+"_"+"Uf")">Uf</label>
+        <input type="text" name="@(nomePropriedade+"."+"Uf")" id="@(nomePropriedade+"_"+"Uf")" class="form-control" value="@Model.Uf" />
+    </div>
 
-    <label class="control-label col-md-2" for="@(nomePropriedade+"_"+"Logradouro")">Logradouro</label>
-    <input type="text" name="@(nomePropriedade + "." + "Logradouro")" id="@(nomePropriedade + "_" + "Logradouro")" class="form-control" value="@Model.Logradouro"/>
-
-    <label class="control-label col-md-2" for="@(nomePropriedade + "_" + "Numero")">Núm</label>
-    <input type="text" name="@(nomePropriedade + "." + "Numero")" id="@(nomePropriedade + "_" + "Numero")" class="form-control" value="@Model.Numero"/>
-
-    <label class="control-label col-md-2" for="@(nomePropriedade+"_"+"Complemento")">Complemento</label>
-    <input type="text" name="@(nomePropriedade + "." + "Complemento")" id="@(nomePropriedade + "_" + "Complemento")" class="form-control" value="@Model.Complemento"/>
-
-    <label class="control-label col-md-2" for="@(nomePropriedade+"_"+"Bairro")">Bairro</label>
-    <input type="text" name="@(nomePropriedade + "." + "Bairro")" id="@(nomePropriedade + "_" + "Bairro")" class="form-control" value="@Model.Bairro"/>
-
-    <label class="control-label col-md-2" for="@(nomePropriedade+"_"+"Cidade")">Cidade</label>
-    <input type="text" name="@(nomePropriedade + "." + "Cidade")" id="@(nomePropriedade + "_" + "Cidade")" class="form-control" value="@Model.Cidade"/>
-
-    <label class="control-label col-md-2" for="@(nomePropriedade+"_"+"Uf")">Uf</label>
-    <input type="text" name="@(nomePropriedade+"."+"Uf")" id="@(nomePropriedade+"_"+"Uf")" class="form-control" value="@Model.Uf"/>
-    
-</fieldset>
 
 <script type="text/javascript">
     (function () {

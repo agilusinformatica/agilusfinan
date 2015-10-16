@@ -17,7 +17,7 @@ namespace AgilusFinan.Domain.Entities
         public string Carteira { get; set; }
         public string Convenio { get; set; }
         public string CodigoCedente { get; set; }
-
         public virtual Banco BancoBoleto { get; set; }
+        public Boolean Padrao { get; set; }
     }
 }

@@ -26,7 +26,7 @@
                             <option> </option>
                             @foreach (var conta in new SelectLista(3, TipoLista.Conta).Listar())
                             {
-                                <option value="@conta.Id">@conta.Nome</option>
+                                <option value="@conta.Id" @( conta.Padrao == true ? "selected" : "" )>@conta.Nome</option>
                             }
                         </select>
                             break;

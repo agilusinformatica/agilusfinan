@@ -16,6 +16,5 @@ namespace AgilusFinan.Web.Controllers
             base.PreInclusao();
             ViewBag.BancoBoletoId = new SelectList(new RepositorioBanco().Listar(),"Id","Nome");
         }
-
     }
 }
