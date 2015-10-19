@@ -118,7 +118,11 @@
 
 </div>
 
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
 <script>
+    
+    google.load('visualization', '1.0', { 'packages': ['corechart'] });
 
     $("#consulta").bind("click", function (e) {
         e.preventDefault();
@@ -146,6 +150,7 @@
             success: function (data) {
                 $("#loading>img").remove();
                 $('#conteudo').html(data);
+                drawChart(data);
             },
             error: function () {
                 throw "Erro";
