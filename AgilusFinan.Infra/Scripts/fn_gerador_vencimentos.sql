@@ -3,32 +3,39 @@ begin
    drop function fn_gerador_vencimentos
    print '<< DROP fn_gerador_vencimentos >>'
 end
-
 GO
 
-create function fn_gerador_vencimentos(@id_titulo_recorrente int,@data_inicial datetime, @data_final datetime, @dia_vencimento tinyint, @qtde_parcelas int, @data_primeiro_vencimento datetime, @tipo_recorrencia tinyint)
+create function fn_gerador_vencimentos(
+	@id_titulo_recorrente int, 
+	@data_inicial datetime, 
+	@data_final datetime, 
+	@dia_vencimento tinyint, 
+	@qtde_parcelas int, 
+	@data_primeiro_vencimento datetime, 
+	@tipo_recorrencia tinyint,
+	@direcao_vencimento tinyint)
 /*----------------------------------------------------------------------------------------------------------------------
 NOME: fn_gerador_vencimentos
 OBJETIVO: Gerar os vencimentos de acordo com recorrência de cada título
 DATA: 22/07/2015
 TESTES: 
-select * from fn_gerador_vencimentos(1,'2015-07-01', '2015-07-31', 2, null, '2015-07-15', 0)
-select * from fn_gerador_vencimentos(1,'2015-07-01', '2015-07-31', 2, null, '2015-07-01', 1)
-select * from fn_gerador_vencimentos(1,'2015-07-01', '2015-07-31', 2, null, '2015-07-15', 2)
-select * from fn_gerador_vencimentos(1,'2015-01-01', '2015-12-31', 2, null, '2015-01-01', 3)
-select * from fn_gerador_vencimentos(1,'2015-01-01', '2015-12-31', 2, null, '2015-01-01', 4)
-select * from fn_gerador_vencimentos(1,'2015-01-01', '2015-12-31', 2, null, '2015-01-01', 5)
-select * from fn_gerador_vencimentos(1,'2015-01-01', '2016-12-31', 2, null, '2015-01-01', 6)
+select * from fn_gerador_vencimentos(1,'2015-07-01', '2015-07-31', 2, null, '2015-07-15', 0, 1)
+select * from fn_gerador_vencimentos(1,'2015-07-01', '2015-07-31', 2, null, '2015-07-01', 1, 1)
+select * from fn_gerador_vencimentos(1,'2015-07-01', '2015-07-31', 2, null, '2015-07-15', 2, 0)
+select * from fn_gerador_vencimentos(1,'2015-01-01', '2015-12-31', 2, null, '2015-01-01', 3, 0)
+select * from fn_gerador_vencimentos(1,'2015-01-01', '2015-12-31', 2, null, '2015-01-01', 4, 1)
+select * from fn_gerador_vencimentos(1,'2015-01-01', '2015-12-31', 2, null, '2015-01-01', 5, 1)
+select * from fn_gerador_vencimentos(1,'2015-01-01', '2016-12-31', 2, null, '2015-01-01', 6, 0)
 ----------------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------*/
 RETURNS @vencimentos table(data_vencimento datetime) 
 AS
 BEGIN 
 
-	declare @cont int = 0,
-			@data_final_analise datetime = dateadd(week, +1, @data_final)
-   declare 
-      @data_base datetime = @data_primeiro_vencimento
+	declare 
+		@cont int = 0,
+		@data_final_analise datetime = dateadd(week, +1, @data_final),
+		@data_base datetime = @data_primeiro_vencimento
 
 	WHILE @data_base <= @data_final_analise
 	BEGIN
@@ -49,9 +56,12 @@ BEGIN
          while datepart(dw, @data_base) != @dia_vencimento
 			   set @data_base = @data_base + 1
 			
-		WHILE /*dbo.fn_feriado(@data_base) = 1 or */ DATEPART(DW,@data_base) in (7, 1)
+		WHILE dbo.fn_feriado(@data_base) = 1 or DATEPART(DW,@data_base) in (7, 1)
 		BEGIN
-			set @data_base = @data_base-1
+			if @direcao_vencimento = 0 -- antecipar
+				set @data_base = @data_base-1
+			if @direcao_vencimento = 1 -- postergar
+				set @data_base = @data_base+1
 		END
 		
       if (@data_base >= @data_inicial and @data_base < @data_final+1 and @data_base >= @data_primeiro_vencimento) 
@@ -62,7 +72,8 @@ BEGIN
 							   from Titulo 
 							   where TituloRecorrenteId = @id_titulo_recorrente
 							   and DataVencimento = @data_base)
-		set @cont = @cont + 1
+
+	  set @cont = @cont + 1
 
       if @cont > @qtde_parcelas-1
          return
