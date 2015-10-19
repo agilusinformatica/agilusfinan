@@ -1,33 +1,30 @@
-﻿@model List<AgilusFinan.Domain.Entities.FluxoCaixa>
+﻿@using Newtonsoft.Json
+@model List<AgilusFinan.Domain.Entities.FluxoCaixa>
 
 @{
     Layout = null;
 }
 
 <style>
-    td
-    {
+    td {
         text-align: right;
     }
 
-    th
-    {
+    th {
         text-align: center;
     }
 
-    .item_negativo 
-    {
+    .item_negativo {
         color: #a94442;
         background-color: #f2dede;
     }
 
-    .item_positivo
-    {
+    .item_positivo {
         color: #3c763d;
         background-color: #dff0d8;
     }
-    .cabecalho
-    {
+
+    .cabecalho {
         text-align: left;
         width: 15%;
         font-weight: bold;
@@ -51,7 +48,7 @@
             {
                 <td>@item.SaldoInicial.ToString("#,##0.00")</td>
             }
-        </tr> 
+        </tr>
         <tr>
             <td class="cabecalho">Receitas</td>
             @foreach (var item in Model)
@@ -65,21 +62,21 @@
             {
                 <td>@item.Despesas.ToString("#,##0.00")</td>
             }
-        </tr>  
+        </tr>
         <tr>
             <td class="cabecalho">Lucro / Prejuízo</td>
             @foreach (var item in Model)
             {
                 if (item.LucroPrejuizo > 0)
-                { 
+                {
                     <td class="item_positivo">@item.LucroPrejuizo.ToString("#,##0.00")</td>
                 }
                 else
-                { 
+                {
                     <td class="item_negativo">@item.LucroPrejuizo.ToString("#,##0.00")</td>
                 }
             }
-        </tr> 
+        </tr>
         <tr>
             <td class="cabecalho">Acumulado</td>
             @foreach (var item in Model)
@@ -93,7 +90,7 @@
                     <td class="item_negativo">@item.Acumulado.ToString("#,##0.00")</td>
                 }
             }
-        </tr> 
+        </tr>
         <tr>
             <td class="cabecalho">Lucratividade</td>
             @foreach (var item in Model)
@@ -109,7 +106,97 @@
 
 
             }
-        </tr> 
+        </tr>
     </tbody>
 
 </table>
+
+<div class="container">
+
+    <div class="row">
+        <div class="class col-md12">
+            <button id="bar" class="btn-default">Barras</button>
+            <button id="line" class="btn-default">Linhas</button>
+        </div>
+    </div>
+
+    @*Div que contem o gráfico*@
+    <div class="row">
+        <div class="col-md-10 col-sm-offset-1">
+            <div id="chart"></div>
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+    google.setOnLoadCallback(drawChart);
+
+    document.getElementById('bar').addEventListener('click', function(e) {
+        drawBar();
+    });
+
+    document.getElementById('line').addEventListener('click', function(e) {
+        drawLine();
+    });
+
+    var data,options;
+
+    function drawChart() {
+        var fluxoModel = @Html.Raw(JsonConvert.SerializeObject(Model));        
+        data = new google.visualization.DataTable();
+        var div = document.getElementById('chart');
+        data.addColumn('string', 'Periodo');
+        data.addColumn('number', 'LucroPrejuizo');
+
+        var f = [];
+        for (var fluxo in fluxoModel) {
+            var t = [];
+            t.push(fluxoModel[fluxo].Periodo);
+            t.push(fluxoModel[fluxo].LucroPrejuizo);
+            f.push(t);
+        }
+        data.addRows(f);
+        drawBar();
+    }
+
+    function drawBar() {
+        
+        var options = {
+            title: "Lucro/Prejuizo, em R$",
+            width: document.getElementById('chart'),
+            height: 300,
+            bar: {groupWidth: "40%"},
+            legend: {
+                position: "none"              
+            },
+            animation:{
+                duration: 1000,
+                easing: 'out'
+            },
+            vAxis: {minValue:0, maxValue:1000}
+        };
+
+        var chart = new google.visualization.ColumnChart(document.getElementById('chart'));
+        chart.draw(data, options);
+    }
+
+    function drawLine() {
+
+        var options = {
+            title: "Lucro/Prejuizo, em R$",
+            width: document.getElementById('chart_div'),
+            height: 300,
+            bar: {groupWidth: "95%"},
+            legend: { position: "none" }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('chart'));
+        chart.draw(data, options);
+    }
+
+</script>
+
+
+
