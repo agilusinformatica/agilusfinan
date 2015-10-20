@@ -14,7 +14,7 @@ namespace AgilusFinan.Web.Controllers
         // GET: ResumoTituloCategoria
         public PartialViewResult Index(DateTime dataInicial, DateTime dataFinal)
         {
-            var identadas = from c in Util.CategoriasIdentadas(null)
+            var identadas = from c in Util.CategoriasIdentadas(null, 0)
                             join g in GeradorResumoTituloCategoria.ChamarProcedimentoResumoCategoria(dataInicial, dataFinal) on c.Key equals g.CategoriaId
                             select new { g.CategoriaId, c.Value, g.Cor, g.CategoriaPaiId, g.Valor };
 

@@ -1,12 +1,15 @@
 ﻿@model IEnumerable<AgilusFinan.Domain.Entities.ResumoTituloCategoria>
-
+<link href="~/Scripts/jquerysctipttop.css" rel="stylesheet" />
+<link href="~/Scripts/bootstrap-treefy.css" rel="stylesheet" />
+<link href="~/Scripts/font-awesome.min.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap-treefy.js"></script>
 @{
     ViewBag.Title = "Index";
 }
 
 <div class="panel-heading">Resumo de Títulos</div>
 
-<table class="table">
+<table class="table" id="table">
     <tr>
         <th>
             Categoria
@@ -22,7 +25,7 @@
 
     @foreach (var item in Model)
     {
-        <tr>
+        <tr data-node="treetable-@item.CategoriaId" data-pnode="treetable-parent-@item.CategoriaPaiId" >
             <td>
                 @Html.DisplayFor(modelItem => item.Nome)
             </td>
@@ -39,4 +42,27 @@
     }
 
 </table>
+
+<script>
+    $(function () {
+        $("#table").treeFy({
+
+            // Custom template
+            expanderTemplate: '<span class="treetable-expander"></span>',
+            indentTemplate: '<span class="treetable-indent"></span>',
+
+            // CSS classes for expander
+            expanderExpandedClass: 'fa fa-angle-down',
+            expanderCollapsedClass: 'fa fa-angle-right',
+
+            // Index of the column which expander should be added to.
+            treeColumn: 0,
+
+            // Initial CSS class
+            initStatusClass: 'treetable-collapsed'
+
+        });
+
+    });
+</script>
 

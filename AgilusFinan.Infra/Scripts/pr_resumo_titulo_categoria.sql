@@ -19,6 +19,7 @@ Begin
 	 select Id as CategoriaId, Nome, CategoriaPaiId, Cor, dbo.fn_soma_categoria(id, @data_inicial, @data_final) as Valor
 	 from Categoria 
 	 where EmpresaId = @id_empresa
+	 order by Direcao, CategoriaPaiId
 end
 GO
 

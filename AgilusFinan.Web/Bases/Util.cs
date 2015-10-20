@@ -17,19 +17,19 @@ namespace AgilusFinan.Web.Bases
         static private List<Categoria> itensCategoria;
         static private List<Funcao> itensFuncao;
 
-        private static void AdicionaItemCategoria(Categoria c, int nivel)
+        private static void AdicionaItemCategoria(Categoria c, int nivel, int tamanhoIdentacao)
         {
             string identador = System.Net.WebUtility.HtmlDecode("&nbsp;");
-            lista.Add(c.Id, Repete(identador, nivel * 3) + c.Nome);
+            lista.Add(c.Id, Repete(identador, nivel * tamanhoIdentacao) + c.Nome);
             var filhas = itensCategoria.Where(f => f.CategoriaPaiId == c.Id && f.Id != f.CategoriaPaiId);
             foreach (var item in filhas)
             {
-                AdicionaItemCategoria(item, ++nivel);
+                AdicionaItemCategoria(item, ++nivel, tamanhoIdentacao);
                 --nivel;
             }
         }
 
-        public static Dictionary<int, string> CategoriasIdentadas(DirecaoCategoria? direcao)
+        public static Dictionary<int, string> CategoriasIdentadas(DirecaoCategoria? direcao, int tamanhoIdentacao = 3)
         {
             var repo = new RepositorioCategoria();
 
@@ -46,7 +46,7 @@ namespace AgilusFinan.Web.Bases
             var root = itensCategoria.Where(c => c.CategoriaPaiId == null);
             foreach (var item in root)
             {
-                AdicionaItemCategoria(item, 0);
+                AdicionaItemCategoria(item, 0, tamanhoIdentacao);
             }
 
             return lista;
