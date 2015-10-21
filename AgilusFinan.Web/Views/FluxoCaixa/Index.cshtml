@@ -1,33 +1,30 @@
-﻿@model List<AgilusFinan.Domain.Entities.FluxoCaixa>
+﻿@using Newtonsoft.Json
+@model List<AgilusFinan.Domain.Entities.FluxoCaixa>
 
 @{
     Layout = null;
 }
 
 <style>
-    td
-    {
+    td {
         text-align: right;
     }
 
-    th
-    {
+    th {
         text-align: center;
     }
 
-    .item_negativo 
-    {
+    .item_negativo {
         color: #a94442;
         background-color: #f2dede;
     }
 
-    .item_positivo
-    {
+    .item_positivo {
         color: #3c763d;
         background-color: #dff0d8;
     }
-    .cabecalho
-    {
+
+    .cabecalho {
         text-align: left;
         width: 15%;
         font-weight: bold;
@@ -51,7 +48,7 @@
             {
                 <td>@item.SaldoInicial.ToString("#,##0.00")</td>
             }
-        </tr> 
+        </tr>
         <tr>
             <td class="cabecalho">Receitas</td>
             @foreach (var item in Model)
@@ -65,21 +62,21 @@
             {
                 <td>@item.Despesas.ToString("#,##0.00")</td>
             }
-        </tr>  
+        </tr>
         <tr>
             <td class="cabecalho">Lucro / Prejuízo</td>
             @foreach (var item in Model)
             {
                 if (item.LucroPrejuizo > 0)
-                { 
+                {
                     <td class="item_positivo">@item.LucroPrejuizo.ToString("#,##0.00")</td>
                 }
                 else
-                { 
+                {
                     <td class="item_negativo">@item.LucroPrejuizo.ToString("#,##0.00")</td>
                 }
             }
-        </tr> 
+        </tr>
         <tr>
             <td class="cabecalho">Acumulado</td>
             @foreach (var item in Model)
@@ -93,7 +90,7 @@
                     <td class="item_negativo">@item.Acumulado.ToString("#,##0.00")</td>
                 }
             }
-        </tr> 
+        </tr>
         <tr>
             <td class="cabecalho">Lucratividade</td>
             @foreach (var item in Model)
@@ -109,7 +106,110 @@
 
 
             }
-        </tr> 
+        </tr>
     </tbody>
 
 </table>
+
+<hr />
+
+<div class="container">
+
+    <div class="row">
+        <div class="class col-md12">
+            <label>Selecione o tipo de gráfico:</label>
+            <button id="bar" class="btn btn-default">Barras</button>
+            <button id="line" class="btn btn-default">Linhas</button>
+        </div>
+    </div>
+
+<hr/>
+
+    @*Div que contem o gráfico*@
+    <div class="row">
+        <div class="col-md-10 col-sm-offset-1">
+            <div id="chart"></div>
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+    //Inicialização de eventos para os botões e quando terminar o carregamento do Google Charts. 
+    google.setOnLoadCallback(drawBar);
+
+    document.getElementById('bar').addEventListener('click', function(e) {
+        drawBar();
+    });
+
+    document.getElementById('line').addEventListener('click', function(e) {
+         drawLine();
+    });
+    
+    //Conversão do Model para um objeto Javascript
+    var fluxoDeCaixaModel = @Html.Raw(JsonConvert.SerializeObject(Model));    
+
+    //Inicializando a lista que define colunas. Cada coluna tem um tipo (type), rótulo (label), id e seu papel (role)
+    //na tabela. Por exemplo: role: "style", siginifica que a coluna tem o papel de definir estilo (css).
+    //O primeiro e segundo objetos da lista são inferidos caso o "role" não sejam explicitamente configurados.
+    //O primeiro elemento é inferido como o domínio do gráfico e o segundo como contra-domínio.
+    var columnHeader = [[
+        { label: "Periodo", id: "periodo", type:"string" },
+        { label: "LucroPrejuizo", id: "lucroPrejuizo", type: "number" },
+        { role: "style", type: "string" }
+    ]];
+
+    //Define as opções de gráficos, como tamanho e se suportará animaçoes. 
+    //animation: { "startup": true } , já inicia com uma animação que vai do zero até altura do valor da tabela.
+    var options = {
+        title: "Lucro/Prejuizo, em R$",
+        width: document.getElementById('chart').clientWidth,
+        height: 300,
+        bar: { groupWidth: "40%" },
+        legend: {
+            position: "none"
+        },
+        animation: {
+            startup: "true",
+            duration: 1000,
+            easing: 'out'
+        },
+        vAxis: {minValue:0, maxValue:1000}
+    };
+
+    //Primeiramente, faz-se a cópia da lista de definição de colunas.
+    //A partir daí, adiciona-se nesta lista  os elementos desejados no Model (fluxoDeCaixaModel).
+    //A condicional é para definir a cor da barra: se o valor de Model.LucroPrejuizo for positivo, definirá o cor da coluna azul, caso contrário vermelho.
+    function drawBar() {
+        var data = columnHeader.slice();
+
+        fluxoDeCaixaModel.forEach(function(f) {
+            if (f.LucroPrejuizo >= 0) {
+                data.push([f.Periodo, parseFloat(f.LucroPrejuizo), "#93D4E7"]);
+            } else {
+                data.push([f.Periodo, parseFloat(f.LucroPrejuizo), "#FF3300"]);
+            }
+        });
+
+        dataTable = google.visualization.arrayToDataTable(data); //A este ponto a lista estará no formato aceito pelo DataTable.
+        var chartBar = new google.visualization.ColumnChart(document.getElementById('chart'));
+        chartBar.draw(dataTable, options);
+    }
+
+    function drawLine() {
+        var data = columnHeader.slice();
+        fluxoDeCaixaModel.forEach(function(f) {
+                data.push([f.Periodo, parseFloat(f.LucroPrejuizo), "#93D4E7"]);
+            
+            });
+
+        var dataTable = google.visualization.arrayToDataTable(data);
+        var chartLine = new google.visualization.LineChart(document.getElementById('chart'));
+        chartLine.draw(dataTable, options);
+    }
+
+</script>
+
+
+
