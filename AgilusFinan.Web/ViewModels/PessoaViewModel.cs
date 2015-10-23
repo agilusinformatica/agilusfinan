@@ -10,6 +10,7 @@ namespace AgilusFinan.Web.ViewModels
     {
         public int Id { get; set; }
         public string Nome { get; set; }
+        [Display(Name = "CPF/CNPJ")]
         public string Cpf { get; set; }
         public string Rg { get; set; }
         [Display(Name = "Data de Nascimento")]

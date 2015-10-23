@@ -53,7 +53,17 @@
                 break;
 
             case "cpf":
-                $(input).mask("900.000.000-00", { reverse: true });
+                if (input.value == undefined) {
+                    maskEventCnpj(input, undefined, input.innerHTML);
+                    input.addEventListener("input", function (e) {
+                        return maskEventCnpj(input, e, input.innerHTML);
+                    });
+                } else {
+                    maskEventCnpj(input, undefined, input.value);
+                    input.addEventListener("input", function (e) {
+                        return maskEventCnpj(input, e, input.value);
+                    });
+                }
                 break;
 
             case "numero":
@@ -76,6 +86,14 @@
             $(input).mask("00000-0000");
         } else {
             $(input).mask("0000-00009");
+        }
+    }
+
+    function maskEventCnpj(input, e, value) {
+        if (value.replace(/\D/g, "").length <= 11) {
+            $(input).mask("000.000.000-009");
+        } else {
+            $(input).mask("00.000.000/0000-00");
         }
     }
 
@@ -104,7 +122,7 @@
         } else {
             joined += ",00";
         }
-        console.log(joined);
+
         return joined;
     }
     Utils.moneyFormatConvert = moneyFormatConvert;

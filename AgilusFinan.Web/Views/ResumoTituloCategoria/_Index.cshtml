@@ -33,7 +33,7 @@
                 <div style="background-color: #@item.Cor.ToString("X").PadLeft(6,'0'); width: 20px; height: 20px;"></div>
             </td>
             <td align="right">
-                @Html.DisplayFor(modelItem => item.Valor)
+                @item.Valor.GetValueOrDefault((decimal)0.0).ToString("#,##0.00")
             </td>
             <td>
                 @Html.ActionLink("Detalhes", "Details")

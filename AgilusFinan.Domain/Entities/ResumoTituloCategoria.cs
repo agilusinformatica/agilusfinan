@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 
@@ -11,6 +12,7 @@ namespace AgilusFinan.Domain.Entities
         public string Nome { get; set; }
         public int? CategoriaPaiId { get; set; }
         public int Cor { get; set; }
+        [DisplayFormat(DataFormatString = "{0:c}")]
         public decimal? Valor { get; set; }
 
     }

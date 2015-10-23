@@ -4,7 +4,7 @@
 
     //Cria mascara de um lista de Inputs, selecionados pela classe (document.getElementsByClassName("classe"))
     export function createMaskClass(input: Array<HTMLInputElement>, mask: any) {
-        for (var element in input) {
+        for (var element in input) {            
             if (input.hasOwnProperty(element)) {
                 createMask(input[element], mask);
             }
@@ -55,7 +55,14 @@
                 break;
 
             case "cpf":
-                $(input).mask("900.000.000-00", { reverse: true });
+                if (input.value == undefined) {
+                    maskEventCnpj(input, undefined, input.innerHTML);
+                    input.addEventListener("input", e => maskEventCnpj(input, e, input.innerHTML));
+                }
+                else {
+                    maskEventCnpj(input, undefined, input.value);
+                    input.addEventListener("input", e => maskEventCnpj(input, e, input.value));
+                }
                 break;
 
             case "numero":
@@ -76,6 +83,16 @@
             $(input).mask("00000-0000");
         } else {
             $(input).mask("0000-00009");
+        }
+    }
+
+    function maskEventCnpj(input: HTMLInputElement, e: any, value : any) {
+        if (value.replace(/\D/g, "").length <= 11) {
+            $(input).mask("000.000.000-009");
+        } 
+        else {
+            $(input).mask("00.000.000/0000-00");
+
         }
     }
 
@@ -115,7 +132,7 @@
         } else {
             joined += ",00";            
         }
-        console.log(joined);
+        
         return joined;            
     }
 } 
