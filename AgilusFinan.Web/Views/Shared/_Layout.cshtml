@@ -10,6 +10,53 @@
     @Scripts.Render("~/bundles/agilusLibrary")
 </head>
 <body>
+
+    @*<ul class="menu">
+        <li>
+            <a href="~/Home" class="navbar-brand">
+                <img src="~/Content/Images/agilus.jpg" width="20" height="20" />
+                AgilusFinan
+            </a>
+        </li>
+        <li>
+            Movimentações
+            <ul>
+                <li>@Html.ActionLink("Pagamento", "Index", "Pagamento")</li>
+                <li>@Html.ActionLink("Recebimento", "Index", "Recebimento")</li>
+                <li>@Html.ActionLink(" Transferência", "Index", "Transferencia")</li>
+                <li>@Html.ActionLink("Titulo Recorrente", "Index", "TituloRecorrente")</li>
+            </ul>
+        </li>
+        <li>
+            Cadastros
+            <ul>
+                <li>@Html.ActionLink("Conta", "Index", "Conta")</li>
+                <li>@Html.ActionLink("Banco", "Index", "Banco")</li>
+                <li>@Html.ActionLink("Categoria", "Index", "Categoria")</li>
+                <li>@Html.ActionLink("Centro de Custo", "Index", "CentroCusto")</li>
+                <li>@Html.ActionLink("Tipo de Pessoa", "Index", "TipoPessoa")</li>
+                <li>@Html.ActionLink("Pessoa", "Index", "Pessoa")</li>
+                <li>@Html.ActionLink("Tipo de Telefone", "Index", "TipoTelefone")</li>
+                <li>@Html.ActionLink("Feriados Regionais", "Index", "FeriadoRegional")</li>
+            </ul>
+        </li>
+        <li>
+            Segurança
+            <ul>
+                <li>@Html.ActionLink("Usuários", "Index", "Usuario")</li>
+                <li>@Html.ActionLink("Perfil", "Index", "Perfil")</li>
+            </ul>
+        </li>
+        <li>
+            Relatórios
+            <ul>
+                <li>@Html.ActionLink("Extrato", "Index", "Extrato")</li>
+                <li>@Html.ActionLink("Fluxo de Caixa", "Index", "FluxoCaixa")</li>
+            </ul>
+        </li>
+        <li>@Html.ActionLink("Logoff", "Logoff", "Login")</li>
+    </ul>*@
+
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -60,7 +107,6 @@
                         <ul class="dropdown-menu">
                             <li>@Html.ActionLink("Extrato", "Index", "Extrato")</li>
                             <li>@Html.ActionLink("Fluxo de Caixa", "Index", "FluxoCaixa")</li>
-
                         </ul>
                     </li>                   
                     <li class="dropdown">

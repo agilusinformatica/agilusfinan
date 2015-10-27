@@ -107,7 +107,10 @@ begin
 	begin
 		set @LucroPrejuizo = @Receitas - @Despesas
 		set @Acumulado = @SaldoInicial + @LucroPrejuizo
-		set @Lucratividade = (@LucroPrejuizo / @Receitas) * 100.0
+		if @Receitas <> 0
+		   set @Lucratividade = (@LucroPrejuizo / @Receitas) * 100.0
+		else
+		   set @Lucratividade = 0
 
 		update #fluxo_caixa
 		set SaldoInicial = @SaldoInicial,
