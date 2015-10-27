@@ -15,7 +15,7 @@
             this.parentId = parentTemplate.exec(this.row.attr('data-pnode'))[1];
         }
         this.children = [];
-        this.status = true;
+        this.enableClick = true;
     }
 
 
@@ -182,10 +182,12 @@
             var $row = this.row;
             var click_nodes = [];
             click_nodes.push(this);
-            $row.find('.treetable-expander').on("click", function(event) {
-                event.stopPropagation();
-                self.render(click_nodes);
-            });
+            if (self.options.enableClick) {
+                $row.find('.treetable-expander').on("click", function (event) {
+                    event.stopPropagation();
+                    self.render(click_nodes);
+                });
+            }
         });
     }
 
@@ -258,6 +260,8 @@
         expanderCollapsedClass: 'fa fa-angle-right',
 
         treeColumn: 0,
+        
+        enableClick: true,
 
         initStatusClass: 'treetable-expanded'
     }
