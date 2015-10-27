@@ -45,6 +45,7 @@ namespace AgilusFinan.Web.Controllers
         public ActionResult Logoff()
         {
             FormsAuthentication.SignOut();
+            Sessao.EmpresaId = 0;
             return RedirectToAction("Index", "Home");
         }
 

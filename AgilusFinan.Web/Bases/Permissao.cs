@@ -1,4 +1,6 @@
 ﻿using AgilusFinan.Domain.Entities;
+using AgilusFinan.Web.Controllers;
+using AgilusFinan.Web.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,15 +14,7 @@ namespace AgilusFinan.Web.Bases
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             base.OnActionExecuting(filterContext);
-            
-            //Remover esta linha quando tiver solução para logoff.
-            if (UsuarioLogado.EmpresaId == 0)
-            {
-                filterContext.RouteData.Values["controller"] = "Login";
-                filterContext.RouteData.Values["action"] = "Logoff";
-                                
-                return;
-            }
+
             string caminho = filterContext.RouteData.Values["controller"].ToString();
             string confirmacaoCaminho = String.Empty;
 

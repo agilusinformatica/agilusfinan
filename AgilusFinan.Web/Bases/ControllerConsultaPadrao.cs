@@ -15,6 +15,7 @@ namespace AgilusFinan.Web.Bases
     {
         protected T gerador = new T();
 
+        [Permissao]
         public ActionResult Index()
         {
             PreFiltro();
