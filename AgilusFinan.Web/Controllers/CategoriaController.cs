@@ -15,7 +15,7 @@ namespace AgilusFinan.Web.Controllers
 
         protected override void PreListagem()
         {
-            ViewBag.ListaIdentada = Util.CategoriasIdentadas(null);
+            ViewBag.ListaIdentada = Util.CategoriasIdentadas(null, 0);
         }
 
         [HttpGet]

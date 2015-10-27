@@ -1,6 +1,9 @@
 ﻿@using AgilusFinan.Domain.Entities
 @model IEnumerable<AgilusFinan.Domain.Entities.Categoria>
-
+<link href="~/Scripts/jquerysctipttop.css" rel="stylesheet" />
+<link href="~/Scripts/bootstrap-treefy.css" rel="stylesheet" />
+<link href="~/Scripts/font-awesome.min.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap-treefy.js"></script>
 @{
     ViewBag.Title = "Categoria";
 }
@@ -10,7 +13,7 @@
 <p>
     @Html.ActionLink("Adicionar", "Create")
 </p>
-<table class="table">
+<table class="table" id="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Nome)
@@ -23,7 +26,10 @@
 
 @foreach (var item in ViewBag.ListaIdentada)
 {
-    <tr>
+    int Id = Model.Where(x => x.Id == item.Key).First().Id;
+    int? PaiId = Model.Where(x => x.Id == item.Key).First().CategoriaPaiId;
+    
+    <tr data-node="treetable-@Id" data-pnode="treetable-parent-@PaiId">
         <td>
             @item.Value
         </td>
@@ -43,3 +49,29 @@
 }
 
 </table>
+
+<script>
+    $(function () {
+        $("#table").treeFy({
+
+            // Custom template
+            expanderTemplate: '<span class="treetable-expander"></span>',
+            indentTemplate: '<span class="treetable-indent"></span>',
+
+            // CSS classes for expander
+            expanderExpandedClass: 'fa fa-angle-down',
+            expanderCollapsedClass: 'fa fa-angle-right',
+
+            // Index of the column which expander should be added to.
+            treeColumn: 0,
+
+            //enabled or disabled the click
+            enableClick: false,
+
+            // Initial CSS class
+            initStatusClass: 'treetable-expanded'
+
+        });
+
+    });
+</script>

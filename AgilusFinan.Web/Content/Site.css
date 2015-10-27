@@ -22,3 +22,39 @@ select,
 textarea {
     max-width: 280px;
 }
+
+/* estilos para menus (feito por Cláudio) */
+.menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.menu > li {
+    float: left;
+}
+
+.menu li {
+    border: 1px solid black;
+    width: 120px;
+    padding: 3px;
+    position: relative;
+    background-color: white;
+}
+
+.menu li:hover {
+    background-color: black;
+    color: white;
+}
+
+.menu li > ul {
+    position: absolute;
+    left:-35px;
+    top: 25px;
+    display: none;
+    z-index: 1000;
+}
+
+.menu li:hover > ul {
+    display: block;
+}
