@@ -126,5 +126,33 @@
         return joined;
     }
     Utils.moneyFormatConvert = moneyFormatConvert;
+
+    function verifyBrowserInputDate() {
+        var inputTest = document.createElement("input");
+        inputTest.setAttribute("type", "date");
+
+        if (inputTest.type === "text" && inputTest.getAttribute("type") === "date") {
+            console.log("Browser  não suporta 'input <type='date'>'");
+            var inputs = document.querySelectorAll("input");
+            for (var i = 0; i < inputs.length; i++) {
+                if (inputs[i].getAttribute("type") === "date") {
+                    $(function () {
+                        $(inputs[i]).datepicker({
+                            dateFormat: 'dd/mm/yy',
+                            dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'],
+                            dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
+                            dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+                            monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+                            monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']
+                        });
+                    });
+                }
+                ;
+            }
+        } else {
+            console.log("Browser suporta 'input <type='date'>'");
+        }
+    }
+    Utils.verifyBrowserInputDate = verifyBrowserInputDate;
 })(Utils || (Utils = {}));
 //# sourceMappingURL=Utils.js.map
