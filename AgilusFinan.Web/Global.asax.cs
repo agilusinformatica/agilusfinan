@@ -1,4 +1,4 @@
-﻿using AgilusFinan.Web.Model;
+﻿using AgilusFinan.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,7 +35,7 @@ namespace AgilusFinan.Web
                 {
                     if (HttpContext.Current.Session != null)
                     {
-                        if (Sessao.EmpresaId == 0)
+                        if (UsuarioLogado.EmpresaId == 0)
                         {
                             FormsAuthentication.SignOut();
                             Response.Redirect(FormsAuthentication.LoginUrl, true);
