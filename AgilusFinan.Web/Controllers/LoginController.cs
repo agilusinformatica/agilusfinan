@@ -3,7 +3,6 @@ using AgilusFinan.Domain.Utils;
 using AgilusFinan.Infra.Context;
 using AgilusFinan.Infra.Services;
 using AgilusFinan.Web.Bases;
-using AgilusFinan.Web.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,14 +23,14 @@ namespace AgilusFinan.Web.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        [CarregarPermissoes]
         public ActionResult Index(string usuario, string senha)
         {
-            Login.ValidaLogin(usuario, senha);
+            Usuario usu = Login.ValidaLogin(usuario, senha);
             FormsAuthentication.SetAuthCookie(usuario, false);
-            Sessao.EmpresaId = UsuarioLogado.EmpresaId;
-            Sessao.PerfilId = UsuarioLogado.PerfilId;
-            Sessao.UsuarioId = UsuarioLogado.UsuarioId;
+
+            UsuarioLogado.EmpresaId = usu.EmpresaId;
+            UsuarioLogado.PerfilId = usu.PerfilId;
+            UsuarioLogado.UsuarioId = usu.Id;
 
             string returnUrl = Request.Form["returnUrl"];
             if (this.Url.IsLocalUrl(returnUrl))
@@ -45,7 +44,7 @@ namespace AgilusFinan.Web.Controllers
         public ActionResult Logoff()
         {
             FormsAuthentication.SignOut();
-            Sessao.EmpresaId = 0;
+            UsuarioLogado.EmpresaId = 0;
             return RedirectToAction("Index", "Home");
         }
 

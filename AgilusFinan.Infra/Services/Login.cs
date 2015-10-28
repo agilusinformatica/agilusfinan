@@ -9,7 +9,7 @@ namespace AgilusFinan.Infra.Services
 {
     public static class Login
     {
-        public static void ValidaLogin(string usuario, string senha)
+        public static Usuario ValidaLogin(string usuario, string senha)
         {
             using (var db = new Contexto())
             {
@@ -26,11 +26,9 @@ namespace AgilusFinan.Infra.Services
                 {
                     throw new Exception("Senha não pode ser em branco");
                 }
-
-                UsuarioLogado.UsuarioId = usu[0].Id;
-                UsuarioLogado.PerfilId = usu[0].PerfilId;
-                UsuarioLogado.EmpresaId = usu[0].EmpresaId;
+                return usu[0];
             }
+            
         }
 
         public static string Encode(string value)

@@ -1,5 +1,4 @@
 ﻿using AgilusFinan.Domain.Entities;
-//using AgilusFinan.Infra.EntityConfig;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
