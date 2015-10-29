@@ -27,6 +27,9 @@
             Valor
         </th>
         <th>
+            Direção
+        </th>
+        <th>
             Recorrência
         </th>
         <th>
@@ -54,6 +57,10 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Valor)
+        </td>
+
+        <td>
+            @item.Categoria.Direcao.ToString()
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Recorrencia)
