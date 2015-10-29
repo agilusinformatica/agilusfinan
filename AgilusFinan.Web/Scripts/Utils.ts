@@ -73,6 +73,11 @@
                 $(input).mask("900.000.000-0", { reverse: true });
                 break;
 
+            case "data":
+                console.log(input.value);
+                $(input).mask("00/00/0000");
+                break;
+
             default:
                 if (mask) $(input).mask(mask);
         }
@@ -134,5 +139,47 @@
         }
         
         return joined;            
+    }
+
+    export function verifyBrowserInputDate() {
+        var inputTest = document.createElement("input");
+        inputTest.setAttribute("type", "date");
+
+        if (inputTest.type === "text" && inputTest.getAttribute("type") === "date") {           
+            var inputs = <any>(document.querySelectorAll("input"));
+
+            for (var i = 0; i < inputs.length; i++) {
+                if (inputs[i].getAttribute("type") === "date") {
+
+                    $(function () {                        
+                        $(inputs[i]).datepicker({                            
+                            dateFormat: "dd/mm/yy",
+                            dayNames: ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo"],
+                            dayNamesMin: ["D", "S", "T", "Q", "Q", "S", "S", "D"],
+                            dayNamesShort: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb", "Dom"],
+                            monthNames: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
+                            monthNamesShort: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"]
+                        });
+                        var date = inputs[i].value.split("-");                                                
+                        inputs[i].value = ("value", date[2] + date[1] + date[0]);
+                        createMask(inputs[i], "data");
+
+                    });
+                };
+            }            
+        } 
+    }
+
+    export function convertFormatDate(date: string) {         
+        var dash = new RegExp(/^[0-3][0-9]\/[0-1][0-9]\/[1-2][0-9]{3}$/).exec(date);
+        //var slash = new RegExp("/^[1-2][0-9]{3}\-[0-1][0-9]\-[0-3][0-9]$/").exec(date);
+        
+        if (dash) {
+            var convert = date.split("/");
+            return convert[2] +  "-" + convert[1] + "-" + convert[0];
+        }
+
+        return date;
+
     }
 } 

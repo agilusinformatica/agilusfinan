@@ -320,7 +320,6 @@
     <Content Include="Views\TituloPendente\_Index.cshtml" />
     <Content Include="Views\PrevistoRealizado\_Index.cshtml" />
     <Content Include="Views\Transferencia\Index.cshtml" />
-    <Content Include="Views\Transferencia\Create.cshtml" />
     <Content Include="Views\Transferencia\Delete.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Usuario\Index.cshtml" />
@@ -346,6 +345,9 @@
     <Content Include="Views\FeriadoRegional\Create.cshtml" />
     <Content Include="Views\FeriadoRegional\Edit.cshtml" />
     <Content Include="Views\FeriadoRegional\Delete.cshtml" />
+    <Content Include="Views\Transferencia\_Cadastro.cshtml" />
+    <Content Include="Views\Transferencia\Create.cshtml" />
+    <Content Include="Views\Transferencia\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\RecuperarSenha\" />
