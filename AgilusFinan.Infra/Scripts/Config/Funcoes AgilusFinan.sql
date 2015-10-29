@@ -61,6 +61,9 @@ INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) V
 INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (60, N'Incluir', N'FeriadoRegional/Create', 59)
 INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (61, N'Alterar', N'FeriadoRegional/Edit', 59)
 INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (62, N'Excluir', N'FeriadoRegional/Delete', 59)
+INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (63, N'Relatórios', NULL, NULL)
+INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (64, N'Extrato', N'Extrato/Index', 63)
+INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (65, N'FluxoCaixa', N'FluxoCaixa/Index', 63)
 SET IDENTITY_INSERT [dbo].[Funcao] OFF
 
 
