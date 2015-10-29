@@ -102,8 +102,6 @@
 
     tabTelefones.jsonData = '@Html.Raw(Json.Encode(Model.Telefones))';
 
-    console.log('@Html.Raw(Json.Encode(Model.Telefones))');
-
     function UpdatePessoa() {
         var pessoaJson = GetData();
         $.ajax({
@@ -123,7 +121,7 @@
         pessoa.Nome = $('#Nome').val();
         pessoa.Cpf = $('#Cpf').cleanVal(); //cleanVal() - valor sem a máscara
         pessoa.Rg = $('#Rg').cleanVal();
-        pessoa.DataNascimento = $('#DataNascimento').val();
+        pessoa.DataNascimento = Utils.convertFormatDate($('#DataNascimento').val()); //Converte formato de data.
 
         pessoa.Endereco = {};
         pessoa.Endereco.Logradouro = $('#Endereco_Logradouro').val();
