@@ -4,11 +4,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" sizes="32x32" href="~/Content/Images/icons/favicon-32x32.png">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/agilusLibrary")
+
+    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>    
 </head>
 <body>
     @*<ul class="menu">
@@ -65,7 +68,6 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @*@Html.ActionLink("AgilusFinan", "Index", "Home", new { area = "" }, new { @class = "navbar-brand"})*@
                 <a href="~/Home" class="navbar-brand">
                     <img src="~/Content/Images/agilus.jpg" width="20" height="20" />
                     AgilusFinan
@@ -132,3 +134,9 @@
     @RenderSection("scripts", required: false)
 </body>
 </html>
+
+<script>
+    $(function () {        
+        setTimeout(Utils.verifyBrowserInputDate, 500);
+    });
+</script>
