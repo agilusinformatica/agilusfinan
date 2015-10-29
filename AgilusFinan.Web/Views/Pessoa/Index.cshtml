@@ -35,7 +35,22 @@
         </td>
 
         <td>
-            @item.TiposPessoa.ToList().Find(p=> p.PessoaId == item.Id).TipoPessoa.Nome
+            @{
+                string s = String.Empty;
+                int c=1;
+                
+                foreach (var tp in item.TiposPessoa)
+                {
+                    s += tp.TipoPessoa.Nome;
+                    
+                    if (item.TiposPessoa.Count > c)
+                    {
+                        s += ", ";
+                    }
+                    c++;
+                }
+              @Html.DisplayFor(modelItem => s)
+            }
         </td>
 
         <td class="Cpf">
