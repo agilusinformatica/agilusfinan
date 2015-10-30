@@ -136,13 +136,13 @@
         titulo.Id = $('#Id').val();
         titulo.TituloRecorrenteId = $('#TituloRecorrenteId').val();
         titulo.ContaId = $('#ContaId').val();
-        titulo.DataVencimento = $('#DataVencimento').val();
+        titulo.DataVencimento = Utils.convertFormatDate($('#DataVencimento').val());
         titulo.Descricao = $('#Descricao').val();
         titulo.Valor = $('#Valor').val().replace('.','').replace(',', '.');
         titulo.CategoriaId = $('#CategoriaId').val();
         titulo.PessoaId = $('#PessoaId').val();
         titulo.CentroCustoId = $('#CentroCustoId').val();
-        titulo.Competencia = $('#Competencia').val();
+        titulo.Competencia = Utils.convertFormatDate($('#Competencia').val());
         titulo.Observacao = $('#Observacao').val();
         if (document.getElementById('estapago').checked) {
             titulo.Liquidacoes = tabLiquidacoes.data;

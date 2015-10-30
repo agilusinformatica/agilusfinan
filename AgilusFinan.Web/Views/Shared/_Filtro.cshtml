@@ -132,7 +132,7 @@
         $('[data-grupo="filtro"]').each(function () {
             parametros.push({
                 Nome: $(this).attr('data-filtro'),
-                Valor: $(this).val()
+                Valor: Utils.convertFormatDate($(this).val())
             });
         });
 

@@ -137,7 +137,6 @@
     <Compile Include="Bases\ControllerConsultaPadrao.cs" />
     <Compile Include="Bases\ControllerViewModelPadrao.cs" />
     <Compile Include="Bases\ControllerPadrao.cs" />
-    <Compile Include="Bases\CarregarPermissoes.cs" />
     <Compile Include="Bases\Permissao.cs" />
     <Compile Include="Bases\Util.cs" />
     <Compile Include="Controllers\BancoController.cs" />
@@ -170,7 +169,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Model\Sessao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\ItensCategoria.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
@@ -322,7 +320,6 @@
     <Content Include="Views\TituloPendente\_Index.cshtml" />
     <Content Include="Views\PrevistoRealizado\_Index.cshtml" />
     <Content Include="Views\Transferencia\Index.cshtml" />
-    <Content Include="Views\Transferencia\Create.cshtml" />
     <Content Include="Views\Transferencia\Delete.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Usuario\Index.cshtml" />
@@ -348,6 +345,9 @@
     <Content Include="Views\FeriadoRegional\Create.cshtml" />
     <Content Include="Views\FeriadoRegional\Edit.cshtml" />
     <Content Include="Views\FeriadoRegional\Delete.cshtml" />
+    <Content Include="Views\Transferencia\_Cadastro.cshtml" />
+    <Content Include="Views\Transferencia\Create.cshtml" />
+    <Content Include="Views\Transferencia\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\RecuperarSenha\" />

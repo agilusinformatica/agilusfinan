@@ -15,6 +15,9 @@
             @Html.DisplayNameFor(model => model.Nome)
         </th>
         <th>
+            Tipo
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Cpf)
         </th>
         <th>
@@ -23,7 +26,6 @@
         <th>
             @Html.DisplayNameFor(model => model.DataNascimento)
         </th>
-        <th></th>
     </tr>
 
 @foreach (var item in Model) {
@@ -31,6 +33,26 @@
         <td>
             @Html.DisplayFor(modelItem => item.Nome)
         </td>
+
+        <td>
+            @{
+                string s = String.Empty;
+                int c=1;
+                
+                foreach (var tp in item.TiposPessoa)
+                {
+                    s += tp.TipoPessoa.Nome;
+                    
+                    if (item.TiposPessoa.Count > c)
+                    {
+                        s += ", ";
+                    }
+                    c++;
+                }
+              @Html.DisplayFor(modelItem => s)
+            }
+        </td>
+
         <td class="Cpf">
             @Html.DisplayFor(modelItem => item.Cpf)
         </td>

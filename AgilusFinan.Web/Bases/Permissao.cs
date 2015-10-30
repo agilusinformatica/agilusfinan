@@ -1,6 +1,6 @@
 ﻿using AgilusFinan.Domain.Entities;
+using AgilusFinan.Infra.Context;
 using AgilusFinan.Web.Controllers;
-using AgilusFinan.Web.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,8 +25,16 @@ namespace AgilusFinan.Web.Bases
 
             if (caminho != null)
             {
-                if (!UsuarioLogado.Acessos.Exists(f => f.Endereco == caminho))
-                    throw new Exception("Você não tem privilégios suficientes para acessar este recurso. Para solicitar este acesso fale com o administrador do sistema.");
+                using (var db = new Contexto())
+                {
+                    var a = (from acesso in db.Acessos
+                            join funcao in db.Funcoes on acesso.FuncaoId equals funcao.Id
+                            where funcao.Endereco == caminho && acesso.PerfilId == UsuarioLogado.PerfilId
+                            select acesso).Count();
+
+                    if (a == 0)
+                        throw new Exception("Você não tem privilégios suficientes para acessar este recurso. Para solicitar este acesso fale com o administrador do sistema.");
+                }
             }
         }
     }
