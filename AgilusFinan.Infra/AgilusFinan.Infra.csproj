@@ -229,6 +229,10 @@
     <Compile Include="Migrations\201510281348516_MaxLengthNomeBanco100.Designer.cs">
       <DependentUpon>201510281348516_MaxLengthNomeBanco100.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201510302049440_MudancaTamanhoCampoObservacaoTituloPara500.cs" />
+    <Compile Include="Migrations\201510302049440_MudancaTamanhoCampoObservacaoTituloPara500.Designer.cs">
+      <DependentUpon>201510302049440_MudancaTamanhoCampoObservacaoTituloPara500.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AcessosUsuario.cs" />
@@ -403,6 +407,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201510281348516_MaxLengthNomeBanco100.resx">
       <DependentUpon>201510281348516_MaxLengthNomeBanco100.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510302049440_MudancaTamanhoCampoObservacaoTituloPara500.resx">
+      <DependentUpon>201510302049440_MudancaTamanhoCampoObservacaoTituloPara500.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
