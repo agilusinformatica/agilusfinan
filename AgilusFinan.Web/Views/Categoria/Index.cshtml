@@ -26,10 +26,9 @@
 
 @foreach (var item in ViewBag.ListaIdentada)
 {
-    int Id = Model.Where(x => x.Id == item.Key).First().Id;
     int? PaiId = Model.Where(x => x.Id == item.Key).First().CategoriaPaiId;
     
-    <tr data-node="treetable-@Id" data-pnode="treetable-parent-@PaiId">
+    <tr data-node="treetable-@item.Key" data-pnode="treetable-parent-@PaiId">
         <td>
             @item.Value
         </td>

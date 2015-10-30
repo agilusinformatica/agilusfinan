@@ -22,6 +22,7 @@ namespace AgilusFinan.Domain.Entities
         public int? CentroCustoId { get; set; }
         public virtual CentroCusto CentroCusto { get; set; }
         public DateTime? Competencia { get; set; }
+        [StringLength(50, ErrorMessage = "Tamanho máximo de 50 letras")]
         public string Observacao { get; set; }
         public int? TituloRecorrenteId { get; set; }
         public virtual TituloRecorrente TituloRecorrente { get; set; }
