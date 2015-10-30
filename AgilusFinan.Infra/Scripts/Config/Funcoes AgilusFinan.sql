@@ -64,8 +64,10 @@ INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) V
 INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (63, N'Relatórios', NULL, NULL)
 INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (64, N'Extrato', N'Extrato/Index', 63)
 INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (65, N'FluxoCaixa', N'FluxoCaixa/Index', 63)
+INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (66, N'Liquidar Diretamente', N'Pagamento/LiquidarDiretamente', 2)
+INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (67, N'Liquidar Diretamente', N'Recebimento/LiquidarDiretamente', 3)
+INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (68, N'Liquidar Diretamente Titulo Pendente', 'TituloPendente/LiquidarDiretamente', NULL)
 SET IDENTITY_INSERT [dbo].[Funcao] OFF
-
 
 
 
