@@ -117,6 +117,7 @@
 
     function UpdateTitulo() {
         var tituloJson = GetData();
+        console.log(tituloJson);
         $.ajax({
             type: "POST",
             url: '/@(ViewBag.TipoTitulo)/@(ViewBag.TipoOperacao == "Incluindo" ? "Create" : "Edit")',
@@ -134,7 +135,7 @@
         titulo.ContaId = $('#ContaId').val();
         titulo.DataVencimento = Utils.convertFormatDate($('#DataVencimento').val());
         titulo.Descricao = $('#Descricao').val();
-        titulo.Valor = $('#Valor').val().replace('.','').replace(',', '.');
+        titulo.Valor = $('#Valor').val().replace(/\./g, '').replace(",", ".");
         titulo.CategoriaId = $('#CategoriaId').val();
         titulo.PessoaId = $('#PessoaId').val();
         titulo.CentroCustoId = $('#CentroCustoId').val();

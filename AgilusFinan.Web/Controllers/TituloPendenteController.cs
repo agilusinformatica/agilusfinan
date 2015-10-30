@@ -56,7 +56,44 @@ namespace AgilusFinan.Web.Controllers
             }
             return RedirectToAction("Index");
         }
+        [Permissao]
+        public ActionResult LiquidarDiretamente(DateTime dataVencimento, int tituloRecorrenteId)
+        {
+            var repo = new RepositorioTituloRecorrente();
+            var tituloR = repo.BuscarPorId(tituloRecorrenteId);
 
+            if(tituloR.Valor == 0 || tituloR.Valor == null)
+            {
+                throw new Exception("Para liquidar um título ele deve ter um valor.");
+            }
+            
+            //Criação do título referente ao título recorrente
+            var titulo = new Titulo()
+            {
+                CategoriaId = tituloR.CategoriaId,
+                CentroCustoId = tituloR.CentroCustoId,
+                ContaId = tituloR.ContaId,
+                EmpresaId = tituloR.EmpresaId,
+                PessoaId = tituloR.PessoaId,
+                TituloRecorrenteId = tituloR.Id,
+                Valor = (decimal)tituloR.Valor,
+                DataVencimento = dataVencimento,
+                Descricao = tituloR.Nome
+            };
+
+            //Criação da liquidação direta
+            var liquidacao = new Liquidacao()
+            {
+                Valor = (decimal)tituloR.Valor,
+                FormaLiquidacao = FormaLiquidacao.Boleto,
+                Data = DateTime.Now.Date,
+                JurosMulta = 0
+            };
+
+            titulo.Liquidacoes.Add(liquidacao);
+            new RepositorioPadrao<Titulo>().Incluir(titulo);
+            return RedirectToAction("Index", "Home");
+        }
         private void ViewModelToModel(TituloViewModel viewModel, Titulo model)
         {
             model.Id = 0;
@@ -68,8 +105,8 @@ namespace AgilusFinan.Web.Controllers
             model.TituloRecorrenteId = viewModel.Id;
             model.PessoaId = viewModel.PessoaId;
             model.Valor = viewModel.Valor != null ? (decimal)viewModel.Valor : viewModel.Liquidacoes.Sum(m => m.Valor);
-            
-           foreach (var l in viewModel.Liquidacoes)
+
+            foreach (var l in viewModel.Liquidacoes)
             {
                 model.Liquidacoes.Add(new Liquidacao()
                 {

@@ -23,7 +23,7 @@
             case "moeda":
                 if (input.value) {
                     input.value = Utils.moneyFormatConvert(input.value.replace(",", "."));
-                }
+                }                 
 
                 $(input).mask("000.000.000,00", {
                     onChange: function (e) {
