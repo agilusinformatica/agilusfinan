@@ -62,6 +62,7 @@ namespace AgilusFinan.Infra.Context
             modelBuilder.Entity<Titulo>().Ignore(d => d.Liquidado);
             modelBuilder.Entity<Usuario>().Property(u => u.Email).IsRequired();
             modelBuilder.Entity<Usuario>().Property(u => u.Senha).IsRequired();
+            modelBuilder.Entity<Titulo>().Property(p => p.Observacao).HasMaxLength(500);
         }
     }
 }

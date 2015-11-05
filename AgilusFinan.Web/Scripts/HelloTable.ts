@@ -155,7 +155,7 @@ class RowTable {
 
         var cellButton = document.createElement("td");
         var image = document.createElement("img");
-        image.src = "https://cdn1.iconfinder.com/data/icons/nuove/128x128/actions/fileclose.png";
+        image.src = "/Content/Images/close.png";
         var deleteButton = document.createElement("button");
         deleteButton.onclick = e => {
             e.preventDefault();

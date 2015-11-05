@@ -186,6 +186,7 @@
     <Content Include="Content\HelloTable.css" />
     <Content Include="Content\Images\agilus_steelblue.jpg" />
     <Content Include="Content\Images\agilus.jpg" />
+    <Content Include="Content\Images\close.png" />
     <Content Include="Content\Images\icons\android-icon-144x144.png" />
     <Content Include="Content\Images\icons\android-icon-192x192.png" />
     <Content Include="Content\Images\icons\android-icon-36x36.png" />

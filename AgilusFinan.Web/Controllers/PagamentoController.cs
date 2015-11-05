@@ -107,14 +107,50 @@ namespace AgilusFinan.Web.Controllers
 
         [HttpGet]
         [Permissao]
-        public ActionResult Liquidar(int id)
+        public ActionResult Liquidar(int id, bool homeIndex)
         {
             var titulo = repo.BuscarPorId(id);
             var tituloVm = new TituloViewModel();
             ViewBag.ContaId = new SelectList(new RepositorioConta().Listar(), "Id", "Nome", new RepositorioPadrao<Titulo>().BuscarPorId(id).ContaId);
             ModelToViewModel(titulo, tituloVm);
             ViewBag.TipoTitulo = "Pagamento";
+            
+            if (homeIndex)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
             return View("~/Views/" + FolderViewName() + "/Liquidar.cshtml", tituloVm);
+        }
+        [Permissao]
+        public ActionResult LiquidarDiretamente(int id, bool homeIndex)
+        {
+            var titulo = repo.BuscarPorId(id);
+            if (titulo.Liquidacoes.Count == 0)
+            {
+                titulo.Liquidacoes.Add(
+                    new Liquidacao()
+                    {
+                        Data = DateTime.Now.Date,
+                        Valor = titulo.Valor,
+                        JurosMulta = 0,
+                        FormaLiquidacao = FormaLiquidacao.Boleto,
+                        TituloId = titulo.Id
+                    }
+                );
+                repo.Alterar(titulo);
+
+                if (homeIndex)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                    return RedirectToAction("Index");
+            }
+            else
+            {
+                throw new Exception("Já existe pagamento para este título.");
+            }
         }
 
         [HttpPost]

@@ -52,19 +52,19 @@ namespace AgilusFinan.Web.Bases
             return lista;
         }
 
-        private static void AdicionaItemFuncao(Funcao c, int nivel)
+        private static void AdicionaItemFuncao(Funcao c, int nivel, int tamanhoIdentacao)
         {
             string identador = System.Net.WebUtility.HtmlDecode("&nbsp;");
-            lista.Add(c.Id, Repete(identador, nivel * 3) + c.Descricao);
+            lista.Add(c.Id, Repete(identador, nivel * tamanhoIdentacao) + c.Descricao);
             var filhas = itensFuncao.Where(f => f.FuncaoSuperiorId == c.Id && f.Id != f.FuncaoSuperiorId);
             foreach (var item in filhas)
             {
-                AdicionaItemFuncao(item, ++nivel);
+                AdicionaItemFuncao(item, ++nivel, tamanhoIdentacao);
                 --nivel;
             }
         }
 
-        public static Dictionary<int, string> FuncoesIdentadas()
+        public static Dictionary<int, string> FuncoesIdentadas(int tamanhoIdentacao = 3)
         {
             itensFuncao = new Contexto().Funcoes.ToList();
 
@@ -72,7 +72,7 @@ namespace AgilusFinan.Web.Bases
             var root = itensFuncao.Where(c => c.FuncaoSuperiorId == null);
             foreach (var item in root)
             {
-                AdicionaItemFuncao(item, 0);
+                AdicionaItemFuncao(item, 0, tamanhoIdentacao);
             }
 
             return lista;

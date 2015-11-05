@@ -51,8 +51,8 @@
         <td>
             @Html.DisplayFor(modelItem => item.Pessoa.Nome)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Valor)
+        <td align="right">
+             @item.Valor.ToString("#,##0.00")
         </td>
         <td>
             @if (item.Liquidado == "Pago")
@@ -72,12 +72,16 @@
                 <span class="label label-primary">@Html.DisplayFor(modelItem => item.Liquidado)</span>
             }
         </td>
-        <td>
+        <td class="col-md-4">
+            @if (item.Liquidado != "Pago" && item.Liquidado != "Parcialmente")
+            {
+                @Html.ActionLink("Liquidar", "LiquidarDiretamente", new { id = item.Id, homeIndex = false})<span> |</span>;
+            }
             @Html.ActionLink("Alterar", "Edit", new { id=item.Id }) |
             @Html.ActionLink("Excluir", "Delete", new { id=item.Id }) 
-            @if (item.Liquidado != "Pago") 
+            @if (item.Liquidado != "Pago")
             {
-                <span>|</span> @Html.ActionLink("Liquidar", "Liquidar", new { id = item.Id }); 
+                <span>|</span> @Html.ActionLink("Liquidar Detalhe", "Liquidar", new { id = item.Id, homeIndex = false });
             }
         </td>
     </tr>

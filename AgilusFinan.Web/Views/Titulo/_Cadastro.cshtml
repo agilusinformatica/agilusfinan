@@ -73,7 +73,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Competencia, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Competencia, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Competencia,  new { htmlAttributes = new { @class= "form-control"}})
                 @Html.ValidationMessageFor(model => model.Competencia, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -83,10 +83,10 @@
             <label class="control-label col-md-2">Pago?</label>
             <div class="col-md-10" id="divLiquidacoes"
                 @{
-                if(Model.Liquidacoes.Count == 0) 
-                {
+    if (Model.Liquidacoes.Count == 0)
+    {
                     <text>style="display: none;"</text>
-                }
+    }
                 }>
                 @Html.Partial("~/Views/Titulo/_Liquidacao.cshtml", Model.Liquidacoes)
             </div>
@@ -96,18 +96,20 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Observacao, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Observacao, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Observacao, null, new { htmlAttributes = new { @class = "form-control", @maxlength = "500" } })
                 @Html.ValidationMessageFor(model => model.Observacao, "", new { @class = "text-danger" })
             </div>
         </div>
     </div>
+    
+    <div>
+        @Html.ActionLink("Voltar sem gravar", "Index")
+    </div>
+
+    <button class="btn btn-default" type="submit" onclick="UpdateTitulo();">Gravar</button>
 }
 
-<div>
-    @Html.ActionLink("Voltar sem gravar", "Index")
-</div>
 
-<button class="btn btn-default" onclick="UpdateTitulo();">Gravar</button>
 
 <script>
 
@@ -117,6 +119,7 @@
 
     function UpdateTitulo() {
         var tituloJson = GetData();
+        console.log(tituloJson);
         $.ajax({
             type: "POST",
             url: '/@(ViewBag.TipoTitulo)/@(ViewBag.TipoOperacao == "Incluindo" ? "Create" : "Edit")',
@@ -126,6 +129,8 @@
             }
         });
     }
+
+
     function GetData() {
         var titulo = {};
 
@@ -134,7 +139,7 @@
         titulo.ContaId = $('#ContaId').val();
         titulo.DataVencimento = Utils.convertFormatDate($('#DataVencimento').val());
         titulo.Descricao = $('#Descricao').val();
-        titulo.Valor = $('#Valor').val().replace('.','').replace(',', '.');
+        titulo.Valor = $('#Valor').val().replace(/\./g, '').replace(",", ".");
         titulo.CategoriaId = $('#CategoriaId').val();
         titulo.PessoaId = $('#PessoaId').val();
         titulo.CentroCustoId = $('#CentroCustoId').val();
@@ -143,7 +148,6 @@
         if (document.getElementById('estapago').checked) {
             titulo.Liquidacoes = tabLiquidacoes.data;
         }
-
 
         return JSON.stringify(titulo);
     }
