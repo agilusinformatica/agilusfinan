@@ -1,4 +1,7 @@
-﻿@model AgilusFinan.Web.ViewModels.PessoaViewModel
+﻿<link rel="stylesheet" type="text/css" href="../../Content/HelloTable.css" />
+
+
+@model AgilusFinan.Web.ViewModels.PessoaViewModel
 
 @using (Html.BeginForm())
 {
@@ -72,13 +75,16 @@
             </table>
         </div>
 
-        <input class="btn btn-default" id="AdicionarTelefone" type="button" value="Adiciona Telefone" />
-        <table class="table table-bordered" id="tabTelefones"></table>
-
+        <div id="divTable">
+            <input class="btn btn-default" id="AdicionarTelefone" type="button" value="Adiciona Telefone" />
+            <table class="" id="tabTelefones"></table>
+            <button class="btn btn-default" onclick="UpdatePessoa();">Gravar</button>
+        </div>
 
     </div>
 }
-<button class="btn btn-default" onclick="UpdatePessoa();">Gravar</button>
+
+
 
 <div>
     @Html.ActionLink("Voltar sem gravar", "Index")
@@ -95,9 +101,9 @@
     for (var i = 0; i < tipos.length; i++) {
         elementos.push(new SelectElement(tipos[i].Id, tipos[i].Nome));
     }
-    tabTelefones.Columns.push(new ColumnTable('DDD', 'Ddd', ColumnType.text, null, '00', 'form-control'));
-    tabTelefones.Columns.push(new ColumnTable('Número', 'Numero', ColumnType.text, null, 'telefone', 'form-control'));
-    tabTelefones.Columns.push(new ColumnTable('Tipo', 'TipoTelefoneId', ColumnType.list, elementos, null, 'form-control'));
+    tabTelefones.Columns.push(new ColumnTable('DDD', 'Ddd', ColumnType.text, null, '00', null));
+    tabTelefones.Columns.push(new ColumnTable('Número', 'Numero', ColumnType.text, null, 'telefone', null));
+    tabTelefones.Columns.push(new ColumnTable('Tipo', 'TipoTelefoneId', ColumnType.list, elementos, null, null));
     tabTelefones.Columns.push(new ColumnTable('Id', 'Id', ColumnType.hidden));
 
     tabTelefones.jsonData = '@Html.Raw(Json.Encode(Model.Telefones))';
@@ -176,7 +182,3 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
-
-
-
-
