@@ -24,53 +24,55 @@ textarea {
 
 /* estilos para menus (feito por Cláudio) */
 .menu {
-    display: block;
-    float: right;
-    padding-right: 26%;
-    margin-left: 1%;
-    margin-top: 10px;
-    font-size: 16px;
+    float: left;           
+    position: absolute;
+    left: 25%;
+    padding: 0;
+    margin: 10px;
     text-align: center;            
+    z-index: 1;    
+    font-size: 1.1em;    
 }
 
-.menu ul  {
-    color: white;
-}
-
-/*Seleciona apenas itens filhos excluindo o item principal.*/
-.menu ul:first-child {    
-    text-align: left;    
-}
-
+/*Seleciona apenas itens do submenu.*/
 .menu li > ul {
     position: absolute;
-    left:-30px;    
+    text-align: left;
+    padding: 0;
     top: 30px;    
-    z-index: 1000;
     opacity: 0;
-    transform: translateY(-100px);
+    transform: translateY(-300px);
     transition: opacity 150ms ease, transform 150ms ease;
 }
 
+/*Seletor do submenu. O faz deslocar para baixo como o passar do mouse*/
 .menu li:hover > ul {
     display: block;
     opacity: 100;
     transform: translateY(0);
 }
 
+/*Estilo geral para todos os li's*/
 .menu li {
     color: white;
     background-color: steelblue;
     border: 1px solid steelblue;
-    width: 120px;
     padding: 3px;
-    position: relative;        
-    vertical-align: middle; 
     list-style: none;           
 }
 
+/*Estilo apenas para os li's pai'*/
 .menu > li {    
+    position: relative;    
     float: left;    
+    margin-left: 1.2em;
+    margin-right: 1.2em;
+    font-size: 1.0em;
+}
+
+/*Estilo apenas para os li's filhos'*/
+.menu ul:first-child > li {
+    width: 120px;
 }
 
 /*Troca de cores de fundo quando o mouse esta por cima.*/
@@ -96,7 +98,7 @@ textarea {
 }
 
 /*Fazendo excessao ao último item 'logoff' para nao mudar de cor com a passagem do mouse''*/
-.menu li:nth-child(5):hover > a {
+.menu > li:nth-child(5):hover > a {
     color: white;
 }
 
@@ -104,22 +106,24 @@ textarea {
 .menu-wraper {
     position: relative;
     background-color: steelblue;
-    width: 100%;       
+    width: 100%;   
     height: 50px;
     margin-bottom:10px;    
 }
 
-.menu-wraper > .logo > a> img {    
+.menu-wraper  img  {    
+    float: left;
+    position: absolute;
     height: 40px;
     width: 40px;
-    float: left;
-    margin-left: 7%;
+    left: 4%;    
 }
 
 .menu-wraper > .logo > a > p {        
-    margin-top: 5px;
-    margin-left: 2%;
     float: left;
+    position: absolute;
+    left: 9%;
+    margin: 10px;
     font-size: 20px;
     color: white;
 }
