@@ -75,6 +75,7 @@
                 break;
 
             case "data":
+                console.log(input.value);
                 $(input).mask("00/00/0000");
                 break;
 
@@ -149,7 +150,6 @@
                             monthNames: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
                             monthNamesShort: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"]
                         });
-                        console.log(inputs[i]);
                         var date = inputs[i].value.split("-");
                         inputs[i].value = ("value", date[2] + date[1] + date[0]);
                         createMask(inputs[i], "data");

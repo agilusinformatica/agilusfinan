@@ -1,6 +1,5 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+﻿body:not(.menu-wraper)  {
+    
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -103,11 +102,11 @@ textarea {
 
 /* Wraper para o menu*/
 .menu-wraper {
-    position: absolute;
+    position: relative;
     background-color: steelblue;
-    width: 100%;   
-    margin-bottom: 100px;
+    width: 100%;       
     height: 50px;
+    margin-bottom:10px;    
 }
 
 .menu-wraper > .logo > a> img {    
@@ -129,6 +128,10 @@ textarea {
 #dummybodyid {
     margin: 0;
     padding: 0
+}
+
+section{
+    margin-bottom:100px;
 }
 
 
