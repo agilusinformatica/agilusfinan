@@ -89,6 +89,7 @@ var CellTable = (function () {
             if (this.value) {
                 var date = new Date(Number(this.value.substring(6, this.value.length - 2)));
                 input.value = date.toISOString().substring(0, 10);
+                console.log(input.value);
             }
 
             if (this.column.CssClass)
@@ -149,11 +150,25 @@ var RowTable = (function () {
         }
 
         var cellButton = document.createElement("td");
+        var image = document.createElement("img");
+        image.src = "/Content/Images/close.png";
         var deleteButton = document.createElement("button");
         deleteButton.onclick = function (e) {
-            return _this.deleteRow(table);
+            e.preventDefault();
+            _this.Row.classList.add("fadeout");
+            var rows = _this.Row.childNodes;
+            console.log(rows);
+            for (var i = 0; i < rows.length; i++) {
+                var cell = rows.item(i);
+                cell.classList.add("fadeout");
+            }
+
+            setTimeout(function () {
+                return _this.deleteRow(table);
+            }, 400);
         };
-        deleteButton.textContent = "Delete";
+
+        deleteButton.appendChild(image);
         cellButton.appendChild(deleteButton);
         rowElement.appendChild(cellButton);
 
@@ -203,7 +218,8 @@ var HelloTable = (function () {
             for (var r = 0; r < this.Rows.length; r++) {
                 var row = {};
                 for (var c = 0; c < this.Rows[r].Cells.length; c++) {
-                    row[this.Rows[r].Cells[c].column.FieldName] = this.Rows[r].Cells[c].Value;
+                    row[this.Rows[r].Cells[c].column.FieldName] = Utils.convertFormatDate(this.Rows[r].Cells[c].Value);
+                    console.log(Utils.convertFormatDate(this.Rows[r].Cells[c].Value));
                 }
                 result.push(row);
             }
