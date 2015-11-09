@@ -17,7 +17,15 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Nome, new
+           {
+               htmlAttributes = new
+               {
+                   @class = "form-control",
+                   data_val = "true",
+                   data_val_required = "Nome é obrigatório."
+               }
+           })
                 @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -25,7 +33,15 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Cpf, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Cpf, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Cpf, new
+                {
+                    htmlAttributes = new
+                    {
+                        @class = "form-control",
+                        data_val = "true",
+                        data_val_required= "CPF é obrigatório."
+                    }
+                })
                 @Html.ValidationMessageFor(model => model.Cpf, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -33,7 +49,10 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Rg, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Rg, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Rg, new
+                {
+                    htmlAttributes = new { @class = "form-control" }
+                })
                 @Html.ValidationMessageFor(model => model.Rg, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -78,7 +97,7 @@
         <div id="divTable">
             <input class="btn btn-default" id="AdicionarTelefone" type="button" value="Adiciona Telefone" />
             <table class="" id="tabTelefones"></table>
-            <button class="btn btn-default" onclick="UpdatePessoa();">Gravar</button>
+            <input class=""btn btn-default" type="submit" value="Gravar" />
         </div>
 
     </div>
@@ -93,6 +112,66 @@
 <script src="~/Scripts/HelloTable.js"></script>
 
 <script>
+
+    //$().ready(function() {
+    //    $('form').on('submit', function() {
+    //        UpdatePessoa();
+    //    });
+    //});
+
+    @*$().ready(function () {
+
+        $('form').on('submit', function (e) {
+            e.preventDefault();
+        });
+
+        $('form').validate({
+            debug: true,
+            submitHandler: function (form) {
+
+                var dados = $(form).serialize();
+                console.log(dados);
+                $.ajax({
+                    type: "POST",
+                    url: '/Pessoa/@(ViewBag.TipoOperacao == "Incluindo" ? "Create" : "Edit")',
+                    data: { "postedData": dados },
+                    success: function () {
+                        window.location = '@Url.Action("Index", "Pessoa")';
+                    }
+                });
+            }
+        });
+
+    });*@
+
+
+
+
+    // Validação
+
+    $(document).ready(function () {
+
+        var settings = $.data($('form')[0], 'validator').settings;
+
+        $("form").bind("invalid-form.validate", function (form, validator) {
+            var errors = validator.numberOfInvalids();
+            var message = "Please fix" + errors + " errors.";
+
+            for (var x = 0; x < validator.errorList.length; x++) {
+                message += "<br/>\u25CF " + validator.errorList[x].message;
+            }
+            $("#errorList").html(message);
+            $("#errorList").slideDown('fast');
+
+
+        });
+
+        settings.submitHandler = function (form) {
+            UpdatePessoa();
+        };
+
+    });
+
 
     // montagem da tabela de telefones
     var tabTelefones = new HelloTable('tabTelefones', 'AdicionarTelefone');
@@ -114,11 +193,12 @@
             type: "POST",
             url: '/Pessoa/@(ViewBag.TipoOperacao == "Incluindo" ? "Create" : "Edit")',
             data: { "postedData": pessoaJson },
-            success: function() {
+            success: function () {
                 window.location = '@Url.Action("Index", "Pessoa")';
             }
         });
     }
+
     function GetData() {
         var pessoa = {};
 

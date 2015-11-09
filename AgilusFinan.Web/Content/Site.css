@@ -1,11 +1,10 @@
-﻿body:not(.menu-wraper)  {
-    
-}
-
-/* Set padding to keep content from hitting the edges */
+﻿/* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+    padding-top: 70px;
+    transform: translateX(0);
+    transition: transform 1s ease;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -22,121 +21,284 @@ textarea {
     max-width: 280px;
 }
 
-/* estilos para menus (feito por Cláudio) */
-.menu {
-    float: left;           
-    position: absolute;
-    left: 25%;
-    padding: 0;
-    margin: 10px;
-    text-align: center;            
-    z-index: 1;    
-    font-size: 1.1em;    
-}
-
-/*Seleciona apenas itens do submenu.*/
-.menu li > ul {
-    position: absolute;
-    text-align: left;
-    padding: 0;
-    top: 30px;    
-    opacity: 0;
-    transform: translateY(-300px);
-    transition: opacity 150ms ease, transform 150ms ease;
-}
-
-/*Seletor do submenu. O faz deslocar para baixo como o passar do mouse*/
-.menu li:hover > ul {
-    display: block;
-    opacity: 100;
-    transform: translateY(0);
-}
-
-/*Estilo geral para todos os li's*/
-.menu li {
-    color: white;
-    background-color: steelblue;
-    border: 1px solid steelblue;
-    padding: 3px;
-    list-style: none;           
-}
-
-/*Estilo apenas para os li's pai'*/
-.menu > li {    
-    position: relative;    
-    float: left;    
-    margin-left: 1.2em;
-    margin-right: 1.2em;
-    font-size: 1.0em;
-}
-
-/*Estilo apenas para os li's filhos'*/
-.menu ul:first-child > li {
-    width: 120px;
-}
-
-/*Troca de cores de fundo quando o mouse esta por cima.*/
-.menu ul > li:hover {
-    background-color: white;    
-}
-
-/*Alterando cores de elementos 'a'*/
-.menu a { 
-    color: white;
-    text-decoration: none;
-}
-
-/*Força links a manter a cor especificada após terem sido visitados.*/
-.menu a:visited {
-    color: white;
-    text-decoration: none;    
-}
-
-/*Altera cor da fonte do itens filhos do menu. Como são links é preciso usar o seletor 'a'*/
-.menu li:hover > a {
-    color: steelblue;
-}
-
-/*Fazendo excessao ao último item 'logoff' para nao mudar de cor com a passagem do mouse''*/
-.menu > li:nth-child(5):hover > a {
-    color: white;
-}
-
-/* Wraper para o menu*/
-.menu-wraper {
-    position: relative;
-    background-color: steelblue;
-    width: 100%;   
-    height: 50px;
-    margin-bottom:10px;    
-}
-
-.menu-wraper  img  {    
-    float: left;
-    position: absolute;
-    height: 40px;
-    width: 40px;
-    left: 4%;    
-}
-
-.menu-wraper > .logo > a > p {        
-    float: left;
-    position: absolute;
-    left: 9%;
-    margin: 10px;
-    font-size: 20px;
-    color: white;
-}
-
 /*Reset para o DummyBody*/
 #dummybodyid {
     margin: 0;
-    padding: 0
+    padding: 0;
 }
 
-section{
-    margin-bottom:100px;
+/* Wraper para o menu*/
+.menu-container {
+    float: left;
+    position: fixed;
+    background-color: steelblue;
+    width: 100%;
+    height: 50px;
+    margin-bottom: 10px;
+    z-index: 1;
+    
 }
 
+    .menu-container .logo {
+        float: left;
+        width: auto;
+        padding: 0;
+        height: auto;
+        margin-right: 0;
+        margin-left: 2%;
+    }
+
+    .menu-container img {
+        float: left;
+        position: relative;
+        height: 40px;
+        width: 40px;
+        left: 5px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .menu-container > .logo > a > p {
+        float: left;
+        position: relative;
+        font-size: 20px;
+        color: white;
+        width: auto;
+        padding: auto;
+        margin: 5px 10px 10px 10px;
+    }
+
+/* estilos para menus (feito por Cláudio) */
+.menu-wraper {        
+    height: 100%;    
+    position: fixed;
+    top: 50px;
+    left: 100%;
+    width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: steelblue;
+    z-index: 1;
+    transform: translateX(500px);
+    transition: transform 500ms ease;
+}
+
+.menu {
+    float: left;
+    position: relative;
+    left: 0;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    font-size: 1.1em;
+}
+
+    .menu li > ul {
+        position: relative;
+        text-align: left;
+        padding-left: 10px;
+        display: none;
+        width: 0;
+        font-size: 12px;
+    }
+
+    /*Seletor do submenu. O faz deslocar para baixo como o passar do mouse*/
+    .menu li:hover > ul {
+        display: block;
+    }
+
+    .menu li {
+        color: white;
+        background-color: steelblue;
+        border: 1px solid steelblue;
+        padding: 3px;
+        list-style: none;
+    }
+
+    .menu > li {
+        position: relative;
+        margin-left: 10px;
+        margin-right: 10px;
+        font-size: 16px;
+        text-align: left;
+    }
+
+    /*Estilo apenas para os li's filhos'*/
+    .menu ul:first-child > li {
+        font-size: 14px;
+        width: 120px;
+    }
+
+    /*Troca de cores de fundo quando o mouse esta por cima.*/
+    .menu ul > li:hover {
+        background-color: white;
+    }
+
+    .menu a {
+        color: white;
+        text-decoration: none;
+    }
+
+    /*Força links a manter a cor especificada após terem sido visitados.*/
+    .menu a:visited {
+        color: white;
+        text-decoration: none;
+    }
+
+    /*Altera cor da fonte do itens filhos do menu. Como são links é preciso usar o seletor 'a'*/
+    .menu li:hover > a {
+        color: steelblue;
+    }
+
+    /*Fazendo excessao ao último item 'logoff' para nao mudar de cor com a passagem do mouse''*/
+    .menu > li:nth-child(5):hover > a {
+        color: white;
+    }
+
+    .menu-toggle {
+        position: fixed;
+        float: left;
+        top: 7px;
+        right: 40px;
+        width: 30px;
+        height: 30px;
+        background-color: bisque;
+    }
+
+    .menu-toggle > img{
+        padding: 0;
+        margin: 0;
+        width: 40px;
+        height: 35px;
+        left: -8px;
+        top: -4px;
+    }
+
+@media screen and (min-width: 799px) {
+    .body-content {
+        animation: none;
+        transform: translateX(0);
+    }
+
+    .menu-container {
+        position: relative;
+    }
+
+    .menu-wraper {
+        float: left;
+        height: auto;
+        top: 0;
+        left: 2%;
+        width: auto;
+        position: relative;
+        margin-left: auto;
+        margin-right: auto;
+        background-color: steelblue;
+        z-index: 1;
+        transition: none;
+        transform: translateX(0);
+    }
+
+    .menu {
+        float: left;
+        text-align: center;
+        font-size: 1.1em;
+    }
+
+    .menu > li {
+        float: left;
+        padding-top: 10px;
+    }
+
+    .menu li > ul {
+        position: absolute;
+        text-align: left;
+        padding: 0;
+        padding-left: -30px;
+        font-size: 15px;
+    }
+
+    .menu > li:hover > ul {
+        display: block;
+        opacity: 100;
+        animation: fadein 400ms forwards;
+    }
 
 
+    /*Animando body e menu a esquerda*/
+    body:hover .menu-wraper {
+        animation: none;
+    }
+
+    body:hover .body-content {
+        animation: none;
+    }
+
+    .teste {
+        display: none;
+    }
+
+    .menu-toggle {
+        float: right;
+        display: none;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .body-content {
+        transform: translateX(0);
+    }
+
+    .menu-container {
+        position: relative;
+    }
+
+    .menu-wraper {
+        float: left;
+        left: 20%;
+        padding: 0;
+        margin-left: auto;
+        margin-right: auto;        
+        height: auto;
+        top: 0;
+        width: auto;
+        position: absolute;        
+        transition: none;
+        transform: translateX(0);
+        padding-left: 10%;
+        
+    }
+    .menu-toggle {
+        display: none;
+    }
+}
+
+@-moz-keyframes fadein {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 100;
+    }
+}
+
+@-webkit-keyframes fadein {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 100;
+    }
+}
+
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 100;
+    }
+}

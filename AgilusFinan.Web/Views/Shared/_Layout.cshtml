@@ -11,58 +11,69 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/agilusLibrary")
     @Scripts.Render("~/bundles/jqueryval")
-
     <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>    
 </head>
 <body>
 
-    <section class="menu-wraper">
+    <section class="menu-container">
         <div class="logo">
             <a href="~/Home">
-                <img src="~/Content/Images/agilus_steelblue.jpg" width="20" height="20" />
+                <img src="~/Content/Images/agilus_steelblue.jpg" width="20" height="20"/>
                 <p>AgilusFinan</p>
             </a>
         </div>
 
-        <ul class="menu">
-            <li>
-                Movimentações
-                <ul>
-                    <li>@Html.ActionLink("Pagamento", "Index", "Pagamento")</li>
-                    <li>@Html.ActionLink("Recebimento", "Index", "Recebimento")</li>
-                    <li>@Html.ActionLink(" Transferência", "Index", "Transferencia")</li>
-                    <li>@Html.ActionLink("Titulo Recorrente", "Index", "TituloRecorrente")</li>
-                </ul>
-            </li>
-            <li>
-                Cadastros
-                <ul>
-                    <li>@Html.ActionLink("Conta", "Index", "Conta")</li>
-                    <li>@Html.ActionLink("Banco", "Index", "Banco")</li>
-                    <li>@Html.ActionLink("Categoria", "Index", "Categoria")</li>
-                    <li>@Html.ActionLink("Centro de Custo", "Index", "CentroCusto")</li>
-                    <li>@Html.ActionLink("Tipo de Pessoa", "Index", "TipoPessoa")</li>
-                    <li>@Html.ActionLink("Pessoa", "Index", "Pessoa")</li>
-                    <li>@Html.ActionLink("Tipo de Telefone", "Index", "TipoTelefone")</li>
-                    <li>@Html.ActionLink("Feriados Regionais", "Index", "FeriadoRegional")</li>
-                </ul>
-            </li>
-            <li>
-                Segurança
-                <ul>
-                    <li>@Html.ActionLink("Usuários", "Index", "Usuario")</li>
-                    <li>@Html.ActionLink("Perfil", "Index", "Perfil")</li>
-                </ul>
-            </li>
-            <li>
-                Relatórios
-                <ul>
-                    <li>@Html.ActionLink("Extrato", "Index", "Extrato")</li>
-                    <li>@Html.ActionLink("Fluxo de Caixa", "Index", "FluxoCaixa")</li>
-                </ul>
-            </li>
-            <li>@Html.ActionLink("Logoff", "Logoff", "Login")</li>
-        </ul>
+        <div class="menu-wraper">
+            <ul class="menu">
+                <li>
+                    Movimentações
+                    <ul>
+                        <li>@Html.ActionLink("Pagamento", "Index", "Pagamento")</li>
+                        <li>@Html.ActionLink("Recebimento", "Index", "Recebimento")</li>
+                        <li>@Html.ActionLink(" Transferência", "Index", "Transferencia")</li>
+                        <li>@Html.ActionLink("Titulo Recorrente", "Index", "TituloRecorrente")</li>
+                    </ul>
+                </li>
+                <li>
+                    Cadastros
+                    <ul>
+                        <li>@Html.ActionLink("Conta", "Index", "Conta")</li>
+                        <li>@Html.ActionLink("Banco", "Index", "Banco")</li>
+                        <li>@Html.ActionLink("Categoria", "Index", "Categoria")</li>
+                        <li>@Html.ActionLink("Centro de Custo", "Index", "CentroCusto")</li>
+                        <li>@Html.ActionLink("Tipo de Pessoa", "Index", "TipoPessoa")</li>
+                        <li>@Html.ActionLink("Pessoa", "Index", "Pessoa")</li>
+                        <li>@Html.ActionLink("Tipo de Telefone", "Index", "TipoTelefone")</li>
+                        <li>@Html.ActionLink("Feriados Regionais", "Index", "FeriadoRegional")</li>
+                    </ul>
+                </li>
+                <li>
+                    Segurança
+                    <ul>
+                        <li>@Html.ActionLink("Usuários", "Index", "Usuario")</li>
+                        <li>@Html.ActionLink("Perfil", "Index", "Perfil")</li>
+                    </ul>
+                </li>
+                <li>
+                    Relatórios
+                    <ul>
+                        <li>@Html.ActionLink("Extrato", "Index", "Extrato")</li>
+                        <li>@Html.ActionLink("Fluxo de Caixa", "Index", "FluxoCaixa")</li>
+                    </ul>
+                </li>
+                <li>@Html.ActionLink("Logoff", "Logoff", "Login")</li>
+            </ul>
+
+        </div>
+
+        @*<button class="menu-toggle">
+            <img src="~/Content/Images/threelines.png"/>
+        </button>*@
+
+       <button type="button" class="menu-toggle" id="menu">
+           <img src="~/Content/Images/threelines.png" />
+        </button>
+
     </section>
 
     @*Bootstrap
@@ -114,9 +125,6 @@
         </div>
     *@
 
-
-
-
     <div class="container body-content">
         @RenderBody()
         <hr />
@@ -137,4 +145,27 @@
     $(function () {        
         setTimeout(Utils.verifyBrowserInputDate, 500);
     });
+
+    var opened;
+    $("#menu").click(function () {
+
+        if (opened) {
+            $(".menu-wraper").css("transform", "translate(500px)");
+            opened = false;
+        } else {
+            $(".menu-wraper").css("transform", "translate(-170px)");
+            opened = true;
+        }
+
+        $(window).resize(function() {
+            $(".menu-wraper").css("transform", "translate(0)");
+        });
+
+    });
+        
+
+
 </script>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
