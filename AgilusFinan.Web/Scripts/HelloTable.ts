@@ -154,8 +154,7 @@ class RowTable {
         }
 
         var cellButton = document.createElement("td");
-        var image = document.createElement("img");
-        image.src = "/Content/Images/close.png";
+
         var deleteButton = document.createElement("button");
         deleteButton.onclick = e => {
             e.preventDefault();
@@ -169,8 +168,13 @@ class RowTable {
 
             setTimeout(() => this.deleteRow(table), 400);
         };
-        
-        deleteButton.appendChild(image);
+
+        var text = document.createTextNode("Apagar");
+        deleteButton.appendChild(text);
+        //var image = document.createElement("img");
+        //image.src = "/Content/Images/close.png";
+        //deleteButton.appendChild(image);
+
         cellButton.appendChild(deleteButton);        
         rowElement.appendChild(cellButton);
 
