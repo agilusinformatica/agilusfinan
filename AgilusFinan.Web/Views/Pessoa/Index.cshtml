@@ -9,66 +9,70 @@
 <p>
     @Html.ActionLink("Adicionar", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Nome)
-        </th>
-        <th>
-            Tipo
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cpf)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Rg)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DataNascimento)
-        </th>
-    </tr>
+<table class="table" id="sorted">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                Tipo
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cpf)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rg)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataNascimento)
+            </th>
+            <th>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nome)
-        </td>
+                <td>
+                    @{
+            string s = String.Empty;
+            int c = 1;
 
-        <td>
-            @{
-                string s = String.Empty;
-                int c=1;
-                
-                foreach (var tp in item.TiposPessoa)
+            foreach (var tp in item.TiposPessoa)
+            {
+                s += tp.TipoPessoa.Nome;
+
+                if (item.TiposPessoa.Count > c)
                 {
-                    s += tp.TipoPessoa.Nome;
-                    
-                    if (item.TiposPessoa.Count > c)
-                    {
-                        s += ", ";
-                    }
-                    c++;
+                    s += ", ";
                 }
-              @Html.DisplayFor(modelItem => s)
+                c++;
             }
-        </td>
-
-        <td class="Cpf">
-            @Html.DisplayFor(modelItem => item.Cpf)
-        </td>
-        <td class="Rg">
-            @Html.DisplayFor(modelItem => item.Rg)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DataNascimento.GetDateTimeFormats()[0])
-        </td>
-        <td>
-            @Html.ActionLink("Alterar", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Excluir", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
-
+            @Html.DisplayFor(modelItem => s)
+                    }
+                </td>
+                <td class="Cpf">
+                    @Html.DisplayFor(modelItem => item.Cpf)
+                </td>
+                <td class="Rg">
+                    @Html.DisplayFor(modelItem => item.Rg)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataNascimento.GetDateTimeFormats()[0])
+                </td>
+                <td>
+                    @Html.ActionLink("Alterar", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Excluir", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
 
 <script>
@@ -76,4 +80,5 @@
         Utils.createMaskClass(document.getElementsByClassName("Cpf"), "cpf");
         Utils.createMaskClass(document.getElementsByClassName("Rg"), "rg");
     })();
+    Utils.initializeDataTables('#sorted');
 </script>

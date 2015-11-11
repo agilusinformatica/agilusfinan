@@ -10,60 +10,63 @@
 else
 {
     <table class="table">
-        <tr>
-            <th>
-                Descrição
-            </th>
-            <th>
-                Vencimento
-            </th>
-            <th>
-                Valor
-            </th>
-            <th>
-                Categoria
-            </th>
-            <th>
-                Pessoa
-            </th>
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model)
-        {
-            <tr @(item.Direcao == DirecaoCategoria.Pagamento ? "style=color:#d9534f" : "")>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Descricao)
-                </td>
-                <td>
-                    @item.DataVencimento.ToString("d")
-                </td>
-                <td align="right">
-                    @(item.Direcao == DirecaoCategoria.Pagamento ? "-" : "")
-                    @Html.DisplayFor(modelItem => item.Valor)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NomeCategoria)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NomePessoa)
-                </td>
-                <td class="col-md-3">
-                    @if (!String.IsNullOrEmpty(item.TituloId.ToString()))
-                    {
-                        @Html.ActionLink("Liquidar", "../" + item.Direcao.ToString() + "/LiquidarDiretamente", new { id = item.TituloId, homeIndex = true })<span>|</span>
-                        @Html.ActionLink("Liquidar Detalhe", "../" + item.Direcao.ToString() + "/Liquidar", new { id = item.TituloId, homeIndex = true })
-                    }
-                    else
-                    {
-                        @Html.ActionLink("Liquidar", "LiquidarDiretamente", new { dataVencimento = item.DataVencimento, tituloRecorrenteId = item.TituloRecorrenteId })<span>|</span>
-                        @Html.ActionLink("Liquidar Detalhe", "Liquidar", new { dataVencimento = item.DataVencimento, tituloRecorrenteId = item.TituloRecorrenteId })
-                    }
-
-                </td>
+        <thead>
+            <tr>
+                <th>
+                    Descrição
+                </th>
+                <th>
+                    Vencimento
+                </th>
+                <th>
+                    Valor
+                </th>
+                <th>
+                    Categoria
+                </th>
+                <th>
+                    Pessoa
+                </th>
+                <th></th>
             </tr>
-        }
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr @(item.Direcao == DirecaoCategoria.Pagamento ? "style=color:#d9534f" : "")>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Descricao)
+                    </td>
+                    <td>
+                        @item.DataVencimento.ToString("d")
+                    </td>
+                    <td align="right">
+                        @(item.Direcao == DirecaoCategoria.Pagamento ? "-" : "")
+                        @Html.DisplayFor(modelItem => item.Valor)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NomeCategoria)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NomePessoa)
+                    </td>
+                    <td class="col-md-3">
+                        @if (!String.IsNullOrEmpty(item.TituloId.ToString()))
+                        {
+                            @Html.ActionLink("Liquidar", "../" + item.Direcao.ToString() + "/LiquidarDiretamente", new { id = item.TituloId, homeIndex = true })<span>|</span>
+                            @Html.ActionLink("Liquidar Detalhe", "../" + item.Direcao.ToString() + "/Liquidar", new { id = item.TituloId, homeIndex = true })
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Liquidar", "LiquidarDiretamente", new { dataVencimento = item.DataVencimento, tituloRecorrenteId = item.TituloRecorrenteId })<span>|</span>
+                            @Html.ActionLink("Liquidar Detalhe", "Liquidar", new { dataVencimento = item.DataVencimento, tituloRecorrenteId = item.TituloRecorrenteId })
+                        }
 
+                    </td>
+                </tr>
+            }
+        </tbody>
     </table>
+    
 }
 

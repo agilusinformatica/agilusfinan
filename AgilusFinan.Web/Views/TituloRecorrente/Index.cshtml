@@ -9,73 +9,79 @@
 <p>
     @Html.ActionLink("Adicionar", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            Categoria
-        </th>
-        <th>
-            Pessoa
-        </th>
-        <th>
-            Conta
-        </th>
-        <th>
-            Nome
-        </th>
-        <th>
-            Valor
-        </th>
-        <th>
-            Direção
-        </th>
-        <th>
-            Recorrência
-        </th>
-        <th>
-            Parcelas
-        </th>
-        <th>
-            Ativo
-        </th>
-        <th></th>
-    </tr>
+<table class="table" id="sorted">
+    <thead>
+        <tr>
+            <th>
+                Categoria
+            </th>
+            <th>
+                Pessoa
+            </th>
+            <th>
+                Conta
+            </th>
+            <th>
+                Nome
+            </th>
+            <th>
+                Valor
+            </th>
+            <th>
+                Direção
+            </th>
+            <th>
+                Recorrência
+            </th>
+            <th>
+                Parcelas
+            </th>
+            <th>
+                Ativo
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Categoria.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Pessoa.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Conta.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Valor)
+                </td>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Categoria.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Pessoa.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Conta.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Valor)
-        </td>
-
-        <td>
-            @item.Categoria.Direcao.ToString()
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Recorrencia)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.QtdeParcelas)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Ativo)
-        </td>
-        <td>
-            @Html.ActionLink("Alterar", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Excluir", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
-
+                <td>
+                    @item.Categoria.Direcao.ToString()
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Recorrencia)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.QtdeParcelas)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ativo)
+                </td>
+                <td>
+                    @Html.ActionLink("Alterar", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Excluir", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
+<script>
+    Utils.initializeDataTables('#sorted');
+</script>

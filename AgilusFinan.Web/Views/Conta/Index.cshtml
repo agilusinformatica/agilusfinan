@@ -9,36 +9,44 @@
 <p>
     @Html.ActionLink("Adicionar", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Nome)
-        </th>
-        <th>
-            Saldo Inicial
-        </th>
-        <th>
-            Data do Saldo Inicial
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nome)
-        </td>
-        <td>
-            @item.SaldoInicial.ToString("#,##0.00")
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DataSaldoInicial.GetDateTimeFormats()[0])
-        </td>
-        <td>
-            @Html.ActionLink("Alterar", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Excluir", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
-
+<table class="table" id="sorted">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                Saldo Inicial
+            </th>
+            <th>
+                Data do Saldo Inicial
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @item.SaldoInicial.ToString("#,##0.00")
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataSaldoInicial.GetDateTimeFormats()[0])
+                </td>
+                <td>
+                    @Html.ActionLink("Alterar", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Excluir", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
+
+<script>
+    Utils.initializeDataTables('#sorted');
+</script>
+
