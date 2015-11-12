@@ -89,6 +89,7 @@ var CellTable = (function () {
             if (this.value) {
                 var date = new Date(Number(this.value.substring(6, this.value.length - 2)));
                 input.value = date.toISOString().substring(0, 10);
+                console.log(input.value);
             }
 
             if (this.column.CssClass)
@@ -203,7 +204,8 @@ var HelloTable = (function () {
             for (var r = 0; r < this.Rows.length; r++) {
                 var row = {};
                 for (var c = 0; c < this.Rows[r].Cells.length; c++) {
-                    row[this.Rows[r].Cells[c].column.FieldName] = this.Rows[r].Cells[c].Value;
+                    row[this.Rows[r].Cells[c].column.FieldName] = Utils.convertFormatDate(this.Rows[r].Cells[c].Value);
+                    console.log(Utils.convertFormatDate(this.Rows[r].Cells[c].Value));
                 }
                 result.push(row);
             }
