@@ -9,7 +9,7 @@
 }
 else
 {
-    <table class="table">
+    <table class="table display compact" id="sorted" cellspacing="0">
         <thead>
             <tr>
                 <th>
@@ -67,6 +67,11 @@ else
             }
         </tbody>
     </table>
-    
+
 }
+
+<script>
+    Utils.initializeDataTables('#sorted');
+</script>
+
 
