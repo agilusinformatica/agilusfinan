@@ -37,10 +37,10 @@ namespace AgilusFinan.Web.Bases
         {
             var js = new JavaScriptSerializer();
             V viewModel = js.Deserialize<V>(postedData);
+            var _model = new T();
+            ViewModelToModel(viewModel, _model);
             if (ModelState.IsValid)
             {
-                var _model = new T();
-                ViewModelToModel(viewModel, _model);
                 repo.Incluir(_model);
 
                 return RedirectToAction("Index");
@@ -67,10 +67,10 @@ namespace AgilusFinan.Web.Bases
         {
             var js = new JavaScriptSerializer();
             V viewModel = js.Deserialize<V>(postedData);
+            var _model = new T();
+            ViewModelToModel(viewModel, _model);
             if (ModelState.IsValid)
             {
-                var _model = new T();
-                ViewModelToModel(viewModel, _model);
                 repo.Alterar(_model);
                 
                 return RedirectToAction("Index");
