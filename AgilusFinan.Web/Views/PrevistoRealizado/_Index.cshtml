@@ -25,16 +25,18 @@
 </div>*@
 
 <canvas style="padding-top: 20px" id="canvasPagamento" width="578" height="250"></canvas>
+
 <canvas id="canvasRecebimento" width="578" height="250"></canvas>
 
 <script>
     geraGrafico("canvasPagamento", @Math.Floor(Model[0].Porcentagem), '@Model[0].Previsto.ToString("C")', '@Model[0].Realizado.ToString("C")', '@Model[0].Tipo', '#d9534f' );
     geraGrafico("canvasRecebimento", @Math.Floor(Model[1].Porcentagem), '@Model[1].Previsto.ToString("C")', '@Model[1].Realizado.ToString("C")', '@Model[1].Tipo', 'green' );
 
-    function geraGrafico(nomeCanvas, porcentagem, textoInterno, textoExterno, titulo, cor) {
-        var canvas = document.getElementById(nomeCanvas);
 
-        var context = canvas.getContext('2d');
+    function geraGrafico(nomeCanvas, porcentagem, textoInterno, textoExterno, titulo, cor) {
+        canvas = document.getElementById(nomeCanvas);
+        context = canvas.getContext('2d');
+
         var x = canvas.width / 2;
         var y = canvas.height / 2;
         var radius = 95;
@@ -86,5 +88,6 @@
         context.fillText(textoInterno, x, y);
         context.fillText(textoExterno, x+200, y);
     }
+
 
 </script>

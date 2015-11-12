@@ -187,3 +187,7 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
+
+#TypeScript
+AgilusFinan.Web/Scripts/HelloTable.js
+AgilusFinan.Web/Scripts/Utils.js

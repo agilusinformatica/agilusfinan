@@ -9,7 +9,7 @@
 <p>
     @Html.ActionLink("Adicionar", "Create")
 </p>
-<table class="table">
+<table class="table" id="sorted">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Codigo)
@@ -36,3 +36,7 @@
 }
 
 </table>
+
+<script>
+    Utils.initializeDataTables('#sorted');
+</script>

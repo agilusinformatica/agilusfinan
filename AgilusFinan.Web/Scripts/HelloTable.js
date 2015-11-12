@@ -150,11 +150,25 @@ var RowTable = (function () {
         }
 
         var cellButton = document.createElement("td");
+        var image = document.createElement("img");
+        image.src = "/Content/Images/close.png";
         var deleteButton = document.createElement("button");
         deleteButton.onclick = function (e) {
-            return _this.deleteRow(table);
+            e.preventDefault();
+            _this.Row.classList.add("fadeout");
+            var rows = _this.Row.childNodes;
+            console.log(rows);
+            for (var i = 0; i < rows.length; i++) {
+                var cell = rows.item(i);
+                cell.classList.add("fadeout");
+            }
+
+            setTimeout(function () {
+                return _this.deleteRow(table);
+            }, 400);
         };
-        deleteButton.textContent = "Delete";
+
+        deleteButton.appendChild(image);
         cellButton.appendChild(deleteButton);
         rowElement.appendChild(cellButton);
 

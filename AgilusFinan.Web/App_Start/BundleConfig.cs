@@ -28,12 +28,17 @@ namespace AgilusFinan.Web
                       "~/Scripts/respond.js"));
             
             bundles.Add(new ScriptBundle("~/bundles/agilusLibrary").Include(
-                      "~/Scripts/Utils.js"
-                ));
+                      "~/Scripts/Utils.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css",
+                      "~/Content/datatables.min.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/datatables").Include(
+                    "~/Scripts/datatables.min.js",
+                    "~/Scripts/date-eu.js"));
+
         }
     }
 }

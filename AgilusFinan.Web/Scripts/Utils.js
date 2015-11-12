@@ -173,5 +173,48 @@
         return date;
     }
     Utils.convertFormatDate = convertFormatDate;
+
+    function initializeDataTables(table) {
+        var columnTable = $(table + ' > thead  th');
+        var targetIndex = [];
+
+        for (var i = 0; i < columnTable.length; i++) {
+            if (columnTable[i].innerHTML.indexOf("Data") > -1) {
+                targetIndex.push(i);
+            }
+        }
+
+        $(table).DataTable({
+            language: {
+                sEmptyTable: "Nenhum registro encontrado",
+                sInfo: "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                sInfoEmpty: "Mostrando 0 até 0 de 0 registros",
+                sInfoFiltered: "(Filtrados de _MAX_ registros)",
+                sInfoPostFix: "",
+                sInfoThousands: ".",
+                sLengthMenu: "_MENU_ resultados por página",
+                sLoadingRecords: "Carregando...",
+                sProcessing: "Processando...",
+                sZeroRecords: "Nenhum registro encontrado",
+                sSearch: "Pesquisar",
+                oPaginate: {
+                    sNext: "Próximo",
+                    sPrevious: "Anterior",
+                    sFirst: "Primeiro",
+                    sLast: "Último"
+                },
+                oAria: {
+                    sSortAscending: ": Ordenar colunas de forma ascendente",
+                    sSortDescending: ": Ordenar colunas de forma descendente"
+                },
+                decimal: ","
+            },
+            columnDefs: [
+                { type: 'date-eu', targets: targetIndex }
+            ],
+            colReorder: true
+        });
+    }
+    Utils.initializeDataTables = initializeDataTables;
 })(Utils || (Utils = {}));
 //# sourceMappingURL=Utils.js.map

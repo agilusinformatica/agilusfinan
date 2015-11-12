@@ -154,9 +154,27 @@ class RowTable {
         }
 
         var cellButton = document.createElement("td");
+
         var deleteButton = document.createElement("button");
-        deleteButton.onclick = e => this.deleteRow(table);
-        deleteButton.textContent = "Delete";
+        deleteButton.onclick = e => {
+            e.preventDefault();
+            this.Row.classList.add("fadeout");
+            var rows = this.Row.childNodes;
+            console.log(rows);
+            for (var i = 0; i < rows.length;i++) {
+                var cell = <any> rows.item(i);
+                cell.classList.add("fadeout");
+            }
+
+            setTimeout(() => this.deleteRow(table), 400);
+        };
+
+        var text = document.createTextNode("Apagar");
+        deleteButton.appendChild(text);
+        //var image = document.createElement("img");
+        //image.src = "/Content/Images/close.png";
+        //deleteButton.appendChild(image);
+
         cellButton.appendChild(deleteButton);        
         rowElement.appendChild(cellButton);
 

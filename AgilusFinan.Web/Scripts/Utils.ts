@@ -4,31 +4,31 @@
 
     //Cria mascara de um lista de Inputs, selecionados pela classe (document.getElementsByClassName("classe"))
     export function createMaskClass(input: Array<HTMLInputElement>, mask: any) {
-        for (var element in input) {            
+        for (var element in input) {
             if (input.hasOwnProperty(element)) {
                 createMask(input[element], mask);
             }
         }
     }
 
-    export function createMask(input: HTMLInputElement, mask: any) {          
-           
+    export function createMask(input: HTMLInputElement, mask: any) {
+
         switch (mask) {
 
             case "telefone":
                 maskEvent(input, null);
-                input.addEventListener("input", e => maskEvent(input, e) );
+                input.addEventListener("input", e => maskEvent(input, e));
                 break;
 
             case "moeda":
                 if (input.value) {
                     input.value = Utils.moneyFormatConvert(input.value.replace(",", "."));
-                }                 
+                }
 
                 $(input).mask("000.000.000,00", {
                     onChange: function (e) {
-                        
-                        var once = false;      
+
+                        var once = false;
 
                         if (input.value.length === 0) {
                             //input.value = "";
@@ -40,7 +40,7 @@
                         }
 
                         if ((input.value.length === 2 || input.value.length === 3) && event.keyCode != 8) {
-                            input.value = "0," + input.value;                            
+                            input.value = "0," + input.value;
                         }
 
                         if (input.value.length > 5) {
@@ -66,7 +66,7 @@
                 break;
 
             case "numero":
-                $(input).mask("#", {reverse:true});
+                $(input).mask("#", { reverse: true });
                 break;
 
             case "rg":
@@ -91,10 +91,10 @@
         }
     }
 
-    function maskEventCnpj(input: HTMLInputElement, e: any, value : any) {
+    function maskEventCnpj(input: HTMLInputElement, e: any, value: any) {
         if (value.replace(/\D/g, "").length <= 11) {
             $(input).mask("000.000.000-009");
-        } 
+        }
         else {
             $(input).mask("00.000.000/0000-00");
 
@@ -112,7 +112,7 @@
             resto = tamanhoInt % separadorLen,
             i = 0,
             total = resto + tamanhoInt;
-            temp = inteiros[0].split("");
+        temp = inteiros[0].split("");
 
         if (tamanhoInt > separadorLen) {
             while (i < total - separadorLen) {
@@ -129,30 +129,30 @@
             }
             joined = temp.join("");
         } else {
-                joined = inteiros;
-                
+            joined = inteiros;
+
         }
         if (decimais !== "") {
             joined = decimais.length === 2 ? joined += decimais.replace(".", ",") + "0" : joined += decimais.replace(".", ",");
         } else {
-            joined += ",00";            
+            joined += ",00";
         }
-        
-        return joined;            
+
+        return joined;
     }
 
     export function verifyBrowserInputDate() {
         var inputTest = document.createElement("input");
         inputTest.setAttribute("type", "date");
 
-        if (inputTest.type === "text" && inputTest.getAttribute("type") === "date") {           
+        if (inputTest.type === "text" && inputTest.getAttribute("type") === "date") {
             var inputs = <any>(document.querySelectorAll("input"));
 
             for (var i = 0; i < inputs.length; i++) {
                 if (inputs[i].getAttribute("type") === "date") {
 
-                    $(function () {                        
-                        $(inputs[i]).datepicker({                            
+                    $(function () {
+                        $(inputs[i]).datepicker({
                             dateFormat: "dd/mm/yy",
                             dayNames: ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo"],
                             dayNamesMin: ["D", "S", "T", "Q", "Q", "S", "S", "D"],
@@ -160,26 +160,72 @@
                             monthNames: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
                             monthNamesShort: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"]
                         });
-                        var date = inputs[i].value.split("-");                                                
+                        var date = inputs[i].value.split("-");
                         inputs[i].value = ("value", date[2] + date[1] + date[0]);
                         createMask(inputs[i], "data");
 
                     });
                 };
-            }            
-        } 
+            }
+        }
     }
 
-    export function convertFormatDate(date: string) {         
+    export function convertFormatDate(date: string) {
         var dash = new RegExp(/^[0-3][0-9]\/[0-1][0-9]\/[1-2][0-9]{3}$/).exec(date);
         //var slash = new RegExp("/^[1-2][0-9]{3}\-[0-1][0-9]\-[0-3][0-9]$/").exec(date);
-        
+
         if (dash) {
             var convert = date.split("/");
-            return convert[2] +  "-" + convert[1] + "-" + convert[0];
+            return convert[2] + "-" + convert[1] + "-" + convert[0];
         }
 
         return date;
 
     }
-} 
+
+    export function initializeDataTables(table : string) {
+
+        var columnTable = $(table +' > thead  th');
+        var targetIndex = [];
+
+        for (var i = 0; i < columnTable.length; i++) {
+            if (columnTable[i].innerHTML.indexOf("Data") > -1) {
+                targetIndex.push(i);
+            }
+        }
+
+		$(table).DataTable({
+                language: {
+                sEmptyTable: "Nenhum registro encontrado",
+                sInfo: "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                sInfoEmpty: "Mostrando 0 até 0 de 0 registros",
+                sInfoFiltered: "(Filtrados de _MAX_ registros)",
+                sInfoPostFix: "",
+                sInfoThousands: ".",
+                sLengthMenu: "_MENU_ resultados por página",
+                sLoadingRecords: "Carregando...",
+                sProcessing: "Processando...",
+                sZeroRecords: "Nenhum registro encontrado",
+                sSearch: "Pesquisar",
+                oPaginate: {
+                    sNext: "Próximo",
+                    sPrevious: "Anterior",
+                    sFirst: "Primeiro",
+                    sLast: "Último"
+                },
+                oAria: {
+                    sSortAscending: ": Ordenar colunas de forma ascendente",
+                    sSortDescending: ": Ordenar colunas de forma descendente"
+                },
+                decimal: ","
+            },
+
+            columnDefs: [
+                { type: 'date-eu', targets: targetIndex }
+
+            ],
+
+            colReorder: true,
+        });
+    }
+}
