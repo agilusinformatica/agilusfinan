@@ -17,14 +17,15 @@
 </head>
 <body>
 
-    <section class="menu-wraper">
+    <section class="menu-container">
         <div class="logo">
             <a href="~/Home">
-                <img src="~/Content/Images/agilus_steelblue.jpg" width="20" height="20" />
+                <img src="~/Content/Images/agilus_steelblue.jpg" width="20" height="20"/>
                 <p>AgilusFinan</p>
             </a>
         </div>
 
+        <div class="menu-wraper">
         <ul class="menu">
             <li>
                 Movimentações
@@ -64,6 +65,17 @@
             </li>
             <li>@Html.ActionLink("Logoff", "Logoff", "Login")</li>
         </ul>
+
+        </div>
+
+        @*<button class="menu-toggle">
+            <img src="~/Content/Images/threelines.png"/>
+        </button>*@
+
+       <button type="button" class="menu-toggle" id="menu">
+           <img src="~/Content/Images/threelines.png" />
+        </button>
+
     </section>
 
     @*Bootstrap
@@ -114,7 +126,7 @@
                 </div>
         </div>
     *@
-   
+
 
     <div class="container body-content">
         @RenderBody()
@@ -134,7 +146,7 @@
 
 @if (TempData["Alerta"] != null)
 {
-    <script>
+<script>
         @{var alerta = TempData["Alerta"] as AgilusFinan.Web.Bases.Alerta;}
         $.notify({ message: '@alerta.Mensagem' }, { type: '@alerta.Tipo' });
     </script>
@@ -142,8 +154,30 @@
 
 <script>
 
-    $(function () {
+    $(function () {        
         setTimeout(Utils.verifyBrowserInputDate, 500);
     });
 
+    var opened;
+    $("#menu").click(function () {
+
+        if (opened) {
+            $(".menu-wraper").css("transform", "translate(500px)");
+            opened = false;
+        } else {
+            $(".menu-wraper").css("transform", "translate(-170px)");
+            opened = true;
+        }
+
+        $(window).resize(function() {
+            $(".menu-wraper").css("transform", "translate(0)");
+        });
+
+    });
+        
+
+
 </script>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

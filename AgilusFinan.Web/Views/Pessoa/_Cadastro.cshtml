@@ -17,7 +17,14 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Nome, new
+           {
+               htmlAttributes = new
+               {
+                   @class = "form-control"
+ 
+               }
+           })
                 @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -25,7 +32,14 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Cpf, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Cpf, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Cpf, new
+                {
+                    htmlAttributes = new
+                    {
+                        @class = "form-control"
+
+                    }
+                })
                 @Html.ValidationMessageFor(model => model.Cpf, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -33,7 +47,10 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Rg, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Rg, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Rg, new
+                {
+                    htmlAttributes = new { @class = "form-control" }
+                })
                 @Html.ValidationMessageFor(model => model.Rg, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -94,6 +111,51 @@
 <script src="~/Scripts/HelloTable.js"></script>
 
 <script>
+    // Validação
+
+    $(document).ready(function () {
+
+        var settings = $.data($('form')[0], 'validator').settings;
+
+        $("form").bind("invalid-form.validate", function (form, validator) {
+            var errors = validator.numberOfInvalids();
+            var message = "Please fix" + errors + " errors.";
+
+            for (var x = 0; x < validator.errorList.length; x++) {
+                message += "<br/>\u25CF " + validator.errorList[x].message;
+            }
+            $("#errorList").html(message);
+            $("#errorList").slideDown('fast');
+
+        });
+
+        settings.rules = {
+            Cpf: {
+                required: true
+            },
+            Nome: {
+                required: true,
+                minlength: 10
+            },
+            DataNascimento: {
+                required: true
+            }
+        }
+
+        settings.messages = {
+            CPf: "Campo CPF é obrigatório",
+            Nome: {
+                required: "Campo nome é obrigatório.",
+                minlength: "Campo deve conter ao menos 10 caracteres."
+            }
+        }
+
+        settings.submitHandler = function (form) {
+            UpdatePessoa();
+        };
+
+    });
+
 
     // montagem da tabela de telefones
     var tabTelefones = new HelloTable('tabTelefones', 'AdicionarTelefone');
@@ -120,11 +182,12 @@
                     window.location = '@Url.Action("Create", "Pessoa")';
                 }
                 else {
-                    window.location = '@Url.Action("Index", "Pessoa")';
-                }
+                window.location = '@Url.Action("Index", "Pessoa")';
+            }
             }
         });
     }
+
     function GetData() {
         var pessoa = {};
 

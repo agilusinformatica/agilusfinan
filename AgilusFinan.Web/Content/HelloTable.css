@@ -31,9 +31,9 @@
     #tabTelefones > thead > th 
     {
         text-align: center;
-        background-color: black;
+        background-color: steelblue;
         border: 2px solid white;
-        border-color: black;
+        border-color: steelblue;
         font-family: sans-serif;
         font-weight: bolder;
         font-size: 18px;
@@ -132,28 +132,13 @@
 
 
     /*Coluna 5*/
-        #tabTelefones > tr > td:nth-child(5)
+        #tabTelefones > tr > td:nth-child(5), button
         { 
             /*border: 2px solid darkgrey;*/
-            opacity: 0;
-            padding-left: 10px
-        }
-
-        #tabTelefones > tr:hover > td:nth-child(5), button
-        {
-            background-color: white;
             opacity: 100;
-            border: none;
-            padding-left: 4px
+            padding-left: 10px;
+            background: white;     
         }
-
-        #tabTelefones > tr > td:nth-child(5) > button > img 
-        { 
-            /*border: 2px solid darkgrey;*/
-                height: 30px;
-                width: 30px;
-        }
-
 
 #AdicionarTelefone 
 {
