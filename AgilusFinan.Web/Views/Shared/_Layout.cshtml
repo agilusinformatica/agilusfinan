@@ -13,6 +13,7 @@
     @Scripts.Render("~/bundles/datatables")
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>    
+    <script src="~/Content/bootstrap-notify.min.js"></script>
 </head>
 <body>
 
@@ -113,9 +114,7 @@
                 </div>
         </div>
     *@
-
-
-
+   
 
     <div class="container body-content">
         @RenderBody()
@@ -133,8 +132,18 @@
 </body>
 </html>
 
+@if (TempData["Alerta"] != null)
+{
+    <script>
+        @{var alerta = TempData["Alerta"] as AgilusFinan.Web.Bases.Alerta;}
+        $.notify({ message: '@alerta.Mensagem' }, { type: '@alerta.Tipo' });
+    </script>
+}
+
 <script>
-    $(function () {        
+
+    $(function () {
         setTimeout(Utils.verifyBrowserInputDate, 500);
     });
+
 </script>

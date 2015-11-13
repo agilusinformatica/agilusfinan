@@ -228,4 +228,9 @@
             colReorder: true,
         });
     }
+
+    export function manterTela(form)
+    {
+        form.append('<input type="hidden" id="novo" name="novo" value="1"/>');
+    }
 }

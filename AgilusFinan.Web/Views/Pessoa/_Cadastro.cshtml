@@ -79,6 +79,7 @@
             <input class="btn btn-default" id="AdicionarTelefone" type="button" value="Adiciona Telefone" />
             <table class="" id="tabTelefones"></table>
             <button class="btn btn-default" onclick="UpdatePessoa();">Gravar</button>
+            <button class="btn btn-default" onclick="UpdatePessoa(true);">Gravar e incluir uma nova</button>
         </div>
 
     </div>
@@ -108,14 +109,19 @@
 
     tabTelefones.jsonData = '@Html.Raw(Json.Encode(Model.Telefones))';
 
-    function UpdatePessoa() {
+    function UpdatePessoa(manterTela) {
         var pessoaJson = GetData();
         $.ajax({
             type: "POST",
             url: '/Pessoa/@(ViewBag.TipoOperacao == "Incluindo" ? "Create" : "Edit")',
             data: { "postedData": pessoaJson },
-            success: function() {
-                window.location = '@Url.Action("Index", "Pessoa")';
+            success: function () {
+                if (manterTela) {
+                    window.location = '@Url.Action("Create", "Pessoa")';
+                }
+                else {
+                    window.location = '@Url.Action("Index", "Pessoa")';
+                }
             }
         });
     }

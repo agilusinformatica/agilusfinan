@@ -45,6 +45,7 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" id="enviar" />
+                <button class="btn btn-default" onclick="UpdatePerfil(true);">Gravar e incluir um novo</button>
             </div>
         </div>
     </div>
@@ -61,15 +62,26 @@
         UpdatePerfil();
     });
 
-    function UpdatePerfil() {
+    //Intercepta post no submit
+    //Para usar esse código é necessário comentar ou apagar o id "enviar" e comentar o código acima
+    //$('form').submit(function (data) {
+    //    data.preventDefault();
+    //    console.log($(this).serialize());
+    //    UpdatePerfil();
+    //});
 
-        
+    function UpdatePerfil(manterTela) {
         var teste = $.ajax({
             type: "POST",
             url: '/Perfil/@(ViewBag.TipoOperacao == "Incluindo" ? "Create" : "Edit")',
             data: { "postedData": JSON.stringify(ListarAcessos())},
             success: function () {
-            window.location = '@Url.Action("Index", "Perfil")';
+                if (manterTela) {
+                    window.location = '@Url.Action("Create", "Perfil")';
+                }
+                else {
+                    window.location = '@Url.Action("Index", "Perfil")';
+                }
             }
         });
     }

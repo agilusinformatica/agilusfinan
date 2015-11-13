@@ -134,6 +134,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Bases\Alerta.cs" />
     <Compile Include="Bases\ControllerConsultaPadrao.cs" />
     <Compile Include="Bases\ControllerViewModelPadrao.cs" />
     <Compile Include="Bases\ControllerPadrao.cs" />
@@ -187,6 +188,7 @@
     <Content Include="Content\HelloTable.css" />
     <Content Include="Content\Images\agilus_steelblue.jpg" />
     <Content Include="Content\Images\agilus.jpg" />
+    <Content Include="Content\bootstrap-notify.min.js" />
     <Content Include="Content\Images\close.png" />
     <Content Include="Content\Images\icons\android-icon-144x144.png" />
     <Content Include="Content\Images\icons\android-icon-192x192.png" />

@@ -25,6 +25,12 @@ namespace AgilusFinan.Web.Controllers
             Util.EnviarConvite(convite, UsuarioLogado.EmpresaId, new RepositorioUsuario().BuscarPorId(UsuarioLogado.UsuarioId).Email);
             var repo = new RepositorioConvite();
             repo.Incluir(convite);
+
+            if(Request.Form["novo"] != null && Request.Form["novo"].Equals("1"))
+            {
+                return RedirectToAction("Create");
+            }
+            else
             return RedirectToAction("Index", "Usuario");
         }
     }

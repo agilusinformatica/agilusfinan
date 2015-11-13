@@ -23,7 +23,6 @@ namespace AgilusFinan.Web.Bases
         [Permissao]
         public virtual ActionResult Create()
         {
-            
             PreInclusao();
             ViewBag.TipoOperacao = "Incluindo";
             return FolderViewName() == String.Empty ? View(new T()) : View("~/Views/" + FolderViewName() + "/Create.cshtml", new T());
@@ -37,6 +36,13 @@ namespace AgilusFinan.Web.Bases
             if (ModelState.IsValid)
             {
                 repo.Incluir(model);
+                TempData["Alerta"] = new Alerta() { Mensagem = "Registro gravado com sucesso", Tipo = "warning" };
+
+                if (Request.Form["novo"] != null && Request.Form["novo"].Equals("1"))
+                {
+                    return RedirectToAction("Create");
+                }
+
                 return RedirectToAction("Index");
             }
             PreInclusao();
@@ -111,9 +117,6 @@ namespace AgilusFinan.Web.Bases
         {
             return string.Empty;
         }
-
-
-
     }
 }
 

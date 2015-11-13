@@ -11,7 +11,6 @@ namespace AgilusFinan.Domain.Entities
         public Filtro()
         {
             Parametros = new List<ParametroFiltro>();
-            
         }
 
         public dynamic ValorPorNome(string nome)

@@ -42,7 +42,12 @@ namespace AgilusFinan.Web.Bases
             if (ModelState.IsValid)
             {
                 repo.Incluir(_model);
+                TempData["Alerta"] = new Alerta() { Mensagem = "Registro gravado com sucesso", Tipo = "success" };
 
+                if (Request.Form["novo"] != null && Request.Form["novo"].Equals("1"))
+                {
+                    return RedirectToAction("Create");
+                }
                 return RedirectToAction("Index");
             }
             PreInclusao();

@@ -4,15 +4,12 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
+<h2>Centro de custo</h2> 
 
-
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
     <div class="form-horizontal">
-        <h4>CentroCusto</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -26,6 +23,7 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Gravar" class="btn btn-default" />
+                <input type="submit" value="Gravar e Incluir um novo" class="btn btn-default" onclick="Utils.manterTela($('form'))"/>
             </div>
         </div>
     </div>

@@ -107,6 +107,7 @@
     </div>
 
     <button class="btn btn-default" type="submit" onclick="UpdateTitulo();">Gravar</button>
+    <button class="btn btn-default" type="submit" onclick="UpdateTitulo(true);">Gravar e incluir um novo</button>
 }
 
 
@@ -117,15 +118,19 @@
         $('#divLiquidacoes').toggle();
     })
 
-    function UpdateTitulo() {
+    function UpdateTitulo(manterTela) {
         var tituloJson = GetData();
-        console.log(tituloJson);
         $.ajax({
             type: "POST",
             url: '/@(ViewBag.TipoTitulo)/@(ViewBag.TipoOperacao == "Incluindo" ? "Create" : "Edit")',
             data: { "postedData": tituloJson },
             success: function () {
-                window.location = '@Url.Action("Index", ViewBag.TipoTitulo)';
+                if (manterTela) {
+                    window.location = '@Url.Action("Create", ViewBag.TipoTitulo)';
+                }
+                else {
+                    window.location = '@Url.Action("Index", ViewBag.TipoTitulo)';
+                }
             }
         });
     }
