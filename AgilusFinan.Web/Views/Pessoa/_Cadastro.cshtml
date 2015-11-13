@@ -21,9 +21,8 @@
            {
                htmlAttributes = new
                {
-                   @class = "form-control",
-                   data_val = "true",
-                   data_val_required = "Nome é obrigatório."
+                   @class = "form-control"
+ 
                }
            })
                 @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
@@ -37,9 +36,8 @@
                 {
                     htmlAttributes = new
                     {
-                        @class = "form-control",
-                        data_val = "true",
-                        data_val_required= "CPF é obrigatório."
+                        @class = "form-control"
+
                     }
                 })
                 @Html.ValidationMessageFor(model => model.Cpf, "", new { @class = "text-danger" })
@@ -97,7 +95,8 @@
         <div id="divTable">
             <input class="btn btn-default" id="AdicionarTelefone" type="button" value="Adiciona Telefone" />
             <table class="" id="tabTelefones"></table>
-            <input class=""btn btn-default" type="submit" value="Gravar" />
+            <hr />
+            <input class="btn btn-default" type="submit" value="Gravar" />
         </div>
 
     </div>
@@ -112,41 +111,6 @@
 <script src="~/Scripts/HelloTable.js"></script>
 
 <script>
-
-    //$().ready(function() {
-    //    $('form').on('submit', function() {
-    //        UpdatePessoa();
-    //    });
-    //});
-
-    @*$().ready(function () {
-
-        $('form').on('submit', function (e) {
-            e.preventDefault();
-        });
-
-        $('form').validate({
-            debug: true,
-            submitHandler: function (form) {
-
-                var dados = $(form).serialize();
-                console.log(dados);
-                $.ajax({
-                    type: "POST",
-                    url: '/Pessoa/@(ViewBag.TipoOperacao == "Incluindo" ? "Create" : "Edit")',
-                    data: { "postedData": dados },
-                    success: function () {
-                        window.location = '@Url.Action("Index", "Pessoa")';
-                    }
-                });
-            }
-        });
-
-    });*@
-
-
-
-
     // Validação
 
     $(document).ready(function () {
@@ -163,8 +127,28 @@
             $("#errorList").html(message);
             $("#errorList").slideDown('fast');
 
-
         });
+
+        settings.rules = {
+            Cpf: {
+                required: true
+            },
+            Nome: {
+                required: true,
+                minlength: 10
+            },
+            DataNascimento: {
+                required: true
+            }
+        }
+
+        settings.messages = {
+            CPf: "Campo CPF é obrigatório",
+            Nome: {
+                required: "Campo nome é obrigatório.",
+                minlength: "Campo deve conter ao menos 10 caracteres."
+            }
+        }
 
         settings.submitHandler = function (form) {
             UpdatePessoa();
