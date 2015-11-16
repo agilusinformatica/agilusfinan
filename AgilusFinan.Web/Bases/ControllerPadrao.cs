@@ -36,7 +36,7 @@ namespace AgilusFinan.Web.Bases
             if (ModelState.IsValid)
             {
                 repo.Incluir(model);
-                TempData["Alerta"] = new Alerta() { Mensagem = "Registro gravado com sucesso", Tipo = "warning" };
+                TempData["Alerta"] = new Alerta() { Mensagem = "Registro gravado com sucesso", Tipo = "success" };
 
                 if (Request.Form["novo"] != null && Request.Form["novo"].Equals("1"))
                 {
@@ -68,6 +68,7 @@ namespace AgilusFinan.Web.Bases
             if (ModelState.IsValid)
             {
                 repo.Alterar(model);
+                TempData["Alerta"] = new Alerta() { Mensagem = "Registro alterado com sucesso", Tipo = "success" };
                 return RedirectToAction("Index");
             }
             PreAlteracao(model);
@@ -90,6 +91,7 @@ namespace AgilusFinan.Web.Bases
         public virtual ActionResult DeleteConfirmed(int id)
         {
             repo.ExcluirPorId(id);
+            TempData["Alerta"] = new Alerta() { Mensagem = "Registro excluído com sucesso", Tipo = "success" };
             return RedirectToAction("Index");
         }
 

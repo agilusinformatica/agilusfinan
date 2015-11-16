@@ -115,11 +115,11 @@ namespace AgilusFinan.Web.Controllers
             ModelToViewModel(titulo, tituloVm);
             ViewBag.TipoTitulo = "Pagamento";
             
-            if (homeIndex)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            else
+            //if (homeIndex)
+            //{
+            //    return RedirectToAction("Index", "Home");
+            //}
+            //else
             return View("~/Views/" + FolderViewName() + "/Liquidar.cshtml", tituloVm);
         }
         [Permissao]
@@ -139,6 +139,7 @@ namespace AgilusFinan.Web.Controllers
                     }
                 );
                 repo.Alterar(titulo);
+                TempData["Alerta"] = new Alerta() { Mensagem = "Título liquidado com sucesso", Tipo = "success" };
 
                 if (homeIndex)
                 {
@@ -158,6 +159,7 @@ namespace AgilusFinan.Web.Controllers
         public void Liquidar(string postedData)
         {
             Edit(postedData);
+            TempData["Alerta"] = new Alerta() { Mensagem = "Título liquidado com sucesso", Tipo = "success" };
         }
     }
 }

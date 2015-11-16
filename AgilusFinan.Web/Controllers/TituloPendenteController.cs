@@ -53,6 +53,7 @@ namespace AgilusFinan.Web.Controllers
                 var novoTitulo = new Titulo();
                 ViewModelToModel(viewModel, novoTitulo);
                 repo.Incluir(novoTitulo);
+                TempData["Alerta"] = new Alerta() { Mensagem = "Título liquidado com sucesso", Tipo = "success" };
             }
             return RedirectToAction("Index");
         }
@@ -92,6 +93,7 @@ namespace AgilusFinan.Web.Controllers
 
             titulo.Liquidacoes.Add(liquidacao);
             new RepositorioPadrao<Titulo>().Incluir(titulo);
+            TempData["Alerta"] = new Alerta() { Mensagem = "Título liquidado com sucesso", Tipo = "success" };
             return RedirectToAction("Index", "Home");
         }
         private void ViewModelToModel(TituloViewModel viewModel, Titulo model)
