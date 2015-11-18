@@ -22,7 +22,6 @@
                htmlAttributes = new
                {
                    @class = "form-control"
- 
                }
            })
                 @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
@@ -95,8 +94,8 @@
         <div id="divTable">
             <input class="btn btn-default" id="AdicionarTelefone" type="button" value="Adiciona Telefone" />
             <table class="" id="tabTelefones"></table>
-            <button class="btn btn-default" onclick="UpdatePessoa();">Gravar</button>
-            <button class="btn btn-default" onclick="UpdatePessoa(true);">Gravar e incluir uma nova</button>
+            <span class="btn btn-default" onclick="UpdatePessoa();">Gravar</span>
+            <span class="btn btn-default" onclick="UpdatePessoa(true);">Gravar e incluir uma nova</span>
         </div>
 
     </div>
@@ -182,8 +181,17 @@
                     window.location = '@Url.Action("Create", "Pessoa")';
                 }
                 else {
-                window.location = '@Url.Action("Index", "Pessoa")';
+                    window.location = '@Url.Action("Index", "Pessoa")';
             }
+            },
+            error: function (object) {
+
+                //Capturando erro no objeto htmlResponse
+                var htmlResponse = document.createElement('html');
+                htmlResponse.innerHTML = object.responseText;
+                var erro = htmlResponse.querySelector('h4').textContent;
+
+                location.href = '@Url.Action("Erro", "Pessoa")?erro=' + erro
             }
         });
     }
