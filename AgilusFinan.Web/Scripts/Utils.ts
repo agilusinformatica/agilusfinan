@@ -193,6 +193,7 @@
                 targetIndex.push(i);
             }
         }
+        $(table).addClass("responsive no-wrap");
 
 		$(table).DataTable({
                 language: {
@@ -226,6 +227,7 @@
             ],
 
             colReorder: true,
+            responsive: true
         });
     }
 
