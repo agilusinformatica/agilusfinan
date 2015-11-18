@@ -39,8 +39,8 @@
             <div id="selectedcolor" style="background-color: #@cor.ToString("X").PadLeft(6,'0'); width: 100px; height: 20px;"></div>
         </td>
         <td>
-            @Html.ActionLink("Alterar", "Edit", new { id=item.Key }) |
-            @Html.ActionLink("Excluir", "Delete", new {id = item.Key}) |
+            @Html.ActionLink(" ", "Edit", new { id = item.Key }, new { @class = "glyphicon glyphicon-pencil" }) |
+            @Html.ActionLink(" ", "Delete", new { id = item.Key }, new { @class = "glyphicon glyphicon-trash" }) |
             @Html.ActionLink("Incluir Filha", "CreateFilha", new { CategoriaPaiId = item.Key, direcao = Model.Where(x => x.Id  == item.Key).First().Direcao}) 
 
         </td>

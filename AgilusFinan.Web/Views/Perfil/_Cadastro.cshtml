@@ -32,7 +32,6 @@
                     List<AgilusFinan.Domain.Entities.Funcao> funcoes = ViewBag.Funcoes;
                     int? PaiId = funcoes.Where(x => x.Id == f.Key).First().FuncaoSuperiorId;
                     
-                    
                     <tr data-node="treetable-@(f.Key)" data-pnode="treetable-parent-@(PaiId)">
                         <td>
                             <input name="s@(f.Key)" id="s@(f.Key)" type="checkbox" class="Funcao" @(ViewBag.TipoOperacao == "Alterando" && Model.Acessos.Find(o => o.FuncaoId == f.Key).Selecionado ? "checked" : "") />&nbsp;@f.Value
@@ -41,11 +40,11 @@
                 }
             </table>
         </div>
-
+        
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" id="enviar" />
-                <button class="btn btn-default" onclick="UpdatePerfil(true);">Gravar e incluir um novo</button>
+                <span class="btn btn-default" onclick="UpdatePerfil();">Gravar</span>
+                <span class="btn btn-default" onclick="UpdatePerfil(true);">Gravar e incluir um novo</span>
             </div>
         </div>
     </div>
@@ -56,11 +55,11 @@
 </div>
 
 <script>
-    var teste;
-    document.getElementById("enviar").addEventListener("click", function (e) {
-        e.preventDefault();
-        UpdatePerfil();
-    });
+    //var teste;
+    //document.getElementById("enviar").addEventListener("click", function (e) {
+    //    e.preventDefault();
+    //    UpdatePerfil();
+    //});
 
     //Intercepta post no submit
     //Para usar esse código é necessário comentar ou apagar o id "enviar" e comentar o código acima
@@ -74,7 +73,7 @@
         var teste = $.ajax({
             type: "POST",
             url: '/Perfil/@(ViewBag.TipoOperacao == "Incluindo" ? "Create" : "Edit")',
-            data: { "postedData": JSON.stringify(ListarAcessos())},
+            data: { "postedData": JSON.stringify(getData())},
             success: function () {
                 if (manterTela) {
                     window.location = '@Url.Action("Create", "Perfil")';
@@ -82,11 +81,12 @@
                 else {
                     window.location = '@Url.Action("Index", "Perfil")';
                 }
-            }
+            },
+            error: window.location = ""
         });
     }
 
-    function ListarAcessos() {
+    function getData() {
         var inputs = document.getElementsByClassName("Funcao");
         var perfil = {
             Id: document.getElementById("Id").value,

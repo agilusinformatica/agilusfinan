@@ -10,7 +10,6 @@ namespace AgilusFinan.Web.Bases
         where T : Padrao, new()
         where R : IRepositorioPadrao<T>, new()
         where V : class, new()
-
     {
         protected R repo = new R();
 
@@ -33,25 +32,20 @@ namespace AgilusFinan.Web.Bases
 
         [Permissao]
         [HttpPost]
-        public virtual ActionResult Create(string postedData)
+        public virtual void Create(string postedData)
         {
             var js = new JavaScriptSerializer();
             V viewModel = js.Deserialize<V>(postedData);
             var _model = new T();
             ViewModelToModel(viewModel, _model);
-            if (ModelState.IsValid)
-            {
-                repo.Incluir(_model);
-                TempData["Alerta"] = new Alerta() { Mensagem = "Registro gravado com sucesso", Tipo = "success" };
+            repo.Incluir(_model);
+          
+            TempData["Alerta"] = new Alerta() { Mensagem = "Registro gravado com sucesso", Tipo = "success" };
+        }
 
-                if (Request.Form["novo"] != null && Request.Form["novo"].Equals("1"))
-                {
-                    return RedirectToAction("Create");
-                }
-                return RedirectToAction("Index");
-            }
-            PreInclusao();
-            return FolderViewName() == String.Empty ? View(viewModel) : View("~/Views/" + FolderViewName() + "/Create.cshtml", viewModel);
+        public virtual void Erro(string erro)
+        {
+            throw new Exception(erro);
         }
 
         [HttpGet]
@@ -77,7 +71,7 @@ namespace AgilusFinan.Web.Bases
             if (ModelState.IsValid)
             {
                 repo.Alterar(_model);
-                
+
                 return RedirectToAction("Index");
             }
             PreAlteracao(viewModel);
@@ -91,8 +85,6 @@ namespace AgilusFinan.Web.Bases
             PreExclusao();
             T model = repo.BuscarPorId(id);
             return FolderViewName() == String.Empty ? View(model) : View("~/Views/" + FolderViewName() + "/Delete.cshtml", model);
-
-
         }
 
         [HttpPost, ActionName("Delete")]
@@ -105,12 +97,12 @@ namespace AgilusFinan.Web.Bases
 
         protected virtual void PreAlteracao(V viewModel)
         {
-            
+
         }
 
         protected virtual void PreInclusao()
         {
-            
+
         }
 
         protected virtual void PreExclusao()
@@ -120,17 +112,17 @@ namespace AgilusFinan.Web.Bases
 
         protected virtual void PreListagem()
         {
-            
+
         }
 
         protected virtual void ViewModelToModel(V viewModel, T model)
         {
-            
+
         }
 
         protected virtual void ModelToViewModel(T model, V viewModel)
         {
-            
+
         }
 
         protected virtual string FolderViewName()

@@ -62,7 +62,7 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Salvar" class="btn btn-default"/>
-                <input type="submit" value="Salvar e Incluir uma nova" class="btn btn-default" onclick="Utils.manterTela($('form'))" />
+                <input type="submit" class="btn btn-default" value="Salvar e Incluir uma nova" onclick="Utils.manterTela($('form'))">
             </div>
         </div>
     </div>
@@ -75,7 +75,8 @@
 <script>
     var direcao = $("#DirecaoR, #DirecaoP").bind("click", function () {
         var result = $.ajax({
-            url: "@Url.Action("BuscaCategorias")",
+            url: "@
+    ction("BuscaCategorias")",
             method: "POST",
             data: {
                 direcao: $(this).val(),
