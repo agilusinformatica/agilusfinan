@@ -28,6 +28,13 @@
 
 <canvas id="canvasRecebimento" width="578" height="250"></canvas>
 
+<style>
+    canvas {
+        width: 80%;
+    }
+
+</style>
+
 <script>
     geraGrafico("canvasPagamento", @Math.Floor(Model[0].Porcentagem), '@Model[0].Previsto.ToString("C")', '@Model[0].Realizado.ToString("C")', '@Model[0].Tipo', '#d9534f' );
     geraGrafico("canvasRecebimento", @Math.Floor(Model[1].Porcentagem), '@Model[1].Previsto.ToString("C")', '@Model[1].Realizado.ToString("C")', '@Model[1].Tipo', 'green' );
@@ -89,5 +96,8 @@
         context.fillText(textoExterno, x+200, y);
     }
 
-
+    $(window).resize(function() {
+        $('#canvaPagamento').height(
+            $('#canvasPagamento').width() / 2.031);
+    });
 </script>

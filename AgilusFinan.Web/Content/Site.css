@@ -45,7 +45,8 @@ textarea {
         padding: 0;
         height: auto;
         margin-right: 0;
-        margin-left: 2%;
+        margin-left: 4%;
+        margin-top: 3px;
     }
 
     .menu-container img {
@@ -124,7 +125,7 @@ textarea {
     }
 
     /*Estilo apenas para os li's filhos'*/
-    .menu ul:first-child > li {
+    .menu ul:first-child {
         font-size: 14px;
         width: 120px;
     }
@@ -208,6 +209,11 @@ textarea {
     .menu > li {
         float: left;
         padding-top: 10px;
+    }
+
+    .menu > li > ul {
+        box-shadow: 5px 5px 10px grey;
+        z-index: 2;
     }
 
     .menu li > ul {
