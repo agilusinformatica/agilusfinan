@@ -75,8 +75,7 @@
 <script>
     var direcao = $("#DirecaoR, #DirecaoP").bind("click", function () {
         var result = $.ajax({
-            url: "@
-    ction("BuscaCategorias")",
+            url: "@Url.Action("BuscaCategorias")",
             method: "POST",
             data: {
                 direcao: $(this).val(),
