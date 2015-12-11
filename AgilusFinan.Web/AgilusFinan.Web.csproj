@@ -41,6 +41,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Boleto.Net, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Boleto.Net.2.1.0.107\lib\Boleto.Net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
@@ -151,6 +155,7 @@
     <Compile Include="Controllers\FluxoCaixaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\LoteBoletoController.cs" />
     <Compile Include="Controllers\PagamentoController.cs" />
     <Compile Include="Controllers\PerfilController.cs" />
     <Compile Include="Controllers\PessoaController.cs" />
@@ -360,8 +365,10 @@
     <Content Include="Views\Transferencia\Create.cshtml" />
     <Content Include="Views\Transferencia\Edit.cshtml" />
     <Content Include="Scripts\PortugueseBrasil.json" />
+    <Content Include="Views\Recebimento\GerarBoleto.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Views\LoteBoleto\" />
     <Folder Include="Views\RecuperarSenha\" />
   </ItemGroup>
   <ItemGroup>

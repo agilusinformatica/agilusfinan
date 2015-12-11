@@ -1,0 +1,9 @@
+﻿@{
+    Layout = null;
+}
+
+@Html.Raw(ViewBag.BoletoBancario)
+<form method="post" action="~/Recebimento/EnviarBoletoPorEmail">
+    <input type="hidden" value="@ViewBag.TituloId" id="tituloId" name="tituloId" />
+    <input type="submit" value="Enviar por Email"/>
+</form>
