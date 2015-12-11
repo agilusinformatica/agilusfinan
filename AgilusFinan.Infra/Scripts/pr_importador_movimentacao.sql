@@ -55,17 +55,17 @@ begin
 		--O Id cadastrado no AgilusFinan da planilha a ser importada
 		set @PessoaId = (select Id from Pessoa
 						 where  Nome = @Pessoa)
-
+						 						 
 		--Id da conta no AgilusFinan
 		set @ContaId = (select Id from Conta
 						where  Nome = @Conta)
 
 		if (@ContaId is null)
 		begin
-			insert into Conta(Nome, SaldoInicial, BancoBoletoId, EmpresaId, Padrao)
-			select @Conta, 0.0, 1, @EmpresaId, 0
+			insert into Conta(Nome, SaldoInicial, BancoBoletoId, EmpresaId, Padrao, DataSaldoInicial)
+			select @Conta, 0.0, 1, @EmpresaId, 0, convert(date, convert(varchar(4),year(getdate())) + '0101')
+			set @ContaId = SCOPE_IDENTITY()
 		end
-
 
 		if(@TipoLancamento like 'Trans%')
 		begin
@@ -112,22 +112,20 @@ begin
 			select @ContaId, @DataPagamento, @Descricao, @Valor, @CategoriaId, @PessoaId, @EmpresaId
 		
 			set @TituloId = SCOPE_IDENTITY()			
-			print 'Titulo: ' + convert(varchar, @TituloId)
+			--print 'Titulo: ' + convert(varchar, @TituloId)
 
 			--Liquidacao
 			If(@Pago like 'Sim')
 			begin
-				print 'Liquidacao: ' + convert(varchar, @TituloId)
+				--print 'Liquidacao: ' + convert(varchar, @TituloId)
 				insert into Liquidacao(Data, Valor, JurosMulta, FormaLiquidacao, TituloId)
 				select @DataPagamento, @Valor, 0.0, 1, @TituloId
-
 			end		
 							
 		end
 
 		--Fim
 		fetch curMovimentacao into @TipoLancamento, @DataPagamento, @Descricao, @Valor, @Categoria, @Pessoa, @Pago, @Conta
-	
 	end
 
 	close curMovimentacao
@@ -142,44 +140,44 @@ begin
    print '<< CREATE pr_importador_movimentacao >>'
 end
 GO
+--Testes
+--exec pr_importador_movimentacao 1
 
-exec pr_importador_movimentacao 1
+--delete Liquidacao
+--delete Titulo
+--delete Transferencia
+--delete TituloRecorrente
+--delete Categoria
+--delete Pessoa
 
-delete Liquidacao
-delete Titulo
-delete Transferencia
-delete TituloRecorrente
-delete Categoria
-delete Pessoa
+--select distinct [Tipo de Lancamento] from movimentacoes
+--select distinct [Recebido de/Pago a] from movimentacoes
 
-select distinct [Tipo de Lancamento] from movimentacoes
-select distinct [Recebido de/Pago a] from movimentacoes
-
-select * from Titulo
-select * from Liquidacao
-select * from Categoria
-select * from pessoa
-select * from titulo
-select * from movimentacoes
-select * from Transferencia
-select * from Liquidacao
-select * from conta
-
-
-select distinct pago from movimentacoes
-
-select * from movimentacoes
-where [Tipo de Lancamento] like '%Trans%'
-
-with dps as(
-			select *, ROW_NUMBER() over(partition by [Data Pagamento], Descricao, Valor, [Recebido de/Pago a], Conta order by Conta) linha
-			from movimentacoes
-			)
-select * from dps
-where linha > 1
+--select * from Titulo
+--select * from Liquidacao
+--select * from Categoria
+--select * from pessoa
+--select * from titulo
+--select * from movimentacoes
+--select * from Transferencia
+--select * from Liquidacao
+--select * from conta
 
 
+--select distinct pago from movimentacoes
+
+--select * from movimentacoes
+--where [Tipo de Lancamento] like '%Trans%'
+
+--with dps as(
+--			select *, ROW_NUMBER() over(partition by [Data Pagamento], Descricao, Valor, [Recebido de/Pago a], Conta order by Conta) linha
+--			from movimentacoes
+--			)
+--select * from dps
+--where linha > 1
 
 
-select * from Titulo
-where id = 73528
+
+
+--select * from Titulo
+--where id = 73528

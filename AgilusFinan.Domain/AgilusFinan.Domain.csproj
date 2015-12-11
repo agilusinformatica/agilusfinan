@@ -39,6 +39,7 @@
     <Compile Include="Entities\Banco.cs" />
     <Compile Include="Entities\Categoria.cs" />
     <Compile Include="Entities\CentroCusto.cs" />
+    <Compile Include="Entities\ConciliacaoExtrato.cs" />
     <Compile Include="Entities\ConsultaPadrao.cs" />
     <Compile Include="Entities\Conta.cs" />
     <Compile Include="Entities\ContaBancaria.cs" />
@@ -49,6 +50,7 @@
     <Compile Include="Entities\FeriadoRegional.cs" />
     <Compile Include="Entities\Filtro.cs" />
     <Compile Include="Entities\FluxoCaixa.cs" />
+    <Compile Include="Entities\Parser.cs" />
     <Compile Include="Entities\LoteBoleto.cs" />
     <Compile Include="Entities\UsuarioLogado.cs" />
     <Compile Include="Interfaces\IRepositorioFeriadoRegional.cs" />
