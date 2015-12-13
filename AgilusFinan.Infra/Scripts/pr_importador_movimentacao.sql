@@ -29,17 +29,42 @@ begin
 			@PessoaId int,
 			@CategoriaId int,
 			@ContaId int,
-			@ContaOrigem int,
+			@ContaDestino int,
 			@TituloId int
+
 	set nocount on
+
 	--Inclusao de pesssoas nao cadastradas no sistema
-	select distinct [Recebido de/Pago a] into #Pessoas from movimentacoes
+	create table #pessoas(
+	[Recebido de/Pago a] varchar(255))
+	
+	insert into #pessoas
+	select distinct [Recebido de/Pago a] 
+	from movimentacoes
 	
 	insert into Pessoa(EmpresaId, Nome, ContaBancaria_Poupanca, DataNascimento)
-	select @EmpresaId, [Recebido de/Pago a], 0, '20150101' from #Pessoas
+	select @EmpresaId, [Recebido de/Pago a], 0, '20150101' 
+	from #Pessoas
 	where not exists(select 1 from Pessoa
 					 where Nome = [Recebido de/Pago a])
 	and [Recebido de/Pago a] is not null
+
+	--Inclusao de contas nao cadastradas no sistema
+	create table #contas(
+	Conta varchar(255))
+	
+	insert into #contas
+	select distinct conta
+	from movimentacoes
+	
+
+	insert into Conta(Nome, SaldoInicial, DataSaldoInicial, BancoBoletoId, EmpresaId, Padrao)
+	select Conta, 0, '2014-08-01', (select min(Id) from Banco where empresaId = @empresaId), @empresaId, 0
+	from #contas 
+	where not exists(select 1 from Conta 
+					    where Nome = Conta)
+	and conta is not null
+
 
 	--Declaracao do cursor
 	declare curMovimentacao cursor for
@@ -60,39 +85,28 @@ begin
 		set @ContaId = (select Id from Conta
 						where  Nome = @Conta)
 
-		if (@ContaId is null)
+
+		if(@TipoLancamento = 'Transferências Saída')
 		begin
-			insert into Conta(Nome, SaldoInicial, BancoBoletoId, EmpresaId, Padrao)
-			select @Conta, 0.0, 1, @EmpresaId, 0
-		end
+         select @ContaDestino = b.Id
+         from movimentacoes a
+         join conta b on a.Conta = b.Nome
+         where EmpresaId = @EmpresaId
+         and [Data Pagamento] = @DataPagamento
+         and [Tipo de Lancamento] = 'Transferências Entrada'
 
-
-		if(@TipoLancamento like 'Trans%')
-		begin
-			set @ContaOrigem = (select Id from Conta
-							    where Nome = @Descricao)
-
-			if(@ContaOrigem is null)
-			begin
-				set @ContaOrigem = 1
-			end
 
 			insert into Transferencia(ContaOrigemId, ContaDestinoId, Valor, Data, Descricao, EmpresaId)
-			select @ContaOrigem, @ContaId, @Valor, @DataPagamento, null, @EmpresaId
-			where not exists(select 1 from Transferencia
-							 where @ContaOrigem = ContaOrigemId
-							 and @ContaId = ContaDestinoId
-							 and @Valor = Valor
-							 and @DataPagamento = Data)
+			select @ContaId, @ContaDestino, @Valor, @DataPagamento, null, @EmpresaId
 							 
 		end
-		else
+      else if @TipoLancamento != 'Transferências Entrada'
 		begin
-		--Verifica se @Categoria ja estao cadastrada na tabela Categoria
+		   --Verifica se @Categoria ja estao cadastrada na tabela Categoria
 			set @CategoriaId = (select Id from Categoria
 								where Nome = @Categoria)
 
-		--Se @TotalContador retornar '0', significa que sera necessario cadastrar a categoria.
+		   --Se @TotalContador retornar '0', significa que sera necessario cadastrar a categoria.
 			if(@CategoriaId is null)
 			begin
 		
@@ -142,7 +156,7 @@ begin
    print '<< CREATE pr_importador_movimentacao >>'
 end
 GO
-
+/*
 exec pr_importador_movimentacao 1
 
 delete Liquidacao
@@ -151,35 +165,15 @@ delete Transferencia
 delete TituloRecorrente
 delete Categoria
 delete Pessoa
-
-select distinct [Tipo de Lancamento] from movimentacoes
-select distinct [Recebido de/Pago a] from movimentacoes
+delete Conta
 
 select * from Titulo
 select * from Liquidacao
 select * from Categoria
 select * from pessoa
 select * from titulo
-select * from movimentacoes
 select * from Transferencia
 select * from Liquidacao
 select * from conta
 
-
-select distinct pago from movimentacoes
-
-select * from movimentacoes
-where [Tipo de Lancamento] like '%Trans%'
-
-with dps as(
-			select *, ROW_NUMBER() over(partition by [Data Pagamento], Descricao, Valor, [Recebido de/Pago a], Conta order by Conta) linha
-			from movimentacoes
-			)
-select * from dps
-where linha > 1
-
-
-
-
-select * from Titulo
-where id = 73528
+*/
