@@ -2,11 +2,16 @@
 using AgilusFinan.Infra.Services;
 using AgilusFinan.Web.Bases;
 using AgilusFinan.Web.ViewModels;
+using BoletoNet;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Net.Mail;
+using System.Net.Mime;
+using System.IO;
+using AgilusFinan.Domain.Utils;
 
 namespace AgilusFinan.Web.Controllers
 {
@@ -123,6 +128,7 @@ namespace AgilusFinan.Web.Controllers
             else
             return View("~/Views/" + FolderViewName() + "/Liquidar.cshtml", tituloVm);
         }
+
         [Permissao]
         public ActionResult LiquidarDiretamente(int id, bool homeIndex)
         {
@@ -151,6 +157,44 @@ namespace AgilusFinan.Web.Controllers
             {
                 throw new Exception("Já existe pagamento para este título.");
             }
+        }
+
+        public ActionResult GerarBoleto(int tituloId)
+        {
+            var boletobancario = Util.GerarBoleto(tituloId);
+            ViewBag.BoletoBancario = boletobancario.MontaHtmlEmbedded();
+            ViewBag.TituloId = tituloId;
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult EnviarBoletoPorEmail(int tituloId)
+        {
+            var titulo = repo.BuscarPorId(tituloId);
+            var emailDestinatario = titulo.Pessoa.EmailFinanceiro;
+            var emailRemetente = titulo.Empresa.EmailFinanceiro;
+
+            var boleto = Util.GerarBoleto(tituloId);
+            string boletoGerado = Server.MapPath(@"~/App_Data/teste.pdf");
+            GeradorPdf.HtmlParaPdf(boleto.MontaHtmlEmbedded(false, true), boletoGerado);
+            var anexos = new List<string>();
+            anexos.Add(boletoGerado);
+            var email = new Email(emailDestinatario, "Teste de envio de boleto pelo agilus finan", "Teste Boleto", emailRemetente, anexos);
+            //email.DispararMensagem();
+            System.IO.File.Delete(boletoGerado);
+
+            return RedirectToAction("Index", "Recebimento");
+        }
+
+        public Stream GenerateStreamFromString(string s)
+        {
+            MemoryStream stream = new MemoryStream();
+            StreamWriter writer = new StreamWriter(stream);
+            writer.Write(s);
+            writer.Flush();
+            stream.Position = 0;
+            return stream;
         }
 
         [HttpPost]

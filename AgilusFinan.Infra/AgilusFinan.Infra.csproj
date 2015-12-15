@@ -38,6 +38,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net40\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="NReco.PdfGenerator">
+      <HintPath>..\..\..\..\Downloads\NReco.PdfGenerator.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -76,6 +79,10 @@
     <Compile Include="Migrations\201502131843521_CriacaoCentroCusto.cs" />
     <Compile Include="Migrations\201502131843521_CriacaoCentroCusto.Designer.cs">
       <DependentUpon>201502131843521_CriacaoCentroCusto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201502132021138_Conta_Bancaria_Na_Empresa.cs" />
+    <Compile Include="Migrations\201502132021138_Conta_Bancaria_Na_Empresa.Designer.cs">
+      <DependentUpon>201502132021138_Conta_Bancaria_Na_Empresa.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201502181416461_CriacaoCategoria.cs" />
     <Compile Include="Migrations\201502181416461_CriacaoCategoria.Designer.cs">
@@ -233,11 +240,21 @@
     <Compile Include="Migrations\201510302049440_MudancaTamanhoCampoObservacaoTituloPara500.Designer.cs">
       <DependentUpon>201510302049440_MudancaTamanhoCampoObservacaoTituloPara500.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201512101742470_AdicionaEmailemPessoa.cs" />
+    <Compile Include="Migrations\201512101742470_AdicionaEmailemPessoa.Designer.cs">
+      <DependentUpon>201512101742470_AdicionaEmailemPessoa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512111710056_AdcionaCpfCnpjemEmpresa.cs" />
+    <Compile Include="Migrations\201512111710056_AdcionaCpfCnpjemEmpresa.Designer.cs">
+      <DependentUpon>201512111710056_AdcionaCpfCnpjemEmpresa.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AcessosUsuario.cs" />
     <Compile Include="Services\GeradorExtrato.cs" />
     <Compile Include="Services\GeradorFluxoCaixa.cs" />
+    <Compile Include="Services\GeradorLoteBoleto.cs" />
+    <Compile Include="Services\GeradorPdf.cs" />
     <Compile Include="Services\GeradorPrevistoRealizado.cs" />
     <Compile Include="Services\GeradorResumoTituloCategoria.cs" />
     <Compile Include="Services\GeradorSaldo.cs" />
@@ -293,6 +310,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201502131843521_CriacaoCentroCusto.resx">
       <DependentUpon>201502131843521_CriacaoCentroCusto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502132021138_Conta_Bancaria_Na_Empresa.resx">
+      <DependentUpon>201502132021138_Conta_Bancaria_Na_Empresa.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201502181416461_CriacaoCategoria.resx">
       <DependentUpon>201502181416461_CriacaoCategoria.cs</DependentUpon>
@@ -410,6 +430,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201510302049440_MudancaTamanhoCampoObservacaoTituloPara500.resx">
       <DependentUpon>201510302049440_MudancaTamanhoCampoObservacaoTituloPara500.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512101742470_AdicionaEmailemPessoa.resx">
+      <DependentUpon>201512101742470_AdicionaEmailemPessoa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512111710056_AdcionaCpfCnpjemEmpresa.resx">
+      <DependentUpon>201512111710056_AdcionaCpfCnpjemEmpresa.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

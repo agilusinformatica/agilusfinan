@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Net.Mail;
+using System.IO;
 
 namespace AgilusFinan.Domain.Utils
 {
@@ -15,6 +16,8 @@ namespace AgilusFinan.Domain.Utils
         private string mensagem;
         private string emailRemetente;
         private string assunto;
+        private List<String> anexos = new List<String>();
+        private List<Stream> anexosStream = new List<Stream>();
 
         public string Assunto { get; set; }
 
@@ -26,12 +29,18 @@ namespace AgilusFinan.Domain.Utils
             this.assunto = Assunto;
         }
 
+        public Email(string EmailDestinatario, string Mensagem, string Assunto, string EmailRemetente, List<string> Anexos) : this(EmailDestinatario, Mensagem, Assunto, EmailRemetente) 
+        {
+            this.anexos = Anexos;
+        }
+
+        public Email(string EmailDestinatario, string Mensagem, string Assunto, string EmailRemetente, List<Stream> AnexosStream) : this(EmailDestinatario, Mensagem, Assunto, EmailRemetente)
+        {
+            this.anexosStream = AnexosStream;
+        }
+
         public void DispararMensagem()
         {
-            string emailDestinatario = this.emailDestinatario;
-            string conteudoMensagem = this.mensagem;
-            string assuntoMensagem = this.assunto;
-
             //Cria objeto com dados do e-mail.
             using (MailMessage objEmail = new MailMessage())
             {
@@ -48,14 +57,25 @@ namespace AgilusFinan.Domain.Utils
                 objEmail.IsBodyHtml = true;
 
                 //Define título do e-mail.
-                objEmail.Subject = assuntoMensagem;
+                objEmail.Subject = assunto;
 
                 //Define o corpo do e-mail.
-                objEmail.Body = conteudoMensagem;
+                objEmail.Body = mensagem;
 
                 //Para evitar problemas de caracteres "estranhos", configuramos o charset para "ISO-8859-1"
                 objEmail.SubjectEncoding = System.Text.Encoding.GetEncoding("ISO-8859-1");
                 objEmail.BodyEncoding = System.Text.Encoding.GetEncoding("ISO-8859-1");
+
+                //Adiciona a lista de anexos
+                foreach (var anexo in anexos)
+                {
+                    objEmail.Attachments.Add(new Attachment(anexo));
+                }
+
+                foreach (var anexo in anexosStream)
+                {
+                    objEmail.Attachments.Add(new Attachment(anexo, null, null));
+                }
 
                 //Cria objeto com os dados do SMTP
                 System.Net.Mail.SmtpClient objSmtp = new System.Net.Mail.SmtpClient();
@@ -64,6 +84,7 @@ namespace AgilusFinan.Domain.Utils
                 objSmtp.Credentials = new System.Net.NetworkCredential(usuario, senha);
                 objSmtp.Host = smtp;
                 objSmtp.Port = 587;
+
                 //Caso utilize conta de email do exchange da locaweb deve habilitar o SSL
                 //objSmtp.EnableSsl = true;
 
