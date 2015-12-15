@@ -1,0 +1,221 @@
+﻿@{
+    ViewBag.Title = "Vinculo de Titulos";
+}
+
+@using AgilusFinan.Domain.Entities
+@model AgilusFinan.Web.Controllers.ItemVinculoBanco
+<h2>Vinculo Extrato/Titulos</h2>
+
+@{
+    var extratoId = 0;
+}
+
+<div id="dialog-form" class="dialog" title="Vincular títulos">
+    <ul id="titulosAVincularLista">
+        @foreach (var titulo in Model.TitulosPendentes)
+        {
+
+            <li><input type="checkbox" name="name" value=" "/> @titulo.Descricao - @titulo.Valor - @titulo.Direcao - @titulo.DataVencimento</li>
+
+        }
+    </ul>
+
+    <input class="btn btn-default modal" value="Vincular" />
+
+</div>
+
+<div class="item-vinculo">
+    @foreach (var vinculo in Model.Extrato)
+    {
+        <div class="list-group item-extrato">
+            <table class="extrato-table">
+                <thead>
+                <tr>
+                    <th>Data Lancamento</th>
+                    <th>Descricao</th>
+                    <th>Valor</th>
+                    <th>Tipo de lançamento</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr>
+                    <td>@vinculo.DataLancamento</td>
+                    <td>@vinculo.Descricao</td>
+                    <td>@vinculo.Valor</td>
+                    <td>@vinculo.TipoLancamento</td>
+                </tr>
+                </tbody>
+            </table>
+            <button class="btn btn-default modal-button">Buscar titulos</button>
+            
+           
+        </div>
+        {
+            extratoId = extratoId + 1;
+        }
+
+    }
+</div>
+
+
+<script>
+
+    var modalController = (function() {
+
+        var clickedItem;
+        var extratoRows;
+        var extratoItem = {};
+
+        $(".modal-button").click(function () {
+            console.log($(this));
+            clickedItem = $(this);
+            extratoRows = $(this).parent().find('tr');
+            console.log(extratoRows);
+            dialog.dialog("open");
+        });
+
+        var getItemExtrato = function () {
+            for (var i = 0; i < extratoRows.length; i++) {
+                console.log(extratoRows[i].child());
+            }
+
+        };
+
+        var dialog = $("#dialog-form").dialog({
+            autoOpen: false,
+            height: 700,
+            width: 1000,
+            modal: true
+            //buttons: {
+            //    "Create an account": addUser,
+            //    Cancel: function () {
+            //        dialog.dialog("close");
+            //    }
+            //},
+            //close: function () {
+            //    form[0].reset();
+            //    allFields.removeClass("ui-state-error");
+            //}push
+        });
+
+        var getClickedItem = function() {
+            return clickedItem;
+        };
+
+        var getExtratoRows = function () {
+            return extratoRows;
+        };
+
+
+        return {
+            getClickedItem: getClickedItem,
+            extratoRows: getExtratoRows,
+            itemExtrato: extratoItem
+        }
+
+    }());
+
+
+    var getTitulosIds = function(extratoId) {
+        var titulosSelecionados = document.querySelectorAll("[data-extrato-id='" + extratoId + "']");
+        var titulos = [];
+
+        for (var i = 0; i < titulosSelecionados.length; i++) {
+            if (titulosSelecionados[i].checked) {
+                titulos.push(titulosSelecionados[i].getAttribute("data-tituloid"));
+            }
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("ConcilarTitulos")",
+            data: {
+                titulosAConciliar: JSON.stringify({
+                    extratoItem: extratoId,
+                    titulos: titulos
+                })
+            },
+            success: function (response) {
+                setTitulosStatus($.parseJSON(JSON.parse(response)));
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+
+    }
+
+    function setTitulosStatus(extrato) {
+        var titulos = extrato.titulos;
+        var template = '<span class="label label-danger">Vinculado!</span>';
+
+        for (var i = 0; i < titulos.length; i++) {
+            var item = document.querySelector("[data-tituloid='" + titulos[i] + "']");
+            if (item.getAttribute("data-vinculado") === "false") {
+                console.log(item);
+                item.insertAdjacentHTML('afterend', template);
+                item.setAttribute("data-vinculado", "true");
+            }
+
+        }
+    }
+
+</script>
+
+
+<style>
+    .dialog {
+        width: 100%;
+    }
+   
+     .extrato-table {
+         border: 1px solid;
+         margin-top: 10px;
+         margin-bottom: 10px;
+         margin-left: 60px;
+         table-layout: fixed;
+         width: 80%;
+         font-size: 12px;
+     }
+
+    .extrato-table > tbody > tr >td {
+
+        width: 200px;
+    }
+
+    .extrato-table > thead {
+        background-color: lightgray;
+        border: 1px solid grey;
+        width: 100px;
+        z-index: 0;
+    }
+
+    .extrato-table > thead > th {
+        border: 1px solid black;
+        width: 100px;
+    }
+
+    .item-extrato {
+        margin-left: 100px;
+        border: 1px solid black;
+        box-shadow: 5px 5px 5px grey;
+        width: 80%;
+    }
+
+    .item-linha-extrato {
+        top: 30px;
+        margin-left: 20%;
+        margin-right: 40px;
+        background-color: grey;
+        margin-left: 30px;
+        text-align: center;
+    }
+
+    .item-titulos {
+        margin-left: 40px;
+        top: 10px;
+        bottom: 20px;
+
+    }
+</style>

@@ -9,7 +9,7 @@ namespace AgilusFinan.Domain.Entities
 {
     public static class Parser
     {
-        public static List<ConciliacaoExtrato> InterpretarOfx(FileStream arquivoOfx)
+        public static List<ConciliacaoExtrato> InterpretarOfx(Stream arquivoOfx)
         {
             StreamReader sr = new StreamReader(arquivoOfx);
             string linha;
@@ -34,8 +34,8 @@ namespace AgilusFinan.Domain.Entities
 
                         else if (texto.Contains("<TRNAMT>"))
                         {
-                            conciliacaoExtrato.TipoLancamento = Convert.ToDouble(texto.Trim().Substring(8, texto.Length - 8)) < 0 ? (tipoLancamento)0 : (tipoLancamento)1;
-                            conciliacaoExtrato.Valor = Convert.ToDouble(texto.Trim().Substring(8, texto.Length - 8).Replace(",", "").Replace(".", ","));
+                            conciliacaoExtrato.TipoLancamento = Convert.ToDouble(texto.Trim().Substring(8, texto.Length - 8)) < 0 ? (TipoLancamento)0 : (TipoLancamento)1;
+                            conciliacaoExtrato.Valor = Convert.ToDecimal(texto.Trim().Substring(8, texto.Length - 8).Replace(",", "").Replace(".", ","));
                         }
                         else if (texto.Contains("<MEMO>"))
                         {

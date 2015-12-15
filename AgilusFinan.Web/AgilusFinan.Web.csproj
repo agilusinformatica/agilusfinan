@@ -143,6 +143,7 @@
     <Compile Include="Controllers\BancoController.cs" />
     <Compile Include="Controllers\CategoriaController.cs" />
     <Compile Include="Controllers\CentroCustoController.cs" />
+    <Compile Include="Controllers\ImportacaoController.cs" />
     <Compile Include="Controllers\ContaController.cs" />
     <Compile Include="Controllers\ConviteController.cs" />
     <Compile Include="Controllers\EmpresaController.cs" />
@@ -360,6 +361,8 @@
     <Content Include="Views\Transferencia\Create.cshtml" />
     <Content Include="Views\Transferencia\Edit.cshtml" />
     <Content Include="Scripts\PortugueseBrasil.json" />
+    <Content Include="Views\Importacao\Index.cshtml" />
+    <Content Include="Views\Importacao\ConciliacaoExtrato.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\RecuperarSenha\" />
