@@ -11,14 +11,19 @@
 }
 
 <div id="dialog-form" class="dialog" title="Vincular títulos">
-    <ul id="titulosAVincularLista">
+    <table id="titulosAVincularLista">
         @foreach (var titulo in Model.TitulosPendentes)
         {
-
-            <li><input type="checkbox" name="name" value=" "/> @titulo.Descricao - @titulo.Valor - @titulo.Direcao - @titulo.DataVencimento</li>
-
+            <tr>
+                <td><input type="checkbox" name="name" value=" " /></td>
+                <td>@titulo.TituloId</td>
+                <td>@titulo.Descricao</td>
+                <td>@titulo.Valor </td>
+                <td>@titulo.Direcao</td>
+                <td>@titulo.DataVencimento</td>
+            </tr>
         }
-    </ul>
+    </table>
 
     <input class="btn btn-default modal" value="Vincular" />
 
@@ -60,106 +65,98 @@
 
 
 <script>
+    var test;
 
     var modalController = (function() {
 
         var clickedItem;
-        var extratoRows;
-        var extratoItem = {};
-
-        $(".modal-button").click(function () {
-            console.log($(this));
-            clickedItem = $(this);
-            extratoRows = $(this).parent().find('tr');
-            console.log(extratoRows);
-            dialog.dialog("open");
-        });
+        var titulosVinculados = {};
 
         var getItemExtrato = function () {
-            for (var i = 0; i < extratoRows.length; i++) {
-                console.log(extratoRows[i].child());
-            }
+            var itemExtrato = {};
+            var extratoItemElemenet = clickedItem.parent();
+            var extratoTableHeader = extratoItemElemenet.find("table > thead > tr > th");
+            var extratoTableRows = extratoItemElemenet.find("table > tbody > tr");
 
+            $.each(extratoTableRows, function (r) {
+                var extratoTableCells = extratoTableRows.find('td');
+
+                $.each(extratoTableCells, function(c) {
+                    itemExtrato[extratoTableHeader[c].innerHTML] = extratoTableCells[c].innerHTML;
+                });
+
+            });
+            titulosVinculados.itemExtrato = itemExtrato;
+        };
+
+        var getTitulosSelecionados = function() {
+            //var titulosRows = $("#dialog-form").find("table > tbody > tr");
+            var selectedCheckbox = $("#titulosAVincularLista > tbody > tr > td > input:checked");
+            var titulosSelectionados = [];
+
+            console.log(selectedCheckbox);
+
+            $.each(selectedCheckbox, function (r) {
+                var titulosCells = $(selectedCheckbox[r]).parent().parent().find('td');
+                titulosSelectionados.push(titulosCells[1].innerHTML);
+            });
+            console.log(titulosSelectionados);
+
+            titulosVinculados.titulos = titulosSelectionados;
+        }
+
+        var sendRequest = function() {
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("ConcilarTitulos")",
+                data: {
+                    titulosAConciliar: JSON.stringify(titulosVinculados)
+                },
+                success: function(response) {
+                    console.log($.parseJSON(JSON.parse(response)));
+                    dialog.dialog("close");
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
         };
 
         var dialog = $("#dialog-form").dialog({
             autoOpen: false,
             height: 700,
             width: 1000,
-            modal: true
-            //buttons: {
-            //    "Create an account": addUser,
-            //    Cancel: function () {
-            //        dialog.dialog("close");
-            //    }
-            //},
-            //close: function () {
-            //    form[0].reset();
-            //    allFields.removeClass("ui-state-error");
-            //}push
+            modal: true,
+            buttons: {
+                Ok: {
+                    text: "Vincular",
+                    id: "vincular",
+                    click: function() {
+                        getTitulosSelecionados();
+                        sendRequest();
+                        dialog.dialog("close");
+                    }
+                },
+                Cancel: function () {
+                    dialog.dialog("close");
+                }
+            },
+            close: function () {
+                //form[0].reset();
+                //allFields.removeClass("ui-state-error");
+            }
         });
 
-        var getClickedItem = function() {
-            return clickedItem;
-        };
-
-        var getExtratoRows = function () {
-            return extratoRows;
-        };
+        $(".modal-button").click(function () {
+            clickedItem = $(this);
+            getItemExtrato();
+            dialog.dialog("open");
+        });
 
 
-        return {
-            getClickedItem: getClickedItem,
-            extratoRows: getExtratoRows,
-            itemExtrato: extratoItem
-        }
 
     }());
 
-
-    var getTitulosIds = function(extratoId) {
-        var titulosSelecionados = document.querySelectorAll("[data-extrato-id='" + extratoId + "']");
-        var titulos = [];
-
-        for (var i = 0; i < titulosSelecionados.length; i++) {
-            if (titulosSelecionados[i].checked) {
-                titulos.push(titulosSelecionados[i].getAttribute("data-tituloid"));
-            }
-        }
-
-        $.ajax({
-            type: "POST",
-            url: "@Url.Action("ConcilarTitulos")",
-            data: {
-                titulosAConciliar: JSON.stringify({
-                    extratoItem: extratoId,
-                    titulos: titulos
-                })
-            },
-            success: function (response) {
-                setTitulosStatus($.parseJSON(JSON.parse(response)));
-            },
-            error: function(error) {
-                console.log(error);
-            }
-        });
-
-    }
-
-    function setTitulosStatus(extrato) {
-        var titulos = extrato.titulos;
-        var template = '<span class="label label-danger">Vinculado!</span>';
-
-        for (var i = 0; i < titulos.length; i++) {
-            var item = document.querySelector("[data-tituloid='" + titulos[i] + "']");
-            if (item.getAttribute("data-vinculado") === "false") {
-                console.log(item);
-                item.insertAdjacentHTML('afterend', template);
-                item.setAttribute("data-vinculado", "true");
-            }
-
-        }
-    }
 
 </script>
 
@@ -180,7 +177,6 @@
      }
 
     .extrato-table > tbody > tr >td {
-
         width: 200px;
     }
 
@@ -216,6 +212,6 @@
         margin-left: 40px;
         top: 10px;
         bottom: 20px;
-
     }
+
 </style>
