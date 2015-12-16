@@ -17,6 +17,7 @@
             <tr>
                 <td><input type="checkbox" name="name" value=" " /></td>
                 <td>@titulo.TituloId</td>
+                <td>@titulo.TituloRecorrenteId</td>
                 <td>@titulo.Descricao</td>
                 <td>@titulo.Valor </td>
                 <td>@titulo.Direcao</td>
@@ -92,18 +93,23 @@
         var getTitulosSelecionados = function() {
             //var titulosRows = $("#dialog-form").find("table > tbody > tr");
             var selectedCheckbox = $("#titulosAVincularLista > tbody > tr > td > input:checked");
-            var titulosSelectionados = [];
+            var titulosSelecionados = [];
 
             console.log(selectedCheckbox);
 
-            $.each(selectedCheckbox, function (r) {
+            $.each(selectedCheckbox, function(r) {
                 var titulosCells = $(selectedCheckbox[r]).parent().parent().find('td');
-                titulosSelectionados.push(titulosCells[1].innerHTML);
-            });
-            console.log(titulosSelectionados);
+                //titulosSelectionados.push(titulosCells[1].innerHTML);
 
-            titulosVinculados.titulos = titulosSelectionados;
-        }
+                titulosSelecionados.push({
+                    tituloId: titulosCells[1].innerHTML,
+                    tituloRecorrenteId: titulosCells[2].innerHTML
+                });
+
+            });
+            console.log(titulosSelecionados);
+            titulosVinculados.titulos = titulosSelecionados;
+        };
 
         var sendRequest = function() {
             $.ajax({
@@ -121,6 +127,7 @@
                 }
             });
         };
+
 
         var dialog = $("#dialog-form").dialog({
             autoOpen: false,
@@ -142,8 +149,7 @@
                 }
             },
             close: function () {
-                //form[0].reset();
-                //allFields.removeClass("ui-state-error");
+                
             }
         });
 
@@ -152,8 +158,6 @@
             getItemExtrato();
             dialog.dialog("open");
         });
-
-
 
     }());
 

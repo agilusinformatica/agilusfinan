@@ -34,7 +34,6 @@ namespace AgilusFinan.Web.Controllers
             return View("ConciliacaoExtrato", new ItemVinculoBanco{Extrato = extrato, TitulosPendentes = titulosPendentes});
         }
 
-
         public JsonResult ConcilarTitulos(string titulosAConciliar)
         {
             //magic happens
