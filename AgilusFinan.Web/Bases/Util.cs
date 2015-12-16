@@ -2,6 +2,7 @@
 using AgilusFinan.Domain.Utils;
 using AgilusFinan.Infra.Context;
 using AgilusFinan.Infra.Services;
+using BoletoNet;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -101,6 +102,44 @@ namespace AgilusFinan.Web.Bases
                 System.Web.HttpContext.Current.Request.Url.Scheme + @"://" +
                 System.Web.HttpContext.Current.Request.Url.Host + ":" +
                 System.Web.HttpContext.Current.Request.Url.Port.ToString();
+        }
+
+
+        public static BoletoBancario GerarBoleto(int tituloId)
+        {
+            var titulo = new RepositorioRecebimento().BuscarPorId(tituloId);
+            var conta = titulo.Conta;
+            var pessoa = titulo.Pessoa;
+            var empresa = titulo.Empresa;
+            int numeroBanco = conta.BancoBoleto.Codigo;
+            //Cedente
+            var c = new Cedente(empresa.CpfCnpj, empresa.Nome, conta.Agencia, conta.ContaCorrente.Split('-')[0], conta.ContaCorrente.Split('-')[1]);
+            c.Codigo = conta.ContaCorrente;
+
+            //boleto
+            Boleto boleto = new Boleto(titulo.DataVencimento, titulo.Valor, conta.Carteira, "12345678", c, new EspecieDocumento(numeroBanco));
+            boleto.NumeroDocumento = "12345891";
+
+            //Sacado
+            boleto.Sacado = new Sacado(pessoa.Cpf, pessoa.Nome);
+            boleto.Sacado.Endereco = new BoletoNet.Endereco()
+            {
+                Bairro = pessoa.Endereco.Bairro,
+                Logradouro = pessoa.Endereco.Logradouro,
+                CEP = pessoa.Endereco.Cep,
+                Cidade = pessoa.Endereco.Cidade,
+                Complemento = pessoa.Endereco.Complemento,
+                Numero = pessoa.Endereco.Numero,
+                UF = pessoa.Endereco.Uf
+            };
+
+
+            var boletobancario = new BoletoBancario();
+            boletobancario.CodigoBanco = (short)conta.BancoBoleto.Codigo;
+            boletobancario.Boleto = boleto;
+            boletobancario.Boleto.Valida();
+
+            return boletobancario;
         }
     }
 }

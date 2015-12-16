@@ -23,9 +23,23 @@ namespace AgilusFinan.Domain.Entities
                 }
                 return retorno;
             }
-            set { HttpContext.Current.Session["IdUsuarioLogado"] = value; }
+            set 
+            { 
+                HttpContext.Current.Session["IdUsuarioLogado"] = value; 
+            }
         }
-        public static int PerfilId { get { return (int)HttpContext.Current.Session["IdPerfilLogado"]; } set { HttpContext.Current.Session["IdPerfilLogado"] = value; } }
+
+        public static int PerfilId { 
+            get 
+            { 
+                return (int)HttpContext.Current.Session["IdPerfilLogado"];
+            } 
+            set 
+            { 
+                HttpContext.Current.Session["IdPerfilLogado"] = value; 
+            } 
+        }
+
         public static int EmpresaId { 
             get 
             {
@@ -42,7 +56,6 @@ namespace AgilusFinan.Domain.Entities
             } 
             set 
             { 
-
                 HttpContext.Current.Session["IdEmpresaLogada"] = value; 
             } 
         }

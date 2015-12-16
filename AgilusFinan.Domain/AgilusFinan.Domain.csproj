@@ -51,6 +51,7 @@
     <Compile Include="Entities\Filtro.cs" />
     <Compile Include="Entities\FluxoCaixa.cs" />
     <Compile Include="Entities\Parser.cs" />
+    <Compile Include="Entities\LoteBoleto.cs" />
     <Compile Include="Entities\UsuarioLogado.cs" />
     <Compile Include="Interfaces\IRepositorioFeriadoRegional.cs" />
     <Compile Include="Utils\Criptografia.cs" />

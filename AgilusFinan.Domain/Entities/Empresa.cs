@@ -9,6 +9,7 @@
         public byte[] Logotipo { get; set; }
         public bool Ativo { get; set; }
         public Endereco Endereco { get; set; }
+        public string CpfCnpj { get; set; }
 
         public Empresa()
         {
