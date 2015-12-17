@@ -102,6 +102,15 @@
                             }
                         </select>
                         break;
+                    case AgilusFinan.Domain.Entities.TipoFiltro.modeloboleto:
+                        <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome">
+                            <option> </option>
+                            @foreach (var modeloboleto in new SelectLista(3, TipoLista.ModeloBoleto).Listar())
+                            {
+                                <option value="@modeloboleto.Id">@modeloboleto.Conta.Nome</option>
+                            }
+                        </select>
+                        break;
                     default:
                         break;
                 }

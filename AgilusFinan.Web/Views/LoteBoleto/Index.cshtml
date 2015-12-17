@@ -1,0 +1,91 @@
+﻿@model List<AgilusFinan.Domain.Entities.LoteBoleto>
+@{
+    Layout = null;
+}
+<table class="table table-hover table-bordered">
+    <thead>
+        <tr>
+            <th>Boleto</th>
+            <th>E-mail</th>
+            <th>Pessoa</th>
+            <th>Valor</th>
+            <th>Data de Vencimento</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td><input class="form-control checkbox" id="item_Boleto" name="item.Boleto" type="checkbox" @(item.Boleto ? "checked" : "")/></td>
+                <td><input class="form-control checkbox" id="item_Email" name="item.Email" type="checkbox" @(item.Email ? "checked" : "") /></td>
+                <td>@item.NomePessoa</td>
+                @if (item.Valor == 0)
+                {
+                    <td> @Html.EditorFor(m => item.Valor, new { htmlAttributes = new { @class = "form-control", @style = "width: 40%" } }) </td>
+                }
+                else
+                {
+                    <td>@item.Valor.ToString("C")</td>
+                }
+                <td>@item.DataVencimento.GetDateTimeFormats()[0]</td>
+                <td style="display:none;">@item.TituloId</td>
+                <td style ="display:none;">@item.TituloRecorrenteId</td>
+                <td style="display:none;">@item.ModeloBoletoId</td>
+</tr>
+        }
+    </tbody>
+</table>
+
+<button class="btn btn-default" id="enviar" onclick="GerarBoletos()">Gerar e Enviar</button>
+
+<script>
+    Utils.createMask(document.getElementById("item_Valor"), "moeda");
+
+    function GerarBoletos() {
+        var boletosJson = GetData();
+        $.ajax({
+            type: "POST",
+            url: '/LoteBoleto/GerarBoletos',
+            data: { "postedData": boletosJson },
+            success: function () {
+                window.location = '@Url.Action("Index", "LoteBoleto")';
+            },
+            error: function (object) {
+                //Capturando erro no objeto htmlResponse
+                var htmlResponse = document.createElement('html');
+                htmlResponse.innerHTML = object.responseText;
+                var erro = htmlResponse.querySelector('h4').textContent;
+
+                location.href = '@Url.Action("Erro", "LoteBoleto")?erro=' + erro
+            }
+        });
+    }
+
+    function GetData() {
+        var tabletr = $("table input[id='item_Boleto']:checked").parent().parent();
+        titulos = [];
+        tabletr.each(function (i) {
+            var titulo = {};
+            var $tds = $(this).children();
+            
+            titulo.Boleto = $tds.eq(0).children().is(":checked");
+            titulo.Email = $tds.eq(1).children().is(":checked");
+            titulo.NomePessoa = $tds.eq(2).text();
+            if ($tds.eq(3).children().length) {
+                titulo.Valor = $tds.eq(3).children().val().replace(',', '.');
+            }
+            else {
+                titulo.Valor = $tds.eq(3).text().split(' ')[1].replace(',', '.');
+            }
+            titulo.DataVencimento = Utils.convertFormatDate($($tds.eq(4)).text());
+            titulo.TituloId = $tds.eq(5).text();
+            titulo.TituloRecorrenteId = $tds.eq(6).text();
+            titulo.ModeloBoletoId = $tds.eq(7).text();
+            titulos.push(titulo);
+        });
+        return JSON.stringify(titulos);
+    }
+
+
+
+</script>

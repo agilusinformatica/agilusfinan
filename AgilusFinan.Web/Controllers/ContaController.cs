@@ -14,7 +14,13 @@ namespace AgilusFinan.Web.Controllers
         protected override void PreInclusao()
         {
             base.PreInclusao();
-            ViewBag.BancoBoletoId = new SelectList(new RepositorioBanco().Listar(),"Id","Nome");
+            ViewBag.BancoId = new SelectList(new RepositorioBanco().Listar(),"Id","Nome");
+        }
+
+        protected override void PreAlteracao(Conta model)
+        {
+            base.PreAlteracao(model);
+            ViewBag.BancoId = new SelectList(new RepositorioBanco().Listar(), "Id", "Nome", model.BancoId);
         }
     }
 }

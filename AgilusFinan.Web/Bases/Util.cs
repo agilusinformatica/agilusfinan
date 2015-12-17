@@ -105,19 +105,30 @@ namespace AgilusFinan.Web.Bases
         }
 
 
-        public static BoletoBancario GerarBoleto(int tituloId)
+        public static BoletoBancario GerarBoleto(int tituloId, int modeloBoletoId)
         {
             var titulo = new RepositorioRecebimento().BuscarPorId(tituloId);
             var conta = titulo.Conta;
             var pessoa = titulo.Pessoa;
             var empresa = titulo.Empresa;
-            int numeroBanco = conta.BancoBoleto.Codigo;
+            int numeroBanco = conta.Banco.Codigo;
+            var modeloBoleto = new RepositorioModeloBoleto().BuscarPorId(modeloBoletoId);
+
+            if (modeloBoleto == null)
+            {
+                throw new Exception("Modelo de Boleto não definido");
+            }
+
+            //Incremento do Nosso número em Modelo de Boleto
+            modeloBoleto.NossoNumero++;
+            //new RepositorioModeloBoleto().Alterar(modeloBoleto);
+
             //Cedente
             var c = new Cedente(empresa.CpfCnpj, empresa.Nome, conta.Agencia, conta.ContaCorrente.Split('-')[0], conta.ContaCorrente.Split('-')[1]);
             c.Codigo = conta.ContaCorrente;
 
             //boleto
-            Boleto boleto = new Boleto(titulo.DataVencimento, titulo.Valor, conta.Carteira, "12345678", c, new EspecieDocumento(numeroBanco));
+            Boleto boleto = new Boleto(titulo.DataVencimento, titulo.Valor, modeloBoleto.Carteira, modeloBoleto.NossoNumero.ToString(), c, new EspecieDocumento(numeroBanco));
             boleto.NumeroDocumento = "12345891";
 
             //Sacado
@@ -135,11 +146,95 @@ namespace AgilusFinan.Web.Bases
 
 
             var boletobancario = new BoletoBancario();
-            boletobancario.CodigoBanco = (short)conta.BancoBoleto.Codigo;
+            boletobancario.CodigoBanco = (short)conta.Banco.Codigo;
+            boletobancario.Boleto = boleto;
+            boletobancario.Boleto.Valida();
+
+
+
+            return boletobancario;
+        }
+
+        public static BoletoBancario GerarBoleto(int tituloRecorrenteId, decimal valor, DateTime dataVencimento, int modeloBoletoId)
+        {
+            var titulo = new RepositorioTituloRecorrente().BuscarPorId(tituloRecorrenteId);
+            var conta = titulo.Conta;
+            var pessoa = titulo.Pessoa;
+            var empresa = titulo.Empresa;
+            int numeroBanco = conta.Banco.Codigo;
+            var modeloBoleto = new RepositorioModeloBoleto().BuscarPorId(modeloBoletoId);
+
+            if (modeloBoleto == null)
+            {
+                throw new Exception("Modelo de Boleto não definido");
+            }
+
+            //Incremento do Nosso número em Modelo de Boleto
+            modeloBoleto.NossoNumero++;
+            //new RepositorioModeloBoleto().Alterar(modeloBoleto);
+
+            //Cedente
+            var c = new Cedente(empresa.CpfCnpj, empresa.Nome, conta.Agencia, conta.ContaCorrente.Split('-')[0], conta.ContaCorrente.Split('-')[1]);
+            c.Codigo = conta.ContaCorrente;
+
+            //boleto
+            Boleto boleto = new Boleto(dataVencimento, valor, modeloBoleto.Carteira, modeloBoleto.NossoNumero.ToString(), c, new EspecieDocumento(numeroBanco));
+            boleto.NumeroDocumento = "12345891";
+
+            //Sacado
+            boleto.Sacado = new Sacado(pessoa.Cpf, pessoa.Nome);
+            boleto.Sacado.Endereco = new BoletoNet.Endereco()
+            {
+                Bairro = pessoa.Endereco.Bairro,
+                Logradouro = pessoa.Endereco.Logradouro,
+                CEP = pessoa.Endereco.Cep,
+                Cidade = pessoa.Endereco.Cidade,
+                Complemento = pessoa.Endereco.Complemento,
+                Numero = pessoa.Endereco.Numero,
+                UF = pessoa.Endereco.Uf
+            };
+
+
+            var boletobancario = new BoletoBancario();
+            boletobancario.CodigoBanco = (short)conta.Banco.Codigo;
             boletobancario.Boleto = boleto;
             boletobancario.Boleto.Valida();
 
             return boletobancario;
         }
+
+        public static void EnviarBoletoPorEmail(int tituloId, string arquivoTemporario, int modeloBoletoId)
+        {
+            var titulo = new RepositorioRecebimento().BuscarPorId(tituloId);
+            var emailDestinatario = titulo.Pessoa.EmailFinanceiro;
+            var emailRemetente = titulo.Empresa.EmailFinanceiro;
+
+
+            var boleto = Util.GerarBoleto(tituloId, modeloBoletoId);
+            GeradorPdf.HtmlParaPdf(boleto.MontaHtmlEmbedded(false, true), arquivoTemporario);
+            var anexos = new List<string>();
+            anexos.Add(arquivoTemporario);
+            var email = new Email(emailDestinatario, "Teste de envio de boleto pelo agilus finan", "Teste Boleto", emailRemetente, anexos);
+            email.DispararMensagem();
+            System.IO.File.Delete(arquivoTemporario);
+
+        }
+
+        public static void EnviarBoletoPorEmail(int tituloRecorrenteId, decimal valor, DateTime dataVencimento, string arquivoTemporario, int modeloBoletoId)
+        {
+            var titulo = new RepositorioTituloRecorrente().BuscarPorId(tituloRecorrenteId);
+            var emailDestinatario = titulo.Pessoa.EmailFinanceiro;
+            var emailRemetente = titulo.Empresa.EmailFinanceiro;
+
+
+            var boleto = Util.GerarBoleto(tituloRecorrenteId, valor, dataVencimento, modeloBoletoId);
+            GeradorPdf.HtmlParaPdf(boleto.MontaHtmlEmbedded(false, true), arquivoTemporario);
+            var anexos = new List<string>();
+            anexos.Add(arquivoTemporario);
+            var email = new Email(emailDestinatario, "Teste de envio de boleto pelo agilus finan", "Teste Boleto", emailRemetente, anexos);
+            email.DispararMensagem();
+            System.IO.File.Delete(arquivoTemporario);
+        }
+
     }
 }

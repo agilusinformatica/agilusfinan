@@ -29,6 +29,8 @@ namespace AgilusFinan.Web.Controllers
             viewModel.ContaBancaria = model.ContaBancaria;
             viewModel.Cpf = model.Cpf;
             viewModel.DataNascimento = model.DataNascimento;
+            viewModel.EmailContato = model.EmailContato;
+            viewModel.EmailFinanceiro = model.EmailFinanceiro;
             viewModel.Endereco = model.Endereco;
             viewModel.Nome = model.Nome;
             viewModel.Rg = model.Rg;
@@ -56,6 +58,8 @@ namespace AgilusFinan.Web.Controllers
             model.Id = viewModel.Id;
             model.Cpf = viewModel.Cpf;
             model.DataNascimento = viewModel.DataNascimento;
+            model.EmailFinanceiro = viewModel.EmailFinanceiro;
+            model.EmailContato = viewModel.EmailContato;
             model.Endereco = viewModel.Endereco;
             model.Nome = viewModel.Nome;
             model.Rg = viewModel.Rg;

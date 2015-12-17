@@ -10,7 +10,7 @@ namespace AgilusFinan.Infra.Services
     {
         public List<LoteBoleto> ChamarProcedimento(Filtro filtro)
         {
-            List<TituloPendente> titulos = GeradorTitulosPendentes.ChamarProcedimento(filtro.ValorPorNome("data_inicial"), filtro.ValorPorNome("data_final"));
+            List<TituloPendente> titulos = GeradorTitulosPendentes.ChamarProcedimento(filtro.ValorPorNome("data_inicial"), filtro.ValorPorNome("data_final"), null);
 
             var loteboletos = new List<LoteBoleto>();
 
@@ -21,8 +21,6 @@ namespace AgilusFinan.Infra.Services
                         Boleto = true, 
                         DataVencimento = titulo.DataVencimento,
                         Email = true,
-                        PessoaId = titulo.PessoaId,
-                        Valor = titulo.Valor
                     });
 	        }
 

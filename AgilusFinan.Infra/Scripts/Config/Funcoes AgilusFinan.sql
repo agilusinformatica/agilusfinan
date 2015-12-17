@@ -67,6 +67,12 @@ INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) V
 INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (66, N'Liquidar Diretamente', N'Pagamento/LiquidarDiretamente', 2)
 INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (67, N'Liquidar Diretamente', N'Recebimento/LiquidarDiretamente', 3)
 INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (68, N'Liquidar Diretamente Titulo Pendente', 'TituloPendente/LiquidarDiretamente', NULL)
+INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (69, N'Gerar Boleto em Lote', 'LoteBoleto/Index', 1)
+INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (70, N'Modelo de Boleto', 'ModeloBoleto/Index', 20)
+INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (71,'Incluir', 'ModeloBoleto/Create', 70)
+INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (72, 'Alterar', 'ModeloBoleto/Edit', 70)
+INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (73, 'Excluir', 'ModeloBoleto/Delete', 70)
+
 SET IDENTITY_INSERT [dbo].[Funcao] OFF
 
 

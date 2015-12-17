@@ -20,7 +20,8 @@ Begin
 	nome varchar(100),
 	DataVencimento datetime, 
 	Valor money, 
-	CategoriaId int, 
+	CategoriaId int,
+	ContaId int, 
 	PessoaId int, 
 	CentroCustoId int,
 	EmpresaId int)
@@ -33,32 +34,33 @@ Begin
 		@recorrencia tinyint,
 		@qtde_parcelas int,
 		@categoria_id int,
+		@conta_id int,
 		@pessoa_id int,
 		@centro_custo_id int,
 		@data_cadastro datetime,
 		@direcao_vencimento tinyint
 
 	declare cur cursor for
-	select t.Id, t.nome, t.diaVencimento, t.valor, t.recorrencia, t.QtdeParcelas, t.CategoriaId, t.PessoaId, t.CentroCustoId, t.DataCadastro, c.DirecaoVencimentoDiaNaoUtil
+	select t.Id, t.nome, t.diaVencimento, t.valor, t.recorrencia, t.QtdeParcelas, t.CategoriaId, t.PessoaId, t.CentroCustoId, t.DataCadastro, c.DirecaoVencimentoDiaNaoUtil, t.ContaId
 	from TituloRecorrente as t
 	join Categoria as c on t.CategoriaId = c.Id
 	where t.EmpresaId = @id_empresa
 	and ativo = 1
 
 	open cur
-	Fetch cur into @id, @nome, @dia_vencimento, @valor, @recorrencia, @qtde_parcelas, @categoria_id, @pessoa_id, @centro_custo_id, @data_cadastro, @direcao_vencimento
+	Fetch cur into @id, @nome, @dia_vencimento, @valor, @recorrencia, @qtde_parcelas, @categoria_id, @pessoa_id, @centro_custo_id, @data_cadastro, @direcao_vencimento, @conta_id
 	While @@FETCH_STATUS = 0
 	begin
 		insert into @titulo_virtual
-		select @id, @nome, vencimento.*, @valor, @categoria_id, @pessoa_id, @centro_custo_id, @id_empresa
+		select @id, @nome, vencimento.*, @valor, @categoria_id, @conta_id, @pessoa_id, @centro_custo_id, @id_empresa
 		from dbo.fn_gerador_vencimentos(@id, @data_inicial_analise, @data_final_analise, @dia_vencimento, @qtde_parcelas, @data_cadastro, @recorrencia, @direcao_vencimento) as vencimento
 
-		Fetch cur into @id, @nome, @dia_vencimento, @valor, @recorrencia, @qtde_parcelas, @categoria_id, @pessoa_id, @centro_custo_id, @data_cadastro, @direcao_vencimento
+		Fetch cur into @id, @nome, @dia_vencimento, @valor, @recorrencia, @qtde_parcelas, @categoria_id, @pessoa_id, @centro_custo_id, @data_cadastro, @direcao_vencimento, @conta_id
 	end
 	close cur
 	deallocate cur
 
-	select tv.TituloRecorrenteId, tv.nome, tv.DataVencimento, tv.Valor, tv.CategoriaId,	tv.PessoaId, tv.CentroCustoId, null as TituloId
+	select tv.TituloRecorrenteId, tv.nome, tv.DataVencimento, tv.Valor, tv.CategoriaId, tv.ContaId,	tv.PessoaId, tv.CentroCustoId, null as TituloId
 	from @titulo_virtual as tv
 	where not exists(select 1
 					from Titulo as T
@@ -66,7 +68,7 @@ Begin
 					and convert(date,tv.DataVencimento) = convert(date,T.DataVencimento))
 	union
 
-	select TituloRecorrenteId, Descricao, DataVencimento, Valor, CategoriaId, PessoaId, CentroCustoId, Id
+	select TituloRecorrenteId, Descricao, DataVencimento, Valor, CategoriaId, ContaId, PessoaId, CentroCustoId, Id
 	from Titulo as T
 	where DataVencimento >= @data_inicial_analise
 	and DataVencimento < @data_final_analise+1

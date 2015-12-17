@@ -1,0 +1,18 @@
+﻿@model System.Collections.Generic.List<AgilusFinan.Domain.Entities.TituloPendente>
+
+<table id="titulosAVincularLista">
+    @foreach (var titulo in Model)
+    {
+        <tr>
+            <td><input type="checkbox" name="name" value=" " /></td>
+            <td>@titulo.TituloId</td>
+            <td>@titulo.TituloRecorrenteId</td>
+            <td>@titulo.Descricao</td>
+            <td>@titulo.Valor </td>
+            <td>@titulo.Direcao</td>
+            <td>@titulo.DataVencimento</td>
+        </tr>
+    }
+</table>
+
+<input class="btn btn-default modal" value="Vincular" />

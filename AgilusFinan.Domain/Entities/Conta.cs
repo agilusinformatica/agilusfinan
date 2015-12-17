@@ -12,13 +12,11 @@ namespace AgilusFinan.Domain.Entities
         public string Nome { get; set; }
         public decimal SaldoInicial { get; set; }
         public DateTime DataSaldoInicial { get; set; }
-        public int BancoBoletoId { get; set; }
+        public int BancoId { get; set; }
         public string Agencia { get; set; }
         public string ContaCorrente { get; set; }
-        public string Carteira { get; set; }
-        public string Convenio { get; set; }
-        public string CodigoCedente { get; set; }
-        public virtual Banco BancoBoleto { get; set; }
+        public virtual Banco Banco { get; set; }
         public Boolean Padrao { get; set; }
+        public virtual IList<ModeloBoleto> ModelosBoleto { get; set; }
     }
 }

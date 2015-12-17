@@ -36,6 +36,7 @@ namespace AgilusFinan.Infra.Context
         public DbSet<EsquecimentoSenha> EsquecimentosSenha { get; set; }
         public DbSet<FeriadoRegional> FeriadosRegionais { get; set; }
         public DbSet<FeriadoGeral> FeriadosGerais { get; set; }
+        public DbSet<ModeloBoleto> ModelosBoleto { get; set; }
 
         public int EmpresaId
         {

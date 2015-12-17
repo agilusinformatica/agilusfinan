@@ -43,14 +43,15 @@ begin
 			from liquidacao l
 			join titulo t on l.TituloId = t.Id
 			join categoria c on t.CategoriaId = c.Id
-			where data <= @data 
+			where data < @data + 1
 			and data >= @dataSaldoInicial 
 			and t.ContaId = @contaIdCursor
 
 			select @saldo = @saldo + isnull(SUM(case when ContaOrigemId = @contaIdCursor then -valor when contaDestinoId = @contaIdCursor then valor else 0.0 end), 0.0)
 			from Transferencia	
-			where data <= @data
+			where data < @data + 1
 			and data >= @dataSaldoInicial 
+			and EmpresaId = @empresaId
 
 		end
 		else
@@ -60,6 +61,9 @@ begin
 
 		fetch curSaldo into @saldoInicial, @DataSaldoInicial, @contaIdCursor
 	end
+
+	close curSaldo
+	deallocate curSaldo
 
 	return isnull(@Saldo,0)
 end
