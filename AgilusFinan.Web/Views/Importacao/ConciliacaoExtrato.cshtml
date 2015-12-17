@@ -33,7 +33,7 @@
 <div class="item-vinculo">
     @foreach (var vinculo in Model.Extrato)
     {
-        <div class="list-group item-extrato">
+        <div class="list-group item-extrato data-extrato-ItemId=@extratoId">
             <table class="extrato-table">
                 <thead>
                 <tr>
@@ -53,7 +53,7 @@
                 </tr>
                 </tbody>
             </table>
-            <button class="btn btn-default modal-button">Buscar titulos</button>
+            <button class="btn btn-default modal-button">Buscar titulos</button> <br/>
             
            
         </div>
@@ -70,7 +70,7 @@
 
     var modalController = (function() {
 
-        var clickedItem;
+        var clickedItem;        
         var titulosVinculados = {};
 
         var getItemExtrato = function () {
@@ -90,12 +90,37 @@
             titulosVinculados.itemExtrato = itemExtrato;
         };
 
+        var getItemExtratoSelecionado = function() {
+            return clickedItem.parent();
+        };
+
+        var limpaTitulosVinculados = function () {
+            clickedItem.parent().find('ul').remove();
+            //console.log(clickedItem.parent());
+        }
+
+        var setTitulosVinculados = function (titulos) {
+            var ul = document.createElement('ul');
+            var li;
+
+            limpaTitulosVinculados();
+
+            for (var i in titulos) {
+                li = document.createElement('li');
+                var tituloText = document.createTextNode(titulos[i].tituloId);
+                li.appendChild(tituloText);
+                ul.appendChild(li);
+            }
+
+            var extrato = getItemExtratoSelecionado();
+            extrato.append(ul);
+        }
+
+
         var getTitulosSelecionados = function() {
             //var titulosRows = $("#dialog-form").find("table > tbody > tr");
             var selectedCheckbox = $("#titulosAVincularLista > tbody > tr > td > input:checked");
             var titulosSelecionados = [];
-
-            console.log(selectedCheckbox);
 
             $.each(selectedCheckbox, function(r) {
                 var titulosCells = $(selectedCheckbox[r]).parent().parent().find('td');
@@ -107,7 +132,6 @@
                 });
 
             });
-            console.log(titulosSelecionados);
             titulosVinculados.titulos = titulosSelecionados;
         };
 
@@ -119,7 +143,8 @@
                     titulosAConciliar: JSON.stringify(titulosVinculados)
                 },
                 success: function(response) {
-                    console.log($.parseJSON(JSON.parse(response)));
+                    var titulos = JSON.parse(JSON.parse(response)).titulos;
+                    setTitulosVinculados(titulos);
                     dialog.dialog("close");
                 },
                 error: function(error) {
@@ -127,7 +152,6 @@
                 }
             });
         };
-
 
         var dialog = $("#dialog-form").dialog({
             autoOpen: false,
