@@ -175,7 +175,7 @@
     Utils.convertFormatDate = convertFormatDate;
 
     function initializeDataTables(table) {
-        var columnTable = $(table + " > thead  th");
+        var columnTable = $(table + ' > thead  th');
         var targetIndex = [];
 
         for (var i = 0; i < columnTable.length; i++) {
@@ -183,7 +183,6 @@
                 targetIndex.push(i);
             }
         }
-        $(table).addClass("responsive no-wrap");
 
         $(table).DataTable({
             language: {
@@ -211,17 +210,11 @@
                 decimal: ","
             },
             columnDefs: [
-                { type: "date-eu", targets: targetIndex }
+                { type: 'date-eu', targets: targetIndex }
             ],
-            colReorder: true,
-            responsive: true
+            colReorder: true
         });
     }
     Utils.initializeDataTables = initializeDataTables;
-
-    function manterTela(form) {
-        form.append('<input type="hidden" id="novo" name="novo" value="1"/>');
-    }
-    Utils.manterTela = manterTela;
 })(Utils || (Utils = {}));
 //# sourceMappingURL=Utils.js.map
