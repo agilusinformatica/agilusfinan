@@ -16,7 +16,7 @@ exec pr_previsto_realizado 2,'20150701','20150831'
 ----------------------------------------------------------------------------------------------------------------------*/
 as 
 Begin
-	create table #temp (TituloRecorrenteId int, nome varchar(100), dataVencimento smalldatetime, valor money, CategoriaId int,
+	create table #temp (TituloRecorrenteId int, nome varchar(100), dataVencimento smalldatetime, valor money, CategoriaId int, ContaId int,
 	                             PessoaId int, CentroCustoId int, TituloId int)
 
 	insert into #temp

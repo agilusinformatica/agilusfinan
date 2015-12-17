@@ -156,6 +156,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\LoteBoletoController.cs" />
+    <Compile Include="Controllers\ModeloBoletoController.cs" />
     <Compile Include="Controllers\PagamentoController.cs" />
     <Compile Include="Controllers\PerfilController.cs" />
     <Compile Include="Controllers\PessoaController.cs" />
@@ -366,9 +367,13 @@
     <Content Include="Views\Transferencia\Edit.cshtml" />
     <Content Include="Scripts\PortugueseBrasil.json" />
     <Content Include="Views\Recebimento\GerarBoleto.cshtml" />
+    <Content Include="Views\LoteBoleto\Index.cshtml" />
+    <Content Include="Views\ModeloBoleto\Index.cshtml" />
+    <Content Include="Views\ModeloBoleto\Create.cshtml" />
+    <Content Include="Views\ModeloBoleto\Edit.cshtml" />
+    <Content Include="Views\ModeloBoleto\_Cadastro.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\LoteBoleto\" />
     <Folder Include="Views\RecuperarSenha\" />
   </ItemGroup>
   <ItemGroup>

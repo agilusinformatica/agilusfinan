@@ -16,6 +16,8 @@ namespace AgilusFinan.Web.ViewModels
         [Display(Name = "Data de Nascimento")]
         public DateTime DataNascimento { get; set; }
         public Endereco Endereco { get; set; }
+        public string EmailContato { get; set; }
+        public string EmailFinanceiro { get; set; }
         public ContaBancaria ContaBancaria { get; set; }
 
         public List<TipoPorPessoa> TiposPorPessoa { get; set; }

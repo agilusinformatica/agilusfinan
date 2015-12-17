@@ -8,7 +8,7 @@ namespace AgilusFinan.Infra.Services
 {
     public enum TipoLista 
     {
-        Conta, CentroCusto, Categoria, Pessoa, TipoPessoa, TipoTelefone, Usuario, Perfil, Banco
+        Conta, CentroCusto, Categoria, Pessoa, TipoPessoa, TipoTelefone, Usuario, Perfil, Banco, ModeloBoleto
     }
     public class SelectLista
     {
@@ -43,6 +43,8 @@ namespace AgilusFinan.Infra.Services
                     return new RepositorioPerfil().Listar();
                 case TipoLista.Banco:
                     return new RepositorioBanco().Listar();
+                case TipoLista.ModeloBoleto:
+                    return new RepositorioModeloBoleto().Listar();
                 default:
                     return null;
             }

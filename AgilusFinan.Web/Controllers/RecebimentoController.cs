@@ -159,9 +159,9 @@ namespace AgilusFinan.Web.Controllers
             }
         }
 
-        public ActionResult GerarBoleto(int tituloId)
+        public ActionResult GerarBoleto(int tituloId, int modeloBoletoId)
         {
-            var boletobancario = Util.GerarBoleto(tituloId);
+            var boletobancario = Util.GerarBoleto(tituloId, modeloBoletoId);
             ViewBag.BoletoBancario = boletobancario.MontaHtmlEmbedded();
             ViewBag.TituloId = tituloId;
 
@@ -169,21 +169,9 @@ namespace AgilusFinan.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult EnviarBoletoPorEmail(int tituloId)
+        public ActionResult EnviarBoletoPorEmail(int tituloId, int modeloBoletoId)
         {
-            var titulo = repo.BuscarPorId(tituloId);
-            var emailDestinatario = titulo.Pessoa.EmailFinanceiro;
-            var emailRemetente = titulo.Empresa.EmailFinanceiro;
-
-            var boleto = Util.GerarBoleto(tituloId);
-            string boletoGerado = Server.MapPath(@"~/App_Data/teste.pdf");
-            GeradorPdf.HtmlParaPdf(boleto.MontaHtmlEmbedded(false, true), boletoGerado);
-            var anexos = new List<string>();
-            anexos.Add(boletoGerado);
-            var email = new Email(emailDestinatario, "Teste de envio de boleto pelo agilus finan", "Teste Boleto", emailRemetente, anexos);
-            //email.DispararMensagem();
-            System.IO.File.Delete(boletoGerado);
-
+            Util.EnviarBoletoPorEmail(tituloId, Server.MapPath(@"~/App_Data/teste.pdf"), modeloBoletoId);
             return RedirectToAction("Index", "Recebimento");
         }
 

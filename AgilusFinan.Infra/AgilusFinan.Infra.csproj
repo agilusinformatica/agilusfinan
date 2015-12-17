@@ -38,8 +38,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net40\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="NReco.PdfGenerator">
-      <HintPath>..\..\..\..\Downloads\NReco.PdfGenerator.dll</HintPath>
+    <Reference Include="NReco.PdfGenerator, Version=1.1.11.0, Culture=neutral, PublicKeyToken=231663d50a41b451, processorArchitecture=MSIL">
+      <HintPath>..\packages\NReco.PdfGenerator.1.1.11.0\lib\net20\NReco.PdfGenerator.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -248,6 +249,10 @@
     <Compile Include="Migrations\201512111710056_AdcionaCpfCnpjemEmpresa.Designer.cs">
       <DependentUpon>201512111710056_AdcionaCpfCnpjemEmpresa.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201512162001287_AdicionaModeloBoleto.cs" />
+    <Compile Include="Migrations\201512162001287_AdicionaModeloBoleto.Designer.cs">
+      <DependentUpon>201512162001287_AdicionaModeloBoleto.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AcessosUsuario.cs" />
@@ -267,6 +272,7 @@
     <Compile Include="Services\RepositorioConta.cs" />
     <Compile Include="Services\RepositorioConvite.cs" />
     <Compile Include="Services\RepositorioFeriadoRegional.cs" />
+    <Compile Include="Services\RepositorioModeloBoleto.cs" />
     <Compile Include="Services\RepositorioPadrao.cs" />
     <Compile Include="Services\RepositorioPagamento.cs" />
     <Compile Include="Services\RepositorioPerfil.cs" />
@@ -436,6 +442,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201512111710056_AdcionaCpfCnpjemEmpresa.resx">
       <DependentUpon>201512111710056_AdcionaCpfCnpjemEmpresa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512162001287_AdicionaModeloBoleto.resx">
+      <DependentUpon>201512162001287_AdicionaModeloBoleto.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

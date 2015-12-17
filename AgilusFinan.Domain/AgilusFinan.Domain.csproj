@@ -37,6 +37,7 @@
   <ItemGroup>
     <Compile Include="Entities\Acesso.cs" />
     <Compile Include="Entities\Banco.cs" />
+    <Compile Include="Entities\ModeloBoleto.cs" />
     <Compile Include="Entities\Categoria.cs" />
     <Compile Include="Entities\CentroCusto.cs" />
     <Compile Include="Entities\ConciliacaoExtrato.cs" />
@@ -54,6 +55,7 @@
     <Compile Include="Entities\LoteBoleto.cs" />
     <Compile Include="Entities\UsuarioLogado.cs" />
     <Compile Include="Interfaces\IRepositorioFeriadoRegional.cs" />
+    <Compile Include="Interfaces\IRepositorioModeloBoleto.cs" />
     <Compile Include="Utils\Criptografia.cs" />
     <Compile Include="Utils\Email.cs" />
     <Compile Include="Entities\Empresa.cs" />
