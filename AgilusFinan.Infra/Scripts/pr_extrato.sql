@@ -3,7 +3,6 @@ begin
    drop procedure pr_extrato
    print '<< DROP pr_extrato >>'
 end
-
 GO
 
 create procedure pr_extrato (@empresa int, @conta int, @dataInicial smalldatetime , @dataFinal smalldatetime)
@@ -12,8 +11,9 @@ begin
 
 	--pegar saldo inicial e data inicial da conta em questão
 	declare @DataSaldoInicial smalldatetime
-	declare @Saldo money
 	declare @SaldoInicial money
+    declare @LiquidacaoId int
+    declare @TransferenciaId int
 
 	select @DataSaldoInicial = DataSaldoInicial
 	from Conta 
@@ -22,11 +22,16 @@ begin
 
 	set @saldoInicial = dbo.fn_saldo (@conta, @dataInicial-1, @empresa)
 
-	create table #movimentacoes(Data datetime, Valor decimal(18,2), Descricao varchar(100), Saldo money)
+	create table #movimentacoes(Data datetime, LiquidacaoId int, TransferenciaId int, Valor decimal(18,2), Descricao varchar(100), Saldo money)
 
 	--pegar as movimentações realizadas até a data final do extrato
 	insert into #movimentacoes
-	select Data, case c.Direcao when 0 then l.valor + isnull(l.JurosMulta, 0.0) else -(l.valor+isnull(l.JurosMulta, 0.0)) end Valor, t.Descricao, convert(money,null) Saldo 
+	select Data, l.Id LiquidacaoId, null TransferenciaId,
+      case c.Direcao 
+         when 0 then l.valor + isnull(l.JurosMulta, 0.0) 
+         else -(l.valor+isnull(l.JurosMulta, 0.0)) 
+      end Valor, 
+      t.Descricao, convert(money,null) Saldo 
 	from Liquidacao l
 	join titulo t on l.TituloId = t.Id
 	join categoria c on t.CategoriaId = c.Id
@@ -35,8 +40,16 @@ begin
 	and (@dataFinal is null or Data < @dataFinal+1)
 	and t.ContaId = @conta
 	and t.EmpresaId = @empresa
-	union
-	select Data, case when ContaOrigemId = @conta then -valor when contaDestinoId = @conta then valor else 0.0 end Valor, Descricao, null
+
+	union all
+
+	select Data, null, Id TransferenciaId,
+      case 
+         when ContaOrigemId = @conta then -valor 
+         when contaDestinoId = @conta then valor 
+         else 0.0 
+      end Valor, 
+      Descricao, null
 	from transferencia
 	where Data >= @dataInicial
 	and Data >= @DataSaldoInicial
@@ -48,45 +61,39 @@ begin
 	declare @acumulador money
 
 	declare curSaldo cursor for 
-	select valor
+	select valor, LiquidacaoId, TransferenciaId
 	from #movimentacoes
-	for update of saldo
+    order by data, LiquidacaoId, TransferenciaId
 
 	set @acumulador = @saldoInicial
 
 	OPEN curSaldo
-	fetch curSaldo into @valor
+	fetch curSaldo into @valor, @LiquidacaoId, @TransferenciaId
 	while @@FETCH_STATUS = 0
 	begin
 		set @acumulador = @acumulador + @valor
 
 		update #movimentacoes
 		set Saldo = @acumulador 
-		where current of curSaldo
+		where (@LiquidacaoId is null or LiquidacaoId = @LiquidacaoId)
+        and (@TransferenciaId is null or TransferenciaId = @TransferenciaId)
 
-		fetch curSaldo into @valor
+		fetch curSaldo into @valor, @LiquidacaoId, @TransferenciaId
 
 	end
 	close curSaldo
 	deallocate curSaldo
 
 	insert into #movimentacoes
-	values
-	(@dataInicial-1, null, 'Saldo Inicial', @SaldoInicial)
+	values (@dataInicial-1, null, null, null, 'Saldo Inicial', @SaldoInicial)
 
 	--retornar uma lista com as movimentações
 	select *
 	from #movimentacoes
-	order by Data
+	order by Data, LiquidacaoId, TransferenciaId
 
-
-	select @saldo = @SaldoInicial + SUM(Valor)
-	from #movimentacoes
-
-
-
+	drop table #movimentacoes
 end
-
 GO
 
 if object_id('pr_extrato') > 0
