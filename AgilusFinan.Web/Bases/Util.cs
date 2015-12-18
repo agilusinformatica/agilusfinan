@@ -112,7 +112,9 @@ namespace AgilusFinan.Web.Bases
             var pessoa = titulo.Pessoa;
             var empresa = titulo.Empresa;
             int numeroBanco = conta.Banco.Codigo;
-            var modeloBoleto = new RepositorioModeloBoleto().BuscarPorId(modeloBoletoId);
+            var repoModeloBoleto = new RepositorioModeloBoleto();
+
+            var modeloBoleto = repoModeloBoleto.BuscarPorId(modeloBoletoId);
 
             if (modeloBoleto == null)
             {
@@ -121,7 +123,7 @@ namespace AgilusFinan.Web.Bases
 
             //Incremento do Nosso número em Modelo de Boleto
             modeloBoleto.NossoNumero++;
-            //new RepositorioModeloBoleto().Alterar(modeloBoleto);
+            repoModeloBoleto.Alterar(modeloBoleto);
 
             //Cedente
             var c = new Cedente(empresa.CpfCnpj, empresa.Nome, conta.Agencia, conta.ContaCorrente.Split('-')[0], conta.ContaCorrente.Split('-')[1]);
@@ -162,7 +164,9 @@ namespace AgilusFinan.Web.Bases
             var pessoa = titulo.Pessoa;
             var empresa = titulo.Empresa;
             int numeroBanco = conta.Banco.Codigo;
-            var modeloBoleto = new RepositorioModeloBoleto().BuscarPorId(modeloBoletoId);
+            var repoModeloBoleto = new RepositorioModeloBoleto();
+
+            var modeloBoleto = repoModeloBoleto.BuscarPorId(modeloBoletoId);
 
             if (modeloBoleto == null)
             {
@@ -171,7 +175,7 @@ namespace AgilusFinan.Web.Bases
 
             //Incremento do Nosso número em Modelo de Boleto
             modeloBoleto.NossoNumero++;
-            //new RepositorioModeloBoleto().Alterar(modeloBoleto);
+            repoModeloBoleto.Alterar(modeloBoleto);
 
             //Cedente
             var c = new Cedente(empresa.CpfCnpj, empresa.Nome, conta.Agencia, conta.ContaCorrente.Split('-')[0], conta.ContaCorrente.Split('-')[1]);
