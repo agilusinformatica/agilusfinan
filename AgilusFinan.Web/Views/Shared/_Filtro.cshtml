@@ -107,7 +107,7 @@
                             <option> </option>
                             @foreach (var modeloboleto in new SelectLista(3, TipoLista.ModeloBoleto).Listar())
                             {
-                                <option value="@modeloboleto.Id">@modeloboleto.Conta.Nome</option>
+                                <option value="@modeloboleto.Id">@modeloboleto.Nome</option>
                             }
                         </select>
                         break;

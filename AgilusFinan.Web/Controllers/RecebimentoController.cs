@@ -53,6 +53,7 @@ namespace AgilusFinan.Web.Controllers
         {
             base.PreListagem();
             GerarLista();
+            ViewBag.ModelosBoleto = new RepositorioModeloBoleto().Listar().ToList();
         }
 
         protected override void ModelToViewModel(Titulo model, TituloViewModel viewModel)
