@@ -1,0 +1,93 @@
+﻿@model IEnumerable<AgilusFinan.Domain.Entities.Titulo>
+
+<table class="table" id="sorted">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DataVencimento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Descricao)
+            </th>
+            <th>
+                Categoria
+            </th>
+            <th>
+                Conta
+            </th>
+            <th>
+                Pessoa
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Valor)
+            </th>
+            <th>
+                Pago?
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataVencimento.GetDateTimeFormats()[0])
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descricao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Categoria.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Conta.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Pessoa.Nome)
+                </td>
+                <td align="right">
+                    @item.Valor.ToString("#,##0.00")
+                </td>
+                <td>
+                    @if (item.Liquidado == "Pago")
+                    {
+                        <span class="label label-success">@Html.DisplayFor(modelItem => item.Liquidado)</span>
+                    }
+                    @if (item.Liquidado == "Parcialmente")
+                    {
+                        <span class="label label-warning">@Html.DisplayFor(modelItem => item.Liquidado)</span>
+                    }
+                    @if (item.Liquidado == "Não Pago" && item.DataVencimento <= DateTime.Today)
+                    {
+                        <span class="label label-danger">@Html.DisplayFor(modelItem => item.Liquidado)</span>
+                    }
+                    @if (item.Liquidado == "Não Pago" && item.DataVencimento > DateTime.Today)
+                    {
+                        <span class="label label-primary">@Html.DisplayFor(modelItem => item.Liquidado)</span>
+                    }
+                </td>
+                <td class="col-md-4">
+                    @if (item.Liquidado != "Pago" && item.Liquidado != "Parcialmente")
+                    {
+                        @Html.ActionLink("Liquidar", "LiquidarDiretamente", new { id = item.Id, homeIndex = false })<span> |</span>
+                    }
+                    @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "glyphicon glyphicon-pencil" }) |
+                    @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "glyphicon glyphicon-trash" })
+                    @if (item.Liquidado != "Pago")
+                    {
+                        <span>|</span> @Html.ActionLink("Liquidar Detalhe", "Liquidar", new { id = item.Id, homeIndex = false }) 
+                        if (ViewBag.TipoTitulo == "Recebimento")
+                        {
+                            <span>| </span>@Html.ActionLink(" ", "GerarBoleto", new { tituloId = item.Id }, new { @class = "glyphicon glyphicon-barcode" })
+                        }
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    Utils.initializeDataTables('#sorted');
+</script>

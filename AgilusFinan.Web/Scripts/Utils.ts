@@ -186,11 +186,11 @@
 	export function initializeDataTables(table : string) {
 
 		var columnTable = $(table +" > thead  th");
-		var targetIndex = [];
+		var dateIndex = [];
 
 		for (var i = 0; i < columnTable.length; i++) {
-			if (columnTable[i].innerHTML.indexOf("Data") > -1) {
-				targetIndex.push(i);
+            if ((columnTable[i].innerHTML.indexOf("Data") > -1) || (columnTable[i].innerHTML.indexOf("Vencimento") > -1)) {
+				dateIndex.push(i);
 			}
 		}
 		$(table).addClass("responsive no-wrap");
@@ -222,7 +222,7 @@
 			},
 
 			columnDefs: [
-				{ type: "date-eu", targets: targetIndex }
+				{ type: "date-eu", targets: dateIndex }
 
 			],
 

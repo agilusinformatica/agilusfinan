@@ -4,6 +4,7 @@ using AgilusFinan.Web.Bases;
 using AgilusFinan.Web.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -16,6 +17,28 @@ namespace AgilusFinan.Web.Controllers
         protected override string FolderViewName()
         {
             return "Titulo";
+        }
+
+        protected override IEnumerable<Titulo> Dados()
+        {
+            return new List<Titulo>();
+        }
+
+        public ActionResult IndexData(string dataInicial, string dataFinal)
+        {
+            DateTime dI, dF;
+            if (String.IsNullOrEmpty(dataInicial) && String.IsNullOrEmpty(dataFinal))
+            {
+                dI = Util.PrimeiroDiaMes(DateTime.Today);
+                dF = Util.UltimoDiaMes(DateTime.Today);
+            }
+            else
+            {
+                dI = DateTime.ParseExact(dataInicial, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                dF = DateTime.ParseExact(dataFinal, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            }
+            GerarLista();
+            return PartialView("~/Views/Titulo/IndexData.cshtml", repo.Listar(t => t.DataVencimento >= dI && t.DataVencimento <= dF));
         }
 
         protected override void PreInclusao()
@@ -111,17 +134,13 @@ namespace AgilusFinan.Web.Controllers
         {
             var titulo = repo.BuscarPorId(id);
             var tituloVm = new TituloViewModel();
-            ViewBag.ContaId = new SelectList(new RepositorioConta().Listar(), "Id", "Nome", new RepositorioPadrao<Titulo>().BuscarPorId(id).ContaId);
+            ViewBag.ContaId = new SelectList(new RepositorioConta().Listar(), "Id", "Nome", titulo.ContaId);
             ModelToViewModel(titulo, tituloVm);
             ViewBag.TipoTitulo = "Pagamento";
             
-            //if (homeIndex)
-            //{
-            //    return RedirectToAction("Index", "Home");
-            //}
-            //else
             return View("~/Views/" + FolderViewName() + "/Liquidar.cshtml", tituloVm);
         }
+
         [Permissao]
         public ActionResult LiquidarDiretamente(int id, bool homeIndex)
         {

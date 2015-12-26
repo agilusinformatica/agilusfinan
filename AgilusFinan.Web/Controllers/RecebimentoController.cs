@@ -12,6 +12,7 @@ using System.Net.Mail;
 using System.Net.Mime;
 using System.IO;
 using AgilusFinan.Domain.Utils;
+using System.Globalization;
 
 namespace AgilusFinan.Web.Controllers
 {
@@ -21,6 +22,29 @@ namespace AgilusFinan.Web.Controllers
         {
             return "Titulo";
         }
+
+        protected override IEnumerable<Titulo> Dados()
+        {
+            return new List<Titulo>();
+        }
+
+        public ActionResult IndexData(string dataInicial, string dataFinal)
+        {
+            DateTime dI, dF;
+            if (String.IsNullOrEmpty(dataInicial) && String.IsNullOrEmpty(dataFinal))
+            {
+                dI = Util.PrimeiroDiaMes(DateTime.Today);
+                dF = Util.UltimoDiaMes(DateTime.Today);
+            }
+            else
+            {
+                dI = DateTime.ParseExact(dataInicial, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                dF = DateTime.ParseExact(dataFinal, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            }
+            GerarLista();
+            return PartialView("~/Views/Titulo/IndexData.cshtml", repo.Listar(t => t.DataVencimento >= dI && t.DataVencimento <= dF));
+        }
+
 
         protected override void PreInclusao()
         {
@@ -113,19 +137,14 @@ namespace AgilusFinan.Web.Controllers
 
         [HttpGet]
         [Permissao]
-        public ActionResult Liquidar(int tituloRecorrenteId, bool homeIndex)
+        public ActionResult Liquidar(int id, bool homeIndex)
         {
-            var titulo = repo.BuscarPorId(tituloRecorrenteId);
+            var titulo = repo.BuscarPorId(id);
             var tituloVm = new TituloViewModel();
-            ViewBag.ContaId = new SelectList(new RepositorioConta().Listar(), "Id", "Nome", new RepositorioPadrao<Titulo>().BuscarPorId(tituloRecorrenteId).ContaId);
+            ViewBag.ContaId = new SelectList(new RepositorioConta().Listar(), "Id", "Nome", titulo.ContaId);
             ModelToViewModel(titulo, tituloVm);
             ViewBag.TipoTitulo = "Recebimento";
             
-            if(homeIndex)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            else
             return View("~/Views/" + FolderViewName() + "/Liquidar.cshtml", tituloVm);
         }
 

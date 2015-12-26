@@ -3,6 +3,8 @@ using AgilusFinan.Domain.Interfaces;
 using AgilusFinan.Domain.Entities;
 using System.Web.Script.Serialization;
 using System;
+using System.Linq.Expressions;
+using System.Collections.Generic;
 
 namespace AgilusFinan.Web.Bases
 {
@@ -13,12 +15,16 @@ namespace AgilusFinan.Web.Bases
     {
         protected R repo = new R();
 
+        protected virtual IEnumerable<T> Dados()
+        {
+            return repo.Listar();
+        }
+
         [Permissao]
         public virtual ActionResult Index()
         {
             PreListagem();
-            return FolderViewName() == String.Empty ? View(repo.Listar()) : View("~/Views/" + FolderViewName() + "/Index.cshtml", repo.Listar());
-
+            return FolderViewName() == String.Empty ? View(Dados()) : View("~/Views/" + FolderViewName() + "/Index.cshtml", Dados());
         }
 
         [HttpGet]
