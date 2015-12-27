@@ -8,6 +8,7 @@ namespace AgilusFinan.Domain.Entities
     public class ModeloBoleto : Padrao
     {
         public int Id { get; set; }
+        public string Nome { get; set; }
         public int ContaId { get; set; }
         public virtual Conta Conta { get; set; }
         public string Carteira { get; set; }
