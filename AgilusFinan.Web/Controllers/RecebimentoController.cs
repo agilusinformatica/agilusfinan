@@ -41,6 +41,7 @@ namespace AgilusFinan.Web.Controllers
                 dI = DateTime.ParseExact(dataInicial, "dd/MM/yyyy", CultureInfo.InvariantCulture);
                 dF = DateTime.ParseExact(dataFinal, "dd/MM/yyyy", CultureInfo.InvariantCulture);
             }
+            ViewBag.ModelosBoleto = new RepositorioModeloBoleto().Listar().ToList();
             GerarLista();
             return PartialView("~/Views/Titulo/IndexData.cshtml", repo.Listar(t => t.DataVencimento >= dI && t.DataVencimento <= dF));
         }
@@ -77,7 +78,6 @@ namespace AgilusFinan.Web.Controllers
         {
             base.PreListagem();
             GerarLista();
-            ViewBag.ModelosBoleto = new RepositorioModeloBoleto().Listar().ToList();
         }
 
         protected override void ModelToViewModel(Titulo model, TituloViewModel viewModel)
