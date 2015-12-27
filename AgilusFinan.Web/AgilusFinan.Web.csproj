@@ -259,6 +259,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\jquerysctipttop.css" />
+    <Content Include="Scripts\jsapi.js" />
     <Content Include="Scripts\methods_pt.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
@@ -374,6 +375,7 @@
     <Content Include="Views\ModeloBoleto\_Cadastro.cshtml" />
     <Content Include="Views\Shared\_PainelPeriodo.cshtml" />
     <Content Include="Views\Titulo\IndexData.cshtml" />
+    <Content Include="Views\Transferencia\IndexData.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
