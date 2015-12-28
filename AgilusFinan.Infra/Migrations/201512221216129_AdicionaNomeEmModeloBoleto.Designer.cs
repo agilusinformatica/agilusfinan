@@ -7,13 +7,13 @@ namespace AgilusFinan.Infra.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class CampoDirecaoVencimentoCategoria2 : IMigrationMetadata
+    public sealed partial class AdicionaNomeEmModeloBoleto : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(CampoDirecaoVencimentoCategoria2));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AdicionaNomeEmModeloBoleto));
         
         string IMigrationMetadata.Id
         {
-            get { return "201510141849317_CampoDirecaoVencimentoCategoria2"; }
+            get { return "201512221216129_AdicionaNomeEmModeloBoleto"; }
         }
         
         string IMigrationMetadata.Source

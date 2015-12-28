@@ -3,6 +3,7 @@
 }
 
 @using AgilusFinan.Domain.Entities
+@using AgilusFinan.Web.Bases
 @model List<ConciliacaoExtrato>
 <h2>Vinculo Extrato/Titulos</h2>
 
@@ -11,7 +12,13 @@
 }
 
 <div id="dialog-form" class="dialog" title="Vincular títulos">
-
+    <div id="teste">        
+        <h5>Valor extrato: <span id="valorExtrato"></span></h5>
+        <h5>Soma dos títulos (c/ acrescimos): <span id="valorSomatoria"></span></h5>
+        <div id="painel-periodo">
+            @Html.Partial("_PainelPeriodo")
+        </div>
+    </div>
 </div>
 
 <div class="item-vinculo">
@@ -40,19 +47,37 @@
                         </tbody>
                     </table>
                     <hr />
+
                     <div class="row">
-                        <div class="col-sm-offset-1 col-sm-5 col-md-5 col-lg-5">
-                            <button class="btn btn-default modal-button" data-botaoId=@extratoId>Buscar titulos</button> <br />
+                        <div class="col-md-12">
+                            <table class="table" id="titulosVinculados">
+                                <thead>
+                                    <tr>
+                                        <th>Operação</th>
+                                        <th>ID</th>
+                                        <th>ID Titulo Recorrente</th>
+                                        <th>Descrição</th>
+                                        <th>Valor</th>
+                                        <th>Direção</th>
+                                        <th>Data de vencimento</th>
+                                        <th>Acréscimos</th>
+                                    </tr>
+                                </thead>
+
+                            </table>
                         </div>
-
                     </div>
 
                     <div class="row">
-                        <div class="col-md-4">
-                            <ul id="titulosVinculados"></ul>
-                    </div>
-                    </div>
+                        <div class="col-sm-2 col-sm-offset-1">
+                            <button class="btn btn-default modal-button" data-botaoid=@extratoId>Buscar</button> <br />
+                            
+                        </div>
+                        <div class="col-sm-2 ">
+                            <button class="btn btn-default modal-button" data-botaoid=@extratoId>Adicionar</button> <br />
 
+                        </div>
+                    </div>
                 </div>
                 @{
                      extratoId = extratoId + 1;
@@ -65,85 +90,179 @@
 
 
 <script>
+    var teste;
+    
+    //objeto extrato
+    var Task = function (id, itemExtrato) {
+        this.itemExtratoId = id;
+        this.itemExtrato = itemExtrato;
+        this.isNew = true;
+        this.titulosSelecionados = [];
+        this.titulosIncluidos = [];
+        this.ignorar = false;
+        this.observer = {};
+        
+        var vincularTitulo = function(titulo, observer) {
+            this.observer = observer;
+            this.titulosSelecionados.push(titulo);
+        };
+
+        var desvincularTitulo = function(titulo) {
+            this.titulosSelecionados.forEach(function(t, index, titulos) {
+
+                if (titulo.TituloId == t.TituloId) {
+                    titulos.splice(index, 1);
+                }
+
+            });
+
+        };
+
+        var somaTitulos = function() {
+            var soma = 0;
+            if (this.titulosSelecionados) {
+                this.titulosSelecionados.forEach(function(titulo, index, titulos) {
+                    soma += (titulo.Valor + (titulo.Acrescimos? titulo.Acrescimos : 0));
+                });
+                return soma;
+            } else {
+                return 0;
+            }
+        };
+
+        return {
+            itemExtratoId: id,
+            itemExtrato: this.itemExtrato,
+            isNew: this.isNew,
+            titulosSelecionados: this.titulosSelecionados,
+            titulosIncluidos: this.titulosIncluidos,
+            vincularTitulo: vincularTitulo,
+            desvincularTitulo: desvincularTitulo,
+            somaTitulos: somaTitulos
+        }
+
+    }
 
     var conciliacaoExtratoController = (function () {
-        
-        var titulosVinculados = {};
+        //variaveis
+        var tasks = [];
+        var task = {};
+        var extratoElement;
+        var itemExtrato = {};
+        var taskUndo;
+        var itemExtratoId;
+        var valorTotal;
 
-        var getItemExtrato = function (idLinha) {
+        //Metodos
+        var updateModal = function () {
+            $('#valorSomatoria').html(task.somaTitulos());
+        }
 
-            var extratoElement = $('[data-extratoId=' + idLinha + ']');
-            var itemExtrato = {};
+        var convertDate = function (date) {
+            var dia = date.substring(0, 2);
+            var mes = date.substring(3, 5);
+            var ano = date.substring(6, 10);
 
+            return mes + "/" + dia + "/" + ano;
+        };
+
+        var getItemExtrato = function() {
             var extratoColunas = extratoElement.find("table > tbody > tr > td");
-
-            var dia = extratoColunas[0].innerHTML.substring(0, 2);
-            var mes = extratoColunas[0].innerHTML.substring(3, 5);
-            var ano = extratoColunas[0].innerHTML.substring(6, 10);            
-
-            itemExtrato.DataLancamento = mes + "/" + dia + "/" + ano;
+            itemExtrato.DataLancamento = convertDate(extratoColunas[0].innerHTML);
             itemExtrato.Descricao = extratoColunas[1].innerHTML;
-            itemExtrato.Valor = extratoColunas[2].innerHTML.replace(",", ".");
+            itemExtrato.Valor = parseFloat(extratoColunas[2].innerHTML.replace(",", "."));
             itemExtrato.TipoLancamento = extratoColunas[3].innerHTML;
 
             return itemExtrato;
-
         };
 
-        var limpaTitulosVinculados = function () {
-            extratoElement.find('#titulosVinculados > li').remove();
+        var getItemTitulo = function(element) {
+            var tr = element.closest('tr');
+            var cells = tr.children();
+
+            var titulo = {};
+
+            titulo.TituloId = cells[1].innerHTML;
+            titulo.TituloRecorrenteId = cells[2].innerHTML;
+            titulo.Descricao = cells[3].innerHTML;
+            titulo.Valor = parseFloat(cells[4].innerHTML.replace(',', '.'));
+            titulo.Direcao = cells[5].innerHTML;
+            titulo.DataVencimento = cells[6].innerHTML.substring(1, 10);
+            titulo.Acrescimos = 0;
+
+            return titulo;
         }
 
-        var setTitulosVinculados = function (titulos) {
-            var titulosDiv = extratoElement.find("#titulosVinculados");
-            var li;
+        //Titulos Vinculados
+        var limpaTitulosVinculados = function () {
+            extratoElement.find('#titulosVinculados > tbody').remove();
+        }
+
+        var setTitulosVinculados = function (titulos, operacao) {
+            var table = extratoElement.find("#titulosVinculados");
             limpaTitulosVinculados();
 
-            for(var i in titulos) {
-                li = document.createElement('li');
-                var tituloText = document.createTextNode(titulos[i].tituloId);
-                li.appendChild(tituloText);
-                titulosDiv.append(li);
+            for (var i = 0; i < titulos.length; i++) {
+                var tr = document.createElement('tr');
+                var td;
+                var titulo = titulos[i];
+
+                var tdOperacao = document.createElement('td');
+                tdOperacao.innerHTML = operacao;
+                tr.appendChild(tdOperacao);
+                
+                for (var prop in titulo) {
+                    td = document.createElement('td');
+                    td.innerHTML = titulo[prop];
+                    tr.appendChild(td);
+                }
+                table.append(tr);
             }
-
         }
 
-        var getTitulosSelecionados = function() {
-            var selectedCheckbox = $("#titulosAVincularLista > tbody > tr > td > input:checked");
-            var titulosSelecionados = [];
+        //Titulos selecionados
 
-            $.each(selectedCheckbox, function(item) {
-                var titulosCells = $(selectedCheckbox[item]).parent().parent().find('td');
+        var setTitulosSelecionados = function () {
+            var inputs = $('#titulosAVincularLista').find('input:checkbox');
+            
+            $.each(inputs, function (input) {
+                var titulo = getItemTitulo($(inputs[input]));
+                var isSelected = isTituloSelected(titulo.TituloId);
+                var tituloExists = task.titulosSelecionados.some(ts => ts.TituloId == titulo.TituloId);
+                
+                if (!tituloExists && isSelected) {
+                    $(inputs[input]).prop('disabled', true);
+                }
+                
+                task.titulosSelecionados.forEach(function (t) {
+                    
+                    if (t.TituloId == titulo.TituloId) {
+                        var acrescimoInput = $(inputs[input]).closest('tr').find('input[name="acrescimos"]');
+                        acrescimoInput.val(t.Acrescimos);
+                        acrescimoInput.prop('disabled', false);
+                        $(inputs[input]).prop('checked', true);
+                    };
 
-                titulosSelecionados.push({
-                    tituloId: titulosCells[1].innerHTML,
-                    tituloRecorrenteId: titulosCells[2].innerHTML
                 });
-
-            });
-            titulosVinculados.titulos = titulosSelecionados;
-        };
-
-        var limpaTitulosSelecionados = function () {
-            var selectedCheckbox = $("#titulosAVincularLista > tbody > tr > td > input:checked");
-
-            $.each(selectedCheckbox, function(item) {
-                $(selectedCheckbox[item]).prop("checked", false);
             });
 
         }
 
-        var sendRequest = function() {
+        var conciliarTitulos = function () {
+
+            var titulosAConciliar = {};
+            titulosAConciliar.extrato = task.itemExtrato;
+            titulosAConciliar.titulos = task.titulosSelecionados;
 
             $.ajax({
                 type: "POST",
                 url: "@Url.Action("ConcilarTitulos")",
                 data: {
-                    titulosAConciliar: JSON.stringify(titulosVinculados)
+                    titulosAConciliar: JSON.stringify(titulosAConciliar)
                 },
                 success: function(response) {
                     var titulos = JSON.parse(JSON.parse(response)).titulos;
-                    setTitulosVinculados(titulos);
+                    setTitulosVinculados(titulos, 'vinculo');
                     dialog.dialog("close");
                 },
                 error: function(error) {
@@ -151,7 +270,7 @@
                 }
             });
 
-        };
+        }
 
         var dialog = $("#dialog-form").dialog({
             autoOpen: false,
@@ -163,50 +282,164 @@
                     text: "Vincular",
                     id: "vincular",
                     click: function() {
-                        getTitulosSelecionados();
-                        sendRequest();
+                        conciliarTitulos();
+                        if(task.isNew) tasks.push(task);
                         dialog.dialog("close");
                     }
                 },
-                Cancel: function () {
-                    dialog.dialog("close");
+                Cancel: {
+                    text: "Cancelar",
+                    id: "Cancelar",
+                    click: function(){
+                        dialog.dialog("close")
+                    }
                 }
             },
-            open: function() {
-                limpaTitulosSelecionados();
+            open: function () {
+                initEvents();
             },
             close: function () {
-                
+                $("#dialog-form").off('click', 'input:checkbox');
+                $('input').off('change input'); 
             }
         });
 
-        $(".modal-button").click(function () {
-            var itemExtratoId = $(this).attr("data-botaoid");
-            console.log(getItemExtrato(itemExtratoId));
+        var getTitulosPendentes = function() {
+
+            var dataInicial = $('#dataInicial').val();
+            var dataFinal = $('#dataFinal').val();
+
+            var dI = dataInicial.substring(8, 10) + '/' + dataInicial.substring(5, 7) + '/' + dataInicial.substring(0, 4);
+            var dF = dataFinal.substring(8, 10) + '/' + dataFinal.substring(5, 7) + '/' + dataFinal.substring(0, 4);
 
             $.ajax({
                 type: "GET",
                 data: {
-                    tituloAConciliar: JSON.stringify(getItemExtrato(itemExtratoId))
+                    tituloAConciliar: JSON.stringify(task.itemExtrato),
+                    dataInicial: dI,
+                    dataFinal: dF
                 },
                 url: "@Url.Action("VinculoTitulos")",
-                success: function(data) {
-
-                    $("#dialog-form>table").remove();
-                    $("#dialog-form").append(data);
-                    dialog.dialog("open");
+                success: function (data) {
+                    $("#painel-periodo>table").remove();
+                    $("#painel-periodo").append(data);
+                    setTitulosSelecionados();
                 },
                 error: function(error) {
-
+                    console.log(error);
                 }
+            });
+
+        }
+
+        var findTask = function (itemExtratoId) {
+            var t;
+            for (var i = 0; i < tasks.length; i++) {
+                if (tasks[i].itemExtratoId == itemExtratoId) {
+                    t = tasks[i];
+                    tasks[i].isNew = false;
+                }
+
+            };
+            return t;
+        }
+
+        var findTitulo = function(tituloId){            
+            var t = task.titulosSelecionados;
+            var titulo;
+            
+            for(var i = 0; i < t.length; i++){
+                if(t[i].TituloId == tituloId){
+                    titulo = t[i];
+                }
+            }
+            return titulo;
+        }
+
+        var getItemTituloSelecionado = function(e){
+            var itemAtual = getItemTitulo(e);
+            var taskTitulo = findTitulo(itemAtual.TituloId);  
+
+            if(taskTitulo && taskTitulo.TituloId == itemAtual.TituloId){
+                return taskTitulo;
+            }else{
+                return itemAtual;
+            }
+            
+        }
+
+        var isTituloSelected = function(tituloId){
+            for(var i = 0; i < tasks.length; i++){
+                var titulos = tasks[i].titulosSelecionados;
+
+                for(var j = 0; j < titulos.length; j++){
+                    if(titulos[j].TituloId == tituloId){
+                        return true;
+                    }
+                }
+
+            }
+            return false;
+        }
+
+        //Eventos
+        var initEvents = function () {
+            
+            var update = function(e){
+                var titulo = getItemTituloSelecionado(e);
+                var getAcrescimo = () => parseFloat(e.val().replace(',', '.'));
+                titulo.Acrescimos = getAcrescimo();
+                updateModal();  
+            };
+
+            $('#dialog-form').on('input change load', 'input[name="acrescimos"]', function(e){
+                var titulo = getItemTituloSelecionado($(this));
+                var getAcrescimo = () => parseFloat($(this).val().replace(',', '.'));                
+                titulo.Acrescimos = getAcrescimo();
+                updateModal();  
+            });
+
+            $("#dialog-form").on('click', 'input:checkbox', function (e) {                
+                var titulo = getItemTituloSelecionado($(this));
+                var acrescimoInput = $(this).closest('tr').find('input[name="acrescimos"]');
+
+                if ($(this).prop('checked')) {
+                    acrescimoInput.prop('disabled', false);
+                    task.vincularTitulo(titulo);
+                } else {
+                    acrescimoInput.prop('disabled', true);
+                    acrescimoInput.val('');
+                    task.desvincularTitulo(titulo);
+                }
+                updateModal();
 
             });
 
-            
-            
+        }
+
+        $(".modal-button").click(function () {
+
+            itemExtratoId = $(this).attr("data-botaoid");
+
+            extratoElement = $("[data-extratoId=" + itemExtratoId + "]");
+            itemExtrato = getItemExtrato(itemExtratoId);
+
+            task = findTask(itemExtratoId)? findTask(itemExtratoId) : new Task(itemExtratoId, itemExtrato);
+            taskUndo = Object.create(task);
+
+            $("#dataInicial").val(Utils.primeiroDiaMes(itemExtrato.DataLancamento, 'MDY'));
+            $("#dataFinal").val(Utils.ultimoDiaMes(itemExtrato.DataLancamento, 'MDY'));
+
+            dialog.dialog("open");
+            updateModal();
+
+            $("#valorExtrato").html(task.itemExtrato.Valor);
+
+            consultarPeriodo(getTitulosPendentes);
+
+
             
         });
-
     }());
 
 
@@ -218,19 +451,20 @@
     .item-extrato {
         border: 1px solid grey;
         box-shadow: 5px 5px 30px grey;
+        padding-bottom: 20px;
     }
    
-     .extrato-table {
+     .extrato-table, #titulosVinculados{
          border: 1px solid;
          margin-top: 10px;
-         margin-bottom: 10px;
+         margin-bottom: 20px;
          margin-left: 60px;
          table-layout: fixed;
          width: 80%;
          font-size: 12px;
      }
 
-    .extrato-table > tbody > tr >td {
+    .extrato-table > tbody > tr > td {
         width: 200px;
     }
 
@@ -243,7 +477,7 @@
 
     .extrato-table > thead > th {
         border: 1px solid black;
-        width: 100px;
+        margin: 100px;
     }
 
     .dialog {
@@ -256,13 +490,66 @@
         margin-bottom: 10px;
         margin-left: 60px;
         table-layout: fixed;
-        width: auto;
-        font-size: 12px;
+        font-size: 13px;
         -ms-word-wrap: break-word;
         word-wrap: break-word;
     }
 
-    #titulosVinculados {
-        list-style: none;
+    /*Painel pariodo*/
+    #painel-periodo {        
+        height: 0;
+        font-size: 12px;
+        width: 70%;
+        height: 40px;
+        background: grey;
+        float: left;
+        margin-left: 10%;
     }
+    #painel-periodo .panel {
+        margin-bottom: 3px;
+        border-radius: 0;
+        height: auto;
+        border: 1px solid black
+    }
+
+    #painel-periodo .panel-body {
+        padding-top: 3px;
+        padding-bottom: 3px;
+    }
+
+    #painel-periodo .panel-heading {
+        margin-bottom: 3px;
+        border-radius: 0;
+        padding-top: 3px;
+        padding-bottom: 3px;
+    }
+
+     #titulosAVincularLista {         
+         float: left;
+         border-left: 1px solid black;
+         border-right: 1px solid black;
+         border-bottom: 1px solid black;
+         border-top: 0;
+         /*width: 703px;*/
+         width: 703px;         
+         margin-left: -15px;
+         margin-top: -2px;
+    }
+
+    /*Lista de titulos já vinculados*/
+    #titulosVinculados > thead > tr > th{
+        width: auto;
+        font-family: 8px;
+    }
+
+    
+    #titulosVinculados > tbody > tr > td {
+        width: 100%;
+    }
+
+    #titulosVinculados td {
+        
+    }
+
+
 </style>

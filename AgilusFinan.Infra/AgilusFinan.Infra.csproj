@@ -213,10 +213,6 @@
     <Compile Include="Migrations\201510141615467_Feriados.Designer.cs">
       <DependentUpon>201510141615467_Feriados.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201510141849317_CampoDirecaoVencimentoCategoria2.cs" />
-    <Compile Include="Migrations\201510141849317_CampoDirecaoVencimentoCategoria2.Designer.cs">
-      <DependentUpon>201510141849317_CampoDirecaoVencimentoCategoria2.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\201510141733417_AdicionarCampoPadraoEmConta.cs" />
     <Compile Include="Migrations\201510141733417_AdicionarCampoPadraoEmConta.Designer.cs">
       <DependentUpon>201510141733417_AdicionarCampoPadraoEmConta.cs</DependentUpon>
@@ -252,6 +248,10 @@
     <Compile Include="Migrations\201512162001287_AdicionaModeloBoleto.cs" />
     <Compile Include="Migrations\201512162001287_AdicionaModeloBoleto.Designer.cs">
       <DependentUpon>201512162001287_AdicionaModeloBoleto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512221216129_AdicionaNomeEmModeloBoleto.cs" />
+    <Compile Include="Migrations\201512221216129_AdicionaNomeEmModeloBoleto.Designer.cs">
+      <DependentUpon>201512221216129_AdicionaNomeEmModeloBoleto.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -418,9 +418,6 @@
     <EmbeddedResource Include="Migrations\201510141615467_Feriados.resx">
       <DependentUpon>201510141615467_Feriados.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201510141849317_CampoDirecaoVencimentoCategoria2.resx">
-      <DependentUpon>201510141849317_CampoDirecaoVencimentoCategoria2.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201510141733417_AdicionarCampoPadraoEmConta.resx">
       <DependentUpon>201510141733417_AdicionarCampoPadraoEmConta.cs</DependentUpon>
     </EmbeddedResource>
@@ -447,6 +444,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201512162001287_AdicionaModeloBoleto.resx">
       <DependentUpon>201512162001287_AdicionaModeloBoleto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512221216129_AdicionaNomeEmModeloBoleto.resx">
+      <DependentUpon>201512221216129_AdicionaNomeEmModeloBoleto.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

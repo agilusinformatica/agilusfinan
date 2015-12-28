@@ -2,34 +2,7 @@
     ViewBag.Title = "AgilusFinan";
 }
 
-
-
-<div class="row">
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            Periodo
-        </div>
-        <div class="panel-body">
-            <div class="col-md-4">
-                <input type="button" class="btn btn-default botaomes" id="Mes3" value="@DateTime.Now.AddMonths(-3).ToString("MMMM")" data-inicial-mes="@DateTime.Now.AddMonths(-3).ToString("yyyy-MM-01")" data-final-mes="@DateTime.Now.AddDays(-DateTime.Now.Day).AddDays(1).AddMonths(-2).AddDays(-1).ToString("yyyy-MM-dd")" />
-                <input type="button" class="btn btn-default botaomes" id="Mes2" value="@DateTime.Now.AddMonths(-2).ToString("MMMM")" data-inicial-mes="@DateTime.Now.AddMonths(-2).ToString("yyyy-MM-01")" data-final-mes="@DateTime.Now.AddDays(-DateTime.Now.Day).AddDays(1).AddMonths(-1).AddDays(-1).ToString("yyyy-MM-dd")" />
-                <input type="button" class="btn btn-default botaomes" id="Mes1" value="@DateTime.Now.AddMonths(-1).ToString("MMMM")" data-inicial-mes="@DateTime.Now.AddMonths(-1).ToString("yyyy-MM-01")" data-final-mes="@DateTime.Now.AddDays(-DateTime.Now.Day).AddDays(1).AddMonths(0).AddDays(-1).ToString("yyyy-MM-dd")" />
-                <input type="button" class="btn btn-default botaomes" id="Mes0" value="@DateTime.Now.ToString("MMMM")" data-inicial-mes="@DateTime.Now.ToString("yyyy-MM-01")" data-final-mes="@DateTime.Now.AddDays(-DateTime.Now.Day).AddDays(1).Date.AddMonths(1).AddDays(-1).Date.ToString("yyyy-MM-dd")" />
-            </div>
-            <div class="col-md-3">
-                <input type="date" class="form-control"  id="dataInicial" value="@DateTime.Now.ToString("yyyy-MM-01")">
-            </div>
-            <div class="col-md-3">
-                <input type="date" class="form-control"  id="dataFinal" value="@DateTime.Now.AddDays(-DateTime.Now.Day).AddDays(1).Date.AddMonths(1).AddDays(-1).Date.ToString("yyyy-MM-dd")">
-            </div>
-            <div class="col-md-2">
-                <span class="btn btn-primary" id="consultar">
-                    Consultar
-                </span>
-            </div>
-        </div>
-    </div>
-</div>
+@Html.Partial("_PainelPeriodo")
 
 <div class="row">
     <div class="col-lg-4 col-xs-12"> 
@@ -53,14 +26,6 @@
 </div>
 
 <script>
-
-    $('.botaomes').click(function () {
-        var datainicial = $(this).attr('data-inicial-mes');
-        var datafinal = $(this).attr('data-final-mes');
-        $('#dataInicial').val(datainicial);
-        $('#dataFinal').val(datafinal);
-        consultaDashboard();
-    })
 
     var consultaDashboard = function () {
 
@@ -146,9 +111,8 @@
             }
         })
     };
-    consultaDashboard();
 
-    $('#consultar').click(consultaDashboard);
+    consultarPeriodo(consultaDashboard);
 
 </script>
 

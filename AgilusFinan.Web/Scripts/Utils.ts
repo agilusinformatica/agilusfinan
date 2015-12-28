@@ -186,11 +186,11 @@
 	export function initializeDataTables(table : string) {
 
 		var columnTable = $(table +" > thead  th");
-		var targetIndex = [];
+		var dateIndex = [];
 
 		for (var i = 0; i < columnTable.length; i++) {
-			if (columnTable[i].innerHTML.indexOf("Data") > -1) {
-				targetIndex.push(i);
+            if ((columnTable[i].innerHTML.indexOf("Data") > -1) || (columnTable[i].innerHTML.indexOf("Vencimento") > -1)) {
+				dateIndex.push(i);
 			}
 		}
 		$(table).addClass("responsive no-wrap");
@@ -222,7 +222,7 @@
 			},
 
 			columnDefs: [
-				{ type: "date-eu", targets: targetIndex }
+				{ type: "date-eu", targets: dateIndex }
 
 			],
 
@@ -231,8 +231,75 @@
 		});
 	}
 
-	export function manterTela(form)
-	{
+	export function manterTela(form){
 		form.append('<input type="hidden" id="novo" name="novo" value="1"/>');
-	}
+    }
+
+    export function primeiroDiaMes(d: string, formato: string): string {
+        var itensData;
+        var data;
+
+        if (d.indexOf('/') >= 0) {
+            itensData = d.split('/');
+        } else if(d.indexOf('-') >= 0 ) {
+            itensData = d.split('-');
+        }
+
+        switch (formato) {
+        case 'YMD':
+            data = new Date(itensData[0], itensData[1] - 1, 1);
+
+            break;
+
+        case 'DMY':
+            data = new Date(itensData[2], itensData[1] - 1, 1);
+
+            break;
+
+        case 'MDY':
+            data = new Date(itensData[2], itensData[0] - 1, 1);
+
+            break;
+                    
+        default:
+        }
+
+
+        return data.toISOString().substring(0, 10);
+
+    }
+
+    export function ultimoDiaMes(d: string, formato: string): string {
+        var itensData;
+        var data;
+
+        if (d.indexOf('/') >= 0) {
+            itensData = d.split('/');
+        } else if (d.indexOf('-') >= 0) {
+            itensData = d.split('-');
+        }
+
+        switch (formato) {
+            case 'YMD':
+                data = new Date(itensData[0], itensData[1], 0);
+
+                break;
+
+            case 'DMY':
+                data = new Date(itensData[2], itensData[1], 0);
+
+                break;
+
+            case 'MDY':
+                data = new Date(itensData[2], itensData[0], 0);
+
+                break;
+
+            default:
+        }
+
+
+        return data.toISOString().substring(0, 10);
+    }
+
 }

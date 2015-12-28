@@ -260,6 +260,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\jquerysctipttop.css" />
+    <Content Include="Scripts\jsapi.js" />
     <Content Include="Scripts\methods_pt.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
@@ -375,11 +376,12 @@
     <Content Include="Views\ModeloBoleto\Create.cshtml" />
     <Content Include="Views\ModeloBoleto\Edit.cshtml" />
     <Content Include="Views\ModeloBoleto\_Cadastro.cshtml" />
+    <Content Include="Views\Shared\_PainelPeriodo.cshtml" />
+    <Content Include="Views\Titulo\IndexData.cshtml" />
+    <Content Include="Views\Transferencia\IndexData.cshtml" />
     <Content Include="Views\Importacao\_VinculoTitulos.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\RecuperarSenha\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
