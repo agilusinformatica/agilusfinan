@@ -240,5 +240,15 @@ namespace AgilusFinan.Web.Bases
             System.IO.File.Delete(arquivoTemporario);
         }
 
+        public static DateTime PrimeiroDiaMes(DateTime data)
+        {
+            return data.AddDays(-data.Day).AddDays(1).Date;
+        }
+
+        public static DateTime UltimoDiaMes(DateTime data)
+        {
+            return PrimeiroDiaMes(data).AddMonths(1).AddDays(-1).Date;
+        }
+
     }
 }

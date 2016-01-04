@@ -34,7 +34,7 @@
                 <ul>
                     <li>@Html.ActionLink("Pagamento", "Index", "Pagamento")</li>
                     <li>@Html.ActionLink("Recebimento", "Index", "Recebimento")</li>
-                    <li>@Html.ActionLink(" Transferência", "Index", "Transferencia")</li>
+                    <li>@Html.ActionLink("Transferência", "Index", "Transferencia")</li>
                     <li>@Html.ActionLink("Titulo Recorrente", "Index", "TituloRecorrente")</li>
                     <li>@Html.ActionLink("Gerador de Boletos", "Index", "LoteBoleto")</li>
                 </ul>
@@ -150,7 +150,7 @@
 
 @if (TempData["Alerta"] != null)
 {
-<script>
+    <script>
         @{var alerta = TempData["Alerta"] as AgilusFinan.Web.Bases.Alerta;}
         $.notify({ message: '@alerta.Mensagem' }, { type: '@alerta.Tipo' });
     </script>

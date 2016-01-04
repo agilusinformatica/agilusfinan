@@ -23,10 +23,10 @@ namespace AgilusFinan.Web.Controllers
         [Permissao]
         public ActionResult Liquidar(DateTime dataVencimento, int tituloRecorrenteId)
         {
-            ViewBag.TipoTitulo = "TituloPendente";
-            ViewBag.ContaId = new SelectList(new RepositorioConta().Listar(), "Id", "Nome", new RepositorioTituloRecorrente().BuscarPorId(tituloRecorrenteId).ContaId);
             RepositorioTituloRecorrente repo = new RepositorioTituloRecorrente();
             TituloRecorrente tituloR = repo.BuscarPorId(tituloRecorrenteId);
+            ViewBag.TipoTitulo = "TituloPendente";
+            ViewBag.ContaId = new SelectList(new RepositorioConta().Listar(), "Id", "Nome", tituloR.ContaId);
             TituloViewModel tituloVm =
                 new TituloViewModel()
                 {
