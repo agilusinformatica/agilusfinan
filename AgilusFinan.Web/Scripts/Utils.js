@@ -175,14 +175,15 @@
     Utils.convertFormatDate = convertFormatDate;
 
     function initializeDataTables(table) {
-        var columnTable = $(table + ' > thead  th');
-        var targetIndex = [];
+        var columnTable = $(table + " > thead  th");
+        var dateIndex = [];
 
         for (var i = 0; i < columnTable.length; i++) {
-            if (columnTable[i].innerHTML.indexOf("Data") > -1) {
-                targetIndex.push(i);
+            if ((columnTable[i].innerHTML.indexOf("Data") > -1) || (columnTable[i].innerHTML.indexOf("Vencimento") > -1)) {
+                dateIndex.push(i);
             }
         }
+        $(table).addClass("responsive no-wrap");
 
         $(table).DataTable({
             language: {
@@ -210,11 +211,17 @@
                 decimal: ","
             },
             columnDefs: [
-                { type: 'date-eu', targets: targetIndex }
+                { type: "date-eu", targets: dateIndex }
             ],
-            colReorder: true
+            colReorder: true,
+            responsive: true
         });
     }
     Utils.initializeDataTables = initializeDataTables;
+
+    function manterTela(form) {
+        form.append('<input type="hidden" id="novo" name="novo" value="1"/>');
+    }
+    Utils.manterTela = manterTela;
 })(Utils || (Utils = {}));
 //# sourceMappingURL=Utils.js.map

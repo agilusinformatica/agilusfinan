@@ -184,14 +184,15 @@ namespace AgilusFinan.Web.Controllers
             var boletobancario = Util.GerarBoleto(tituloId, modeloBoletoId);
             ViewBag.BoletoBancario = boletobancario.MontaHtmlEmbedded();
             ViewBag.TituloId = tituloId;
-
+            ViewBag.ModeloBoletoId = modeloBoletoId;
+            ViewBag.Email = new RepositorioRecebimento().BuscarPorId(tituloId).Pessoa.EmailFinanceiro;
             return View();
         }
 
         [HttpPost]
-        public ActionResult EnviarBoletoPorEmail(int tituloId, int modeloBoletoId)
+        public ActionResult EnviarBoletoPorEmail(int tituloId, int modeloBoletoId, string emailDestinatario)
         {
-            Util.EnviarBoletoPorEmail(tituloId, Server.MapPath(@"~/App_Data/teste.pdf"), modeloBoletoId);
+            Util.EnviarBoletoPorEmail(tituloId, Server.MapPath(@"~/App_Data/teste.pdf"), modeloBoletoId, emailDestinatario);
             return RedirectToAction("Index", "Recebimento");
         }
 
