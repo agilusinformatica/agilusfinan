@@ -1,9 +1,55 @@
 ﻿@{
     Layout = null;
 }
+<title>Boleto</title>
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryui")
+@Scripts.Render("~/bundles/bootstrap")
+@Styles.Render("~/Content/css")
 
 @Html.Raw(ViewBag.BoletoBancario)
 <form method="post" action="~/Recebimento/EnviarBoletoPorEmail">
     <input type="hidden" value="@ViewBag.TituloId" id="tituloId" name="tituloId" />
-    <input type="submit" value="Enviar por Email"/>
+    <input type="hidden" value="@ViewBag.ModeloBoletoId" id="modeloBoletoId" name="modeloBoletoId" />
+    <input type="hidden" id="emailDestinatario" name="emailDestinatario"  />
 </form>
+
+<button class="btn btn-default" id="enviar">Enviar por Email</button>
+
+
+<div id="EnviarEmail" class="dialog" title="Enviar E-Mail">
+    <div class="form-group">
+        <label for="email">E-mail Destinatário:</label>
+        <input class="form-control" type="email" id="email" value="@ViewBag.Email" />
+    </div>
+</div>
+<script>
+
+    var dialog = $("#EnviarEmail").dialog({
+            autoOpen: false,
+            height: 200,
+            width: 1500,
+            modal: true,
+            buttons: {
+                Ok: {
+                    text: "Enviar",
+                    click: function () {
+                        var email = $('#email').val();
+                        $('#emailDestinatario').val(email);
+                        $('form').submit();
+                        dialog.dialog("close");
+                    }
+                },
+                Cancel: {
+                    text: "Cancelar",
+                    click: function () {
+                        dialog.dialog("close");
+                    }
+                }
+            }
+    });
+
+    $('#enviar').click(function () {
+        dialog.dialog("open");
+    });
+</script>

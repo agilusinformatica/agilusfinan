@@ -129,13 +129,9 @@ textarea {
 
     /*Estilo apenas para os li's filhos'*/
     .menu ul:first-child {
-        border: 1px solid grey;
         font-size: 14px;
         top: 40px;
-        left: 12%;
-        right: 0;
-        width:120px;
-        
+        width:143px;
     }
 
     /*Troca de cores de fundo quando o mouse esta por cima.*/
@@ -146,6 +142,8 @@ textarea {
     .menu a {
         color: white;
         text-decoration: none;
+        margin-left: 3px;
+        margin-right: 10px;
     }
 
     /*Força links a manter a cor especificada após terem sido visitados.*/

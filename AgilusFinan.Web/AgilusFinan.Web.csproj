@@ -53,6 +53,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Ionic.Zip, Version=1.9.7.0, Culture=neutral, PublicKeyToken=6583c7c814667745, processorArchitecture=MSIL">
+      <HintPath>..\packages\DotNetZip.1.9.7\lib\net20\Ionic.Zip.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Ninject">
       <HintPath>..\packages\Ninject.3.2.0.0\lib\net45-full\Ninject.dll</HintPath>
@@ -66,6 +70,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -195,7 +200,8 @@
     <Content Include="Content\HelloTable.css" />
     <Content Include="Content\Images\agilus_steelblue.jpg" />
     <Content Include="Content\Images\agilus.jpg" />
-    <Content Include="Content\bootstrap-notify.min.js" />
+    <Content Include="Content\responsive.dataTables.min.css" />
+    <Content Include="Scripts\bootstrap-notify.min.js" />
     <Content Include="Content\Images\close.png" />
     <Content Include="Content\Images\icons\android-icon-144x144.png" />
     <Content Include="Content\Images\icons\android-icon-192x192.png" />
@@ -246,12 +252,15 @@
     <None Include="Properties\PublishProfiles\agilusfinan - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\datatables.min.js" />
+    <Content Include="Scripts\dataTables.responsive.min.js" />
     <Content Include="Scripts\date-eu.js" />
     <Content Include="Scripts\font-awesome.min.css" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-latest.js" />
+    <Content Include="Content\jquery-ui.css" />
+    <Content Include="Scripts\jquery-ui.js" />
     <Content Include="Scripts\jquery.mask.js" />
     <Content Include="Scripts\jquery.mask.min.js" />
     <Content Include="Scripts\jquery.tablesorter.js" />
