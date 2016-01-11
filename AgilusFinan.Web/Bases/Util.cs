@@ -138,21 +138,40 @@ namespace AgilusFinan.Web.Bases
             boleto.Sacado.Endereco = new BoletoNet.Endereco()
             {
                 Bairro = pessoa.Endereco.Bairro,
-                Logradouro = pessoa.Endereco.Logradouro,
+                End = pessoa.Endereco.Logradouro + ", " + pessoa.Endereco.Numero + " " + pessoa.Endereco.Complemento,
                 CEP = pessoa.Endereco.Cep,
                 Cidade = pessoa.Endereco.Cidade,
                 Complemento = pessoa.Endereco.Complemento,
                 Numero = pessoa.Endereco.Numero,
                 UF = pessoa.Endereco.Uf
             };
+            Instrucao item1 = new Instrucao(conta.Banco.Codigo);
+            item1.Descricao = modeloBoleto.Instrucao;
 
+            boleto.Instrucoes.Add(item1);
+
+            if(modeloBoleto.Juros > 0 ){
+                Instrucao item2 = new Instrucao(conta.Banco.Codigo);
+                decimal juros = boleto.ValorBoleto * modeloBoleto.Juros / 100 / 30;
+                item2.Descricao = "Após o vencimento cobrar juros de R$ " + Math.Round(juros,2) + " ao dia";
+                boleto.Instrucoes.Add(item2);
+            }
+
+            if (modeloBoleto.Multa > 0)
+            {
+                Instrucao item3 = new Instrucao(conta.Banco.Codigo);
+                decimal multa = boleto.ValorBoleto * modeloBoleto.Multa / 100;
+                item3.Descricao = "Após o vencimento cobrar multa de R$ " + Math.Round(multa,2);
+                boleto.Instrucoes.Add(item3);
+            }
+            boleto.PercMulta = modeloBoleto.Multa;
+            boleto.PercJurosMora = modeloBoleto.Juros;
 
             var boletobancario = new BoletoBancario();
             boletobancario.CodigoBanco = (short)conta.Banco.Codigo;
             boletobancario.Boleto = boleto;
+            boletobancario.OcultarEnderecoSacado = false;
             boletobancario.Boleto.Valida();
-
-
 
             return boletobancario;
         }
@@ -172,10 +191,10 @@ namespace AgilusFinan.Web.Bases
             {
                 throw new Exception("Modelo de Boleto não definido");
             }
-
             //Incremento do Nosso número em Modelo de Boleto
             modeloBoleto.NossoNumero++;
             repoModeloBoleto.Alterar(modeloBoleto);
+
 
             //Cedente
             var c = new Cedente(empresa.CpfCnpj, empresa.Nome, conta.Agencia, conta.ContaCorrente.Split('-')[0], conta.ContaCorrente.Split('-')[1]);
@@ -185,12 +204,13 @@ namespace AgilusFinan.Web.Bases
             Boleto boleto = new Boleto(dataVencimento, valor, modeloBoleto.Carteira, modeloBoleto.NossoNumero.ToString(), c, new EspecieDocumento(numeroBanco));
             boleto.NumeroDocumento = "12345891";
 
+            
             //Sacado
             boleto.Sacado = new Sacado(pessoa.Cpf, pessoa.Nome);
             boleto.Sacado.Endereco = new BoletoNet.Endereco()
             {
                 Bairro = pessoa.Endereco.Bairro,
-                Logradouro = pessoa.Endereco.Logradouro,
+                End = pessoa.Endereco.Logradouro + ", " + pessoa.Endereco.Numero + " " + pessoa.Endereco.Complemento,
                 CEP = pessoa.Endereco.Cep,
                 Cidade = pessoa.Endereco.Cidade,
                 Complemento = pessoa.Endereco.Complemento,
@@ -198,19 +218,18 @@ namespace AgilusFinan.Web.Bases
                 UF = pessoa.Endereco.Uf
             };
 
-
             var boletobancario = new BoletoBancario();
             boletobancario.CodigoBanco = (short)conta.Banco.Codigo;
             boletobancario.Boleto = boleto;
+            boletobancario.OcultarEnderecoSacado = false;
             boletobancario.Boleto.Valida();
 
             return boletobancario;
         }
 
-        public static void EnviarBoletoPorEmail(int tituloId, string arquivoTemporario, int modeloBoletoId)
+        public static void EnviarBoletoPorEmail(int tituloId, string arquivoTemporario, int modeloBoletoId, string emailDestinatario)
         {
             var titulo = new RepositorioRecebimento().BuscarPorId(tituloId);
-            var emailDestinatario = titulo.Pessoa.EmailFinanceiro;
             var emailRemetente = titulo.Empresa.EmailFinanceiro;
 
 
@@ -230,7 +249,6 @@ namespace AgilusFinan.Web.Bases
             var emailDestinatario = titulo.Pessoa.EmailFinanceiro;
             var emailRemetente = titulo.Empresa.EmailFinanceiro;
 
-
             var boleto = Util.GerarBoleto(tituloRecorrenteId, valor, dataVencimento, modeloBoletoId);
             GeradorPdf.HtmlParaPdf(boleto.MontaHtmlEmbedded(false, true), arquivoTemporario);
             var anexos = new List<string>();
@@ -238,6 +256,36 @@ namespace AgilusFinan.Web.Bases
             var email = new Email(emailDestinatario, "Teste de envio de boleto pelo agilus finan", "Teste Boleto", emailRemetente, anexos);
             email.DispararMensagem();
             System.IO.File.Delete(arquivoTemporario);
+        }
+
+        public static void EnviarBoletoPorEmail(LoteBoleto loteBoleto, string arquivoTemporario)
+        {
+            string emailDestinatario = "";
+            string emailRemetente = "";
+            BoletoBancario boleto = null;
+
+            if (loteBoleto.TituloId != null)
+            {
+                var titulo = new RepositorioRecebimento().BuscarPorId((int)loteBoleto.TituloId);
+                emailDestinatario = loteBoleto.EmailDestinatario;
+                emailRemetente = titulo.Empresa.EmailFinanceiro;
+                boleto = Util.GerarBoleto((int)loteBoleto.TituloId, loteBoleto.ModeloBoletoId);
+            }
+            if (loteBoleto.TituloRecorrenteId != null)
+            {
+                var titulo = new RepositorioTituloRecorrente().BuscarPorId((int)loteBoleto.TituloRecorrenteId);
+                emailDestinatario = loteBoleto.EmailDestinatario;
+                emailRemetente = titulo.Empresa.EmailFinanceiro;
+                boleto = Util.GerarBoleto((int)loteBoleto.TituloRecorrenteId, loteBoleto.Valor, loteBoleto.DataVencimento, loteBoleto.ModeloBoletoId);
+            }
+
+            GeradorPdf.HtmlParaPdf(boleto.MontaHtmlEmbedded(false, true), arquivoTemporario);
+            var anexos = new List<string>();
+            anexos.Add(arquivoTemporario);
+            var email = new Email(emailDestinatario, "Teste de envio de boleto pelo agilus finan", "Teste Boleto", emailRemetente, anexos);
+            email.DispararMensagem();
+            System.IO.File.Delete(arquivoTemporario);
+
         }
 
         public static DateTime PrimeiroDiaMes(DateTime data)
@@ -248,6 +296,18 @@ namespace AgilusFinan.Web.Bases
         public static DateTime UltimoDiaMes(DateTime data)
         {
             return PrimeiroDiaMes(data).AddMonths(1).AddDays(-1).Date;
+        }
+
+        public static void SalvarBoleto(int tituloId, string arquivoTemporario, int modeloBoletoId)
+        {
+            var boleto = Util.GerarBoleto(tituloId, modeloBoletoId);
+            GeradorPdf.HtmlParaPdf(boleto.MontaHtmlEmbedded(false, true), arquivoTemporario);
+        }
+
+        public static void SalvarBoleto(int tituloRecorrenteId, decimal valor, DateTime dataVencimento, string arquivoTemporario, int modeloBoletoId)
+        {
+            var boleto = Util.GerarBoleto(tituloRecorrenteId, valor, dataVencimento, modeloBoletoId);
+            GeradorPdf.HtmlParaPdf(boleto.MontaHtmlEmbedded(false, true), arquivoTemporario);
         }
 
     }

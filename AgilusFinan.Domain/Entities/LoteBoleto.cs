@@ -12,8 +12,8 @@ namespace AgilusFinan.Domain.Entities
         public DateTime DataVencimento { get; set; }
         public decimal Valor { get; set; }
         public string NomePessoa { get; set; }
-        public bool Email { get; set; }
         public bool Boleto { get; set; }
         public int ModeloBoletoId { get; set; }
+        public string EmailDestinatario { get; set; }
     }
 }

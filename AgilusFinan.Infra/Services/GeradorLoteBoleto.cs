@@ -33,10 +33,10 @@ namespace AgilusFinan.Infra.Services
                         TituloRecorrenteId = titulo.TituloRecorrenteId,
                         Boleto = true, 
                         DataVencimento = titulo.DataVencimento,
-                        Email = true,
                         NomePessoa = titulo.NomePessoa,
                         Valor = titulo.Valor.GetValueOrDefault(0.0M),
-                        ModeloBoletoId = modeloBoleto.Id
+                        ModeloBoletoId = modeloBoleto.Id,
+                        EmailDestinatario = new RepositorioPessoa().BuscarPorId(titulo.PessoaId).EmailFinanceiro
                     });
 	        }
             return loteboletos;

@@ -5,11 +5,11 @@
 <table class="table table-hover table-bordered">
     <thead>
         <tr>
-            <th>Boleto</th>
-            <th>E-mail</th>
+            <th><input type="checkbox" id="check" checked /></th>
             <th>Pessoa</th>
             <th>Valor</th>
             <th>Data de Vencimento</th>
+            <th>E-mail Destinatário</th>
         </tr>
     </thead>
     <tbody>
@@ -17,7 +17,6 @@
         {
             <tr>
                 <td><input class="form-control checkbox" id="item_Boleto" name="item.Boleto" type="checkbox" @(item.Boleto ? "checked" : "")/></td>
-                <td><input class="form-control checkbox" id="item_Email" name="item.Email" type="checkbox" @(item.Email ? "checked" : "") /></td>
                 <td>@item.NomePessoa</td>
                 @if (item.Valor == 0)
                 {
@@ -28,18 +27,29 @@
                     <td>@item.Valor.ToString("C")</td>
                 }
                 <td>@item.DataVencimento.GetDateTimeFormats()[0]</td>
+                <td>@Html.EditorFor(m => item.EmailDestinatario, new { htmlAttributes = new { @class = "form-control" }}) </td>
                 <td style="display:none;">@item.TituloId</td>
                 <td style ="display:none;">@item.TituloRecorrenteId</td>
                 <td style="display:none;">@item.ModeloBoletoId</td>
+
 </tr>
         }
     </tbody>
 </table>
 
-<button class="btn btn-default" id="enviar" onclick="GerarBoletos()">Gerar e Enviar</button>
+<button class="btn btn-default" id="enviar" onclick="GerarBoletos()" ><span class="glyphicon glyphicon-envelope" aria-hiddden="true"></span> Enviar</button>
+
+<button class="btn btn-default" id="Baixar" onclick="BaixarBoletos()"><span class="glyphicon glyphicon-save" aria-hiddden="true"></span> Baixar</button>
 
 <script>
     Utils.createMask(document.getElementById("item_Valor"), "moeda");
+
+    $(document).ready(function () {
+        $('#check').change(function () {
+            $('.checkbox').prop('checked', $(this).prop('checked'));
+        });
+    });
+
 
     function GerarBoletos() {
         var boletosJson = GetData();
@@ -49,6 +59,27 @@
             data: { "postedData": boletosJson },
             success: function () {
                 window.location = '@Url.Action("Index", "LoteBoleto")';
+            }, 
+            error: function (object) {
+                //Capturando erro no objeto htmlResponse
+                var htmlResponse = document.createElement('html');
+                htmlResponse.innerHTML = object.responseText;
+                var erro = htmlResponse.querySelector('h4').textContent;
+
+                location.href = '@Url.Action("Erro", "LoteBoleto")?erro=' + erro
+            }
+        });
+    }
+
+    function BaixarBoletos() {
+        var boletosJson = GetData();
+        $.ajax({
+            type: "POST",
+            url: '/LoteBoleto/BaixarBoletos',
+            data: { "postedData": boletosJson },
+            success: function (data) {
+                window.location = data;
+                $(this).remove(data);
             },
             error: function (object) {
                 //Capturando erro no objeto htmlResponse
@@ -67,17 +98,17 @@
         tabletr.each(function (i) {
             var titulo = {};
             var $tds = $(this).children();
-            
+
             titulo.Boleto = $tds.eq(0).children().is(":checked");
-            titulo.Email = $tds.eq(1).children().is(":checked");
-            titulo.NomePessoa = $tds.eq(2).text();
-            if ($tds.eq(3).children().length) {
-                titulo.Valor = $tds.eq(3).children().val().replace(',', '.');
+            titulo.NomePessoa = $tds.eq(1).text();
+            if ($tds.eq(2).children().length) {
+                titulo.Valor = $tds.eq(2).children().val().replace('.', '').replace(',', '.');
             }
             else {
-                titulo.Valor = $tds.eq(3).text().split(' ')[1].replace(',', '.');
+                titulo.Valor = $tds.eq(2).text().split(' ')[1].replace('.', '').replace(',', '.');
             }
-            titulo.DataVencimento = Utils.convertFormatDate($($tds.eq(4)).text());
+            titulo.DataVencimento = Utils.convertFormatDate($($tds.eq(3)).text());
+            titulo.EmailDestinatario = $tds.eq(4).children().val();
             titulo.TituloId = $tds.eq(5).text();
             titulo.TituloRecorrenteId = $tds.eq(6).text();
             titulo.ModeloBoletoId = $tds.eq(7).text();

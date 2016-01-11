@@ -26,7 +26,8 @@ namespace AgilusFinan.Web
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js"));
+                      "~/Scripts/respond.js",
+                      "~/Scripts/bootstrap-notify.min.js"));
             
             bundles.Add(new ScriptBundle("~/bundles/agilusLibrary").Include(
                       "~/Scripts/Utils.js"));
@@ -34,11 +35,17 @@ namespace AgilusFinan.Web
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
-                      "~/Content/datatables.min.css"));
+                      "~/Content/datatables.min.css",
+                      "~/Content/jquery-ui.css",
+                      "~/Content/responsive.dataTables.min.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/datatables").Include(
                     "~/Scripts/datatables.min.js",
-                    "~/Scripts/date-eu.js"));
+                    "~/Scripts/date-eu.js",
+                    "~/Scripts/dataTables.responsive.min.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
+                    "~/Scripts/jquery-ui.js"));
 
         }
     }
