@@ -389,6 +389,7 @@
     <Content Include="Views\Titulo\IndexData.cshtml" />
     <Content Include="Views\Transferencia\IndexData.cshtml" />
     <Content Include="Views\Importacao\_VinculoTitulos.cshtml" />
+    <Content Include="Views\Importacao\_CadastroTitulo.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

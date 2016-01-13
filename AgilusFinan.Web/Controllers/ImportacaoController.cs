@@ -22,6 +22,10 @@ namespace AgilusFinan.Web.Controllers
         [HttpPost]
         public ActionResult ConciliacaoExtrato(HttpPostedFileBase file)
         {
+            ViewBag.ContaId = new SelectList(new RepositorioConta().Listar(), "Id", "Nome", new RepositorioConta().Listar(x => x.Padrao).Any() ? new RepositorioConta().Listar(x => x.Padrao).Single().Id : 0);
+            ViewBag.ListaCategorias = Util.CategoriasIdentadas(DirecaoCategoria.Pagamento);
+            ViewBag.PessoaId = new SelectList(new RepositorioPessoa().Listar(), "Id", "Nome");
+            ViewBag.CentroCustoId = new SelectList(new RepositorioCentroCusto().Listar(), "Id", "Nome");
             return View("ConciliacaoExtrato", Parser.InterpretarOfx(file.InputStream));
         }
 
