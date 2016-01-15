@@ -39,7 +39,7 @@
             <div class="col-md-10">
                 <div class="input-group">
                     <span class="input-group-addon" id="basic-addon2">@@</span>
-                    @Html.EditorFor(model => model.EmailFinanceiro, new { htmlAttributes = new { @class = "form-control", aria_describedby="basic-addon2" } })
+                    @Html.EditorFor(model => model.EmailFinanceiro, new { htmlAttributes = new { @class = "form-control", aria_describedby = "basic-addon2" } })
                 </div>
                 @Html.ValidationMessageFor(model => model.EmailFinanceiro, "", new { @class = "text-danger" })
             </div>

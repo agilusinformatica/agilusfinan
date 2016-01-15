@@ -37,7 +37,9 @@ namespace AgilusFinan.Web
                       "~/Content/site.css",
                       "~/Content/datatables.min.css",
                       "~/Content/jquery-ui.css",
-                      "~/Content/responsive.dataTables.min.css"));
+                      "~/Content/responsive.dataTables.min.css",
+                      "~/Content/font-awesome.min.css"));
+
 
             bundles.Add(new ScriptBundle("~/bundles/datatables").Include(
                     "~/Scripts/datatables.min.js",

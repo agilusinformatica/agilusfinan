@@ -38,8 +38,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net40\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="NReco.PdfGenerator, Version=1.1.11.0, Culture=neutral, PublicKeyToken=231663d50a41b451, processorArchitecture=MSIL">
-      <HintPath>..\packages\NReco.PdfGenerator.1.1.11.0\lib\net20\NReco.PdfGenerator.dll</HintPath>
+    <Reference Include="NReco.PdfGenerator, Version=1.1.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NReco.PdfGenerator.1.1.7.0\lib\net20\NReco.PdfGenerator.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -253,6 +253,14 @@
     <Compile Include="Migrations\201512221216129_AdicionaNomeEmModeloBoleto.Designer.cs">
       <DependentUpon>201512221216129_AdicionaNomeEmModeloBoleto.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201601141108378_CampoTextoEmailemModeloBoleto.cs" />
+    <Compile Include="Migrations\201601141108378_CampoTextoEmailemModeloBoleto.Designer.cs">
+      <DependentUpon>201601141108378_CampoTextoEmailemModeloBoleto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601141642142_AdicionaAssuntoEmailemModeloBoleto.cs" />
+    <Compile Include="Migrations\201601141642142_AdicionaAssuntoEmailemModeloBoleto.Designer.cs">
+      <DependentUpon>201601141642142_AdicionaAssuntoEmailemModeloBoleto.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AcessosUsuario.cs" />
@@ -447,6 +455,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201512221216129_AdicionaNomeEmModeloBoleto.resx">
       <DependentUpon>201512221216129_AdicionaNomeEmModeloBoleto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601141108378_CampoTextoEmailemModeloBoleto.resx">
+      <DependentUpon>201601141108378_CampoTextoEmailemModeloBoleto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601141642142_AdicionaAssuntoEmailemModeloBoleto.resx">
+      <DependentUpon>201601141642142_AdicionaAssuntoEmailemModeloBoleto.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -16,7 +16,7 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td><input class="form-control checkbox" id="item_Boleto" name="item.Boleto" type="checkbox" @(item.Boleto ? "checked" : "")/></td>
+                <td><input class="checkbox" id="item_Boleto" name="item.Boleto" type="checkbox" @(item.Boleto ? "checked" : "")/></td>
                 <td>@item.NomePessoa</td>
                 @if (item.Valor == 0)
                 {
@@ -79,10 +79,9 @@
             data: { "postedData": boletosJson },
             success: function (data) {
                 window.location = data;
-                $(this).remove(data);
             },
             error: function (object) {
-                //Capturando erro no objeto htmlResponse
+                //Capturando erro no objeto htmlResponse 
                 var htmlResponse = document.createElement('html');
                 htmlResponse.innerHTML = object.responseText;
                 var erro = htmlResponse.querySelector('h4').textContent;

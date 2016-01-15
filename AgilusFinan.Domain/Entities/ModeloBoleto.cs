@@ -18,5 +18,7 @@ namespace AgilusFinan.Domain.Entities
         public decimal Multa { get; set; }
         public string Instrucao { get; set; }
         public int NossoNumero { get; set; }
+        public string AssuntoEmail { get; set; }
+        public string TextoEmail { get; set; }
     }
 }

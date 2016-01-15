@@ -64,6 +64,9 @@ namespace AgilusFinan.Infra.Context
             modelBuilder.Entity<Usuario>().Property(u => u.Email).IsRequired();
             modelBuilder.Entity<Usuario>().Property(u => u.Senha).IsRequired();
             modelBuilder.Entity<Titulo>().Property(p => p.Observacao).HasMaxLength(500);
+            modelBuilder.Entity<ModeloBoleto>().Property(p => p.TextoEmail).IsMaxLength();
+
+
         }
     }
 }

@@ -22,5 +22,19 @@ namespace AgilusFinan.Web.Controllers
             base.PreAlteracao(model);
             ViewBag.ContaId = new SelectList(new RepositorioConta().Listar(), "Id", "Nome", model.ContaId);
         }
+
+        [ValidateInput(false)]
+        [HttpPost]
+        public override ActionResult Create(ModeloBoleto model)
+        {
+            return base.Create(model);
+        }
+
+        [ValidateInput(false)]
+        [HttpPost]
+        public override ActionResult Edit(ModeloBoleto model)
+        {
+            return base.Edit(model);
+        }
     }
 }
