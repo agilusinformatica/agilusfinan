@@ -28,8 +28,16 @@
         @Html.HiddenFor(model => model.DataCadastro)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.DiaVencimento, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Recorrencia, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
+                @Html.EnumDropDownListFor(model => model.Recorrencia, String.Empty, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Recorrencia, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DiaVencimento, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10" id="SelecaoDiaVencimento">
                 @Html.EditorFor(model => model.DiaVencimento, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.DiaVencimento, "", new { @class = "text-danger" })
             </div>
@@ -40,14 +48,6 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Valor, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Valor, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Recorrencia, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EnumDropDownListFor(model => model.Recorrencia, String.Empty, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Recorrencia, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -112,5 +112,38 @@
 }
 
 <script>
-    Utils.createMask(document.getElementById("Valor"), "moeda");    
+    Utils.createMask(document.getElementById("Valor"), "moeda");
+
+    $("#Recorrencia").change(CarregarDiasSemana);
+    CarregarDiasSemana();
+
+    function CarregarDiasSemana()
+    {
+        var value = $("#DiaVencimento").val();
+
+        $("#SelecaoDiaVencimento").html("");
+        var tiposRecorrencia = $("#Recorrencia");
+        if (tiposRecorrencia.val() == 0)
+        {
+            document.getElementById("SelecaoDiaVencimento").innerHTML =
+                   '<select id="DiaVencimento" name="DiaVencimento" class="form-control">' +
+                   '<option></option>' +
+                   '<option value="1">Domingo</option>' +
+                   '<option value="2">Segunda-feira</option>' +
+                   '<option value="3">Terça-feira</option>' +
+                   '<option value="4">Quarta-feira</option>' +
+                   '<option value="5">Quinta-feira</option>' +
+                   '<option value="6">Sexta-feira</option>' +
+                   '<option value="7">Sábado</option></select>';
+        }
+        else
+        {
+            document.getElementById("SelecaoDiaVencimento").innerHTML =
+                   '<input type="number" id="DiaVencimento" name="DiaVencimento" class="form-control"/>';
+        }
+
+        $("#DiaVencimento").val(value);
+    }
+
 </script>
+

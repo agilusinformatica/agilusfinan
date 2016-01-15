@@ -1,9 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using AgilusFinan.Domain.Entities;
 using AgilusFinan.Infra.Services;
+using AgilusFinan.Web.Bases;
+using Newtonsoft.Json;
+using System.Globalization;
 
 namespace AgilusFinan.Web.Controllers
 {
@@ -18,27 +22,36 @@ namespace AgilusFinan.Web.Controllers
         [HttpPost]
         public ActionResult ConciliacaoExtrato(HttpPostedFileBase file)
         {
-            var vinculoLista = new List<ItemVinculoBanco>();
-            var extrato = Parser.InterpretarOfx(file.InputStream);
-            var dataInicial = extrato.Select(d => d.DataLancamento).Min();
-            var dataFinal = extrato.Select(d => d.DataLancamento).Max();
-            var titulosPendentes = GeradorTitulosPendentes.ChamarProcedimento(dataInicial, dataFinal);
+            ViewBag.ContaId = new SelectList(new RepositorioConta().Listar(), "Id", "Nome", new RepositorioConta().Listar(x => x.Padrao).Any() ? new RepositorioConta().Listar(x => x.Padrao).Single().Id : 0);
+            ViewBag.ListaCategorias = Util.CategoriasIdentadas(DirecaoCategoria.Pagamento);
+            ViewBag.PessoaId = new SelectList(new RepositorioPessoa().Listar(), "Id", "Nome");
+            ViewBag.CentroCustoId = new SelectList(new RepositorioCentroCusto().Listar(), "Id", "Nome");
+            return View("ConciliacaoExtrato", Parser.InterpretarOfx(file.InputStream));
+        }
 
-            foreach (var item in extrato)
-            {
-                var titulos = titulosPendentes.FindAll(t => t.Valor == item.Valor);
-                vinculoLista.Add(new ItemVinculoBanco { ItemExtrato = item, TitulosPendentes = titulos});    
+        public PartialViewResult VinculoTitulos(string tituloAConciliar, string dataInicial, string dataFinal)
+        {
+            var titulo = JsonConvert.DeserializeObject<ConciliacaoExtrato>(tituloAConciliar);
 
-            }
+            DirecaoCategoria direcao = titulo.TipoLancamento == TipoLancamento.Credito ? DirecaoCategoria.Recebimento : DirecaoCategoria.Pagamento;
+            
+            var dI = DateTime.ParseExact(dataInicial, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            var dF = DateTime.ParseExact(dataFinal, "dd/MM/yyyy", CultureInfo.InvariantCulture);
 
-            return View("ConciliacaoExtrato", vinculoLista);
+            var titulosPendentes = GeradorTitulosPendentes.ChamarProcedimento(dI, dF, null).Where(t => t.Direcao == direcao).ToList();
+
+            return PartialView("_VinculoTitulos", titulosPendentes);
+        }
+
+
+        public JsonResult ConcilarTitulos(string titulosAConciliar)
+        {
+            //magic happens
+
+            //then..
+            return new JsonResult{ Data = JsonConvert.SerializeObject(titulosAConciliar)};
         }
 
     }
 
-    public class ItemVinculoBanco
-    {
-        public ConciliacaoExtrato ItemExtrato { get; set; }
-        public List<TituloPendente> TitulosPendentes { get; set; }
-    }
 }

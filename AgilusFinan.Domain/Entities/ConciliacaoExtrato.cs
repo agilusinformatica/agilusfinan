@@ -9,10 +9,10 @@ namespace AgilusFinan.Domain.Entities
     {
         //Objeto que encapsula as informações contidas em <STMTTRN> do arquivo OFX
         public int? Id { get; set; }
-        public tipoLancamento TipoLancamento { get; set; }
+        public TipoLancamento TipoLancamento { get; set; }
         public DateTime DataLancamento { get; set; }
-        public double Valor { get; set; }
+        public decimal Valor { get; set; }
         public string Descricao { get; set; }
     }
-    public enum tipoLancamento { Debito, Credito }
+    public enum TipoLancamento { Debito, Credito }
 }

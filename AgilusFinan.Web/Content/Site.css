@@ -112,14 +112,17 @@ textarea {
         color: white;
         background-color: steelblue;
         border: 1px solid steelblue;
-        padding: 3px;
+        padding: 0;
         list-style: none;
     }
 
     .menu > li {
         position: relative;
-        margin-left: 10px;
-        margin-right: 10px;
+        padding-bottom: 38px;
+        padding-right: 15px;
+        padding-left: 15px;
+        margin: 0;
+        height: 30px;
         font-size: 16px;
         text-align: left;
     }
@@ -127,7 +130,8 @@ textarea {
     /*Estilo apenas para os li's filhos'*/
     .menu ul:first-child {
         font-size: 14px;
-        width: 120px;
+        top: 40px;
+        width:143px;
     }
 
     /*Troca de cores de fundo quando o mouse esta por cima.*/
@@ -138,6 +142,8 @@ textarea {
     .menu a {
         color: white;
         text-decoration: none;
+        margin-left: 3px;
+        margin-right: 10px;
     }
 
     /*Força links a manter a cor especificada após terem sido visitados.*/
