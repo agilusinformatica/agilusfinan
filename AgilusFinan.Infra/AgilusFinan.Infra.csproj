@@ -298,7 +298,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <Fakes Include="Fakes\NReco.PdfGenerator.fakes" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

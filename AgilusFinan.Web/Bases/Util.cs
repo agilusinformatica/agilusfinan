@@ -309,10 +309,10 @@ namespace AgilusFinan.Web.Bases
             var emailRemetente = titulo.Empresa.EmailFinanceiro;
 
             var boleto = Util.GerarBoleto(tituloId, modeloBoletoId);
-            //GeradorPdf.HtmlParaPdf(boleto.MontaHtmlEmbedded(false, true), arquivoTemporario);
-            //var anexos = new List<string>();
-            //anexos.Add(arquivoTemporario);
-            var email = new Email(emailDestinatario, TextoEmail, AssuntoEmail, emailRemetente);
+            GeradorPdf.HtmlParaPdf(boleto.MontaHtmlEmbedded(false, true), arquivoTemporario);
+            var anexos = new List<string>();
+            anexos.Add(arquivoTemporario);
+            var email = new Email(emailDestinatario, TextoEmail, AssuntoEmail, emailRemetente, anexos);
             email.DispararMensagem();
             System.IO.File.Delete(arquivoTemporario);
 
@@ -326,7 +326,7 @@ namespace AgilusFinan.Web.Bases
             var modeloBoleto = new RepositorioModeloBoleto().BuscarPorId(modeloBoletoId);
 
             var boleto = Util.GerarBoleto(tituloRecorrenteId, valor, dataVencimento, modeloBoletoId);
-            //GeradorPdf.HtmlParaPdf(boleto.MontaHtmlEmbedded(false, true), arquivoTemporario);
+            GeradorPdf.HtmlParaPdf(boleto.MontaHtmlEmbedded(false, true), arquivoTemporario);
             var anexos = new List<string>();
             anexos.Add(arquivoTemporario);
             var email = new Email(emailDestinatario, modeloBoleto.TextoEmail, "Teste Boleto", emailRemetente, anexos);
@@ -356,7 +356,7 @@ namespace AgilusFinan.Web.Bases
                 boleto = Util.GerarBoleto((int)loteBoleto.TituloRecorrenteId, loteBoleto.Valor, loteBoleto.DataVencimento, loteBoleto.ModeloBoletoId);
             }
 
-            //GeradorPdf.HtmlParaPdf(boleto.MontaHtmlEmbedded(false, true), arquivoTemporario);
+            GeradorPdf.HtmlParaPdf(boleto.MontaHtmlEmbedded(false, true), arquivoTemporario);
             var anexos = new List<string>();
             anexos.Add(arquivoTemporario);
             var email = new Email(emailDestinatario, modeloBoleto.TextoEmail, "Teste Boleto", emailRemetente, anexos);
@@ -378,13 +378,13 @@ namespace AgilusFinan.Web.Bases
         public static void SalvarBoleto(int tituloId, string arquivoTemporario, int modeloBoletoId)
         {
             var boleto = Util.GerarBoleto(tituloId, modeloBoletoId);
-            //GeradorPdf.HtmlParaPdf(boleto.MontaHtmlEmbedded(false, true), arquivoTemporario);
+            GeradorPdf.HtmlParaPdf(boleto.MontaHtmlEmbedded(false, true), arquivoTemporario);
         }
 
         public static void SalvarBoleto(int tituloRecorrenteId, decimal valor, DateTime dataVencimento, string arquivoTemporario, int modeloBoletoId)
         {
             var boleto = Util.GerarBoleto(tituloRecorrenteId, valor, dataVencimento, modeloBoletoId);
-            //GeradorPdf.HtmlParaPdf(boleto.MontaHtmlEmbedded(false, true), arquivoTemporario);
+            GeradorPdf.HtmlParaPdf(boleto.MontaHtmlEmbedded(false, true), arquivoTemporario);
         }
 
     }
