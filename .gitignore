@@ -191,3 +191,5 @@ ModelManifest.xml
 #TypeScript
 AgilusFinan.Web/Scripts/HelloTable.js
 AgilusFinan.Web/Scripts/Utils.js
+/AgilusFinan.Web/Scripts/HelloTable.js.map
+/AgilusFinan.Web/Scripts/Utils.js.map
