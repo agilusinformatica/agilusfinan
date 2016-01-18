@@ -21,7 +21,9 @@
 </div>
 
 <div id="cadastroTituloDialog" class="dialog" title="Cadastrar título">
-         @Html.Partial("_CadastroTitulo", new TituloViewModel())
+    <div class="form-horizontal">
+        @Html.Partial("_CadastroTitulo", new TituloViewModel())
+    </div>
 </div>
 
 
@@ -449,6 +451,11 @@
             }
             return false;
         }
+
+        //Titulos Criados
+
+
+
 
         //Eventos
         var initEvents = function () {

@@ -551,7 +551,6 @@
     <Content Include="Views\Titulo\IndexData.cshtml" />
     <Content Include="Views\Transferencia\IndexData.cshtml" />
     <Content Include="Views\Importacao\_VinculoTitulos.cshtml" />
-    <Content Include="Views\Importacao\_CadastroTitulo.cshtml" />
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce-small.woff" />
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce-small.ttf" />
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce-small.json" />
@@ -562,6 +561,7 @@
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce.eot" />
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\readme.md" />
     <Content Include="Scripts\tinymce\langs\readme.md" />
+    <Content Include="Views\Shared\_CadastroTitulo.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
