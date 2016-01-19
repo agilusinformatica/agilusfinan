@@ -24,6 +24,7 @@
     </div>
 </div>
 
+<button class="button" id="efetivar">Efetivar</button>
 
 <div class="item-vinculo">
     @foreach (var vinculo in Model)
@@ -43,7 +44,7 @@
 
                         <tbody>
                             <tr>
-                                <td>@vinculo.DataLancamento</td>
+                                <td>@vinculo.DataLancamento.Date.ToShortDateString()</td>
                                 <td>@vinculo.Descricao</td>
                                 <td>@vinculo.Valor</td>
                                 <td>@vinculo.TipoLancamento</td>
@@ -67,6 +68,27 @@
                                         <th>Data de vencimento</th>
                                         <th>Acréscimos</th>
                                         <th>Descontos</th>
+                                    </tr>
+                                </thead>
+
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table" id="titulosCriar">
+                                <thead>
+                                    <tr>
+                                        <th>Operação</th>
+                                        <th>Categoria</th>
+                                        <th>Centro Custo</th>
+                                        <th>Competencia</th>
+                                        <th>DataVencimento</th>
+                                        <th>Descricao</th>
+                                        <th>Observaçao</th>
+                                        <th>Pessoa </th>
+                                        <th>Valor</th>
                                     </tr>
                                 </thead>
 
@@ -99,9 +121,8 @@
     var teste;
     
     //objeto extrato
-    var Task = function (id, itemExtrato) {
+    var Task = function (id) {
         this.itemExtratoId = id;
-        this.itemExtrato = itemExtrato;
         this.isNew = true;
         this.titulosSelecionados = [];
         this.titulosIncluidos = [];
@@ -138,9 +159,8 @@
         };
 
         return {
-            itemExtratoId: id,
+            itemExtratoId: this.itemExtratoId,
             selectionado: this.selecionado,
-            itemExtrato: this.itemExtrato,
             isNew: this.isNew,
             titulosSelecionados: this.titulosSelecionados,
             titulosIncluidos: this.titulosIncluidos,
@@ -155,10 +175,9 @@
         //variaveis
         var tasks = [];
         var task = {};
-        var extratoElement;
+        var extratoElement;        
         var itemExtrato = {};
         var taskUndo = {};
-        var itemExtratoId;
         var valorTotal;
 
         //Metodos
@@ -176,9 +195,9 @@
 
         var getItemExtrato = function() {
             var extratoColunas = extratoElement.find("table > tbody > tr > td");
-            itemExtrato.DataLancamento = convertDate(extratoColunas[0].innerHTML);
+            itemExtrato.DataLancamento = convertDate(extratoColunas[0].innerHTML).substring(0, 10);
             itemExtrato.Descricao = extratoColunas[1].innerHTML;
-            itemExtrato.Valor = parseFloat(extratoColunas[2].innerHTML.replace(",", "."));
+            itemExtrato.Valor = parseFloat(extratoColunas[2].innerHTML.replace(",", ".")).toFixed(2);
             itemExtrato.TipoLancamento = extratoColunas[3].innerHTML;
 
             return itemExtrato;
@@ -191,24 +210,24 @@
             titulo.TituloId = Utils.getValue(tr.find('[name=TituloId]')) == ""? null : Utils.getValue(tr.find('[name=TituloId]')) ;
             titulo.TituloRecorrenteId = Utils.getValue(tr.find('[name=TituloRecorrenteId]')) == ""? null : Utils.getValue(tr.find('[name=TituloRecorrenteId]'));
             titulo.Descricao = Utils.getValue(tr.find('[name=Descricao]'));
-            titulo.Valor = parseFloat(Utils.getValue(tr.find('[name=Valor]')).replace(',', '.'));
+            titulo.Valor = Math.round(parseFloat(Utils.getValue(tr.find('[name=Valor]')).replace('R$ ', '').replace(',', '.')), 2);
             
             titulo.Direcao = Utils.getValue(tr.find('[name=Direcao]'));
             titulo.DataVencimento = Utils.getValue(tr.find('[name=DataVencimento]')).substring(0,10);
-            titulo.Acrescimo = Utils.getValue(tr.find('[name=Acrescimo]'));
-            titulo.Desconto = Utils.getValue(tr.find('[name=Desconto]'));
+            titulo.Acrescimo = Utils.getValue(tr.find('[name=Acrescimo]')) != ''? parseFloat(Utils.getValue(tr.find('[name=Acrescimo]'))) : 0.00;
+            titulo.Desconto = titulo.Acrescimo = Utils.getValue(tr.find('[name=Acrescimo]')) != ''? parseFloat(Utils.getValue(tr.find('[name=Acrescimo]'))): 0.00;
             return titulo;
         }
 
         //Titulos Vinculados
         var limpaTitulosVinculados = function () {
             extratoElement.find('#titulosVinculados > tbody').remove();
+            extratoElement.find('#titulosCriar > tbody').remove();
         }
 
         var setTitulosVinculados = function (titulos, operacao) {
-            var table = extratoElement.find("#titulosVinculados");
-            limpaTitulosVinculados();
-
+            var tableVinculo = extratoElement.find("#titulosVinculados");
+            var tableCriar = extratoElement.find("#titulosCriar");
             for (var i = 0; i < titulos.length; i++) {
                 var tr = document.createElement('tr');
                 var td;
@@ -223,7 +242,15 @@
                     td.innerHTML = titulo[prop];
                     tr.appendChild(td);
                 }
-                table.append(tr);
+
+                if(operacao == 'vinculo'){
+                    tableVinculo.append(tr);
+                }
+                
+                if(operacao == 'novo'){
+                    tableCriar.append(tr);
+                }
+
             }
         }
 
@@ -274,27 +301,10 @@
         }
 
         var conciliarTitulos = function () {
-
-            var titulosAConciliar = {};
-            titulosAConciliar.extrato = task.itemExtrato;
-            titulosAConciliar.titulos = task.titulosSelecionados;
-
-            $.ajax({
-                type: "POST",
-                url: "@Url.Action("ConcilarTitulos")",
-                data: {
-                    titulosAConciliar: JSON.stringify(titulosAConciliar)
-                },
-                success: function(response) {
-                    var titulos = JSON.parse(JSON.parse(response)).titulos;
-                    setTitulosVinculados(titulos, 'vinculo');
-                    dialog.dialog("close");
-                },
-                error: function(error) {
-                    console.log(error);
-                }
-            });
-
+            limpaTitulosVinculados();
+            setTitulosVinculados(task.titulosSelecionados, 'vinculo');
+            setTitulosVinculados(task.titulosIncluidos, 'novo');
+            dialog.dialog("close");
         }
 
         var dialog = $("#dialog-form").dialog({
@@ -338,7 +348,10 @@
                 Ok: {
                     text: "Gravar",
                     id: "gravar",
-                    click: function() {
+                    click: function() {                        
+                        task.titulosIncluidos.push(JSON.parse(CadastroTitulo.getData()));
+                        conciliarTitulos();
+                        cadastroTituloDialog.dialog('close');
                     }
                 },
                 Cancel: {
@@ -368,7 +381,7 @@
             $.ajax({
                 type: "GET",
                 data: {
-                    tituloAConciliar: JSON.stringify(task.itemExtrato),
+                    tituloAConciliar: JSON.stringify(itemExtrato),
                     dataInicial: dI,
                     dataFinal: dF
                 },
@@ -385,16 +398,28 @@
 
         }
 
-        var findTask = function (itemExtratoId) {
+        var findTask = function (id) {
             var t;
+            extratoElement = $("[data-extratoId=" + id + "]");
+            itemExtrato = getItemExtrato(id);
+
             for (var i = 0; i < tasks.length; i++) {
-                if (tasks[i].itemExtratoId == itemExtratoId) {
+                if (tasks[i].itemExtratoId == id) {
                     t = tasks[i];
                     tasks[i].isNew = false;
+
                 }
 
             };
-            return t;
+
+            if(!t){
+                t = new Task(id);
+                task = t;
+                tasks.push(task);
+            }
+
+            
+            
         }
 
         var findTitulo = function(titulo){            
@@ -458,9 +483,9 @@
         }
 
         //Titulos Criados
-
-
-
+        var limpaCadastroTituloDialog = function(){
+            
+        }
 
         //Eventos
         var initEvents = function () {
@@ -497,20 +522,15 @@
         }
 
         $('.adicionarTitulo').click(function(){
+            findTask($(this).attr("data-botaoid"));
+            titulosSelecionadoskUndo = JSON.stringify(task.titulosSelecionados);
             cadastroTituloDialog.dialog('open');
         });
 
         $(".vincularTitulos").click(function () {
+            findTask($(this).attr("data-botaoid"));
 
-            itemExtratoId = $(this).attr("data-botaoid");
-
-            extratoElement = $("[data-extratoId=" + itemExtratoId + "]");
-            itemExtrato = getItemExtrato(itemExtratoId);
-
-            task = findTask(itemExtratoId)? findTask(itemExtratoId) : new Task(itemExtratoId, itemExtrato);
             titulosSelecionadoskUndo = JSON.stringify(task.titulosSelecionados);
-
-            teste = tasks;
 
             $("#dataInicial").val(Utils.primeiroDiaMes(itemExtrato.DataLancamento, 'MDY'));
             $("#dataFinal").val(Utils.ultimoDiaMes(itemExtrato.DataLancamento, 'MDY'));
@@ -518,13 +538,31 @@
             dialog.dialog("open");
             updateModal();
 
-            $("#valorExtrato").html(task.itemExtrato.Valor);
-
             consultarPeriodo(getTitulosPendentes);
-
-
             
         });
+
+        $('#efetivar').click(function(){
+            console.log(JSON.stringify(tasks));
+            $.ajax({
+                type: 'POST',
+                url:'@Url.Action("ConciliarTitulos")',
+                data: {
+                    titulosAVincular: JSON.stringify(tasks)
+                },
+                success:function(){
+                    console.log("Titulos enviado!");
+                },
+                error:function(err){
+                    console.log(err);
+                    console.log('Erro no ajax!');
+                }
+
+
+            })
+
+        });
+
     }());
 
 
@@ -609,32 +647,32 @@
         padding-bottom: 3px;
     }
 
-     #titulosAVincularLista {         
-         float: left;
-         border-left: 1px solid black;
-         border-right: 1px solid black;
-         border-bottom: 1px solid black;
-         border-top: 0;
-         /*width: 703px;*/
-         width: 703px;         
-         margin-left: -15px;
-         margin-top: -2px;
+     #titulosAVincularLista {
+         width: 0;
+         padding: 0;
+         height: 0;      
+         padding-right: 10px;
     }
 
+     #titulosAVincularLista input{     
+         width: 85px;
+     }
+
+    #titulosAVincularLista td{     
+         padding: 0 15px 0 15px;
+     }
+
+
     /*Lista de titulos já vinculados*/
-    #titulosVinculados{
-        table-layout: fixed;
-        font-size: 10px;
+    #titulosVinculados, #titulosCriar{        
+        font-size: 12px;        
     }
 
     #titulosVinculados th{
-        width: 80px;
         font-size: 12px;
     }
-
-    
+       
     #titulosVinculados > tbody > tr > td {
-        width: 100%;
         font-size: 12px;
     }
 
