@@ -8,10 +8,13 @@ using AgilusFinan.Infra.Services;
 using AgilusFinan.Web.Bases;
 using Newtonsoft.Json;
 using System.Globalization;
+using AgilusFinan.Web.ViewModels;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace AgilusFinan.Web.Controllers
 {
-    public class ImportacaoController : Controller
+    public class ImportacaoController : ControllerViewModelPadrao<Titulo, RepositorioRecebimento, TituloViewModel>
     {
         // GET: ConciliacaoExtrato
         public ActionResult Index()
@@ -44,12 +47,32 @@ namespace AgilusFinan.Web.Controllers
         }
 
 
-        public JsonResult ConcilarTitulos(string titulosAConciliar)
+        public ActionResult ConcilarTitulos(string titulosAConciliar)
         {
             //magic happens
 
+            DataTable tabelaTitulosNaoConciliados = new DataTable();
+            tabelaTitulosNaoConciliados.Columns.Add("id_titulo", typeof(int));
+            tabelaTitulosNaoConciliados.Columns.Add("valor", typeof(double));
+
+            List<TituloPendente> titulosNaoConciliados = new List<TituloPendente>(); //Objeto criado para o Json
+
+
+            foreach (var titulo in titulosNaoConciliados)
+	        {
+                tabelaTitulosNaoConciliados.Rows.Add(titulo.TituloId, titulo.Valor);
+	        }
+
+            //Responsabilidades do repositório
+
+            var parameter = new SqlParameter("@titulosSemVinculo", SqlDbType.Structured);
+            parameter.Value = tabelaTitulosNaoConciliados;
+            parameter.TypeName = "dbo.TabelaVinculoDeExtrato";
+            //db.Database.ExecuteSqlCommand("exec dbo.usp_SaveStudents @students", parameter);
+            
+
             //then..
-            return new JsonResult{ Data = JsonConvert.SerializeObject(titulosAConciliar)};
+            return View("ConciliacaoExtrato"); //Pensar o que deve ser retornado no final do processo
         }
 
     }
