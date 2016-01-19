@@ -3,15 +3,27 @@
 <table id="titulosAVincularLista">
     @foreach (var titulo in Model)
     {
-        <tr data-tituloId=@titulo.TituloId>
-            <td><input type="checkbox" name="name" value=" " /></td>
-            <td>@titulo.TituloId</td>
-            <td>@titulo.TituloRecorrenteId</td>
-            <td>@titulo.Descricao</td>
-            <td>@titulo.Valor </td>
-            <td>@titulo.Direcao</td>
-            <td>@titulo.DataVencimento</td>
-            <td><input type="text" name="acrescimos" disabled="disabled" value=" " /></td>
+        <tr data-tituloid=@titulo.TituloId>
+            <td><input type="checkbox" name="vinculoCheckbox" /></td>
+            <td name="TituloId">@titulo.TituloId</td>
+            <td name="TituloRecorrenteId">@titulo.TituloRecorrenteId</td>
+            <td name="Descricao">@titulo.Descricao</td>
+
+            @*<td>@titulo.Valor</td>*@
+
+            @if (titulo.Valor == null)
+            {
+                <td> <input type="text" name="Valor" value="0" /> </td>
+            }
+            else
+            {
+                <td name="Valor">@(((decimal)titulo.Valor).ToString("C"))</td>
+            }
+
+            <td name="Direcao">@titulo.Direcao</td>
+            <td name="DataVencimento">@titulo.DataVencimento.Date.ToShortDateString()</td>
+            <td><input type="text" name="Acrescimo" disabled="disabled" value="" /></td>
+            <td><input type="text" name="Desconto" disabled="disabled" value="" /></td>
         </tr>
     }
 </table>

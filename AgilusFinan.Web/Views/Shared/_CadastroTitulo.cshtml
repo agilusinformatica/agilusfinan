@@ -82,10 +82,10 @@
 
 <script>
     var CadastroTitulo = function () {
+        Utils.createMask(document.getElementById("Valor"), "moeda");
 
          var getData = function() {
             var titulo = {};
-            console.log($('#Id'));
             titulo.Id = $('#Id').val();
             titulo.TituloRecorrenteId = $('#TituloRecorrenteId').val();
             titulo.ContaId = $('#ContaId').val();
@@ -110,7 +110,7 @@
          }
 
          return {
-             getData:getData
+             getData: getData,
         }
 
     }();

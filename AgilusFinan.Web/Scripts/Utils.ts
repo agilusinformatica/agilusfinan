@@ -304,4 +304,7 @@
         return data.toISOString().substring(0, 10);
     }
 
+    export function getValue(element: any):string {
+        return element.val() != ''? element.val() : element.html()
+    }
 }
