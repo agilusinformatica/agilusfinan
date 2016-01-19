@@ -14,7 +14,34 @@ using System.Data.SqlClient;
 
 namespace AgilusFinan.Web.Controllers
 {
-    public class ImportacaoController : ControllerViewModelPadrao<Titulo, RepositorioRecebimento, TituloViewModel>
+    //Classes usadas para encapsular os dados do JSon que serão importados do extrato para o banco de dados.
+    public class Rootobject
+    {
+        public task[] tasks { get; set; }
+    }
+
+    public class task
+    {
+        public string itemExtratoId { get; set; }
+        public bool selectionado { get; set; }
+        public bool isNew { get; set; }
+        public titulosSelecionados[] titulosSelecionados { get; set; }
+        public Titulo[] titulosIncluidos { get; set; }
+    }
+
+    public class titulosSelecionados
+    {
+        public object TituloId { get; set; }
+        public string TituloRecorrenteId { get; set; }
+        public string Descricao { get; set; }
+        public int Valor { get; set; }
+        public string Direcao { get; set; }
+        public string DataVencimento { get; set; }
+        public int Acrescimo { get; set; }
+        public int Desconto { get; set; }
+    }
+
+    public class ImportacaoController : Controller
     {
         // GET: ConciliacaoExtrato
         public ActionResult Index()
@@ -47,10 +74,12 @@ namespace AgilusFinan.Web.Controllers
         }
 
 
-        public ActionResult ConcilarTitulos(string titulosAConciliar)
+        [HttpPost]
+        public ActionResult ConciliarTitulos(string titulosAVincular)
         {
             //magic happens
-
+            var t = JsonConvert.DeserializeObject<List<Rootobject>>(titulosAVincular);
+            
             DataTable tabelaTitulosNaoConciliados = new DataTable();
             tabelaTitulosNaoConciliados.Columns.Add("id_titulo", typeof(int));
             tabelaTitulosNaoConciliados.Columns.Add("valor", typeof(double));

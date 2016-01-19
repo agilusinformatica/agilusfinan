@@ -119,6 +119,7 @@
 
 <script>
     var teste;
+    var text;
     
     //objeto extrato
     var Task = function (id) {
@@ -216,6 +217,7 @@
             titulo.DataVencimento = Utils.getValue(tr.find('[name=DataVencimento]')).substring(0,10);
             titulo.Acrescimo = Utils.getValue(tr.find('[name=Acrescimo]')) != ''? parseFloat(Utils.getValue(tr.find('[name=Acrescimo]'))) : 0.00;
             titulo.Desconto = titulo.Acrescimo = Utils.getValue(tr.find('[name=Acrescimo]')) != ''? parseFloat(Utils.getValue(tr.find('[name=Acrescimo]'))): 0.00;
+            //titulo.Liquidado = null;
             return titulo;
         }
 
@@ -548,12 +550,13 @@
                 type: 'POST',
                 url:'@Url.Action("ConciliarTitulos")',
                 data: {
-                    titulosAVincular: JSON.stringify(tasks)
+                    "titulosAVincular": JSON.stringify(tasks)
                 },
                 success:function(){
                     console.log("Titulos enviado!");
                 },
                 error:function(err){
+                    text = err;
                     console.log(err);
                     console.log('Erro no ajax!');
                 }
