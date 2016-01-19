@@ -13,8 +13,6 @@
 }
 
 <div id="dialog-form" class="dialog" title="Vincular títulos">
-    <h5>Valor extrato: <span id="valorExtrato"></span></h5>
-    <h5>Soma dos títulos (c/ acrescimos): <span id="valorSomatoria"></span></h5>
     <div id="painel-periodo">
         @Html.Partial("_PainelPeriodo")
     </div>
@@ -55,7 +53,8 @@
                     <hr />
 
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-12">                            
+                            <p>Soma dos títulos (c/ acrescimos): <span id="valorSomatoria"></span></p>
                             <table class="table" id="titulosVinculados">
                                 <thead>
                                     <tr>
@@ -67,6 +66,7 @@
                                         <th>Direção</th>
                                         <th>Data de vencimento</th>
                                         <th>Acréscimos</th>
+                                        <th>Descontos</th>
                                     </tr>
                                 </thead>
 
@@ -163,7 +163,7 @@
 
         //Metodos
         var updateModal = function () {
-            $('#valorSomatoria').html(task.somaTitulos());
+            extratoElement.find('#valorSomatoria').html(task.somaTitulos());
         }
 
         var convertDate = function (date) {
@@ -186,18 +186,17 @@
 
         var getItemTitulo = function(element) {
             var tr = element.closest('tr');
-            var cells = tr.children();
-
             var titulo = {};
 
-            titulo.TituloId = cells[1].innerHTML == ""? null : cells[1].innerHTML ;
-            titulo.TituloRecorrenteId = cells[2].innerHTML == ""? null : cells[2].innerHTML;
-            titulo.Descricao = cells[3].innerHTML;
-            titulo.Valor = parseFloat(cells[4].innerHTML.replace(',', '.'));
-            titulo.Direcao = cells[5].innerHTML;
-            titulo.DataVencimento = cells[6].innerHTML.substring(0, 10);
-            titulo.Acrescimos = 0;
-
+            titulo.TituloId = Utils.getValue(tr.find('[name=TituloId]')) == ""? null : Utils.getValue(tr.find('[name=TituloId]')) ;
+            titulo.TituloRecorrenteId = Utils.getValue(tr.find('[name=TituloRecorrenteId]')) == ""? null : Utils.getValue(tr.find('[name=TituloRecorrenteId]'));
+            titulo.Descricao = Utils.getValue(tr.find('[name=Descricao]'));
+            titulo.Valor = parseFloat(Utils.getValue(tr.find('[name=Valor]')).replace(',', '.'));
+            
+            titulo.Direcao = Utils.getValue(tr.find('[name=Direcao]'));
+            titulo.DataVencimento = Utils.getValue(tr.find('[name=DataVencimento]')).substring(0,10);
+            titulo.Acrescimo = Utils.getValue(tr.find('[name=Acrescimo]'));
+            titulo.Desconto = Utils.getValue(tr.find('[name=Desconto]'));
             return titulo;
         }
 
@@ -238,6 +237,7 @@
                 var isRecorrenteSelected = isTituloRecorrenteSelected(titulo);
                 var tituloExists = task.titulosSelecionados.some(ts => (ts.TituloId == titulo.TituloId) && ts.TituloId != null);
                 var tituloRecorrenteExists = task.titulosSelecionados.some(ts => (ts.TituloRecorrenteId == titulo.TituloRecorrenteId) && ts.DataVencimento == titulo.DataVencimento);
+                var tr = $(inputs[input]).closest('tr');
                 
                 if (!tituloExists && isSelected) {
                     $(inputs[input]).prop('disabled', true);
@@ -249,17 +249,22 @@
                 
                 task.titulosSelecionados.forEach(function (t) {
 
-                    var acrescimoInput = $(inputs[input]).closest('tr').find('input[name="acrescimos"]');
+                    var acrescimoInput = tr.find('input[name="Acrescimo"]');
+                    var descontoInput = tr.find('input[name="Desconto"]');
                     
                     if (t.TituloId == titulo.TituloId && titulo.TituloRecorrenteId == null) {
-                        acrescimoInput.val(t.Acrescimos);
+                        acrescimoInput.val(t.Acrescimo);
+                        descontoInput.val(t.Desconto);
                         acrescimoInput.prop('disabled', false);
+                        descontoInput.prop('disabled', false);
                         $(inputs[input]).prop('checked', true);
                     }
 
                     if(t.TituloRecorrenteId == titulo.TituloRecorrenteId && titulo.TituloId == null && t.DataVencimento == titulo.DataVencimento){
                         acrescimoInput.val(t.Acrescimos);
+                        descontoInput.val(t.Desconto);
                         acrescimoInput.prop('disabled', false);
+                        descontoInput.prop('disabled', false);
                         $(inputs[input]).prop('checked', true);
                     }
 
@@ -459,30 +464,29 @@
 
         //Eventos
         var initEvents = function () {
-            
-            var update = function(e){
-                var titulo = getItemTituloSelecionado(e);
-                var getAcrescimo = () => parseFloat(e.val().replace(',', '.'));
-                titulo.Acrescimos = getAcrescimo();
-                updateModal();  
-            };
 
-            $('#dialog-form').on('input change', 'input[name="acrescimos"]', function(e){
+            $('#dialog-form').on('input change', 'input[name="Acrescimo"]', function(e){
                 var titulo = getItemTituloSelecionado($(this));                
-                var getAcrescimo = () => parseFloat($(this).val().replace(',', '.'));                
-                titulo.Acrescimos = getAcrescimo();
+                var getAcrescimo = () => parseFloat($(this).val().replace(',', '.'));     
+                var getDesconto = () => parseFloat($(this).val().replace(',', '.'));
+                titulo.Acrescimo = getAcrescimo();
+                titulo.Desconto = getDesconto();
+                
                 updateModal();  
             });
 
             $("#dialog-form").on('click', 'input:checkbox', function (e) {                
                 var titulo = getItemTituloSelecionado($(this));
-                var acrescimoInput = $(this).closest('tr').find('input[name="acrescimos"]');
+                var acrescimoInput = $(this).closest('tr').find('input[name="Acrescimo"]');
+                var descontoInput = $(this).closest('tr').find('input[name="Desconto"]');
 
                 if ($(this).prop('checked')) {
                     acrescimoInput.prop('disabled', false);
+                    descontoInput.prop('disabled', false);
                     task.vincularTitulo(titulo);
                 } else {
                     acrescimoInput.prop('disabled', true);
+                    descontoInput.prop('disabled', true);
                     acrescimoInput.val('');                    
                     task.desvincularTitulo(titulo);
                 }
@@ -535,13 +539,13 @@
         padding-bottom: 20px;
     }
    
-     .extrato-table, #titulosVinculados{
+     .extrato-table {
          border: 1px solid;
          margin-top: 10px;
          margin-bottom: 20px;
          margin-left: 60px;
          table-layout: fixed;
-         width: 80%;
+         width: 90%;
          font-size: 12px;
      }
 
@@ -618,14 +622,20 @@
     }
 
     /*Lista de titulos já vinculados*/
-    #titulosVinculados > thead > tr > th{
-        width: auto;
-        font-family: 8px;
+    #titulosVinculados{
+        table-layout: fixed;
+        font-size: 10px;
+    }
+
+    #titulosVinculados th{
+        width: 80px;
+        font-size: 12px;
     }
 
     
     #titulosVinculados > tbody > tr > td {
         width: 100%;
+        font-size: 12px;
     }
 
     #titulosVinculados td {
