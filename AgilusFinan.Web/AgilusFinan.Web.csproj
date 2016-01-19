@@ -152,6 +152,7 @@
     <Compile Include="Bases\ControllerViewModelPadrao.cs" />
     <Compile Include="Bases\ControllerPadrao.cs" />
     <Compile Include="Bases\Permissao.cs" />
+    <Compile Include="Bases\teste.cs" />
     <Compile Include="Bases\Util.cs" />
     <Compile Include="Controllers\BancoController.cs" />
     <Compile Include="Controllers\CategoriaController.cs" />

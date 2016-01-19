@@ -319,8 +319,7 @@
                     text: "Vincular",
                     id: "vincular",
                     click: function() {
-                        conciliarTitulos();
-                        if(task.isNew) tasks.push(task);
+                        conciliarTitulos();                        
                         dialog.dialog("close");
                     }
                 },
@@ -409,7 +408,6 @@
                 if (tasks[i].itemExtratoId == id) {
                     t = tasks[i];
                     tasks[i].isNew = false;
-
                 }
 
             };
