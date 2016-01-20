@@ -2,6 +2,7 @@
 @{
     Layout = null;
 }
+
 <table class="table table-hover table-bordered">
     <thead>
         <tr>
@@ -10,6 +11,7 @@
             <th>Valor</th>
             <th>Data de Vencimento</th>
             <th>E-mail Destinatário</th>
+            <th>Status</th>
         </tr>
     </thead>
     <tbody>
@@ -31,18 +33,30 @@
                 <td style="display:none;">@item.TituloId</td>
                 <td style ="display:none;">@item.TituloRecorrenteId</td>
                 <td style="display:none;">@item.ModeloBoletoId</td>
+                <td class="clear"></td>
 
 </tr>
         }
     </tbody>
 </table>
 
-<button class="btn btn-default" id="enviar" onclick="GerarBoletos()" ><span class="glyphicon glyphicon-envelope" aria-hiddden="true"></span> Enviar</button>
+<button class="btn btn-default" id="enviar"><span class="glyphicon glyphicon-envelope" aria-hiddden="true"></span> Enviar</button>
 
 <button class="btn btn-default" id="Baixar" onclick="BaixarBoletos()"><span class="glyphicon glyphicon-save" aria-hiddden="true"></span> Baixar</button>
 
+<div class="progress">
+    <div id="progressbar" class="progress-bar progress-bar-success" role="progressbar">
+        <img src="~/Content/Images/ellipsis.gif" height="20" />
+    </div>
+</div>
+
+
+
 <script>
-    Utils.createMask(document.getElementById("item_Valor"), "moeda");
+    var inputValor = document.getElementById("item_Valor");
+    if (inputValor) {
+        Utils.createMask(inputValor, "moeda");
+    }
 
     $(document).ready(function () {
         $('#check').change(function () {
@@ -50,29 +64,44 @@
         });
     });
 
+    $('#enviar').click(function () {
+        $('.progress').toggle("slow");
+        $('.label-success').toggle();
+        GerarBoletos();
+    });
 
     function GerarBoletos() {
-        var boletosJson = GetData();
-        $.ajax({
-            type: "POST",
-            url: '/LoteBoleto/GerarBoletos',
-            data: { "postedData": boletosJson },
-            success: function () {
-                window.location = '@Url.Action("Index", "LoteBoleto")';
-            }, 
-            error: function (object) {
-                //Capturando erro no objeto htmlResponse
-                var htmlResponse = document.createElement('html');
-                htmlResponse.innerHTML = object.responseText;
-                var erro = htmlResponse.querySelector('h4').textContent;
-
-                location.href = '@Url.Action("Erro", "LoteBoleto")?erro=' + erro
-            }
+        var boletos = GetData();
+        var contador = 0;
+        var tabletr = $("table input[id='item_Boleto']:checked").parent().parent();
+        $.each(boletos, function (indice, boleto) {
+            
+            $.ajax({
+                type: "POST",
+                url: '/LoteBoleto/GerarBoleto',
+                data: { "postedData": JSON.stringify(boleto) },
+                success: function () {
+                    var pos = Math.round(++contador / boletos.length * 100);
+                    $('#progressbar').attr("style", "width:" + pos + "%");
+                    $('#progressbar').html(pos + "%");
+                    $(tabletr[indice]).children()[8].innerHTML = '<label class="label label-success">Enviado</label>';
+                    if (contador == boletos.length) {
+                        $('.progress').delay(1000).fadeToggle(500, () => $('#progressbar').attr("style", "width: 0%").html('<img src="../Content/Images/ellipsis.gif" height="20"/>'));
+                    }
+                },
+                error: function (object) {
+                    //Capturando erro no objeto htmlResponse
+                    var htmlResponse = document.createElement('html');
+                    htmlResponse.innerHTML = object.responseText;
+                    var erro = htmlResponse.querySelector('h4').textContent;
+                    location.href = '@Url.Action("Erro", "LoteBoleto")?erro=' + erro
+                }
+            });
         });
     }
 
     function BaixarBoletos() {
-        var boletosJson = GetData();
+        var boletosJson = JSON.stringify(GetData());
         $.ajax({
             type: "POST",
             url: '/LoteBoleto/BaixarBoletos',
@@ -85,7 +114,6 @@
                 var htmlResponse = document.createElement('html');
                 htmlResponse.innerHTML = object.responseText;
                 var erro = htmlResponse.querySelector('h4').textContent;
-
                 location.href = '@Url.Action("Erro", "LoteBoleto")?erro=' + erro
             }
         });
@@ -113,7 +141,7 @@
             titulo.ModeloBoletoId = $tds.eq(7).text();
             titulos.push(titulo);
         });
-        return JSON.stringify(titulos);
+        return titulos;
     }
 
 

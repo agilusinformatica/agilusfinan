@@ -264,6 +264,10 @@
     <Compile Include="Migrations\201601141642142_AdicionaAssuntoEmailemModeloBoleto.Designer.cs">
       <DependentUpon>201601141642142_AdicionaAssuntoEmailemModeloBoleto.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201601201240560_AdicionarDescontoemModeloBoleto.cs" />
+    <Compile Include="Migrations\201601201240560_AdicionarDescontoemModeloBoleto.Designer.cs">
+      <DependentUpon>201601201240560_AdicionarDescontoemModeloBoleto.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AcessosUsuario.cs" />
@@ -464,6 +468,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201601141642142_AdicionaAssuntoEmailemModeloBoleto.resx">
       <DependentUpon>201601141642142_AdicionaAssuntoEmailemModeloBoleto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601201240560_AdicionarDescontoemModeloBoleto.resx">
+      <DependentUpon>201601201240560_AdicionarDescontoemModeloBoleto.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

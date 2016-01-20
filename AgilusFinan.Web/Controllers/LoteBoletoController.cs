@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
@@ -16,21 +17,20 @@ namespace AgilusFinan.Web.Controllers
 {
     public class LoteBoletoController : ControllerConsultaPadrao<GeradorLoteBoleto, LoteBoleto>
     {
+
         public override string FolderViewName()
         {
             return "LoteBoleto";
         }
 
         [HttpPost]
-        public void GerarBoletos(string postedData)
+        public string GerarBoleto(string postedData)
         {
             var js = new JavaScriptSerializer();
-            var boletos = js.Deserialize<List<LoteBoleto>>(postedData);
-            
-            foreach (var boleto in boletos)
-            {
-                Util.EnviarBoletoPorEmail(boleto, Server.MapPath(@"~/App_Data/teste.pdf"));
-            }
+            var boleto = js.Deserialize<LoteBoleto>(postedData);
+            Util.EnviarBoletoPorEmail(boleto, Server.MapPath(@"~/App_Data/teste.pdf"));
+
+            return "ok";
         }
 
         [HttpPost]

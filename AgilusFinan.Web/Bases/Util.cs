@@ -153,12 +153,14 @@ namespace AgilusFinan.Web.Bases
             };
             #endregion
  
-            #region Instruções, juros e Multa
+            #region Instruções 
             Instrucao item1 = new Instrucao(conta.Banco.Codigo);
             item1.Descricao = modeloBoleto.Instrucao;
-
             boleto.Instrucoes.Add(item1);
-            if(modeloBoleto.Juros > 0 ){
+            #endregion  
+
+            #region Juros
+            if (modeloBoleto.Juros > 0 ){
                 Instrucao item2 = new Instrucao(conta.Banco.Codigo);
                 decimal juros = boleto.ValorBoleto * modeloBoleto.Juros / 100 / 30;
                 item2.Descricao = "Após o vencimento cobrar juros de R$ " + Math.Round(juros,2) + " ao dia";
@@ -166,7 +168,6 @@ namespace AgilusFinan.Web.Bases
                 if (titulo.DataVencimento < DateTime.Today && titulo.Categoria.DirecaoVencimentoDiaNaoUtil == DirecaoVencimento.Antecipado)
                 {
                     boleto.DataVencimento = DateTime.Today;
-
                     boleto.JurosMora = juros * (int)(DateTime.Today - titulo.DataVencimento).TotalDays;
                 }
                 else if (titulo.DataVencimento < DateTime.Today && titulo.Categoria.DirecaoVencimentoDiaNaoUtil == DirecaoVencimento.Prorrogado)
@@ -174,7 +175,9 @@ namespace AgilusFinan.Web.Bases
 
                 }
             }
+            #endregion
 
+            #region Multa
             if (modeloBoleto.Multa > 0)
             {
                 Instrucao item3 = new Instrucao(conta.Banco.Codigo);
@@ -198,6 +201,17 @@ namespace AgilusFinan.Web.Bases
             boleto.PercJurosMora = modeloBoleto.Juros;
             #endregion
 
+            #region Desconto
+            boleto.DataDesconto = boleto.DataVencimento.Subtract(new TimeSpan(modeloBoleto.DiasDesconto,0,0,0,0));
+            if(DateTime.Today <= boleto.DataDesconto)
+            {
+                boleto.ValorDesconto = boleto.ValorBoleto * (modeloBoleto.PercentualDesconto / 100);
+                Instrucao instrucaoDesconto = new Instrucao(conta.Banco.Codigo);
+                instrucaoDesconto.Descricao = "Até " + boleto.DataDesconto.GetDateTimeFormats()[0] + " conceder desconto de R$ " + Math.Round(boleto.ValorDesconto,2);
+                boleto.Instrucoes.Add(instrucaoDesconto);
+            }
+            #endregion  
+
             #region Boleto Bancario
             var boletobancario = new BoletoBancario();
             boletobancario.CodigoBanco = (short)conta.Banco.Codigo;
@@ -210,37 +224,43 @@ namespace AgilusFinan.Web.Bases
 
         public static BoletoBancario GerarBoleto(int tituloRecorrenteId, decimal valor, DateTime dataVencimento, int modeloBoletoId)
         {
+            #region Instacioações
             var titulo = new RepositorioTituloRecorrente().BuscarPorId(tituloRecorrenteId);
             var conta = titulo.Conta;
             var pessoa = titulo.Pessoa;
             var empresa = titulo.Empresa;
             int numeroBanco = conta.Banco.Codigo;
             var repoModeloBoleto = new RepositorioModeloBoleto();
-
             var modeloBoleto = repoModeloBoleto.BuscarPorId(modeloBoletoId);
 
             if (modeloBoleto == null)
             {
                 throw new Exception("Modelo de Boleto não definido");
             }
-            //Incremento do Nosso número em Modelo de Boleto
+            #endregion
+
+            #region Nosso Número
             modeloBoleto.NossoNumero++;
             repoModeloBoleto.Alterar(modeloBoleto);
+            #endregion
 
-
-            //Cedente
+            #region Cedente
             var c = new Cedente(empresa.CpfCnpj, empresa.Nome, conta.Agencia, conta.ContaCorrente.Split('-')[0], conta.ContaCorrente.Split('-')[1]);
             c.Codigo = conta.ContaCorrente;
+            #endregion
 
-            //boleto
+            #region Boleto
             Boleto boleto = new Boleto(dataVencimento, valor, modeloBoleto.Carteira, modeloBoleto.NossoNumero.ToString(), c, new EspecieDocumento(numeroBanco));
             boleto.NumeroDocumento = tituloRecorrenteId.ToString();
+            #endregion
 
-            //Instruções
+            #region Instrucoes
             Instrucao item1 = new Instrucao(conta.Banco.Codigo);
             item1.Descricao = modeloBoleto.Instrucao;
-
             boleto.Instrucoes.Add(item1);
+            #endregion
+
+            #region Juros
             if (modeloBoleto.Juros > 0)
             {
                 Instrucao item2 = new Instrucao(conta.Banco.Codigo);
@@ -258,7 +278,9 @@ namespace AgilusFinan.Web.Bases
 
                 }
             }
+            #endregion  
 
+            #region Multa
             if (modeloBoleto.Multa > 0)
             {
                 Instrucao item3 = new Instrucao(conta.Banco.Codigo);
@@ -280,8 +302,20 @@ namespace AgilusFinan.Web.Bases
             boleto.DataMulta = dataVencimento;
             boleto.PercMulta = modeloBoleto.Multa;
             boleto.PercJurosMora = modeloBoleto.Juros;
-            
-            //Sacado
+            #endregion
+
+            #region Desconto
+            boleto.DataDesconto = boleto.DataVencimento.Subtract(new TimeSpan(modeloBoleto.DiasDesconto, 0, 0, 0, 0));
+            if (DateTime.Today <= boleto.DataDesconto)
+            {
+                boleto.ValorDesconto = boleto.ValorBoleto * (modeloBoleto.PercentualDesconto / 100);
+                Instrucao instrucaoDesconto = new Instrucao(conta.Banco.Codigo);
+                instrucaoDesconto.Descricao = "Até " + boleto.DataDesconto.GetDateTimeFormats()[0] + " conceder desconto de R$ " + Math.Round(boleto.ValorDesconto, 2);
+                boleto.Instrucoes.Add(instrucaoDesconto);
+            }
+            #endregion  
+
+            #region Sacado
             boleto.Sacado = new Sacado(pessoa.Cpf, pessoa.Nome);
             boleto.Sacado.Endereco = new BoletoNet.Endereco()
             {
@@ -293,12 +327,15 @@ namespace AgilusFinan.Web.Bases
                 Numero = pessoa.Endereco.Numero,
                 UF = pessoa.Endereco.Uf
             };
+            #endregion
 
+            #region Boleto Bancario
             var boletobancario = new BoletoBancario();
             boletobancario.CodigoBanco = (short)conta.Banco.Codigo;
             boletobancario.Boleto = boleto;
             boletobancario.OcultarEnderecoSacado = false;
             boletobancario.Boleto.Valida();
+            #endregion
 
             return boletobancario;
         }

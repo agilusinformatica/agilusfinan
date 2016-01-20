@@ -204,6 +204,7 @@
     <Content Include="Content\HelloTable.css" />
     <Content Include="Content\Images\agilus_steelblue.jpg" />
     <Content Include="Content\Images\agilus.jpg" />
+    <Content Include="Content\Images\ellipsis.gif" />
     <Content Include="Content\responsive.dataTables.min.css" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Scripts\bootstrap-notify.min.js" />
@@ -563,7 +564,9 @@
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\readme.md" />
     <Content Include="Scripts\tinymce\langs\readme.md" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\Funcaos\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 
@@ -16,6 +17,9 @@ namespace AgilusFinan.Domain.Entities
         public string CodigoCedente { get; set; }
         public decimal Juros { get; set; }
         public decimal Multa { get; set; }
+        public int DiasDesconto { get; set; }
+        public decimal PercentualDesconto { get; set; }
+        [DataType(DataType.MultilineText)]
         public string Instrucao { get; set; }
         public int NossoNumero { get; set; }
         public string AssuntoEmail { get; set; }

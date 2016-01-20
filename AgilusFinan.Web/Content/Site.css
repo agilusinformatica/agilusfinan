@@ -314,3 +314,12 @@ textarea {
         opacity: 100;
     }
 }
+
+.progress{
+   display: none; 
+   margin-top: 20px;
+}
+
+    .progress > .progress-bar{
+        width: 0%;
+    }
