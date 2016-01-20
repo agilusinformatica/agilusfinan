@@ -12,13 +12,13 @@
     var extratoId = 0;
 }
 
-<div id="dialog-form" class="dialog" title="Vincular títulos">
+<div id="dialog-form" class="dialog" style="display:none" title="Vincular títulos">
     <div id="painel-periodo">
         @Html.Partial("_PainelPeriodo")
     </div>
 </div>
 
-<div id="cadastroTituloDialog" class="dialog" title="Cadastrar título">
+<div id="cadastroTituloDialog" class="dialog" style="display:none" title="Cadastrar título">
     <div class="form-horizontal">
         @Html.Partial("_CadastroTitulo", new TituloViewModel())
     </div>
@@ -26,7 +26,7 @@
 
 <button class="button" id="efetivar">Efetivar</button>
 
-<div class="item-vinculo">
+<div class="item-vinculo" >
     @foreach (var vinculo in Model)
     {
         <div class="row">
@@ -81,14 +81,15 @@
                                 <thead>
                                     <tr>
                                         <th>Operação</th>
-                                        <th>Categoria</th>
-                                        <th>Centro Custo</th>
-                                        <th>Competencia</th>
-                                        <th>DataVencimento</th>
+                                        <th>ContaId</th>
+                                        <th>Data Vencimento</th>
                                         <th>Descricao</th>
-                                        <th>Observaçao</th>
-                                        <th>Pessoa </th>
                                         <th>Valor</th>
+                                        <th>Categoria</th>
+                                        <th>Pessoa</th>
+                                        <th>Pessoa </th>
+                                        <th>Competencia</th>
+                                        <th>Observação</th>
                                     </tr>
                                 </thead>
 
@@ -118,9 +119,6 @@
 
 
 <script>
-    var teste;
-    var text;
-    
     //objeto extrato
     var Task = function (id) {
         this.itemExtratoId = id;
@@ -211,8 +209,7 @@
             titulo.TituloId = Utils.getValue(tr.find('[name=TituloId]')) == ""? null : Utils.getValue(tr.find('[name=TituloId]')) ;
             titulo.TituloRecorrenteId = Utils.getValue(tr.find('[name=TituloRecorrenteId]')) == ""? null : Utils.getValue(tr.find('[name=TituloRecorrenteId]'));
             titulo.Descricao = Utils.getValue(tr.find('[name=Descricao]'));
-            titulo.Valor = Math.round(parseFloat(Utils.getValue(tr.find('[name=Valor]')).replace('R$ ', '').replace(',', '.')), 2);
-            
+            titulo.Valor = parseFloat(Utils.getValue(tr.find('[name=Valor]')).replace('R$ ', '').replace(',', '.'));            
             titulo.Direcao = Utils.getValue(tr.find('[name=Direcao]'));
             titulo.DataVencimento = Utils.getValue(tr.find('[name=DataVencimento]')).substring(0,10);
             titulo.Acrescimo = Utils.getValue(tr.find('[name=Acrescimo]')) != ''? parseFloat(Utils.getValue(tr.find('[name=Acrescimo]'))) : 0.00;
@@ -280,6 +277,7 @@
 
                     var acrescimoInput = tr.find('input[name="Acrescimo"]');
                     var descontoInput = tr.find('input[name="Desconto"]');
+                    var valorInput = tr.find('input[name="Valor"]');
                     
                     if (t.TituloId == titulo.TituloId && titulo.TituloRecorrenteId == null) {
                         acrescimoInput.val(t.Acrescimo);
@@ -290,10 +288,12 @@
                     }
 
                     if(t.TituloRecorrenteId == titulo.TituloRecorrenteId && titulo.TituloId == null && t.DataVencimento == titulo.DataVencimento){
-                        acrescimoInput.val(t.Acrescimos);
+                        acrescimoInput.val(t.Acrescimo);
                         descontoInput.val(t.Desconto);
+                        valorInput.val(t.Valor);
                         acrescimoInput.prop('disabled', false);
                         descontoInput.prop('disabled', false);
+                        valorInput.prop('disabled', false);
                         $(inputs[input]).prop('checked', true);
                     }
 
@@ -319,7 +319,8 @@
                     text: "Vincular",
                     id: "vincular",
                     click: function() {
-                        conciliarTitulos();                        
+                        conciliarTitulos();
+                        task.isNew = false;
                         dialog.dialog("close");
                     }
                 },
@@ -327,6 +328,7 @@
                     text: "Cancelar",
                     id: "Cancelar",
                     click: function(){
+                        task.titulosSelecionados = JSON.parse(taskUndo).titulosSelecionados;
                         dialog.dialog("close")
                     }
                 }
@@ -407,7 +409,7 @@
             for (var i = 0; i < tasks.length; i++) {
                 if (tasks[i].itemExtratoId == id) {
                     t = tasks[i];
-                    tasks[i].isNew = false;
+                    taskUndo = JSON.stringify(t);                    
                 }
 
             };
@@ -417,8 +419,6 @@
                 task = t;
                 tasks.push(task);
             }
-
-            
             
         }
 
@@ -428,7 +428,6 @@
             for(var i = 0; i < titulosSelecionados.length; i++){
                 if(titulosSelecionados[i].TituloId == titulo.TituloId && titulosSelecionados[i].TituloId != null){
                     return titulosSelecionados[i];
-                    
                 }
                 
                 if(titulosSelecionados[i].TituloRecorrenteId == titulo.TituloRecorrenteId && titulosSelecionados[i].DataVencimento == titulo.DataVencimento){
@@ -490,12 +489,16 @@
         //Eventos
         var initEvents = function () {
 
-            $('#dialog-form').on('input change', 'input[name="Acrescimo"]', function(e){
+            $('#dialog-form').on('input change', 'input', function(e){
                 var titulo = getItemTituloSelecionado($(this));                
-                var getAcrescimo = () => parseFloat($(this).val().replace(',', '.'));     
-                var getDesconto = () => parseFloat($(this).val().replace(',', '.'));
-                titulo.Acrescimo = getAcrescimo();
-                titulo.Desconto = getDesconto();
+                var tr =  $(this).closest('tr');
+                var acrescimoInput = tr.find('input[name="Acrescimo"]');
+                var descontoInput = tr.find('input[name="Desconto"]');
+                var valorInput = tr.find('input[name="Valor"]');
+
+                titulo.Acrescimo = parseFloat(acrescimoInput.val().replace(',', '.'));     
+                titulo.Desconto = parseFloat(descontoInput.val().replace(',', '.'));
+                if(valorInput.val() != undefined) titulo.Valor = parseFloat(Utils.getValue(valorInput).replace(',', '.'));
                 
                 updateModal();  
             });
@@ -504,14 +507,17 @@
                 var titulo = getItemTituloSelecionado($(this));
                 var acrescimoInput = $(this).closest('tr').find('input[name="Acrescimo"]');
                 var descontoInput = $(this).closest('tr').find('input[name="Desconto"]');
+                var valorInput = $(this).closest('tr').find('input[name="Valor"]');
 
                 if ($(this).prop('checked')) {
                     acrescimoInput.prop('disabled', false);
                     descontoInput.prop('disabled', false);
+                    valorInput.prop('disabled', false);
                     task.vincularTitulo(titulo);
                 } else {
                     acrescimoInput.prop('disabled', true);
                     descontoInput.prop('disabled', true);
+                    valorInput.prop('disabled', true);
                     acrescimoInput.val('');                    
                     task.desvincularTitulo(titulo);
                 }
@@ -541,6 +547,8 @@
             consultarPeriodo(getTitulosPendentes);
             
         });
+        
+        $('#item-vinculo').fadeToggle('slow');
 
         $('#efetivar').click(function(){
             console.log(JSON.stringify(tasks));
@@ -558,8 +566,6 @@
                     console.log(err);
                     console.log('Erro no ajax!');
                 }
-
-
             })
 
         });
