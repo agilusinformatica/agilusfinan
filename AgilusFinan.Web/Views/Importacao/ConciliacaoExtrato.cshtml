@@ -26,12 +26,12 @@
 
 <button class="button" id="efetivar">Efetivar</button>
 
-<div class="item-vinculo" >
+<div class="item-vinculo" style="display:none;opacity:0">
     @foreach (var vinculo in Model)
     {
         <div class="row">
             <div class="col-md-10">
-                <div class="list-group item-extrato" data-extratoId=@extratoId>
+                <div class="list-group item-extrato" data-extratoid=@extratoId >
                     <table class="extrato-table">
                         <thead>
                             <tr>
@@ -54,7 +54,7 @@
                     <hr />
 
                     <div class="row">
-                        <div class="col-md-12">                            
+                        <div class="col-md-12">
                             <p>Soma dos títulos (c/ acrescimos): <span id="valorSomatoria"></span></p>
                             <table class="table" id="titulosVinculados">
                                 <thead>
@@ -100,10 +100,10 @@
                     <div class="row">
                         <div class="col-sm-2 col-sm-offset-1">
                             <button class="btn btn-default vincularTitulos" data-botaoid=@extratoId>Buscar</button> <br />
-                            
+
                         </div>
                         <div class="col-sm-2 ">
-                            <button class="btn btn-default adicionarTitulo"  data-botaoid=@extratoId>Adicionar</button> <br />
+                            <button class="btn btn-default adicionarTitulo" data-botaoid=@extratoId>Adicionar</button> <br />
 
                         </div>
                     </div>
@@ -547,8 +547,6 @@
             consultarPeriodo(getTitulosPendentes);
             
         });
-        
-        $('#item-vinculo').fadeToggle('slow');
 
         $('#efetivar').click(function(){
             console.log(JSON.stringify(tasks));
@@ -570,6 +568,11 @@
 
         });
 
+        $('.item-vinculo').show(function(){
+            $('.item-vinculo').delay(1000).animate({opacity:100}, 10000);
+        });
+        
+
     }());
 
 
@@ -578,10 +581,14 @@
 
 <style>
     
+    .item-vinculo{
+    }
+
     .item-extrato {
         border: 1px solid grey;
         box-shadow: 5px 5px 30px grey;
         padding-bottom: 20px;
+
     }
    
      .extrato-table {
