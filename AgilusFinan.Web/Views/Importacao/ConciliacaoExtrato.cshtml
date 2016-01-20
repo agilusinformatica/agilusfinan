@@ -65,7 +65,10 @@
                                         <th>Descrição</th>
                                         <th>Valor</th>
                                         <th>Direção</th>
+                                        <th style="display:none">Categoria id</th>
                                         <th>Data de vencimento</th>
+                                        <th style="display:none">Pessoa Id</th>
+                                        <th style="display:none">Conta Id</th>
                                         <th>Acréscimos</th>
                                         <th>Descontos</th>
                                         <th></th>
@@ -120,19 +123,17 @@
 
 
 <script>
-    var teste;
     //objeto extrato
+
     var Task = function (id) {
         this.itemExtratoId = id;
         this.isNew = true;
         this.titulosSelecionados = [];
         this.titulosIncluidos = [];
         this.ignorar = false;
-        this.observer = {};
         this.selecionado = false;
         
         var vincularTitulo = function(titulo, observer) {
-            this.observer = observer;
             this.titulosSelecionados.push(titulo);
         };
 
@@ -167,7 +168,8 @@
             titulosIncluidos: this.titulosIncluidos,
             vincularTitulo: vincularTitulo,
             desvincularTitulo: desvincularTitulo,
-            somaTitulos: somaTitulos
+            somaTitulos: somaTitulos,
+            extratoElement: this.extratoElement
         }
 
     }
@@ -176,7 +178,7 @@
         //variaveis
         var tasks = [];
         var task = {};
-        var extratoElement;        
+        var extratoElement;
         var itemExtrato = {};
         var taskUndo = {};
         var valorTotal;
@@ -215,6 +217,8 @@
             titulo.Direcao = Utils.getValue(tr.find('[name=Direcao]'));
             titulo.CategoriaId = Utils.getValue(tr.find('[name=CategoriaId]'));
             titulo.DataVencimento = Utils.getValue(tr.find('[name=DataVencimento]')).substring(0,10);
+            titulo.PessoaId = Utils.getValue(tr.find('[name=PessoaId]')).substring(0,10);
+            titulo.ContaId = Utils.getValue(tr.find('[name=ContaId]'));
             titulo.Acrescimo = Utils.getValue(tr.find('[name=Acrescimo]')) != ''? parseFloat(Utils.getValue(tr.find('[name=Acrescimo]'))) : 0.00;
             titulo.Desconto = titulo.Acrescimo = Utils.getValue(tr.find('[name=Acrescimo]')) != ''? parseFloat(Utils.getValue(tr.find('[name=Acrescimo]'))): 0.00;
             titulo.Liquidado = null;
@@ -234,7 +238,7 @@
                 var tr = document.createElement('tr');
                 var td;
                 var titulo = titulos[i];
-
+                console.log(titulo);
                 var tdOperacao = document.createElement('td');
                 tdOperacao.innerHTML = operacao;
                 tr.appendChild(tdOperacao);
@@ -248,9 +252,12 @@
                 var button  = document.createElement('button');
                 button.innerHTML = 'x';
                 button.className += 'excluirTitulo';
+                
                 $(button).click(function(){
-
+                    var ref = titulo
+                    console.log(ref);
                 });
+
                 tr.appendChild(button);
 
                 hiddenColumns.forEach(function(c){
@@ -319,7 +326,7 @@
 
         var conciliarTitulos = function () {
             limpaTitulosVinculados();
-            setTitulosVinculados(task.titulosSelecionados, 'vinculo', [1, 2]);
+            setTitulosVinculados(task.titulosSelecionados, 'vinculo', [1, 2, 6, 8, 9]);
             setTitulosVinculados(task.titulosIncluidos, 'novo', []);
             dialog.dialog("close");
         }
@@ -671,19 +678,23 @@
         padding-bottom: 3px;
     }
 
+    /*Titulos a vincular*/
     #titulosAVincularLista {
-         width: 0;
-         padding: 0;
-         height: 0;      
-         padding-right: 10px;
+         width: auto;
+         padding-right: 20px;
+         padding-left: 20px;
+         height: 0;
+         float:left;
+         table-layout:fixed;
     }
 
     #titulosAVincularLista input{     
-         width: 85px;
+         width: 60px;
      }
 
-    #titulosAVincularLista td{     
-         padding: 0 15px 0 15px;
+    #titulosAVincularLista td{  
+        padding-left: 20px;
+        padding-right: 20px;   
      }
 
     /*Lista de titulos já vinculados*/
@@ -692,11 +703,9 @@
     }
 
     #titulosVinculados th{
-        font-size: 12px;
     }
        
     #titulosVinculados > tbody > tr > td {
-        font-size: 12px;
     }
 
     #titulosVinculados td {
