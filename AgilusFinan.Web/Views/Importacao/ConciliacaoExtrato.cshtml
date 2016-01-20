@@ -125,8 +125,9 @@
 <script>
     //objeto extrato
 
-    var Task = function (id) {
+    var Task = function (id, itemExtrato) {
         this.itemExtratoId = id;
+        this.itemExtrato = itemExtrato;
         this.isNew = true;
         this.titulosSelecionados = [];
         this.titulosIncluidos = [];
@@ -162,6 +163,7 @@
 
         return {
             itemExtratoId: this.itemExtratoId,
+            itemExtrato: this.itemExtrato,
             selectionado: this.selecionado,
             isNew: this.isNew,
             titulosSelecionados: this.titulosSelecionados,
@@ -437,7 +439,8 @@
             };
 
             if(!t){
-                t = new Task(id);
+                console.log(getItemExtrato());
+                t = new Task(id, getItemExtrato());
                 task = t;
                 tasks.push(task);
             }
