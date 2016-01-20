@@ -13,7 +13,7 @@
 
             @if (titulo.Valor == null)
             {
-                <td> <input type="text" name="Valor" value="0" /> </td>
+                <td> <input type="text" name="Valor" disabled="disabled" value="0" /> </td>
             }
             else
             {
@@ -22,8 +22,8 @@
 
             <td name="Direcao">@titulo.Direcao</td>
             <td name="DataVencimento">@titulo.DataVencimento.Date.ToShortDateString()</td>
-            <td><input type="text" name="Acrescimo" disabled="disabled" value="" /></td>
-            <td><input type="text" name="Desconto" disabled="disabled" value="" /></td>
+            <td><input type="text" name="Acrescimo" disabled="disabled" value="0" /></td>
+            <td><input type="text" name="Desconto" disabled="disabled" value="0" /></td>
         </tr>
     }
 </table>
@@ -35,3 +35,9 @@
 
 
 </style>
+
+<script>
+    var VinculoTitulos = function () {
+
+    }();
+</script>
