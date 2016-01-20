@@ -60,14 +60,15 @@
                                 <thead>
                                     <tr>
                                         <th>Operação</th>
-                                        <th>ID</th>
-                                        <th>ID Titulo Recorrente</th>
+                                        <th style="display:none">ID</th>
+                                        <th style="display:none"> Titulo Recorrente</th>
                                         <th>Descrição</th>
                                         <th>Valor</th>
                                         <th>Direção</th>
                                         <th>Data de vencimento</th>
                                         <th>Acréscimos</th>
                                         <th>Descontos</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
 
@@ -119,6 +120,7 @@
 
 
 <script>
+    var teste;
     //objeto extrato
     var Task = function (id) {
         this.itemExtratoId = id;
@@ -211,10 +213,11 @@
             titulo.Descricao = Utils.getValue(tr.find('[name=Descricao]'));
             titulo.Valor = parseFloat(Utils.getValue(tr.find('[name=Valor]')).replace('R$ ', '').replace(',', '.'));            
             titulo.Direcao = Utils.getValue(tr.find('[name=Direcao]'));
+            titulo.CategoriaId = Utils.getValue(tr.find('[name=CategoriaId]'));
             titulo.DataVencimento = Utils.getValue(tr.find('[name=DataVencimento]')).substring(0,10);
             titulo.Acrescimo = Utils.getValue(tr.find('[name=Acrescimo]')) != ''? parseFloat(Utils.getValue(tr.find('[name=Acrescimo]'))) : 0.00;
             titulo.Desconto = titulo.Acrescimo = Utils.getValue(tr.find('[name=Acrescimo]')) != ''? parseFloat(Utils.getValue(tr.find('[name=Acrescimo]'))): 0.00;
-            //titulo.Liquidado = null;
+            titulo.Liquidado = null;
             return titulo;
         }
 
@@ -224,7 +227,7 @@
             extratoElement.find('#titulosCriar > tbody').remove();
         }
 
-        var setTitulosVinculados = function (titulos, operacao) {
+        var setTitulosVinculados = function (titulos, operacao, hiddenColumns) {
             var tableVinculo = extratoElement.find("#titulosVinculados");
             var tableCriar = extratoElement.find("#titulosCriar");
             for (var i = 0; i < titulos.length; i++) {
@@ -241,6 +244,18 @@
                     td.innerHTML = titulo[prop];
                     tr.appendChild(td);
                 }
+                
+                var button  = document.createElement('button');
+                button.innerHTML = 'x';
+                button.className += 'excluirTitulo';
+                $(button).click(function(){
+
+                });
+                tr.appendChild(button);
+
+                hiddenColumns.forEach(function(c){
+                    $(tr).children().eq(c).hide();
+                })
 
                 if(operacao == 'vinculo'){
                     tableVinculo.append(tr);
@@ -304,8 +319,8 @@
 
         var conciliarTitulos = function () {
             limpaTitulosVinculados();
-            setTitulosVinculados(task.titulosSelecionados, 'vinculo');
-            setTitulosVinculados(task.titulosIncluidos, 'novo');
+            setTitulosVinculados(task.titulosSelecionados, 'vinculo', [1, 2]);
+            setTitulosVinculados(task.titulosIncluidos, 'novo', []);
             dialog.dialog("close");
         }
 
@@ -366,10 +381,10 @@
                 }
             },
             open: function () {
-                
+
             },
             close: function () {
-
+                CadastroTitulo.resetForm()
             }
         });
 
@@ -482,9 +497,6 @@
         }
 
         //Titulos Criados
-        var limpaCadastroTituloDialog = function(){
-            
-        }
 
         //Eventos
         var initEvents = function () {
@@ -569,10 +581,8 @@
         });
 
         $('.item-vinculo').show(function(){
-            $('.item-vinculo').delay(1000).animate({opacity:100}, 10000);
+            $('.item-vinculo').delay(1000).animate({opacity:100}, 3000);
         });
-        
-
     }());
 
 
@@ -588,10 +598,9 @@
         border: 1px solid grey;
         box-shadow: 5px 5px 30px grey;
         padding-bottom: 20px;
-
     }
    
-     .extrato-table {
+    .extrato-table {
          border: 1px solid;
          margin-top: 10px;
          margin-bottom: 20px;
@@ -642,6 +651,7 @@
         float: left;
         margin-left: 10%;
     }
+    
     #painel-periodo .panel {
         margin-bottom: 3px;
         border-radius: 0;
@@ -661,21 +671,20 @@
         padding-bottom: 3px;
     }
 
-     #titulosAVincularLista {
+    #titulosAVincularLista {
          width: 0;
          padding: 0;
          height: 0;      
          padding-right: 10px;
     }
 
-     #titulosAVincularLista input{     
+    #titulosAVincularLista input{     
          width: 85px;
      }
 
     #titulosAVincularLista td{     
          padding: 0 15px 0 15px;
      }
-
 
     /*Lista de titulos já vinculados*/
     #titulosVinculados, #titulosCriar{        
@@ -693,6 +702,5 @@
     #titulosVinculados td {
         
     }
-
 
 </style>

@@ -83,8 +83,29 @@
 <script>
     var CadastroTitulo = function () {
         Utils.createMask(document.getElementById("Valor"), "moeda");
+        var contaPadrao = $('#ContaId').val();
 
-         var getData = function() {
+        var resetForm = function () {
+            $('input').val('');
+            $('#ContaId').val(contaPadrao);
+            $('#CategoriaId').val('');
+            $('#PessoaId').val('');
+            $('#CentroCustoId').val('');
+        }
+
+        var setForm = function (titulo) {
+            $('#ContaId').val(titulo.ContaId);
+            $('#DataVencimento').val(titulo.DataVencimento);
+            $('#Descricao').val(titulo.Descricao);            
+            $('#Valor').val(titulo.Valor);
+            $('#CategoriaId').val(titulo.CategoriaId);
+            $('#PessoaId').val(titulo.PessoaId);
+            $('#CentroCustoId').val(titulo.CentroCustoId);
+            $('#Competencia').val(titulo.Competencia);
+            $('#Observacao').val(titulo.Observacao);
+        }
+
+        var getData = function() {
             var titulo = {};
             titulo.Id = $('#Id').val();
             titulo.TituloRecorrenteId = $('#TituloRecorrenteId').val();
@@ -105,14 +126,13 @@
                     titulo.Liquidacoes = tabLiquidacoes.data;
                 }
             }
-
-            return JSON.stringify(titulo);
+                return JSON.stringify(titulo);
          }
 
-         return {
-             getData: getData,
+        return {
+            getData: getData,
+            resetForm: resetForm,
         }
-
     }();
 
 </script>
