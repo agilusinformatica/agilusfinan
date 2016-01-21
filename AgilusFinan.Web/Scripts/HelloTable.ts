@@ -92,7 +92,6 @@ class CellTable {
             if (this.value) {
                 var date = new Date(Number(this.value.substring(6, this.value.length - 2)));
                 input.value = date.toISOString().substring(0, 10);
-                console.log(input.value);
             }
 
             if (this.column.CssClass)
@@ -162,7 +161,6 @@ class RowTable {
             e.preventDefault();
             this.Row.classList.add("fadeout");
             var rows = this.Row.childNodes;
-            console.log(rows);
             for (var i = 0; i < rows.length;i++) {
                 var cell = <any> rows.item(i);
                 cell.classList.add("fadeout");
@@ -221,7 +219,6 @@ class HelloTable {
             var row = {};
             for (var c = 0; c < this.Rows[r].Cells.length; c++) {
                 row[this.Rows[r].Cells[c].column.FieldName] = Utils.convertFormatDate(this.Rows[r].Cells[c].Value);
-                console.log(Utils.convertFormatDate(this.Rows[r].Cells[c].Value));
             }
             result.push(row);
         }
