@@ -49,6 +49,6 @@ namespace AgilusFinan.Web.ViewModels
         public decimal JurosMulta { get; set; }
 
         [JsonConverter(typeof(StringEnumConverter))]
-        public FormaLiquidacao FormaLiquidacao { get; set; }
+        public FormaLiquidacao? FormaLiquidacao { get; set; }
     }
 }

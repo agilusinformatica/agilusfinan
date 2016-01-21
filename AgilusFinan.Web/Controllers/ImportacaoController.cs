@@ -19,6 +19,7 @@ namespace AgilusFinan.Web.Controllers
     public class Task
     {
         public string itemExtratoId { get; set; }
+        public ConciliacaoExtrato itemExtrato { get; set; }
         public bool selectionado { get; set; }
         public bool isNew { get; set; }
         public List<TituloSelecionado> titulosSelecionados { get; set; }
@@ -36,8 +37,10 @@ namespace AgilusFinan.Web.Controllers
         public int? TituloId { get; set; }
         public int? TituloRecorrenteId { get; set; }
         public string Descricao { get; set; }
+        public string PessoaId { get; set; }
+        public string ContaId { get; set; }
         public double Valor { get; set; }
-        public DirecaoCategoria Direcao { get; set; }
+        public int CategoriaId { get; set; }
         public string DataVencimento { get; set; }
         public double Acrescimo { get; set; }
         public double Desconto { get; set; }
@@ -54,9 +57,9 @@ namespace AgilusFinan.Web.Controllers
         public int CentroCustoId { get; set; }
         public string Competencia { get; set; }
         public string Observacao { get; set; }
+        public double Acrescimo { get; set; }
+        public double Desconto { get; set; }
     }
-
-
 
     public class ImportacaoController : Controller
     {
@@ -90,37 +93,78 @@ namespace AgilusFinan.Web.Controllers
             return PartialView("_VinculoTitulos", titulosPendentes);
         }
 
-
         [HttpPost]
-        public ActionResult ConciliarTitulos(string titulosAVincular)
+        [HandleError]
+        public void ConciliarTitulos(string titulosAVincular)
         {
-            var extratoConciliacao = JsonConvert.DeserializeObject<List<Task>>(titulosAVincular);
-            DataTable tabelaTitulosNaoConciliados = new DataTable();
-            DataTable tabelaTitulosAIncluir = new DataTable();
+            List<Task> extratoConciliacao = null;
+            try
+            {
+                extratoConciliacao = JsonConvert.DeserializeObject<List<Task>>(titulosAVincular);
+            }
+            catch (Exception erro)
+            {
+                throw new Exception(erro.Message);
+            }
 
-            tabelaTitulosNaoConciliados.Columns.Add("id_titulo", typeof(int));
-            tabelaTitulosNaoConciliados.Columns.Add("valor", typeof(double));
+            DataTable tabelaTitulosSemVinculo = new DataTable();
+            tabelaTitulosSemVinculo.Columns.Add("TituloId", typeof(int));
+            tabelaTitulosSemVinculo.Columns.Add("TituloRecorrenteId", typeof(int));
+            tabelaTitulosSemVinculo.Columns.Add("Descricao", typeof(string));
+            tabelaTitulosSemVinculo.Columns.Add("PessoaId", typeof(int));
+            tabelaTitulosSemVinculo.Columns.Add("ContaId", typeof(int));
+            tabelaTitulosSemVinculo.Columns.Add("Valor", typeof(double));
+            tabelaTitulosSemVinculo.Columns.Add("CategoriaId", typeof(int));
+            tabelaTitulosSemVinculo.Columns.Add("DataVencimento", typeof(DateTime));
+            tabelaTitulosSemVinculo.Columns.Add("Acrescimo", typeof(double));
+            tabelaTitulosSemVinculo.Columns.Add("Desconto", typeof(double));
+            tabelaTitulosSemVinculo.Columns.Add("DataLancamento", typeof(DateTime));
+            tabelaTitulosSemVinculo.Columns.Add("ConciliacaoExtratoId", typeof(int));
+            
+            DataTable tabelaTitulosNaoCriados = new DataTable();
+            tabelaTitulosNaoCriados.Columns.Add("ContaId", typeof(int));
+            tabelaTitulosNaoCriados.Columns.Add("DataVencimento", typeof(DateTime));
+            tabelaTitulosNaoCriados.Columns.Add("Descricao", typeof(string));
+            tabelaTitulosNaoCriados.Columns.Add("Valor", typeof(double));
+            tabelaTitulosNaoCriados.Columns.Add("CategoriaId", typeof(int));
+            tabelaTitulosNaoCriados.Columns.Add("PessoaId", typeof(int));
+            tabelaTitulosNaoCriados.Columns.Add("CentroCustoId", typeof(int));
+            tabelaTitulosNaoCriados.Columns.Add("Competencia", typeof(DateTime));
+            tabelaTitulosNaoCriados.Columns.Add("Observacao", typeof(string));
+            tabelaTitulosNaoCriados.Columns.Add("DataLancamento", typeof(DateTime));
+            tabelaTitulosNaoCriados.Columns.Add("Acrescimo", typeof(double));
+            tabelaTitulosNaoCriados.Columns.Add("Desconto", typeof(double));
+            tabelaTitulosNaoCriados.Columns.Add("ConciliacaoExtratoId", typeof(int));
 
-            /* foreach (var titulo in tabelaTitulosNaoConciliados)
-             {
-                 tabelaTitulosNaoConciliados.Rows.Add(titulo.TituloId, titulo.Valor);
-             }
+            foreach (var extrato in extratoConciliacao)
+            {
+                int cont = 0;
 
-             foreach (var titulo in tabelaTitulosAIncluir)
-             {
-                 tabelaTitulosAIncluir.Rows.Add(titulo.TituloId, titulo.Valor);
-             }*/
+                foreach (var titulo in extratoConciliacao[cont].titulosIncluidos)
+                {
+                    tabelaTitulosNaoCriados.Rows.Add(titulo.ContaId, DateTime.ParseExact(titulo.DataVencimento, "yyyy-MM-dd", new CultureInfo("en-US")),
+                        titulo.Descricao, titulo.Valor, titulo.CategoriaId, titulo.PessoaId, titulo.CentroCustoId, DateTime.ParseExact(titulo.Competencia, "yyyy-MM-dd", new CultureInfo("en-US")),
+                        titulo.Observacao, extrato.itemExtrato.DataLancamento, titulo.Acrescimo, titulo.Desconto, extrato.itemExtrato.Id);
+                }
 
-            //Responsabilidades do repositório
+                foreach (var vinculo in extratoConciliacao[cont].titulosSelecionados)
+                {
+                    tabelaTitulosSemVinculo.Rows.Add(vinculo.TituloId, vinculo.TituloRecorrenteId, vinculo.Descricao, vinculo.PessoaId, vinculo.ContaId, vinculo.Valor, vinculo.CategoriaId,
+                        DateTime.ParseExact(vinculo.DataVencimento, "dd/MM/yyyy", new CultureInfo("en-US")),
+                        vinculo.Acrescimo, vinculo.Desconto, extrato.itemExtrato.DataLancamento, extrato.itemExtrato.Id);
+                }
+                cont++;
+            }
 
-            var parameter = new SqlParameter("@titulosSemVinculo", SqlDbType.Structured);
-            parameter.Value = tabelaTitulosNaoConciliados;
-            parameter.TypeName = "dbo.TabelaVinculoDeExtrato";
-            //db.Database.ExecuteSqlCommand("exec dbo.usp_SaveStudents @students", parameter);
+            try
+            {
+                VinculadorExtrato.VincularTitulos(tabelaTitulosSemVinculo, tabelaTitulosNaoCriados);
 
-
-            //then..
-            return View("ConciliacaoExtrato"); //Pensar o que deve ser retornado no final do processo
+            }
+            catch (Exception erro)
+            {
+                throw new Exception(erro.Message);
+            }
         }
 
     }
