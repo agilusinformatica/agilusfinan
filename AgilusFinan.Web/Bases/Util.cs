@@ -155,14 +155,14 @@ namespace AgilusFinan.Web.Bases
             #endregion
  
             #region Instruções 
-            Instrucao item1 = new Instrucao(conta.Banco.Codigo);
+            Instrucao item1 = new Instrucao(numeroBanco);
             item1.Descricao = modeloBoleto.Instrucao;
             boleto.Instrucoes.Add(item1);
             #endregion  
 
             #region Juros
             if (modeloBoleto.Juros > 0 ){
-                Instrucao item2 = new Instrucao(conta.Banco.Codigo);
+                Instrucao item2 = new Instrucao(numeroBanco);
                 decimal juros = boleto.ValorBoleto * modeloBoleto.Juros / 100 / 30;
                 item2.Descricao = "Após o vencimento cobrar juros de R$ " + Math.Round(juros,2) + " ao dia";
                 boleto.Instrucoes.Add(item2);
@@ -181,7 +181,7 @@ namespace AgilusFinan.Web.Bases
             #region Multa
             if (modeloBoleto.Multa > 0)
             {
-                Instrucao item3 = new Instrucao(conta.Banco.Codigo);
+                Instrucao item3 = new Instrucao(numeroBanco);
                 decimal multa = boleto.ValorBoleto * modeloBoleto.Multa / 100;
                 item3.Descricao = "Após o vencimento cobrar multa de R$ " + Math.Round(multa,2);
                 boleto.Instrucoes.Add(item3);
@@ -207,7 +207,7 @@ namespace AgilusFinan.Web.Bases
             if(DateTime.Today <= boleto.DataDesconto)
             {
                 boleto.ValorDesconto = boleto.ValorBoleto * (modeloBoleto.PercentualDesconto / 100);
-                Instrucao instrucaoDesconto = new Instrucao(conta.Banco.Codigo);
+                Instrucao instrucaoDesconto = new Instrucao(numeroBanco);
                 instrucaoDesconto.Descricao = "Até " + boleto.DataDesconto.GetDateTimeFormats()[0] + " conceder desconto de R$ " + Math.Round(boleto.ValorDesconto,2);
                 boleto.Instrucoes.Add(instrucaoDesconto);
             }
