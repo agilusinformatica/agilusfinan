@@ -482,6 +482,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Scripts\Config\criacao tipo para conciliar titulos.sql" />
     <Content Include="Scripts\Config\Funcoes AgilusFinan.sql" />
     <Content Include="Scripts\fn_feriado.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -489,6 +490,7 @@
     <Content Include="Scripts\fn_saldo.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Scripts\procedure conciliar titulos.sql" />
     <Content Include="Scripts\pr_fluxo_caixa.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
