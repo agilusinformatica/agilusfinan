@@ -194,7 +194,7 @@ namespace AgilusFinan.Web.Controllers
         [HttpPost]
         public ActionResult EnviarBoletoPorEmail(int tituloId, int modeloBoletoId, string emailDestinatario, string AssuntoEmail, string TextoEmail)
         {
-            Util.EnviarBoletoPorEmail(tituloId, Server.MapPath(@"~/App_Data/teste.pdf"), modeloBoletoId, emailDestinatario, AssuntoEmail, TextoEmail);
+            Util.EnviarBoletoPorEmail(tituloId, "boleto.html", modeloBoletoId, emailDestinatario, AssuntoEmail, TextoEmail);
             return RedirectToAction("Index", "Recebimento");
         }
 

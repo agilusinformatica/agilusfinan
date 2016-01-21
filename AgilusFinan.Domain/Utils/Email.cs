@@ -18,13 +18,14 @@ namespace AgilusFinan.Domain.Utils
         private string assunto;
         private List<String> anexos = new List<String>();
         private List<Stream> anexosStream = new List<Stream>();
+        private List<String> nomesArquivos = new List<String>();
 
         public string Assunto { get; set; }
 
         public Email(string EmailDestinatario, string Mensagem, string Assunto, string EmailRemetente)
         {
             this.emailDestinatario = EmailDestinatario;
-            this.emailRemetente = EmailRemetente;
+            this.emailRemetente = "financeiro@agilus.com.br"; //EmailRemetente;
             this.mensagem = Mensagem;
             this.assunto = Assunto;
         }
@@ -34,9 +35,10 @@ namespace AgilusFinan.Domain.Utils
             this.anexos = Anexos;
         }
 
-        public Email(string EmailDestinatario, string Mensagem, string Assunto, string EmailRemetente, List<Stream> AnexosStream) : this(EmailDestinatario, Mensagem, Assunto, EmailRemetente)
+        public Email(string EmailDestinatario, string Mensagem, string Assunto, string EmailRemetente, List<Stream> AnexosStream, List<string> NomesArquivos) : this(EmailDestinatario, Mensagem, Assunto, EmailRemetente)
         {
             this.anexosStream = AnexosStream;
+            this.nomesArquivos = NomesArquivos;
         }
 
         public void DispararMensagem()
@@ -72,9 +74,9 @@ namespace AgilusFinan.Domain.Utils
                     objEmail.Attachments.Add(new Attachment(anexo));
                 }
 
-                foreach (var anexo in anexosStream)
+                for (int i = 0; i < anexosStream.Count; i++)
                 {
-                    objEmail.Attachments.Add(new Attachment(anexo, null, null));
+                    objEmail.Attachments.Add(new Attachment(anexosStream[i], nomesArquivos[i]));
                 }
 
                 //Cria objeto com os dados do SMTP

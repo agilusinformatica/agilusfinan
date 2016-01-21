@@ -28,9 +28,15 @@ namespace AgilusFinan.Web.Controllers
         {
             var js = new JavaScriptSerializer();
             var boleto = js.Deserialize<LoteBoleto>(postedData);
-            Util.EnviarBoletoPorEmail(boleto, Server.MapPath(@"~/App_Data/teste.pdf"));
-
-            return "ok";
+            try
+            {
+                Util.EnviarBoletoPorEmail(boleto, "boleto.html");
+                return "Enviado";
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
         }
 
         [HttpPost]

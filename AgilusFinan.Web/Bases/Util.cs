@@ -5,6 +5,7 @@ using AgilusFinan.Infra.Services;
 using BoletoNet;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -346,13 +347,11 @@ namespace AgilusFinan.Web.Bases
             var emailRemetente = titulo.Empresa.EmailFinanceiro;
 
             var boleto = Util.GerarBoleto(tituloId, modeloBoletoId);
-            GeradorPdf.HtmlParaPdf(boleto.MontaHtmlEmbedded(false, true), arquivoTemporario);
-            var anexos = new List<string>();
-            anexos.Add(arquivoTemporario);
-            var email = new Email(emailDestinatario, TextoEmail, AssuntoEmail, emailRemetente, anexos);
+            var html = StringToStream(boleto.MontaHtmlEmbedded());
+            var anexos = new List<Stream>();
+            anexos.Add(html);
+            var email = new Email(emailDestinatario, TextoEmail, AssuntoEmail, emailRemetente, anexos, new List<string>() { Path.GetFileName(arquivoTemporario) });
             email.DispararMensagem();
-            System.IO.File.Delete(arquivoTemporario);
-
         }
 
         public static void EnviarBoletoPorEmail(int tituloRecorrenteId, decimal valor, DateTime dataVencimento, string arquivoTemporario, int modeloBoletoId)
@@ -363,12 +362,11 @@ namespace AgilusFinan.Web.Bases
             var modeloBoleto = new RepositorioModeloBoleto().BuscarPorId(modeloBoletoId);
 
             var boleto = Util.GerarBoleto(tituloRecorrenteId, valor, dataVencimento, modeloBoletoId);
-            GeradorPdf.HtmlParaPdf(boleto.MontaHtmlEmbedded(false, true), arquivoTemporario);
-            var anexos = new List<string>();
-            anexos.Add(arquivoTemporario);
-            var email = new Email(emailDestinatario, modeloBoleto.TextoEmail, "Teste Boleto", emailRemetente, anexos);
+            var html = StringToStream(boleto.MontaHtmlEmbedded());
+            var anexos = new List<Stream>();
+            anexos.Add(html);
+            var email = new Email(emailDestinatario, modeloBoleto.TextoEmail, "Teste Boleto", emailRemetente, anexos, new List<string>() { Path.GetFileName(arquivoTemporario) });
             email.DispararMensagem();
-            System.IO.File.Delete(arquivoTemporario);
         }
 
         public static void EnviarBoletoPorEmail(LoteBoleto loteBoleto, string arquivoTemporario)
@@ -393,12 +391,11 @@ namespace AgilusFinan.Web.Bases
                 boleto = Util.GerarBoleto((int)loteBoleto.TituloRecorrenteId, loteBoleto.Valor, loteBoleto.DataVencimento, loteBoleto.ModeloBoletoId);
             }
 
-            GeradorPdf.HtmlParaPdf(boleto.MontaHtmlEmbedded(false, true), arquivoTemporario);
-            var anexos = new List<string>();
-            anexos.Add(arquivoTemporario);
-            var email = new Email(emailDestinatario, modeloBoleto.TextoEmail, "Teste Boleto", emailRemetente, anexos);
+            var html = StringToStream(boleto.MontaHtmlEmbedded());
+            var anexos = new List<Stream>();
+            anexos.Add(html);
+            var email = new Email(emailDestinatario, modeloBoleto.TextoEmail, "Teste Boleto", emailRemetente, anexos, new List<string>() { Path.GetFileName(arquivoTemporario) });
             email.DispararMensagem();
-            System.IO.File.Delete(arquivoTemporario);
 
         }
 
@@ -415,14 +412,21 @@ namespace AgilusFinan.Web.Bases
         public static void SalvarBoleto(int tituloId, string arquivoTemporario, int modeloBoletoId)
         {
             var boleto = Util.GerarBoleto(tituloId, modeloBoletoId);
-            GeradorPdf.HtmlParaPdf(boleto.MontaHtmlEmbedded(false, true), arquivoTemporario);
+            //GeradorPdf.HtmlParaPdf(boleto.MontaHtmlEmbedded(false, true), arquivoTemporario);
         }
 
         public static void SalvarBoleto(int tituloRecorrenteId, decimal valor, DateTime dataVencimento, string arquivoTemporario, int modeloBoletoId)
         {
             var boleto = Util.GerarBoleto(tituloRecorrenteId, valor, dataVencimento, modeloBoletoId);
-            GeradorPdf.HtmlParaPdf(boleto.MontaHtmlEmbedded(false, true), arquivoTemporario);
+            //GeradorPdf.HtmlParaPdf(boleto.MontaHtmlEmbedded(false, true), arquivoTemporario);
         }
+
+        private static Stream StringToStream(string src)
+        {
+            byte[] byteArray = Encoding.UTF8.GetBytes(src);
+            return new MemoryStream(byteArray);
+        }
+
 
     }
 }

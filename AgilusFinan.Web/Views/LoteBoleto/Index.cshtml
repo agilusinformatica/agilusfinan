@@ -80,21 +80,19 @@
                 type: "POST",
                 url: '/LoteBoleto/GerarBoleto',
                 data: { "postedData": JSON.stringify(boleto) },
-                success: function () {
+                success: function (msg) {
                     var pos = Math.round(++contador / boletos.length * 100);
                     $('#progressbar').attr("style", "width:" + pos + "%");
                     $('#progressbar').html(pos + "%");
-                    $(tabletr[indice]).children()[8].innerHTML = '<label class="label label-success">Enviado</label>';
+                    if(msg == 'Enviado'){
+                        $(tabletr[indice]).children()[8].innerHTML = '<label class="label label-success">'+msg+'</label>';
+                    }
+                    else{
+                        $(tabletr[indice]).children()[8].innerHTML = '<label class="label label-danger">'+msg+'</label>';
+                    }
                     if (contador == boletos.length) {
                         $('.progress').delay(1000).fadeToggle(500, () => $('#progressbar').attr("style", "width: 0%").html('<img src="../Content/Images/ellipsis.gif" height="20"/>'));
                     }
-                },
-                error: function (object) {
-                    //Capturando erro no objeto htmlResponse
-                    var htmlResponse = document.createElement('html');
-                    htmlResponse.innerHTML = object.responseText;
-                    var erro = htmlResponse.querySelector('h4').textContent;
-                    location.href = '@Url.Action("Erro", "LoteBoleto")?erro=' + erro
                 }
             });
         });
