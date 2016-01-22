@@ -55,7 +55,7 @@
 
                     <div class="row">
                         <div class="col-md-12">
-                            <p>Soma dos títulos (c/ acrescimos): <span id="valorSomatoria"></span></p>
+                            <p>Total: <span id="valorSomatoria"></span></p>
                             <table class="table" id="titulosVinculados">
                                 <thead>
                                     <tr>
@@ -146,8 +146,8 @@
 
                     titulo.Operacao = 'vinculo';
 
-                    tr.innerHTML = 
-                        '<td style="display: none;">' + titulo.RowIndex + '</td>' + 
+                    tr.innerHTML =
+                        '<td style="display: none;">' + titulo.RowIndex + '</td>' +
                         '<td>' + titulo.Operacao + '</td>' +
                         '<td style="display: none;">' + titulo.TituloId + '</td>' +
                         '<td style="display: none;">' + titulo.TituloRecorrenteId + '</td>' +
@@ -158,8 +158,9 @@
                         '<td>' + titulo.DataVencimento + '</td>' +
                         '<td style="display: none;">' + titulo.PessoaId + '</td>' +
                         '<td style="display: none;">' + titulo.ContaId + '</td>' +
-                        '<td><input type="text" name="Acrescimo" value=" ' + (titulo.Acrescimo? titulo.Acrescimo : 0) + ' "></td>' +
-                        '<td><input type="text" name="Desconto" value=" ' + (titulo.Desconto? titulo.Desconto : 0) + ' "></td>';
+                        '<td><input type="text" name="Acrescimo" value=" ' + (titulo.Acrescimo ? titulo.Acrescimo : 0) + ' "></td>' +
+                        '<td><input type="text" name="Desconto" value=" ' + (titulo.Desconto ? titulo.Desconto : 0) + ' "></td>' +
+                        '<td><input type="button" value="excluir" name="Excluir"></td>';
   
                     if(operacao == 'vinculo'){
                         tableVinculo.append(tr);
@@ -177,7 +178,7 @@
                 var extratoColunas = this.element.find("table > tbody > tr > td");
                 itemExtrato.DataLancamento = convertDate(extratoColunas[0].innerHTML).substring(0, 10);
                 itemExtrato.Descricao = extratoColunas[1].innerHTML;
-                itemExtrato.Valor = parseFloat(extratoColunas[2].innerHTML.replace(",", ".")).toFixed(2);
+                itemExtrato.Valor = parseFloat(extratoColunas[2].innerHTML.replace(",", "."));
                 itemExtrato.TipoLancamento = extratoColunas[3].innerHTML;
                 return itemExtrato;
             };
@@ -214,7 +215,7 @@
             var desvincularTitulo = function(titulo) {
                 this.titulosSelecionados.forEach(function(t, index, titulos) {
 
-                    if (titulo.TituloId == t.TituloId) {
+                    if (titulo.RowIndex == t.RowIndex) {
                         titulos.splice(index, 1);
                     }
 
@@ -239,18 +240,28 @@
             this.element.on('input change', 'input[name="Acrescimo"]', function() {
                 var titulo = findTitulo($(this));
                 titulo.Acrescimo = $(this).val();
+                updateTotal.call(that);
             });
 
             this.element.on('input change', 'input[name="Desconto"]', function() {
                 var titulo = findTitulo($(this));
                 titulo.Desconto = $(this).val();
+                updateTotal.call(that);
+            });
+
+            this.element.on('click', 'input[name="Excluir"]', function() {
+                var titulo = findTitulo($(this));              
+                desvincularTitulo.call(that, titulo);
+                updateTotal.call(that);
             });
             
             var somaTitulos = function() {
                 var soma = 0;
                 if (this.titulosSelecionados) {
                     this.titulosSelecionados.forEach(function(titulo) {
-                        soma += (titulo.Valor + (titulo.Acrescimos? titulo.Acrescimos : 0));
+                        console.log(titulo.Acrescimo);
+                        console.log(titulo.Desconto);
+                        soma += (titulo.Valor + parseFloat((titulo.Acrescimo ? titulo.Acrescimo : 0)) - parseFloat((titulo.Desconto ? titulo.Desconto : 0)));
                     });
                     return soma;
                 } else {
@@ -258,12 +269,17 @@
                 }
             };
 
+            var updateTotal = function() {
+                console.log(somaTitulos.call(that));
+                that.element.find('#valorSomatoria').html(somaTitulos.call(that));
+            }
+
             var updateItemExtratoDOM = function() {
                 this.itemExtratoDOM.clear();
                 this.itemExtratoDOM.setTitulosVinculados(this.titulosSelecionados, 'vinculo');
                 this.itemExtratoDOM.setTitulosVinculados(this.titulosIncluidos, 'novo');
             };
-
+                
             return {
                 itemExtratoId: this.itemExtratoId,
                 itemExtrato: this.itemExtrato,
@@ -497,7 +513,7 @@
                 
                 for(var j = 0; j < titulos.length; j++){
                     if((titulos[j].TituloRecorrenteId == tituloRecorrente.TituloRecorrenteId 
-                        && titulos[j].TituloRecorrenteId != null) 
+                            && titulos[j].TituloRecorrenteId != null) 
                         && (titulos[j].DataVencimento == tituloRecorrente.DataVencimento)){
                         return true;
                     }
@@ -668,10 +684,6 @@
          table-layout:fixed;
     }
 
-    #titulosAVincularLista input{     
-         width: 60px;
-     }
-
     #titulosAVincularLista td{  
         padding-left: 20px;
         padding-right: 20px;   
@@ -681,6 +693,10 @@
     #titulosVinculados, #titulosCriar{        
         font-size: 12px;        
     }
+
+    #titulosVinculados input[type=text]{     
+         width: 70px;
+     }
 
     #titulosVinculados th{
     }
