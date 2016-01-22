@@ -40,6 +40,10 @@
     </tbody>
 </table>
 
+<form action="/LoteBoleto/BaixarBoletos" method="post" id="FormBaixarBoletos">
+    <input type="hidden" name="postedData" id="dadosBaixarBoletos" />
+</form>
+
 <button class="btn btn-default" id="enviar"><span class="glyphicon glyphicon-envelope" aria-hiddden="true"></span> Enviar</button>
 
 <button class="btn btn-default" id="Baixar" onclick="BaixarBoletos()"><span class="glyphicon glyphicon-save" aria-hiddden="true"></span> Baixar</button>
@@ -75,7 +79,6 @@
         var contador = 0;
         var tabletr = $("table input[id='item_Boleto']:checked").parent().parent();
         $.each(boletos, function (indice, boleto) {
-            
             $.ajax({
                 type: "POST",
                 url: '/LoteBoleto/GerarBoleto',
@@ -100,21 +103,8 @@
 
     function BaixarBoletos() {
         var boletosJson = JSON.stringify(GetData());
-        $.ajax({
-            type: "POST",
-            url: '/LoteBoleto/BaixarBoletos',
-            data: { "postedData": boletosJson },
-            success: function (data) {
-                window.location = data;
-            },
-            error: function (object) {
-                //Capturando erro no objeto htmlResponse 
-                var htmlResponse = document.createElement('html');
-                htmlResponse.innerHTML = object.responseText;
-                var erro = htmlResponse.querySelector('h4').textContent;
-                location.href = '@Url.Action("Erro", "LoteBoleto")?erro=' + erro
-            }
-        });
+        $('#dadosBaixarBoletos').val(boletosJson);
+        $('#FormBaixarBoletos').submit();
     }
 
     function GetData() {

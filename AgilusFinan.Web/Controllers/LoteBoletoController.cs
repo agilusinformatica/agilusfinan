@@ -40,7 +40,7 @@ namespace AgilusFinan.Web.Controllers
         }
 
         [HttpPost]
-        public string BaixarBoletos(string postedData)
+        public FileResult BaixarBoletos(string postedData)
         {
             var js = new JavaScriptSerializer();
             var boletos = js.Deserialize<List<LoteBoleto>>(postedData);
@@ -52,22 +52,30 @@ namespace AgilusFinan.Web.Controllers
                 int seq = 1;
                 foreach (var boleto in boletos)
                 {
-                    var nomeArquivo = Server.MapPath(@"~/App_Data/" + boleto.NomePessoa + seq.ToString() + ".pdf");
+                    var nomeArquivo = boleto.NomePessoa + seq.ToString() + ".html";
                     seq++;
+                    Stream html;
                     if (boleto.TituloId != null)
                     {
-                        Util.SalvarBoleto((int)boleto.TituloId, nomeArquivo, boleto.ModeloBoletoId);
+                        html = Util.SalvarBoleto((int)boleto.TituloId, boleto.ModeloBoletoId);
                     }
                     else
                     {
-                        Util.SalvarBoleto((int)boleto.TituloRecorrenteId, boleto.Valor, boleto.DataVencimento, nomeArquivo, boleto.ModeloBoletoId);
+                        html = Util.SalvarBoleto((int)boleto.TituloRecorrenteId, boleto.Valor, boleto.DataVencimento, boleto.ModeloBoletoId);
                     }
-                    zip.AddFile(nomeArquivo, String.Empty);
-                }
-                zip.Save(Server.MapPath(@"~/Content/" + random + ".Zip"));
-            }
+                    html.Flush();
+                    html.Seek(0, SeekOrigin.Begin);
 
-            return Util.EnderecoHost() + "/Content/" + random + ".Zip";
+                    zip.AddEntry(nomeArquivo, html);
+                }
+                MemoryStream ms = new MemoryStream();
+                zip.Save(ms);
+                ms.Seek(0, SeekOrigin.Begin);
+                ms.Flush();
+
+                return File(ms, "application/zip", "Boletos.zip");
+
+            }
         }
     }
 }

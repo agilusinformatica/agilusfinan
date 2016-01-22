@@ -341,7 +341,7 @@ namespace AgilusFinan.Web.Bases
             return boletobancario;
         }
 
-        public static void EnviarBoletoPorEmail(int tituloId, string arquivoTemporario, int modeloBoletoId, string emailDestinatario, string AssuntoEmail, string TextoEmail)
+        public static void EnviarBoletoPorEmail(int tituloId, string nomeArquivo, int modeloBoletoId, string emailDestinatario, string AssuntoEmail, string TextoEmail)
         {
             var titulo = new RepositorioRecebimento().BuscarPorId(tituloId);
             var emailRemetente = titulo.Empresa.EmailFinanceiro;
@@ -350,26 +350,11 @@ namespace AgilusFinan.Web.Bases
             var html = StringToStream(boleto.MontaHtmlEmbedded());
             var anexos = new List<Stream>();
             anexos.Add(html);
-            var email = new Email(emailDestinatario, TextoEmail, AssuntoEmail, emailRemetente, anexos, new List<string>() { Path.GetFileName(arquivoTemporario) });
+            var email = new Email(emailDestinatario, TextoEmail, AssuntoEmail, emailRemetente, anexos, new List<string>() { Path.GetFileName(nomeArquivo) });
             email.DispararMensagem();
         }
 
-        public static void EnviarBoletoPorEmail(int tituloRecorrenteId, decimal valor, DateTime dataVencimento, string arquivoTemporario, int modeloBoletoId)
-        {
-            var titulo = new RepositorioTituloRecorrente().BuscarPorId(tituloRecorrenteId);
-            var emailDestinatario = titulo.Pessoa.EmailFinanceiro;
-            var emailRemetente = titulo.Empresa.EmailFinanceiro;
-            var modeloBoleto = new RepositorioModeloBoleto().BuscarPorId(modeloBoletoId);
-
-            var boleto = Util.GerarBoleto(tituloRecorrenteId, valor, dataVencimento, modeloBoletoId);
-            var html = StringToStream(boleto.MontaHtmlEmbedded());
-            var anexos = new List<Stream>();
-            anexos.Add(html);
-            var email = new Email(emailDestinatario, modeloBoleto.TextoEmail, "Teste Boleto", emailRemetente, anexos, new List<string>() { Path.GetFileName(arquivoTemporario) });
-            email.DispararMensagem();
-        }
-
-        public static void EnviarBoletoPorEmail(LoteBoleto loteBoleto, string arquivoTemporario)
+        public static void EnviarBoletoPorEmail(LoteBoleto loteBoleto, string nomeArquivo)
         {
             string emailDestinatario = "";
             string emailRemetente = "";
@@ -394,7 +379,7 @@ namespace AgilusFinan.Web.Bases
             var html = StringToStream(boleto.MontaHtmlEmbedded());
             var anexos = new List<Stream>();
             anexos.Add(html);
-            var email = new Email(emailDestinatario, modeloBoleto.TextoEmail, "Teste Boleto", emailRemetente, anexos, new List<string>() { Path.GetFileName(arquivoTemporario) });
+            var email = new Email(emailDestinatario, modeloBoleto.TextoEmail, "Teste Boleto", emailRemetente, anexos, new List<string>() { Path.GetFileName(nomeArquivo) });
             email.DispararMensagem();
 
         }
@@ -409,16 +394,16 @@ namespace AgilusFinan.Web.Bases
             return PrimeiroDiaMes(data).AddMonths(1).AddDays(-1).Date;
         }
 
-        public static void SalvarBoleto(int tituloId, string arquivoTemporario, int modeloBoletoId)
+        public static Stream SalvarBoleto(int tituloId, int modeloBoletoId)
         {
             var boleto = Util.GerarBoleto(tituloId, modeloBoletoId);
-            //GeradorPdf.HtmlParaPdf(boleto.MontaHtmlEmbedded(false, true), arquivoTemporario);
+            return StringToStream(boleto.MontaHtmlEmbedded());
         }
 
-        public static void SalvarBoleto(int tituloRecorrenteId, decimal valor, DateTime dataVencimento, string arquivoTemporario, int modeloBoletoId)
+        public static Stream SalvarBoleto(int tituloRecorrenteId, decimal valor, DateTime dataVencimento, int modeloBoletoId)
         {
             var boleto = Util.GerarBoleto(tituloRecorrenteId, valor, dataVencimento, modeloBoletoId);
-            //GeradorPdf.HtmlParaPdf(boleto.MontaHtmlEmbedded(false, true), arquivoTemporario);
+            return StringToStream(boleto.MontaHtmlEmbedded());
         }
 
         private static Stream StringToStream(string src)
