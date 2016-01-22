@@ -31,7 +31,7 @@
     {
         <div class="row">
             <div class="col-md-10">
-                <div class="list-group item-extrato" data-extratoid=@extratoId >
+                <div class="list-group item-extrato" data-extratoid=@extratoId>
                     <table class="extrato-table">
                         <thead>
                             <tr>
@@ -59,17 +59,16 @@
                             <table class="table" id="titulosVinculados">
                                 <thead>
                                     <tr>
-                                        <th>Operação</th>
                                         <th style="display:none">RowId</th>
                                         <th style="display:none">ID</th>
                                         <th style="display:none"> Titulo Recorrente</th>
+                                        <th>Operação</th>
+                                        <th>ContaId</th>
+                                        <th>Data de vencimento</th>
                                         <th>Descrição</th>
                                         <th>Valor</th>
-                                        <th>Direção</th>
-                                        <th style="display:none">Categoria id</th>
-                                        <th>Data de vencimento</th>
-                                        <th style="display:none">Pessoa Id</th>
-                                        <th style="display:none">Conta Id</th>
+                                        <th>Categoria</th>
+                                        <th>Pessoa</th>
                                         <th>Acréscimos</th>
                                         <th>Descontos</th>
                                         <th></th>
@@ -85,16 +84,19 @@
                             <table class="table" id="titulosCriar">
                                 <thead>
                                     <tr>
+                                        <th style="display:none">RowId</th>
+                                        <th style="display:none">ID</th>
+                                        <th style="display:none"> Titulo Recorrente</th>
                                         <th>Operação</th>
                                         <th>ContaId</th>
-                                        <th>Data Vencimento</th>
-                                        <th>Descricao</th>
+                                        <th>Data de vencimento</th>
+                                        <th>Descrição</th>
                                         <th>Valor</th>
                                         <th>Categoria</th>
                                         <th>Pessoa</th>
-                                        <th>Pessoa </th>
-                                        <th>Competencia</th>
-                                        <th>Observação</th>
+                                        <th>Acréscimos</th>
+                                        <th>Descontos</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
 
@@ -114,7 +116,7 @@
                     </div>
                 </div>
                 @{
-                     extratoId = extratoId + 1;
+        extratoId = extratoId + 1;
                 }
             </div>
         </div>
@@ -125,7 +127,7 @@
 
 <script>
     var conciliacaoExtratoController = (function () {
-        //objeto extrato    
+        //objeto extrato
         var convertDate = function (date) {
             var dia = date.substring(0, 2);
             var mes = date.substring(3, 5);
@@ -139,7 +141,7 @@
 
             var setTitulosVinculados = function (titulos, operacao) {
                 var tableVinculo = this.element.find("#titulosVinculados");
-                var tableCriar = this.element.find("#titulosCriar");            
+                var tableCriar = this.element.find("#titulosCriar");
                 for (var i = 0; i < titulos.length; i++) {
                     var tr = document.createElement('tr');
                     var titulo = titulos[i];
@@ -148,24 +150,23 @@
 
                     tr.innerHTML =
                         '<td style="display: none;">' + titulo.RowIndex + '</td>' +
-                        '<td>' + titulo.Operacao + '</td>' +
-                        '<td style="display: none;">' + titulo.TituloId + '</td>' +
+                         '<td style="display: none;">' + titulo.TituloId + '</td>' +
                         '<td style="display: none;">' + titulo.TituloRecorrenteId + '</td>' +
+                        '<td>' + titulo.Operacao + '</td>' +
+                        '<td>' + titulo.ContaId + '</td>' +
+                        '<td>' + titulo.DataVencimento + '</td>' +
                         '<td>' + titulo.Descricao + '</td>' +
                         '<td>' + titulo.Valor + '</td>' +
-                        '<td>' + titulo.Direcao + '</td>' +
-                        '<td style="display: none;">' + titulo.CategoriaId + '</td>' +
-                        '<td>' + titulo.DataVencimento + '</td>' +
-                        '<td style="display: none;">' + titulo.PessoaId + '</td>' +
-                        '<td style="display: none;">' + titulo.ContaId + '</td>' +
+                        '<td>' + titulo.CategoriaId + '</td>' +
+                        '<td>' + titulo.PessoaId + '</td>' +
                         '<td><input type="text" name="Acrescimo" value=" ' + (titulo.Acrescimo ? titulo.Acrescimo : 0) + ' "></td>' +
                         '<td><input type="text" name="Desconto" value=" ' + (titulo.Desconto ? titulo.Desconto : 0) + ' "></td>' +
                         '<td><input type="button" value="excluir" name="Excluir"></td>';
-  
+
                     if(operacao == 'vinculo'){
                         tableVinculo.append(tr);
                     }
-                
+
                     if(operacao == 'novo'){
                         tableCriar.append(tr);
                     }
@@ -173,7 +174,7 @@
                 }
             }
 
-            var getItemExtrato = function() {            
+            var getItemExtrato = function() {
                 var itemExtrato = {};
                 var extratoColunas = this.element.find("table > tbody > tr > td");
                 itemExtrato.DataLancamento = convertDate(extratoColunas[0].innerHTML).substring(0, 10);
@@ -218,11 +219,9 @@
                     if (titulo.RowIndex == t.RowIndex) {
                         titulos.splice(index, 1);
                     }
-
                 });
-
             };
-            
+
             var findTitulo = function(element) {
                 var titulo;
                 var rowIndex = element.closest('tr').children()[0].innerHTML;
@@ -250,17 +249,15 @@
             });
 
             this.element.on('click', 'input[name="Excluir"]', function() {
-                var titulo = findTitulo($(this));              
+                var titulo = findTitulo($(this));
                 desvincularTitulo.call(that, titulo);
-                updateTotal.call(that);
+                updateItemExtratoDOM.call(that);
             });
-            
+
             var somaTitulos = function() {
                 var soma = 0;
                 if (this.titulosSelecionados) {
                     this.titulosSelecionados.forEach(function(titulo) {
-                        console.log(titulo.Acrescimo);
-                        console.log(titulo.Desconto);
                         soma += (titulo.Valor + parseFloat((titulo.Acrescimo ? titulo.Acrescimo : 0)) - parseFloat((titulo.Desconto ? titulo.Desconto : 0)));
                     });
                     return soma;
@@ -276,10 +273,11 @@
 
             var updateItemExtratoDOM = function() {
                 this.itemExtratoDOM.clear();
+                updateTotal.call(this);
                 this.itemExtratoDOM.setTitulosVinculados(this.titulosSelecionados, 'vinculo');
                 this.itemExtratoDOM.setTitulosVinculados(this.titulosIncluidos, 'novo');
             };
-                
+
             return {
                 itemExtratoId: this.itemExtratoId,
                 itemExtrato: this.itemExtrato,
@@ -292,7 +290,8 @@
                 titulosIncluidos: this.titulosIncluidos,
                 vincularTitulo: vincularTitulo,
                 desvincularTitulo: desvincularTitulo,
-                somaTitulos: somaTitulos            
+                somaTitulos: somaTitulos ,
+                updateTotal: updateTotal
             }
 
         }
@@ -312,12 +311,14 @@
             titulo.TituloId = Utils.getValue(tr.find('[name=TituloId]')) == ""? null : Utils.getValue(tr.find('[name=TituloId]')) ;
             titulo.TituloRecorrenteId = Utils.getValue(tr.find('[name=TituloRecorrenteId]')) == ""? null : Utils.getValue(tr.find('[name=TituloRecorrenteId]'));
             titulo.Descricao = Utils.getValue(tr.find('[name=Descricao]'));
-            titulo.Valor = parseFloat(Utils.getValue(tr.find('[name=Valor]')).replace('R$ ', '').replace(',', '.'));            
+            titulo.Valor = parseFloat(Utils.getValue(tr.find('[name=Valor]')).replace('R$ ', '').replace(',', '.'));
             titulo.Direcao = Utils.getValue(tr.find('[name=Direcao]'));
             titulo.CategoriaId = Utils.getValue(tr.find('[name=CategoriaId]'));
             titulo.DataVencimento = Utils.getValue(tr.find('[name=DataVencimento]')).substring(0,10);
             titulo.PessoaId = Utils.getValue(tr.find('[name=PessoaId]')).substring(0,10);
             titulo.ContaId = Utils.getValue(tr.find('[name=ContaId]'));
+            titulo.Acrescimo = 0;
+            titulo.Desconto = 0;
             return titulo;
         }
 
@@ -325,15 +326,15 @@
 
         //Titulos selecionados
         var setTitulosSelecionados = function () {
-            var inputs = $('#titulosAVincularLista').find('input:checkbox');            
+            var inputs = $('#titulosAVincularLista').find('input:checkbox');
             $.each(inputs, function (input) {
                 var titulo = getItemTitulo($(inputs[input]));
                 var isSelected = isTituloSelected(titulo);
                 var tituloExists = task.titulosSelecionados.some(ts => (ts.TituloId == titulo.TituloId) && ts.TituloId != null);
-                var isRecorrenteSelected = isTituloRecorrenteSelected(titulo);                
+                var isRecorrenteSelected = isTituloRecorrenteSelected(titulo);
                 var tituloRecorrenteExists = task.titulosSelecionados.some(ts => (ts.TituloRecorrenteId == titulo.TituloRecorrenteId) && ts.DataVencimento == titulo.DataVencimento);
                 var tr = $(inputs[input]).closest('tr');
-                
+
                 if (!tituloExists && isSelected) {
                     $(inputs[input]).prop('disabled', true);
                 }
@@ -341,8 +342,8 @@
                 if (!tituloRecorrenteExists && isRecorrenteSelected) {
                     $(inputs[input]).prop('disabled', true);
                 }
-                
-                task.titulosSelecionados.forEach(function (t) {                    
+
+                task.titulosSelecionados.forEach(function (t) {
                     if (t.TituloId == titulo.TituloId && titulo.TituloRecorrenteId == null) {
                         $(inputs[input]).prop('checked', true);
                     }
@@ -385,8 +386,6 @@
             open: function () {
             },
             close: function () {
-                $("#vinculoBuscaDialog").off('click', 'input:checkbox');
-                $('input').off('change input'); 
             }
         });
 
@@ -399,8 +398,9 @@
                 Ok: {
                     text: "Gravar",
                     id: "gravar",
-                    click: function() {                        
+                    click: function() {
                         task.titulosIncluidos.push(JSON.parse(CadastroTitulo.getData()));
+                        task.updateItemExtratoDOM();
                         cadastroTituloDialog.dialog('close');
                     }
                 },
@@ -462,17 +462,17 @@
                 task = new Task(id);
                 tasks.push(task);
             }
-            
+
         }
 
-        var findTituloVinculo = function(titulo){            
+        var findTituloVinculo = function(titulo){
             var titulosSelecionados = task.titulosSelecionados;
 
             for(var i = 0; i < titulosSelecionados.length; i++){
                 if(titulosSelecionados[i].TituloId == titulo.TituloId && titulosSelecionados[i].TituloId != null){
                     return titulosSelecionados[i];
                 }
-                
+
                 if(titulosSelecionados[i].TituloRecorrenteId == titulo.TituloRecorrenteId && titulosSelecionados[i].DataVencimento == titulo.DataVencimento) {
                     return titulosSelecionados[i];
                 }
@@ -483,21 +483,21 @@
 
         var getItemTituloSelecionado = function(e){
             var itemAtual = getItemTitulo(e);
-            var taskTitulo = findTituloVinculo(itemAtual);  
+            var taskTitulo = findTituloVinculo(itemAtual);
 
             if(taskTitulo && taskTitulo.TituloId == itemAtual.TituloId){
                 return taskTitulo;
             }else{
                 return itemAtual;
             }
-            
+
         }
 
         var isTituloSelected = function(titulo){
             for(var i = 0; i < tasks.length; i++){
                 var titulos = tasks[i].titulosSelecionados;
-                for(var j = 0; j < titulos.length; j++){                    
-                    
+                for(var j = 0; j < titulos.length; j++){
+
                     if(titulos[j].TituloId == titulo.TituloId && titulos[j].TituloId != null){
                         return true;
 
@@ -510,15 +510,15 @@
         var isTituloRecorrenteSelected = function(tituloRecorrente){
             for(var i = 0; i < tasks.length; i++){
                 var titulos = tasks[i].titulosSelecionados;
-                
+
                 for(var j = 0; j < titulos.length; j++){
-                    if((titulos[j].TituloRecorrenteId == tituloRecorrente.TituloRecorrenteId 
-                            && titulos[j].TituloRecorrenteId != null) 
+                    if((titulos[j].TituloRecorrenteId == tituloRecorrente.TituloRecorrenteId
+                            && titulos[j].TituloRecorrenteId != null)
                         && (titulos[j].DataVencimento == tituloRecorrente.DataVencimento)){
                         return true;
                     }
 
-                }                    
+                }
             }
             return false;
         }
@@ -527,24 +527,34 @@
 
         //Eventos
         $('#vinculoBuscaDialog').on('input change', 'input', function(e){
-            var titulo = getItemTituloSelecionado($(this));                
+            var titulo = getItemTituloSelecionado($(this));
             var tr =  $(this).closest('tr');
             var valorInput = tr.find('input[name="Valor"]');
-            if(valorInput.val() != undefined) titulo.Valor = parseFloat(Utils.getValue(valorInput).replace(',', '.'));                
+            if(valorInput.val() != undefined) titulo.Valor = parseFloat(Utils.getValue(valorInput).replace(',', '.'));
         });
 
-        $("#vinculoBuscaDialog").on('click', 'input[type="checkbox"]', function (e) {                
-            var titulo = getItemTituloSelecionado($(this));
+        $("#vinculoBuscaDialog").on('click', 'input[type="checkbox"]', function (e) {
+            //var titulo = getItemTituloSelecionado($(this));       
+            var index = $(this).closest('tr').index();
+            var titulo = TitulosPendentes.getTituloSelecionado(index);                       
+            
             var valorInput = $(this).closest('tr').find('input[name="Valor"]');
 
             if ($(this).prop('checked')) {
-                valorInput.prop('disabled', false);
+                valorInput.prop('disabled', false);                
+                titulo.Acrescimo = 0;
+                titulo.Desconto = 0;
+                //Precisamos de um método global para tratar datas
+                var dataAuxiliar = new Date(parseInt(titulo.DataVencimento.replace("/Date(", "").replace(")/",""), 10)).toISOString().substring(0, 10).split("-");
+                titulo.DataVencimento = dataAuxiliar[2] + "/" + dataAuxiliar[1] + "/" + dataAuxiliar[0];
+                titulo.Operacao = 'vinculo';
+                titulo.RowIndex = rowIndex++;
+                console.log(titulo);
                 task.vincularTitulo(titulo);
             } else {
-                valorInput.prop('disabled', true);                    
+                valorInput.prop('disabled', true);
                 task.desvincularTitulo(titulo);
             }
-
         });
 
         $('.adicionarTitulo').click(function(){
@@ -553,23 +563,36 @@
         });
 
         $(".vincularTitulos").click(function () {
-            findTask($(this).attr("data-botaoid"));            
+            findTask($(this).attr("data-botaoid"));
             $("#dataInicial").val(Utils.primeiroDiaMes(task.itemExtrato.DataLancamento, 'MDY'));
             $("#dataFinal").val(Utils.ultimoDiaMes(task.itemExtrato.DataLancamento, 'MDY'));
 
             vinculoBuscaDialog.dialog("open");
-            
+
             consultarPeriodo(getTitulosPendentes);
-            
         });
 
         $('#efetivar').click(function(){
-            console.log(JSON.stringify(tasks));
+            
+            var data = [];
+
+            tasks.forEach(function(t){
+                var temp = {
+                    titulosSelecionados: t.titulosSelecionados,
+                    titulosIncluidos: t.titulosIncluidos,
+                    itemExtrato: t.itemExtrato
+                };
+
+                data.push(temp);
+            });
+
+            console.log(JSON.stringify(data));
+            
             $.ajax({
                 type: 'POST',
                 url: '@Url.Action("ConciliarTitulos")',
                 data: {
-                    "titulosAVincular": JSON.stringify(tasks)
+                    "titulosAVincular": JSON.stringify(data)
                 },
                 success: function() {
                     console.log("Titulos enviado!");
@@ -580,7 +603,6 @@
                     console.log('Erro no ajax!');
                 }
             });
-
         });
 
         $('.item-vinculo').show(function(){
@@ -593,8 +615,7 @@
 
 
 <style>
-    
-    .item-vinculo{
+    .item-vinculo {
     }
 
     .item-extrato {
@@ -602,37 +623,37 @@
         box-shadow: 5px 5px 30px grey;
         padding-bottom: 20px;
     }
-   
+
     .extrato-table {
-         border: 1px solid;
-         margin-top: 10px;
-         margin-bottom: 20px;
-         margin-left: 60px;
-         table-layout: fixed;
-         width: 90%;
-         font-size: 12px;
-     }
-
-    .extrato-table > tbody > tr > td {
-        width: 200px;
+        border: 1px solid;
+        margin-top: 10px;
+        margin-bottom: 20px;
+        margin-left: 60px;
+        table-layout: fixed;
+        width: 90%;
+        font-size: 12px;
     }
 
-    .extrato-table > thead {
-        background-color: lightgray;
-        border: 1px solid grey;
-        width: 100px;
-        z-index: 0;
-    }
+        .extrato-table > tbody > tr > td {
+            width: 200px;
+        }
 
-    .extrato-table > thead > th {
-        border: 1px solid black;
-        margin: 100px;
-    }
+        .extrato-table > thead {
+            background-color: lightgray;
+            border: 1px solid grey;
+            width: 100px;
+            z-index: 0;
+        }
+
+            .extrato-table > thead > th {
+                border: 1px solid black;
+                margin: 100px;
+            }
 
     .dialog {
         width: 100%;
     }
-    
+
     #vinculoBuscaDialog > table {
         border: 1px solid;
         margin-top: 10px;
@@ -645,7 +666,7 @@
     }
 
     /*Painel pariodo*/
-    #painel-periodo {        
+    #painel-periodo {
         height: 0;
         font-size: 12px;
         width: 70%;
@@ -654,58 +675,56 @@
         float: left;
         margin-left: 10%;
     }
-    
-    #painel-periodo .panel {
-        margin-bottom: 3px;
-        border-radius: 0;
-        height: auto;
-        border: 1px solid black
-    }
 
-    #painel-periodo .panel-body {
-        padding-top: 3px;
-        padding-bottom: 3px;
-    }
+        #painel-periodo .panel {
+            margin-bottom: 3px;
+            border-radius: 0;
+            height: auto;
+            border: 1px solid black;
+        }
 
-    #painel-periodo .panel-heading {
-        margin-bottom: 3px;
-        border-radius: 0;
-        padding-top: 3px;
-        padding-bottom: 3px;
-    }
+        #painel-periodo .panel-body {
+            padding-top: 3px;
+            padding-bottom: 3px;
+        }
+
+        #painel-periodo .panel-heading {
+            margin-bottom: 3px;
+            border-radius: 0;
+            padding-top: 3px;
+            padding-bottom: 3px;
+        }
 
     /*Titulos a vincular*/
     #titulosAVincularLista {
-         width: auto;
-         padding-right: 20px;
-         padding-left: 20px;
-         height: 0;
-         float:left;
-         table-layout:fixed;
+        width: auto;
+        padding-right: 20px;
+        padding-left: 20px;
+        height: 0;
+        float: left;
+        table-layout: fixed;
     }
 
-    #titulosAVincularLista td{  
-        padding-left: 20px;
-        padding-right: 20px;   
-     }
+        #titulosAVincularLista td {
+            padding-left: 20px;
+            padding-right: 20px;
+        }
 
     /*Lista de titulos já vinculados*/
-    #titulosVinculados, #titulosCriar{        
-        font-size: 12px;        
+    #titulosVinculados, #titulosCriar {
+        font-size: 12px;
     }
 
-    #titulosVinculados input[type=text]{     
-         width: 70px;
-     }
+        #titulosVinculados input[type=text] {
+            width: 70px;
+        }
 
-    #titulosVinculados th{
-    }
-       
-    #titulosVinculados > tbody > tr > td {
-    }
+        #titulosVinculados th {
+        }
 
-    #titulosVinculados td {
-        
-    }
+        #titulosVinculados > tbody > tr > td {
+        }
 
+        #titulosVinculados td {
+        }
 </style>

@@ -30,7 +30,6 @@
         </tr>
     }
 </table>
-
 <input class="btn btn-default modal" value="Vincular" />
 
 
@@ -40,7 +39,24 @@
 </style>
 
 <script>
-    var VinculoTitulos = function () {
+
+    var TitulosPendentes = function () {
+        var titulosPendentes = JSON.parse('@Html.Raw(Json.Encode(Model))');
+
+        var getTituloSelecionado = function (index) {
+            return titulosPendentes[index];
+        };
+
+        @*var getData = function () {
+            return JSON.parse('@Html.Raw(Json.Encode(Model))');
+        }*@
+
+        return {
+            titulosPendentes: titulosPendentes,
+            getTituloSelecionado: getTituloSelecionado
+        }
 
     }();
+
+
 </script>
