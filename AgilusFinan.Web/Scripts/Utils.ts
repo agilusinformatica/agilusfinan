@@ -307,4 +307,20 @@
     export function getValue(element: any):string {
         return element.val() != ''? element.val() : element.html()
     }
+
+    export function convertJSONDate(d: string, formatoRetorno: string): string {
+        var dataAuxiliar = new Date(parseInt(d.replace("/Date(", "").replace(")/", ''), 10)).toISOString().substring(0, 10).split("-");
+        var data;
+
+        switch (formatoRetorno) {
+            case 'DMY':
+                data = dataAuxiliar[2] + "/" + dataAuxiliar[1] + "/" + dataAuxiliar[0];
+            break;    
+        default:
+        }
+
+
+        return data;        
+
+    }
 }
