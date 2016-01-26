@@ -160,20 +160,32 @@ namespace AgilusFinan.Web.Bases
             boleto.Instrucoes.Add(item1);
             #endregion  
 
+            #region Desconto
+            if (modeloBoleto.PercentualDesconto > 0)
+            {
+                boleto.DataDesconto = boleto.DataVencimento.AddDays(-modeloBoleto.DiasDesconto);
+                if (DateTime.Today <= boleto.DataDesconto)
+                {
+                    boleto.ValorDesconto = boleto.ValorBoleto * (modeloBoleto.PercentualDesconto / 100);
+                    Instrucao instrucaoDesconto = new Instrucao(numeroBanco);
+                    instrucaoDesconto.Descricao = "Até " + boleto.DataDesconto.GetDateTimeFormats()[0] + " conceder desconto de R$ " + Math.Round(boleto.ValorDesconto, 2);
+                    boleto.Instrucoes.Add(instrucaoDesconto);
+                }
+            }
+
+            #endregion  
+
             #region Juros
-            if (modeloBoleto.Juros > 0 ){
+            if (modeloBoleto.Juros > 0 )
+            {
                 Instrucao item2 = new Instrucao(numeroBanco);
                 decimal juros = boleto.ValorBoleto * modeloBoleto.Juros / 100 / 30;
                 item2.Descricao = "Após o vencimento cobrar juros de R$ " + Math.Round(juros,2) + " ao dia";
                 boleto.Instrucoes.Add(item2);
-                if (titulo.DataVencimento < DateTime.Today && titulo.Categoria.DirecaoVencimentoDiaNaoUtil == DirecaoVencimento.Antecipado)
+                if (titulo.DataVencimento < DateTime.Today)
                 {
                     boleto.DataVencimento = DateTime.Today;
                     boleto.JurosMora = juros * (int)(DateTime.Today - titulo.DataVencimento).TotalDays;
-                }
-                else if (titulo.DataVencimento < DateTime.Today && titulo.Categoria.DirecaoVencimentoDiaNaoUtil == DirecaoVencimento.Prorrogado)
-                {
-
                 }
             }
             #endregion
@@ -201,17 +213,6 @@ namespace AgilusFinan.Web.Bases
             boleto.PercMulta = modeloBoleto.Multa;
             boleto.PercJurosMora = modeloBoleto.Juros;
             #endregion
-
-            #region Desconto
-            boleto.DataDesconto = boleto.DataVencimento.Subtract(new TimeSpan(modeloBoleto.DiasDesconto,0,0,0,0));
-            if(DateTime.Today <= boleto.DataDesconto)
-            {
-                boleto.ValorDesconto = boleto.ValorBoleto * (modeloBoleto.PercentualDesconto / 100);
-                Instrucao instrucaoDesconto = new Instrucao(numeroBanco);
-                instrucaoDesconto.Descricao = "Até " + boleto.DataDesconto.GetDateTimeFormats()[0] + " conceder desconto de R$ " + Math.Round(boleto.ValorDesconto,2);
-                boleto.Instrucoes.Add(instrucaoDesconto);
-            }
-            #endregion  
 
             #region Boleto Bancario
             var boletobancario = new BoletoBancario();
@@ -306,13 +307,16 @@ namespace AgilusFinan.Web.Bases
             #endregion
 
             #region Desconto
-            boleto.DataDesconto = boleto.DataVencimento.Subtract(new TimeSpan(modeloBoleto.DiasDesconto, 0, 0, 0, 0));
-            if (DateTime.Today <= boleto.DataDesconto)
+            if (modeloBoleto.PercentualDesconto > 0)
             {
-                boleto.ValorDesconto = boleto.ValorBoleto * (modeloBoleto.PercentualDesconto / 100);
-                Instrucao instrucaoDesconto = new Instrucao(conta.Banco.Codigo);
-                instrucaoDesconto.Descricao = "Até " + boleto.DataDesconto.GetDateTimeFormats()[0] + " conceder desconto de R$ " + Math.Round(boleto.ValorDesconto, 2);
-                boleto.Instrucoes.Add(instrucaoDesconto);
+                boleto.DataDesconto = boleto.DataVencimento.AddDays(-modeloBoleto.DiasDesconto);
+                if (DateTime.Today <= boleto.DataDesconto)
+                {
+                    boleto.ValorDesconto = boleto.ValorBoleto * (modeloBoleto.PercentualDesconto / 100);
+                    Instrucao instrucaoDesconto = new Instrucao(numeroBanco);
+                    instrucaoDesconto.Descricao = "Até " + boleto.DataDesconto.GetDateTimeFormats()[0] + " conceder desconto de R$ " + Math.Round(boleto.ValorDesconto, 2);
+                    boleto.Instrucoes.Add(instrucaoDesconto);
+                }
             }
             #endregion  
 
