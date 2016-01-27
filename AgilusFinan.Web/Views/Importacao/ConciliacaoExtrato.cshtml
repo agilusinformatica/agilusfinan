@@ -86,7 +86,7 @@
                                     <tr>
                                         <th style="display:none">RowId</th>
                                         <th style="display:none">ID</th>
-                                        <th style="display:none"> Titulo Recorrente</th>
+                                        <th style="display:none">Titulo Recorrente</th>
                                         <th>Operação</th>
                                         <th>ContaId</th>
                                         <th>Data de vencimento</th>
@@ -156,11 +156,11 @@
                         '<td>' + titulo.ContaId + '</td>' +
                         '<td>' + titulo.DataVencimento + '</td>' +
                         '<td>' + titulo.Descricao + '</td>' +
-                        '<td>' + titulo.Valor.toFixed(2) + '</td>' +
+                        '<td>' + Utils.moneyFormatConvert(titulo.Valor.toFixed(2)) + '</td>' +
                         '<td>' + titulo.CategoriaId + '</td>' +
                         '<td>' + titulo.PessoaId + '</td>' +
-                        '<td><input type="text" name="Acrescimo" value=" ' + (titulo.Acrescimo ? titulo.Acrescimo : 0) + ' "></td>' +
-                        '<td><input type="text" name="Desconto" value=" ' + (titulo.Desconto ? titulo.Desconto : 0) + ' "></td>' +
+                        '<td><input type="text" name="Acrescimo" value="0,00" ' + (titulo.Acrescimo ? titulo.Acrescimo : 0.0) + ' "></td>' +
+                        '<td><input type="text" name="Desconto" value="0,00" ' + (titulo.Desconto ? titulo.Desconto : 0.0) + ' "></td>' +
                         '<td><input type="button" value="Excluir" name="Excluir"></td>';
 
                     if(operacao == 'vinculo'){
@@ -170,6 +170,8 @@
                     if(operacao == 'novo'){
                         tableCriar.append(tr);
                     }
+                    Utils.createMask($(tr).find('input[name="Acrescimo"]').get(0), 'moeda');
+                    Utils.createMask($(tr).find('input[name="Desconto"]').get(0), 'moeda');
 
                 }
             }
@@ -245,14 +247,14 @@
 
             //Mudança de contexto 'this' para o objeto input pertecente a esta Task.
             this.element.on('input change', 'input[name="Acrescimo"]', function() {
-                var titulo = findTitulo($(this));
-                titulo.Acrescimo = $(this).val();
+                var titulo = findTitulo($(this));                
+                titulo.Acrescimo = $(this).val().replace(/\,|\./g, '') / 100;
                 updateTotal.call(that);
             });
 
             this.element.on('input change', 'input[name="Desconto"]', function() {
                 var titulo = findTitulo($(this));
-                titulo.Desconto = $(this).val();
+                titulo.Desconto = $(this).val().replace(/\,|\./g, '') / 100;
                 updateTotal.call(that);
             });
 
@@ -353,6 +355,8 @@
                 }
 
                 if (!tituloRecorrenteExists && isRecorrenteSelected) {
+                    var valorInput = tr.find('input[name="Valor"]');
+                    valorInput.val(Utils.moneyFormatConvert(t.Valor));
                     $(inputs[input]).prop('disabled', true);
                 }
 
@@ -363,7 +367,7 @@
 
                     if(t.TituloRecorrenteId == titulo.TituloRecorrenteId && titulo.TituloId == null && t.DataVencimento == titulo.DataVencimento){
                         var valorInput = tr.find('input[name="Valor"]');
-                        valorInput.val(t.Valor);
+                        valorInput.val(Utils.moneyFormatConvert(t.Valor));
                         valorInput.prop('disabled', false);
                         $(inputs[input]).prop('checked', true);
                     }
@@ -550,7 +554,7 @@
             var titulo = getItemTituloSelecionado($(this));
             var tr =  $(this).closest('tr');
             var valorInput = tr.find('input[name="Valor"]');
-            if(valorInput.val() != undefined) titulo.Valor = parseFloat(Utils.getValue(valorInput).replace(',', '.'));
+            if (valorInput.val() != undefined) titulo.Valor = Utils.getValue(valorInput).replace(/\,|\./g, '') / 100;
         });
 
         $("#vinculoBuscaDialog").on('click', 'input[type="checkbox"]', function (e) {

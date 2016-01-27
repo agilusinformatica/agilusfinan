@@ -142,8 +142,8 @@ namespace AgilusFinan.Web.Controllers
 
                 foreach (var titulo in extratoConciliacao[cont].titulosIncluidos)
                 {
-                    tabelaTitulosNaoCriados.Rows.Add(titulo.ContaId, DateTime.ParseExact(titulo.DataVencimento, "yyyy-MM-dd", new CultureInfo("en-US")),
-                        titulo.Descricao, titulo.Valor, titulo.CategoriaId, titulo.PessoaId, titulo.CentroCustoId, DateTime.ParseExact(titulo.Competencia, "yyyy-MM-dd", new CultureInfo("en-US")),
+                    tabelaTitulosNaoCriados.Rows.Add(titulo.ContaId, titulo.DataVencimento,
+                        titulo.Descricao, titulo.Valor, titulo.CategoriaId, titulo.PessoaId, titulo.CentroCustoId, titulo.Competencia,
                         titulo.Observacao, extrato.itemExtrato.DataLancamento, titulo.Acrescimo, titulo.Desconto, extrato.itemExtrato.Id);
                 }
 

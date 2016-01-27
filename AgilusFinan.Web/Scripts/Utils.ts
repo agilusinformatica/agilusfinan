@@ -11,7 +11,7 @@
 		}
 	}
 
-	export function createMask(input: HTMLInputElement, mask: any, callback: any) {
+	export function createMask(input: HTMLInputElement, mask: any) {
 
 		switch (mask) {
 
@@ -90,9 +90,6 @@
 				if (mask) $(input).mask(mask);
         }
 
-        if (callback) {
-            callback.call();
-        }
 	}
 
 	function maskEvent(input: HTMLInputElement, e: any) {

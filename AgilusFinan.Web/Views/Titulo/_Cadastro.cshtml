@@ -13,7 +13,7 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         
-        @Html.Partial("~/Views/Titulo/_CadastroTitulo.cshtml", Model)
+        @Html.Partial("~/Views/Shared/_CadastroTitulo.cshtml", Model)
 
         <div class="form-group">
             <input type="checkbox" id="estapago" @(Model.Liquidacoes.Count > 0 ? "checked" : "")>
@@ -40,9 +40,9 @@
 
 <script>
 
-    $('#estapago').click(function () {
+    $('#estapago').click(function() {
         $('#divLiquidacoes').toggle();
-    })
+    });
 
     function UpdateTitulo(manterTela) {
         var tituloJson = CadastroTitulo.getData();

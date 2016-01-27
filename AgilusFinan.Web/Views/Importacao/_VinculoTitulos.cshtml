@@ -13,7 +13,7 @@
 
             @if (titulo.Valor == null)
             {
-                <td> <input type="text" name="Valor" disabled="disabled" value="0" /> </td>
+                <td> R$ <input style="width:50px"type="text" name="Valor" disabled="disabled" value="0,00" /> </td>
             }
             else
             {
@@ -42,6 +42,8 @@
     var TitulosPendentes = function () {
         var titulosPendentes = JSON.parse('@Html.Raw(Json.Encode(Model))');
 
+        Utils.createMask($('input[name=Valor]').get(0), 'moeda');
+
         var getTituloSelecionado = function (index) {
             //Conversão do formato da data antes do retorno.
             var regex = new RegExp(/\/Date\(\d{13}\)\//); //Regex que verifica se data esta no formato /Date(1450231200000)/
@@ -55,6 +57,8 @@
         var getData = function () {
             return JSON.parse('@Html.Raw(Json.Encode(Model))');
         }
+
+        
 
         return {
             titulosPendentes: titulosPendentes,
