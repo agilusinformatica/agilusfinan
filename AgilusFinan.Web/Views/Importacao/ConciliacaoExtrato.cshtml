@@ -417,9 +417,12 @@
                     id: "gravar",
                     click: function() {
                         var cadastro = JSON.parse(CadastroTitulo.getData());
-                        var dataAuxiliar = cadastro.DataVencimento.split('-');
+                        var dataVencimentoAuxiliar = cadastro.DataVencimento.split('-');
+                        var dataVencimentoCompetencia = cadastro.Competencia.split('-');
                         cadastro.RowIndex = rowIndex++;
-                        cadastro.DataVencimento = dataAuxiliar[2] + '/' + dataAuxiliar[1] + '/' + dataAuxiliar[0];
+                        cadastro.DataVencimento = dataVencimentoAuxiliar[2] + '/' + dataVencimentoAuxiliar[1] + '/' + dataVencimentoAuxiliar[0];
+                        cadastro.Competencia = dataVencimentoCompetencia[2] + '/' + dataVencimentoCompetencia[1] + '/' + dataVencimentoCompetencia[0];
+
                         cadastro.Valor = cadastro.Valor == '' ? 0.00 : parseFloat(cadastro.Valor);
                         cadastro.Acrescimo = 0.0;
                         cadastro.Desconto = 0.0;
