@@ -48,7 +48,7 @@ begin
 				insert into Liquidacao(TituloId, Data, JurosMulta, Desconto, Valor, ConciliacaoExtratoId)values(@@IDENTITY, @DataLancamento, isnull(@Acrescimo,0), isnull(@Desconto,0), @Valor, @ConciliacaoExtratoId)
 			end
 			else
-				insert into Liquidacao(TituloId, Valor, JurosMulta, Desconto, ConciliacaoExtratoId)values(@TituloId, @valor,  isnull(@Acrescimo,0), isnull(@Desconto,0), @ConciliacaoExtratoId)
+				insert into Liquidacao(TituloId, Valor, JurosMulta, Desconto, ConciliacaoExtratoId, Data)values(@TituloId, @valor,  isnull(@Acrescimo,0), isnull(@Desconto,0), @ConciliacaoExtratoId, @DataLancamento)
 
 			fetch cur into @Acrescimo, @DataVencimento, @Desconto, @Descricao, @CategoriaId, @TituloId, @TituloRecorrenteId, @Valor, @ContaId, @PessoaId, @DataLancamento, @ConciliacaoExtratoId
 		end
