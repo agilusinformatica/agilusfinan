@@ -12,7 +12,7 @@ namespace AgilusFinan.Domain.Entities
         public decimal Valor { get; set; }
         public decimal JurosMulta { get; set; }
         public FormaLiquidacao FormaLiquidacao { get; set; }
-
+        public decimal Desconto { get; set; }
         public int TituloId { get; set; }
         public virtual Titulo Titulo { get; set; }
 

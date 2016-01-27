@@ -88,7 +88,8 @@ namespace AgilusFinan.Web.Controllers
                 Valor = (decimal)tituloR.Valor,
                 FormaLiquidacao = FormaLiquidacao.Boleto,
                 Data = DateTime.Now.Date,
-                JurosMulta = 0
+                JurosMulta = 0,
+                Desconto = 0
             };
 
             titulo.Liquidacoes.Add(liquidacao);
@@ -116,7 +117,8 @@ namespace AgilusFinan.Web.Controllers
                     Valor = l.Valor,
                     JurosMulta = l.JurosMulta,
                     FormaLiquidacao = l.FormaLiquidacao,
-                    TituloId = viewModel.Id
+                    TituloId = viewModel.Id,
+                    Desconto = l.Desconto
                 });
             }
         }

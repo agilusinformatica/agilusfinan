@@ -103,7 +103,8 @@ namespace AgilusFinan.Web.Controllers
                     Data = l.Data,
                     Valor = l.Valor,
                     JurosMulta = l.JurosMulta,
-                    FormaLiquidacao = l.FormaLiquidacao
+                    FormaLiquidacao = l.FormaLiquidacao,
+                    Desconto = l.Desconto
                 });
             }
         }
@@ -131,7 +132,8 @@ namespace AgilusFinan.Web.Controllers
                     Valor = l.Valor,
                     JurosMulta = l.JurosMulta,
                     FormaLiquidacao = l.FormaLiquidacao,
-                    TituloId = viewModel.Id
+                    TituloId = viewModel.Id,
+                    Desconto = l.Desconto
                 });
             }
         }
@@ -162,7 +164,8 @@ namespace AgilusFinan.Web.Controllers
                         Valor = titulo.Valor,
                         JurosMulta = 0,
                         FormaLiquidacao = FormaLiquidacao.Boleto,
-                        TituloId = titulo.Id
+                        TituloId = titulo.Id,
+                        Desconto = 0
                     }
                 );
                 repo.Alterar(titulo);

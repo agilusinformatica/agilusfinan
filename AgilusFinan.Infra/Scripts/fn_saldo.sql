@@ -39,7 +39,7 @@ begin
 		begin
 			
 			--definir o saldo na data 
-			select @Saldo = @Saldo + @saldoInicial + isnull(SUM(case c.Direcao when 0 then l.valor + isnull(l.JurosMulta, 0.0) else -( l.valor + isnull(l.JurosMulta, 0.0)) end), 0.0)
+			select @Saldo = @Saldo + @saldoInicial + isnull(SUM(case c.Direcao when 0 then l.valor + isnull(l.JurosMulta, 0.0) - isnull(l.Desconto, 0.0) else -( l.valor + isnull(l.JurosMulta, 0.0) - isnull(l.Desconto, 0.0)) end), 0.0)
 			from liquidacao l
 			join titulo t on l.TituloId = t.Id
 			join categoria c on t.CategoriaId = c.Id

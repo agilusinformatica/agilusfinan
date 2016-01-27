@@ -33,8 +33,8 @@ begin
 	if @periodicidade = 'Mensal'
 	begin
 		insert into #fluxo_caixa (periodo, Receitas, Despesas)
-		select convert(varchar, MONTH(Data)) + '/'+ convert(varchar,YEAR(Data)), SUM(case when c.Direcao = 0 then l.Valor+isnull(l.JurosMulta,0.0) else 0 end), 
-		SUM(case when c.Direcao = 1 then l.Valor+isnull(l.JurosMulta,0.0) else 0 end)  
+		select convert(varchar, MONTH(Data)) + '/'+ convert(varchar,YEAR(Data)), SUM(case when c.Direcao = 0 then l.Valor+isnull(l.JurosMulta,0.0) - isnull(l.Desconto,0.0) else 0 end), 
+		SUM(case when c.Direcao = 1 then l.Valor+isnull(l.JurosMulta,0.0) - isnull(l.Desconto,0.0) else 0 end)  
 		from Liquidacao l
 		join titulo t on l.TituloId = t.Id
 		join categoria c on t.CategoriaId = c.Id
@@ -47,8 +47,8 @@ begin
 	if @periodicidade = 'Anual'
 	begin
 		insert into #fluxo_caixa (periodo, Receitas, Despesas)
-		select convert(varchar,YEAR(Data)), SUM(case when c.Direcao = 0 then l.Valor+isnull(l.JurosMulta,0.0) else 0 end), 
-		SUM(case when c.Direcao = 1 then l.Valor+isnull(l.JurosMulta,0.0) else 0 end)  
+		select convert(varchar,YEAR(Data)), SUM(case when c.Direcao = 0 then l.Valor+isnull(l.JurosMulta,0.0) - isnull(l.Desconto,0.0) else 0 end), 
+		SUM(case when c.Direcao = 1 then l.Valor+isnull(l.JurosMulta,0.0) - isnull(l.Desconto,0.0) else 0 end)  
 		from Liquidacao l
 		join titulo t on l.TituloId = t.Id
 		join categoria c on t.CategoriaId = c.Id
@@ -61,8 +61,8 @@ begin
 	if @periodicidade = 'Trimestral'
 	begin
 		insert into #fluxo_caixa (periodo, Receitas, Despesas)
-		select convert(varchar, DATEPART(QQ, Data)) + '/'+ convert(varchar,YEAR(Data)), SUM(case when c.Direcao = 0 then l.Valor+isnull(l.JurosMulta,0.0) else 0 end), 
-		SUM(case when c.Direcao = 1 then l.Valor+isnull(l.JurosMulta,0.0) else 0 end)  
+		select convert(varchar, DATEPART(QQ, Data)) + '/'+ convert(varchar,YEAR(Data)), SUM(case when c.Direcao = 0 then l.Valor+isnull(l.JurosMulta,0.0) - isnull(l.Desconto,0.0) else 0 end), 
+		SUM(case when c.Direcao = 1 then l.Valor+isnull(l.JurosMulta,0.0) - isnull(l.Desconto,0.0) else 0 end)  
 		from Liquidacao l
 		join titulo t on l.TituloId = t.Id
 		join categoria c on t.CategoriaId = c.Id
@@ -75,8 +75,8 @@ begin
 	if @periodicidade = 'Bimestral'
 	begin
 		insert into #fluxo_caixa (periodo, Receitas, Despesas)
-		select convert(varchar, ceiling(MONTH(l.Data)/2.0)) + '/'+ convert(varchar,YEAR(Data)), SUM(case when c.Direcao = 0 then l.Valor+isnull(l.JurosMulta,0.0) else 0 end), 
-		SUM(case when c.Direcao = 1 then l.Valor+isnull(l.JurosMulta,0.0) else 0 end)  
+		select convert(varchar, ceiling(MONTH(l.Data)/2.0)) + '/'+ convert(varchar,YEAR(Data)), SUM(case when c.Direcao = 0 then l.Valor+isnull(l.JurosMulta,0.0) - isnull(l.Desconto,0.0) else 0 end), 
+		SUM(case when c.Direcao = 1 then l.Valor+isnull(l.JurosMulta,0.0) - isnull(l.Desconto,0.0) else 0 end)  
 		from Liquidacao l
 		join titulo t on l.TituloId = t.Id
 		join categoria c on t.CategoriaId = c.Id

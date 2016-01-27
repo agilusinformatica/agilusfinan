@@ -28,8 +28,8 @@ begin
 	insert into #movimentacoes
 	select Data, l.Id LiquidacaoId, null TransferenciaId,
       case c.Direcao 
-         when 0 then l.valor + isnull(l.JurosMulta, 0.0) 
-         else -(l.valor+isnull(l.JurosMulta, 0.0)) 
+         when 0 then l.valor + isnull(l.JurosMulta, 0.0) - isnull(l.Desconto,0.0)
+         else -(l.valor+isnull(l.JurosMulta,0.0) - isnull(l.Desconto,0.0)) 
       end Valor, 
       t.Descricao, convert(money,null) Saldo 
 	from Liquidacao l

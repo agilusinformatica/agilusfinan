@@ -47,7 +47,7 @@ namespace AgilusFinan.Web.ViewModels
         public DateTime Data { get; set; }
         public decimal Valor { get; set; }
         public decimal JurosMulta { get; set; }
-
+        public decimal Desconto { get; set; }
         [JsonConverter(typeof(StringEnumConverter))]
         public FormaLiquidacao FormaLiquidacao { get; set; }
     }
