@@ -1,6 +1,6 @@
 ﻿@model System.Collections.Generic.List<AgilusFinan.Domain.Entities.TituloPendente>
 
-<table id="titulosAVincularLista">
+<table class="table" id="titulosAVincularLista">
     @foreach (var titulo in Model)
     {
         <tr data-tituloid=@titulo.TituloId>
@@ -13,7 +13,7 @@
 
             @if (titulo.Valor == null)
             {
-                <td> R$ <input style="width:50px"type="text" name="Valor" disabled="disabled" value="0,00" /> </td>
+                <td> R$ <input style="width:80px"type="text" name="Valor" disabled="disabled" value="0,00" /> </td>
             }
             else
             {
@@ -42,7 +42,7 @@
     var TitulosPendentes = function () {
         var titulosPendentes = JSON.parse('@Html.Raw(Json.Encode(Model))');
 
-        Utils.createMask($('input[name=Valor]').get(0), 'moeda');
+        Utils.createMaskClass(document.querySelectorAll('#titulosAVincularLista input[name=Valor]'), 'moeda');
 
         var getTituloSelecionado = function (index) {
             //Conversão do formato da data antes do retorno.
