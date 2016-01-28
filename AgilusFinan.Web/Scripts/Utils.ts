@@ -20,7 +20,8 @@
 				input.addEventListener("input", e => maskEvent(input, e));
 				break;
 
-			case "moeda":
+            case "moeda":
+
                 if (input.value != null) {
                     if (input.value) {
                         input.value = Utils.moneyFormatConvert(input.value.replace(",", "."));
@@ -28,20 +29,22 @@
 				}
 
 				$(input).mask("000.000.000,00", {
-					onChange: function (e) {
+                    onChange: function (e) {
 
-						var once = false;
+                        if (input.value == '') {
+                            input.value = '0,00';
+                            return 0;
+                        }
 
-						if (input.value.length === 0) {
-							//input.value = "";
-							once = true;
-						}
+                        if (input.value.length < 2 && (event.keyCode == 8 || event.keyCode == 46)) {
+                            input.value = '0,' + input.value;
+                        }
 
-						if ((input.value.length === 1 && once) && event.keyCode != 8) {
+                        if ((input.value.length === 1) && (event.keyCode != 8 || event.keycode != 46)) {
 							input.value = "0,0" + input.value;
 						}
 
-						if ((input.value.length === 2 || input.value.length === 3) && event.keyCode != 8) {
+						if ((input.value.length === 2 || input.value.length === 3) && (event.keyCode != 8 || event.keyCode != 46)) {
 							input.value = "0," + input.value;
 						}
 
@@ -49,10 +52,14 @@
 							input.value = input.value.replace(/^0+/, "");
 						} else {
 							input.value = input.value.replace(/^0+(?=\d)\.?/, "");
-						}
-					},
+                        }
+
+                        input.value = input.value.replace(/\,\,/, ',');
+                        input.value = input.value.replace(/^(\.|0*)*(?=0\,|\d)/, '');
+
+                    },
 					reverse: true,
-					watchInterval: 200
+					watchInterval: 1
 				});
 				break;
 
@@ -76,13 +83,13 @@
 				break;
 
 			case "data":
-				console.log(input.value);
 				$(input).mask("00/00/0000");
 				break;
 
 			default:
 				if (mask) $(input).mask(mask);
-		}
+        }
+
 	}
 
 	function maskEvent(input: HTMLInputElement, e: any) {
@@ -304,4 +311,23 @@
         return data.toISOString().substring(0, 10);
     }
 
+    export function getValue(element: any):string {
+        return element.val() != ''? element.val() : element.html()
+    }
+
+    export function convertJSONDate(d: string, formatoRetorno: string): string {
+        var dataAuxiliar = new Date(parseInt(d.replace("/Date(", "").replace(")/", ''), 10)).toISOString().substring(0, 10).split("-");
+        var data;
+
+        switch (formatoRetorno) {
+            case 'DMY':
+                data = dataAuxiliar[2] + "/" + dataAuxiliar[1] + "/" + dataAuxiliar[0];
+            break;    
+        default:
+        }
+
+
+        return data;        
+
+    }
 }

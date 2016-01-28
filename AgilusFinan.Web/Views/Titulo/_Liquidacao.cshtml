@@ -19,6 +19,19 @@
 
     tabLiquidacoes.jsonData = '@Html.Raw(Json.Encode(Model))';
 
+    var Liquidacao = function () {
+
+        var getData = function () {
+            return tabLiquidacoes.data;
+        }
+
+        return {
+            getData: getData
+        }
+    }();
+
+
+
 </script>
 
 
