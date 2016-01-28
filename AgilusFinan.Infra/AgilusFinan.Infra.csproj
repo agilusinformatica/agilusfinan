@@ -272,6 +272,10 @@
     <Compile Include="Migrations\201601211904456_CriacaoCampoVinculoExtrato.Designer.cs">
       <DependentUpon>201601211904456_CriacaoCampoVinculoExtrato.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201601281238243_AlteracaoTipoDesconto.cs" />
+    <Compile Include="Migrations\201601281238243_AlteracaoTipoDesconto.Designer.cs">
+      <DependentUpon>201601281238243_AlteracaoTipoDesconto.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AcessosUsuario.cs" />
@@ -479,6 +483,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201601211904456_CriacaoCampoVinculoExtrato.resx">
       <DependentUpon>201601211904456_CriacaoCampoVinculoExtrato.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601281238243_AlteracaoTipoDesconto.resx">
+      <DependentUpon>201601281238243_AlteracaoTipoDesconto.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

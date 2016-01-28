@@ -7,14 +7,14 @@ namespace AgilusFinan.Infra.Migrations
     {
         public override void Up()
         {
-            AddColumn("dbo.Liquidacao", "Desconto", c => c.Double());
+            //AddColumn("dbo.Liquidacao", "Desconto", c => c.Double());
             AlterColumn("dbo.Liquidacao", "FormaLiquidacao", c => c.Int());
         }
         
         public override void Down()
         {
             AlterColumn("dbo.Liquidacao", "FormaLiquidacao", c => c.Int(nullable: false));
-            DropColumn("dbo.Liquidacao", "Desconto");
+            //DropColumn("dbo.Liquidacao", "Desconto");
         }
     }
 }
