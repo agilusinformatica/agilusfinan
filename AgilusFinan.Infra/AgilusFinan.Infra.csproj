@@ -268,6 +268,22 @@
     <Compile Include="Migrations\201601271342574_AdicionaDescontoEmLiquidacao.Designer.cs">
       <DependentUpon>201601271342574_AdicionaDescontoEmLiquidacao.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201601202125554_AlteracaoCamposLiquidacao.cs" />
+    <Compile Include="Migrations\201601202125554_AlteracaoCamposLiquidacao.Designer.cs">
+      <DependentUpon>201601202125554_AlteracaoCamposLiquidacao.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601211904456_CriacaoCampoVinculoExtrato.cs" />
+    <Compile Include="Migrations\201601211904456_CriacaoCampoVinculoExtrato.Designer.cs">
+      <DependentUpon>201601211904456_CriacaoCampoVinculoExtrato.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601281238243_AlteracaoTipoDesconto.cs" />
+    <Compile Include="Migrations\201601281238243_AlteracaoTipoDesconto.Designer.cs">
+      <DependentUpon>201601281238243_AlteracaoTipoDesconto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601281308436_CamposPercentualDescontoModeloBoleto.cs" />
+    <Compile Include="Migrations\201601281308436_CamposPercentualDescontoModeloBoleto.Designer.cs">
+      <DependentUpon>201601281308436_CamposPercentualDescontoModeloBoleto.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AcessosUsuario.cs" />
@@ -298,6 +314,7 @@
     <Compile Include="Services\RepositorioTransferencia.cs" />
     <Compile Include="Services\RepositorioUsuario.cs" />
     <Compile Include="Services\SelectLista.cs" />
+    <Compile Include="Services\VinculadorExtrato.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -474,8 +491,21 @@
     <EmbeddedResource Include="Migrations\201601271342574_AdicionaDescontoEmLiquidacao.resx">
       <DependentUpon>201601271342574_AdicionaDescontoEmLiquidacao.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601202125554_AlteracaoCamposLiquidacao.resx">
+      <DependentUpon>201601202125554_AlteracaoCamposLiquidacao.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601211904456_CriacaoCampoVinculoExtrato.resx">
+      <DependentUpon>201601211904456_CriacaoCampoVinculoExtrato.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601281238243_AlteracaoTipoDesconto.resx">
+      <DependentUpon>201601281238243_AlteracaoTipoDesconto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601281308436_CamposPercentualDescontoModeloBoleto.resx">
+      <DependentUpon>201601281308436_CamposPercentualDescontoModeloBoleto.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Scripts\Config\criacao tipo para conciliar titulos.sql" />
     <Content Include="Scripts\Config\Funcoes AgilusFinan.sql" />
     <Content Include="Scripts\fn_feriado.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -483,6 +513,8 @@
     <Content Include="Scripts\fn_saldo.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Scripts\procedure conciliar titulos.sql" />
+    <Content Include="Scripts\pr_conciliar_titulos.sql" />
     <Content Include="Scripts\pr_fluxo_caixa.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
