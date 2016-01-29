@@ -27,6 +27,7 @@ namespace AgilusFinan.Web.ViewModels
         public DateTime? Competencia { get; set; }
         public string Observacao { get; set; }
         public int? TituloRecorrenteId { get; set; }
+        public string TipoTitulo { get; set; }
         
         public List<LiquidacaoViewModel> Liquidacoes { get; set; }
 

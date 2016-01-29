@@ -20,7 +20,7 @@
 
 <div id="cadastroTituloDialog" class="dialog" style="display:none" title="Cadastrar título">
     <div class="form-horizontal">
-        @Html.Partial("_CadastroTitulo", new TituloViewModel())
+        @*@Html.Partial("_CadastroTitulo", new TituloViewModel() { TipoTitulo = "Recebimento" })*@
     </div>
 </div>
 
@@ -441,9 +441,27 @@
             },
             open: function () {
 
+                $.ajax({
+                    type: 'GET',
+                    url: '@Url.Action("AbreCadastroTitulo")',
+                    data: {
+                        tipoTitulo: task.itemExtrato.Valor < 0 ? 'Pagamento' : 'Recebimento'
+                    },
+                    success: function(data) {
+                        $('#cadastroTituloDialog > div').html(data);
+                        console.log(data);
+                    },
+                    beforeSend: function () {
+                        $("#cadastroTituloDialog > div").html('<img style="margin-left: auto; margin-right: auto; display: block" src="/Content/Images/loading.gif">');
+                    },
+                    error: function(err){
+                        console.log(err);
+                    }
+                });
+
             },
             close: function () {
-                CadastroTitulo.resetForm();
+                $('#cadastroTituloDialog > div').html('');
             }
         });
 

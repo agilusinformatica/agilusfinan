@@ -72,10 +72,6 @@ namespace AgilusFinan.Web.Controllers
         [HttpPost]
         public ActionResult ConciliacaoExtrato(HttpPostedFileBase file)
         {
-            ViewBag.ContaId = new SelectList(new RepositorioConta().Listar(), "Id", "Nome", new RepositorioConta().Listar(x => x.Padrao).Any() ? new RepositorioConta().Listar(x => x.Padrao).Single().Id : 0);
-            ViewBag.ListaCategorias = Util.CategoriasIdentadas(DirecaoCategoria.Pagamento);
-            ViewBag.PessoaId = new SelectList(new RepositorioPessoa().Listar(), "Id", "Nome");
-            ViewBag.CentroCustoId = new SelectList(new RepositorioCentroCusto().Listar(), "Id", "Nome");
             return View("ConciliacaoExtrato", Parser.InterpretarOfx(file.InputStream));
         }
 
@@ -91,6 +87,15 @@ namespace AgilusFinan.Web.Controllers
             var titulosPendentes = GeradorTitulosPendentes.ChamarProcedimento(dI, dF, null).Where(t => t.Direcao == direcao).ToList();
 
             return PartialView("_VinculoTitulos", titulosPendentes);
+        }
+
+        public PartialViewResult AbreCadastroTitulo(string tipoTitulo)
+        {
+            ViewBag.ContaId = new SelectList(new RepositorioConta().Listar(), "Id", "Nome", new RepositorioConta().Listar(x => x.Padrao).Any() ? new RepositorioConta().Listar(x => x.Padrao).Single().Id : 0);
+            ViewBag.ListaCategorias = Util.CategoriasIdentadas(DirecaoCategoria.Pagamento);
+            ViewBag.PessoaId = new SelectList(new RepositorioPessoa().Listar(), "Id", "Nome");
+            ViewBag.CentroCustoId = new SelectList(new RepositorioCentroCusto().Listar(), "Id", "Nome");
+            return PartialView("_CadastroTitulo", new TituloViewModel() { TipoTitulo = tipoTitulo } );
         }
 
         [HttpPost]
@@ -167,6 +172,7 @@ namespace AgilusFinan.Web.Controllers
             }
         }
 
+        
     }
 
 }
