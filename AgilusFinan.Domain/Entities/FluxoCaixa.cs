@@ -16,4 +16,8 @@ namespace AgilusFinan.Domain.Entities
         public Double Lucratividade { get; set; }
 
     }
+    public enum Periodicidade
+    {
+        Mensal, Bimestral, Trimestral, Semestral, Anual
+    }
 }
