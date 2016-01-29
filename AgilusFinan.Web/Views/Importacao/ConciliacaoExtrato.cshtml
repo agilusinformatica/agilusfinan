@@ -15,6 +15,7 @@
 <div id="vinculoBuscaDialog" class="dialog" style="display:none" title="Vincular títulos">
     <div id="painel-periodo">
         @Html.Partial("_PainelPeriodo")
+        <div id="lista"></div>
     </div>
 </div>
 
@@ -403,6 +404,7 @@
             open: function () {
             },
             close: function () {
+                $('#lista').html('');
             }
         });
 
@@ -482,8 +484,7 @@
                 },
                 url: "@Url.Action("VinculoTitulos")",
                 success: function (data) {
-                    $("#painel-periodo>table").remove();
-                    $("#painel-periodo").append(data);
+                    $("#lista").html(data);
                     setTitulosSelecionados();
                 },
                 error: function(error) {
@@ -672,21 +673,21 @@
         font-size: 12px;
     }
 
-        .extrato-table > tbody > tr > td {
-            width: 200px;
-        }
+    .extrato-table > tbody > tr > td {
+        width: 200px;
+    }
 
-        .extrato-table > thead {
-            background-color: lightgray;
-            border: 1px solid grey;
-            width: 100px;
-            z-index: 0;
-        }
+    .extrato-table > thead {
+        background-color: lightgray;
+        border: 1px solid grey;
+        width: 100px;
+        z-index: 0;
+    }
 
-            .extrato-table > thead > th {
-                border: 1px solid black;
-                margin: 100px;
-            }
+    .extrato-table > thead > th {
+        border: 1px solid black;
+        margin: 100px;
+    }
 
     .dialog {
         width: 100%;
@@ -707,51 +708,52 @@
     #painel-periodo {
         height: 0;
         font-size: 12px;
-        width: 70%;
+        width: 90%;
         height: 40px;
         background: grey;
         float: left;
-        margin-left: 10%;
+        margin-left: 5%;
     }
 
-        #painel-periodo .panel {
-            margin-bottom: 3px;
-            border-radius: 0;
-            height: auto;
-            border: 1px solid black;
-        }
+    #painel-periodo .panel {
+        margin-bottom: 3px;
+        border-radius: 0;
+        height: auto;
+        border: 1px solid black;
+    }
 
-        #painel-periodo .panel-body {
-            padding-top: 3px;
-            padding-bottom: 3px;
-        }
+    #painel-periodo .panel-body {
+        padding-top: 3px;
+        padding-bottom: 3px;
+    }
 
-        #painel-periodo .panel-heading {
-            margin-bottom: 3px;
-            border-radius: 0;
-            padding-top: 3px;
-            padding-bottom: 3px;
-        }
+    #painel-periodo .panel-heading {
+        margin-bottom: 3px;
+        border-radius: 0;
+        padding-top: 3px;
+        padding-bottom: 3px;
+    }
 
     /*Lista de titulos já vinculados*/
     #titulosVinculados, #titulosCriar {
         font-size: 12px;
     }
 
-        #titulosVinculados input[type=text] {
-            width: 70px;
-        }
+    #titulosVinculados input[type=text] {
+        width: 70px;
+    }
 
-        #titulosCriar input[type=text] {
-            width: 70px;
-        }
+    #titulosCriar input[type=text] {
+        width: 70px;
+    }
 
-        #titulosVinculados th {
-        }
+    #titulosVinculados th {
+    }
 
-        #titulosVinculados > tbody > tr > td {
-        }
+    #titulosVinculados > tbody > tr > td {
+    }
 
-        #titulosVinculados td {
-        }
+    #titulosVinculados td {
+    }
+
 </style>
