@@ -86,6 +86,20 @@ begin
 		group by ceiling(MONTH(l.Data)/2.0), YEAR(l.Data)
 		order by YEAR(l.Data), ceiling(MONTH(l.Data)/2.0)
 	end
+	if @periodicidade = 'Semestral'
+	begin
+		insert into #fluxo_caixa (periodo, Receitas, Despesas)
+		select convert(varchar, ceiling(MONTH(l.Data)/6.0)) + '/'+ convert(varchar,YEAR(Data)), SUM(case when c.Direcao = 0 then l.Valor+isnull(l.JurosMulta,0.0) - isnull(l.Desconto,0.0) else 0 end), 
+		SUM(case when c.Direcao = 1 then l.Valor+isnull(l.JurosMulta,0.0) - isnull(l.Desconto,0.0) else 0 end)  
+		from Liquidacao l
+		join titulo t on l.TituloId = t.Id
+		join categoria c on t.CategoriaId = c.Id
+		where t.EmpresaId = @empresa
+		and l.Data >= @DataInicial
+		and l.Data < @DataFinal+1
+		group by ceiling(MONTH(l.Data)/6.0), YEAR(l.Data)
+		order by YEAR(l.Data), ceiling(MONTH(l.Data)/6.0)
+	end
 
 	declare @SaldoInicial money,
 		    @LucroPrejuizo money,

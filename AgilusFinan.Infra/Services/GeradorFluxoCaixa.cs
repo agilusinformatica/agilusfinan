@@ -16,10 +16,11 @@ namespace AgilusFinan.Infra.Services
 
             using (Contexto context = new Contexto())
             {
-                Lista = context.Database.SqlQuery<FluxoCaixa>("exec pr_fluxo_caixa @empresa, @dataInicial, @dataFinal",
+                Lista = context.Database.SqlQuery<FluxoCaixa>("exec pr_fluxo_caixa @empresa, @dataInicial, @dataFinal, @periodicidade",
                             new SqlParameter("@empresa", context.EmpresaId),
                             new SqlParameter("@dataInicial", filtro.ValorPorNome("dataInicial")),
-                            new SqlParameter("@dataFinal", filtro.ValorPorNome("dataFinal"))).ToList();
+                            new SqlParameter("@dataFinal", filtro.ValorPorNome("dataFinal")),
+                            new SqlParameter("@periodicidade", filtro.ValorPorNome("periodicidade"))).ToList();
             }
             return Lista;
         }
@@ -29,6 +30,7 @@ namespace AgilusFinan.Infra.Services
             var filtro = new Filtro();
             filtro.Parametros.Add(new ParametroFiltro() { Nome = "dataInicial", Label = "Data Inicial", Tipo = TipoFiltro.data, Valor = new DateTime(DateTime.Now.Year, 1, 1).Date });
             filtro.Parametros.Add(new ParametroFiltro() { Nome = "dataFinal", Label = "Data Final", Tipo = TipoFiltro.data, Valor = new DateTime(DateTime.Now.Year, 12, 31).Date });
+            filtro.Parametros.Add(new ParametroFiltro() { Nome = "periodicidade", Label = "Periodicidade", Tipo = TipoFiltro.periodicidade });
 
             return filtro;
         }
