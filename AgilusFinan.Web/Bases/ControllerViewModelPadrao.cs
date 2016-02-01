@@ -31,9 +31,12 @@ namespace AgilusFinan.Web.Bases
         [Permissao]
         public virtual ActionResult Create()
         {
+            T model = new T();
             PreInclusao();
             ViewBag.TipoOperacao = "Incluindo";
-            return FolderViewName() == String.Empty ? View(new V()) : View("~/Views/" + FolderViewName() + "/Create.cshtml", new V());
+            V viewModel = new V();
+            ModelToViewModel(model, viewModel);
+            return FolderViewName() == String.Empty ? View(viewModel) : View("~/Views/" + FolderViewName() + "/Create.cshtml", viewModel);
         }
 
         [Permissao]

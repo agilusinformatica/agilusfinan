@@ -52,7 +52,6 @@ namespace AgilusFinan.Web.Controllers
             base.PreInclusao();
             ViewBag.ContaId = new SelectList(new RepositorioConta().Listar(), "Id", "Nome", new RepositorioConta().Listar(x => x.Padrao).Any() ? new RepositorioConta().Listar(x => x.Padrao).Single().Id : 0);
             ViewBag.CategoriaId = new SelectList(new RepositorioCategoria().Listar().Where(c => c.Direcao == DirecaoCategoria.Recebimento), "Id", "Nome");
-            ViewBag.ListaCategorias = Util.CategoriasIdentadas(DirecaoCategoria.Recebimento);
             ViewBag.PessoaId = new SelectList(new RepositorioPessoa().Listar(), "Id", "Nome");
             ViewBag.CentroCustoId = new SelectList(new RepositorioCentroCusto().Listar(), "Id", "Nome");
             GerarLista();
@@ -64,7 +63,6 @@ namespace AgilusFinan.Web.Controllers
             ViewBag.ContaId = new SelectList(new RepositorioConta().Listar(), "Id", "Nome", viewModel.ContaId);
             ViewBag.CategoriaId = new SelectList(new RepositorioCategoria().Listar().Where(c => c.Direcao == DirecaoCategoria.Recebimento), "Id", "Nome", viewModel.CategoriaId);
             ViewBag.PessoaId = new SelectList(new RepositorioPessoa().Listar(), "Id", "Nome", viewModel.PessoaId);
-            ViewBag.ListaCategorias = Util.CategoriasIdentadas(DirecaoCategoria.Recebimento);
             ViewBag.CentroCustoId = new SelectList(new RepositorioCentroCusto().Listar(), "Id", "Nome", viewModel.CentroCustoId);
             GerarLista();
         }
@@ -94,6 +92,7 @@ namespace AgilusFinan.Web.Controllers
             viewModel.Valor = model.Valor;
             viewModel.Observacao = model.Observacao;
             viewModel.TituloRecorrenteId = model.TituloRecorrenteId;
+            viewModel.TipoTitulo = "Recebimento";
 
             foreach (var l in model.Liquidacoes)
             {
