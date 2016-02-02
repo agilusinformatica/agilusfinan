@@ -2,6 +2,7 @@
 using AgilusFinan.Infra.Services;
 using AgilusFinan.Web.Bases;
 using AgilusFinan.Web.ViewModels;
+using BoletoNet;
 using Ionic.Zip;
 using System;
 using System.Collections.Generic;
@@ -76,6 +77,38 @@ namespace AgilusFinan.Web.Controllers
                 return File(ms, "application/zip", "Boletos.zip");
 
             }
+        }
+
+        [HttpPost]
+        public FileResult GerarRemessa(string postedData)
+        {
+            var js = new JavaScriptSerializer();
+            var loteboletos = js.Deserialize<List<LoteBoleto>>(postedData);
+            var random = Path.GetRandomFileName().Substring(0, 5);
+            Boleto boletoGerado = new Boleto();
+
+            MemoryStream strm = new MemoryStream();
+            ArquivoRemessa arquivoRemessa = new ArquivoRemessa(TipoArquivo.CNAB400);
+            Boletos boletos = new Boletos();
+
+            var convenio = new RepositorioModeloBoleto().BuscarPorId(loteboletos.First().ModeloBoletoId).Convenio;
+
+            foreach (var boleto in loteboletos)
+            {
+                if (boleto.TituloId != null)
+                {
+                    boletoGerado = Util.GerarBoleto((int)boleto.TituloId, boleto.ModeloBoletoId);
+                }
+                else
+                {
+                    boletoGerado = Util.GerarBoleto((int)boleto.TituloRecorrenteId, boleto.Valor, boleto.DataVencimento, boleto.ModeloBoletoId);
+                }
+                boletos.Add(boletoGerado);
+            }
+
+            arquivoRemessa.GerarArquivoRemessa(convenio, boletoGerado.Banco, boletoGerado.Cedente, boletos, strm, 1);
+
+            return File(strm.ToArray(), "text/plain", "teste.txt");
         }
     }
 }
