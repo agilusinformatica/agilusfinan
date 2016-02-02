@@ -513,7 +513,6 @@
     <Content Include="Scripts\fn_saldo.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Scripts\procedure conciliar titulos.sql" />
     <Content Include="Scripts\pr_conciliar_titulos.sql" />
     <Content Include="Scripts\pr_fluxo_caixa.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
