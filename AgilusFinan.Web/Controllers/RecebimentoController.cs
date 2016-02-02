@@ -183,7 +183,7 @@ namespace AgilusFinan.Web.Controllers
 
         public ActionResult GerarBoleto(int tituloId, int modeloBoletoId)
         {
-            var boletobancario = Util.GerarBoleto(tituloId, modeloBoletoId);
+            var boletobancario = Util.GerarBoletoBancario(tituloId, modeloBoletoId);
             ViewBag.BoletoBancario = boletobancario.MontaHtmlEmbedded();
             ViewBag.TituloId = tituloId;
             var modeloBoleto = new RepositorioModeloBoleto().BuscarPorId(modeloBoletoId);

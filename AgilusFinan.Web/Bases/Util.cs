@@ -105,10 +105,9 @@ namespace AgilusFinan.Web.Bases
                 System.Web.HttpContext.Current.Request.Url.Port.ToString();
         }
 
-
-        public static BoletoBancario GerarBoleto(int tituloId, int modeloBoletoId)
+        public static Boleto GerarBoleto(int tituloId, int modeloBoletoId)
         {
-            #region Instaciações
+            #region Instanciações
             var titulo = new RepositorioRecebimento().BuscarPorId(tituloId);
             var conta = titulo.Conta;
             var pessoa = titulo.Pessoa;
@@ -138,6 +137,7 @@ namespace AgilusFinan.Web.Bases
             #region Boleto
             Boleto boleto = new Boleto(titulo.DataVencimento, titulo.Valor, modeloBoleto.Carteira, modeloBoleto.NossoNumero.ToString(), c, new EspecieDocumento(numeroBanco));
             boleto.NumeroDocumento = tituloId.ToString();
+            boleto.Banco = new BoletoNet.Banco(numeroBanco);
             #endregion
 
             #region Sacado
@@ -153,12 +153,12 @@ namespace AgilusFinan.Web.Bases
                 UF = pessoa.Endereco.Uf
             };
             #endregion
- 
-            #region Instruções 
+
+            #region Instruções
             Instrucao item1 = new Instrucao(numeroBanco);
             item1.Descricao = modeloBoleto.Instrucao;
             boleto.Instrucoes.Add(item1);
-            #endregion  
+            #endregion
 
             #region Desconto
             if (modeloBoleto.PercentualDesconto > 0)
@@ -173,14 +173,14 @@ namespace AgilusFinan.Web.Bases
                 }
             }
 
-            #endregion  
+            #endregion
 
             #region Juros
-            if (modeloBoleto.Juros > 0 )
+            if (modeloBoleto.Juros > 0)
             {
                 Instrucao item2 = new Instrucao(numeroBanco);
                 decimal juros = boleto.ValorBoleto * modeloBoleto.Juros / 100 / 30;
-                item2.Descricao = "Após o vencimento cobrar juros de R$ " + Math.Round(juros,2) + " ao dia";
+                item2.Descricao = "Após o vencimento cobrar juros de R$ " + Math.Round(juros, 2) + " ao dia";
                 boleto.Instrucoes.Add(item2);
                 if (titulo.DataVencimento < DateTime.Today)
                 {
@@ -195,7 +195,7 @@ namespace AgilusFinan.Web.Bases
             {
                 Instrucao item3 = new Instrucao(numeroBanco);
                 decimal multa = boleto.ValorBoleto * modeloBoleto.Multa / 100;
-                item3.Descricao = "Após o vencimento cobrar multa de R$ " + Math.Round(multa,2);
+                item3.Descricao = "Após o vencimento cobrar multa de R$ " + Math.Round(multa, 2);
                 boleto.Instrucoes.Add(item3);
                 if (titulo.DataVencimento < DateTime.Today)
                 {
@@ -214,19 +214,12 @@ namespace AgilusFinan.Web.Bases
             boleto.PercJurosMora = modeloBoleto.Juros;
             #endregion
 
-            #region Boleto Bancario
-            var boletobancario = new BoletoBancario();
-            boletobancario.CodigoBanco = (short)conta.Banco.Codigo;
-            boletobancario.Boleto = boleto;
-            boletobancario.Boleto.Valida();
-            #endregion
-
-            return boletobancario;
+            return boleto;
         }
 
-        public static BoletoBancario GerarBoleto(int tituloRecorrenteId, decimal valor, DateTime dataVencimento, int modeloBoletoId)
+        public static Boleto GerarBoleto(int tituloRecorrenteId, decimal valor, DateTime dataVencimento, int modeloBoletoId)
         {
-            #region Instacioações
+            #region Instancioações
             var titulo = new RepositorioTituloRecorrente().BuscarPorId(tituloRecorrenteId);
             var conta = titulo.Conta;
             var pessoa = titulo.Pessoa;
@@ -254,6 +247,7 @@ namespace AgilusFinan.Web.Bases
             #region Boleto
             Boleto boleto = new Boleto(dataVencimento, valor, modeloBoleto.Carteira, modeloBoleto.NossoNumero.ToString(), c, new EspecieDocumento(numeroBanco));
             boleto.NumeroDocumento = tituloRecorrenteId.ToString();
+            boleto.Banco = new BoletoNet.Banco(numeroBanco);
             #endregion
 
             #region Instrucoes
@@ -280,7 +274,7 @@ namespace AgilusFinan.Web.Bases
 
                 }
             }
-            #endregion  
+            #endregion
 
             #region Multa
             if (modeloBoleto.Multa > 0)
@@ -318,7 +312,7 @@ namespace AgilusFinan.Web.Bases
                     boleto.Instrucoes.Add(instrucaoDesconto);
                 }
             }
-            #endregion  
+            #endregion
 
             #region Sacado
             boleto.Sacado = new Sacado(pessoa.Cpf, pessoa.Nome);
@@ -334,9 +328,28 @@ namespace AgilusFinan.Web.Bases
             };
             #endregion
 
+            return boleto;
+        }
+
+        public static BoletoBancario GerarBoletoBancario(int tituloId, int modeloBoletoId)
+        {
             #region Boleto Bancario
+            var boleto = GerarBoleto(tituloId, modeloBoletoId);
             var boletobancario = new BoletoBancario();
-            boletobancario.CodigoBanco = (short)conta.Banco.Codigo;
+            boletobancario.CodigoBanco = (short)boleto.Banco.Codigo;
+            boletobancario.Boleto = boleto;
+            boletobancario.Boleto.Valida();
+            #endregion
+
+            return boletobancario;
+        }
+
+        public static BoletoBancario GerarBoletoBancario(int tituloRecorrenteId, decimal valor, DateTime dataVencimento, int modeloBoletoId)
+        {
+            #region Boleto Bancario
+            var boleto = GerarBoleto(tituloRecorrenteId, valor, dataVencimento, modeloBoletoId);
+            var boletobancario = new BoletoBancario();
+            boletobancario.CodigoBanco = (short)boleto.Banco.Codigo;
             boletobancario.Boleto = boleto;
             boletobancario.OcultarEnderecoSacado = false;
             boletobancario.Boleto.Valida();
@@ -350,7 +363,7 @@ namespace AgilusFinan.Web.Bases
             var titulo = new RepositorioRecebimento().BuscarPorId(tituloId);
             var emailRemetente = titulo.Empresa.EmailFinanceiro;
 
-            var boleto = Util.GerarBoleto(tituloId, modeloBoletoId);
+            var boleto = Util.GerarBoletoBancario(tituloId, modeloBoletoId);
             var html = StringToStream(boleto.MontaHtmlEmbedded());
             var anexos = new List<Stream>();
             anexos.Add(html);
@@ -370,14 +383,14 @@ namespace AgilusFinan.Web.Bases
                 var titulo = new RepositorioRecebimento().BuscarPorId((int)loteBoleto.TituloId);
                 emailDestinatario = loteBoleto.EmailDestinatario;
                 emailRemetente = titulo.Empresa.EmailFinanceiro;
-                boleto = Util.GerarBoleto((int)loteBoleto.TituloId, loteBoleto.ModeloBoletoId);
+                boleto = Util.GerarBoletoBancario((int)loteBoleto.TituloId, loteBoleto.ModeloBoletoId);
             }
             if (loteBoleto.TituloRecorrenteId != null)
             {
                 var titulo = new RepositorioTituloRecorrente().BuscarPorId((int)loteBoleto.TituloRecorrenteId);
                 emailDestinatario = loteBoleto.EmailDestinatario;
                 emailRemetente = titulo.Empresa.EmailFinanceiro;
-                boleto = Util.GerarBoleto((int)loteBoleto.TituloRecorrenteId, loteBoleto.Valor, loteBoleto.DataVencimento, loteBoleto.ModeloBoletoId);
+                boleto = Util.GerarBoletoBancario((int)loteBoleto.TituloRecorrenteId, loteBoleto.Valor, loteBoleto.DataVencimento, loteBoleto.ModeloBoletoId);
             }
 
             var html = StringToStream(boleto.MontaHtmlEmbedded());
@@ -400,13 +413,13 @@ namespace AgilusFinan.Web.Bases
 
         public static Stream SalvarBoleto(int tituloId, int modeloBoletoId)
         {
-            var boleto = Util.GerarBoleto(tituloId, modeloBoletoId);
+            var boleto = Util.GerarBoletoBancario(tituloId, modeloBoletoId);
             return StringToStream(boleto.MontaHtmlEmbedded());
         }
 
         public static Stream SalvarBoleto(int tituloRecorrenteId, decimal valor, DateTime dataVencimento, int modeloBoletoId)
         {
-            var boleto = Util.GerarBoleto(tituloRecorrenteId, valor, dataVencimento, modeloBoletoId);
+            var boleto = Util.GerarBoletoBancario(tituloRecorrenteId, valor, dataVencimento, modeloBoletoId);
             return StringToStream(boleto.MontaHtmlEmbedded());
         }
 

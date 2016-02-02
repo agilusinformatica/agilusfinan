@@ -44,9 +44,16 @@
     <input type="hidden" name="postedData" id="dadosBaixarBoletos" />
 </form>
 
-<button class="btn btn-default" id="enviar"><span class="glyphicon glyphicon-envelope" aria-hiddden="true"></span> Enviar</button>
+<form action="/LoteBoleto/GerarRemessa" method="post" id="FormGerarRemessa">
+    <input type="hidden" name="postedData" id="dadosGerarRemessa" />
+</form>
+
+<button class="btn btn-default" id="Enviar"><span class="glyphicon glyphicon-envelope" aria-hiddden="true"></span> Enviar</button>
 
 <button class="btn btn-default" id="Baixar" onclick="BaixarBoletos()"><span class="glyphicon glyphicon-save" aria-hiddden="true"></span> Baixar</button>
+
+<button class="btn btn-default" id="Remessa" onclick="GerarRemessa()"><span class="glyphicon glyphicon-save" aria-hiddden="true"></span> Gerar Remessa</button>
+
 
 <div class="progress">
     <div id="progressbar" class="progress-bar progress-bar-success" role="progressbar">
@@ -68,7 +75,7 @@
         });
     });
 
-    $('#enviar').click(function () {
+    $('#Enviar').click(function () {
         $('.progress').toggle("slow");
         $('.label-success').toggle();
         GerarBoletos();
@@ -105,6 +112,12 @@
         var boletosJson = JSON.stringify(GetData());
         $('#dadosBaixarBoletos').val(boletosJson);
         $('#FormBaixarBoletos').submit();
+    }
+    
+    function GerarRemessa() {
+        var boletosJson = JSON.stringify(GetData());
+        $('#dadosGerarRemessa').val(boletosJson);
+        $('#FormGerarRemessa').submit();
     }
 
     function GetData() {

@@ -15,6 +15,7 @@
 <div id="vinculoBuscaDialog" class="dialog" style="display:none" title="Vincular títulos">
     <div id="painel-periodo">
         @Html.Partial("_PainelPeriodo")
+        <div id="lista"></div>
     </div>
 </div>
 
@@ -343,7 +344,7 @@
         var setTitulosSelecionados = function () {
             var inputs = $('#titulosAVincularLista').find('input:checkbox');
             $.each(inputs, function (input) {
-                var titulo = TitulosPendentes.getTituloSelecionado($(inputs[input]).closest('tr').index());
+                var titulo = TitulosPendentes.getTituloSelecionado($(inputs[input]).closest('tr').attr('data-rowindex'));
                 var isSelected = isTituloSelected(titulo);
                 var tituloExists = task.titulosSelecionados.some(ts => (ts.TituloId == titulo.TituloId) && ts.TituloId != null);
                 var isRecorrenteSelected = isTituloRecorrenteSelected(titulo);
@@ -403,6 +404,7 @@
             open: function () {
             },
             close: function () {
+                $('#lista').html('');
             }
         });
 
@@ -449,7 +451,6 @@
                     },
                     success: function(data) {
                         $('#cadastroTituloDialog > div').html(data);
-                        console.log(data);
                     },
                     beforeSend: function () {
                         $("#cadastroTituloDialog > div").html('<img style="margin-left: auto; margin-right: auto; display: block" src="/Content/Images/loading.gif">');
@@ -482,9 +483,15 @@
                 },
                 url: "@Url.Action("VinculoTitulos")",
                 success: function (data) {
-                    $("#painel-periodo>table").remove();
-                    $("#painel-periodo").append(data);
+                    $("#lista").html(data);
                     setTitulosSelecionados();
+                    
+                    $('#titulosAVincularLista').on('draw.dt', function () {
+                        setTitulosSelecionados();
+                        //TitulosPendentes.initEvents();
+                        Utils.createMaskClass(document.querySelectorAll('#titulosAVincularLista input[name=Valor]'), 'moeda');
+                    });
+
                 },
                 error: function(error) {
                     console.log(error);
@@ -527,7 +534,9 @@
         }
 
         var getItemTituloSelecionado = function(e){
-            var itemAtual = TitulosPendentes.getTituloSelecionado(e.closest('tr').index());
+            //var itemAtual = TitulosPendentes.getTituloSelecionado(e.closest('tr').find('td[name="rowIndex"]').html());
+            //var itemAtual = TitulosPendentes.getTituloSelecionado(e.closest('tr').data('rowIndex'));
+            var itemAtual = TitulosPendentes.getTituloSelecionado(e.closest('tr').attr('data-rowindex'));
             var taskTitulo = findTituloVinculo(itemAtual);
 
             if(taskTitulo && taskTitulo.TituloId == itemAtual.TituloId){
@@ -571,6 +580,7 @@
         //Titulos Criados
 
         //Eventos
+
         $('#vinculoBuscaDialog').on('input change', 'input[name="Valor"]', function(e){
             var titulo = getItemTituloSelecionado($(this));
             var tr =  $(this).closest('tr');
@@ -672,21 +682,21 @@
         font-size: 12px;
     }
 
-        .extrato-table > tbody > tr > td {
-            width: 200px;
-        }
+    .extrato-table > tbody > tr > td {
+        width: 200px;
+    }
 
-        .extrato-table > thead {
-            background-color: lightgray;
-            border: 1px solid grey;
-            width: 100px;
-            z-index: 0;
-        }
+    .extrato-table > thead {
+        background-color: lightgray;
+        border: 1px solid grey;
+        width: 100px;
+        z-index: 0;
+    }
 
-            .extrato-table > thead > th {
-                border: 1px solid black;
-                margin: 100px;
-            }
+    .extrato-table > thead > th {
+        border: 1px solid black;
+        margin: 100px;
+    }
 
     .dialog {
         width: 100%;
@@ -707,51 +717,52 @@
     #painel-periodo {
         height: 0;
         font-size: 12px;
-        width: 70%;
+        width: 90%;
         height: 40px;
         background: grey;
         float: left;
-        margin-left: 10%;
+        margin-left: 5%;
     }
 
-        #painel-periodo .panel {
-            margin-bottom: 3px;
-            border-radius: 0;
-            height: auto;
-            border: 1px solid black;
-        }
+    #painel-periodo .panel {
+        margin-bottom: 3px;
+        border-radius: 0;
+        height: auto;
+        border: 1px solid black;
+    }
 
-        #painel-periodo .panel-body {
-            padding-top: 3px;
-            padding-bottom: 3px;
-        }
+    #painel-periodo .panel-body {
+        padding-top: 3px;
+        padding-bottom: 3px;
+    }
 
-        #painel-periodo .panel-heading {
-            margin-bottom: 3px;
-            border-radius: 0;
-            padding-top: 3px;
-            padding-bottom: 3px;
-        }
+    #painel-periodo .panel-heading {
+        margin-bottom: 3px;
+        border-radius: 0;
+        padding-top: 3px;
+        padding-bottom: 3px;
+    }
 
     /*Lista de titulos já vinculados*/
     #titulosVinculados, #titulosCriar {
         font-size: 12px;
     }
 
-        #titulosVinculados input[type=text] {
-            width: 70px;
-        }
+    #titulosVinculados input[type=text] {
+        width: 70px;
+    }
 
-        #titulosCriar input[type=text] {
-            width: 70px;
-        }
+    #titulosCriar input[type=text] {
+        width: 70px;
+    }
 
-        #titulosVinculados th {
-        }
+    #titulosVinculados th {
+    }
 
-        #titulosVinculados > tbody > tr > td {
-        }
+    #titulosVinculados > tbody > tr > td {
+    }
 
-        #titulosVinculados td {
-        }
+    #titulosVinculados td {
+    }
+
 </style>

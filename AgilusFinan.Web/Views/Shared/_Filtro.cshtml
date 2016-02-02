@@ -1,5 +1,6 @@
 ﻿@model AgilusFinan.Domain.Entities.Filtro
 @using AgilusFinan.Infra.Services;
+@using AgilusFinan.Domain.Entities;
 <div class="container">
     <form class="form-inline" role="form">
         
@@ -24,7 +25,7 @@
                     case AgilusFinan.Domain.Entities.TipoFiltro.conta:
                         <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome">
                             <option> </option>
-                            @foreach (var conta in new SelectLista(3, TipoLista.Conta).Listar())
+                            @foreach (var conta in new SelectLista(UsuarioLogado.UsuarioId, TipoLista.Conta).Listar())
                             {
                                 <option value="@conta.Id" @( conta.Padrao == true ? "selected" : "" )>@conta.Nome</option>
                             }
@@ -33,7 +34,7 @@
                     case AgilusFinan.Domain.Entities.TipoFiltro.banco:
                         <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome">
                             <option> </option>
-                            @foreach (var banco in new SelectLista(3, TipoLista.Banco).Listar())
+                            @foreach (var banco in new SelectLista(UsuarioLogado.UsuarioId, TipoLista.Banco).Listar())
                             {
                                 <option value="@banco.Id">@banco.Nome</option>
                             }
@@ -42,7 +43,7 @@
                     case AgilusFinan.Domain.Entities.TipoFiltro.categoria:
                         <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome">
                             <option> </option>
-                            @foreach (var categoria in new SelectLista(3, TipoLista.Categoria).Listar())
+                            @foreach (var categoria in new SelectLista(UsuarioLogado.UsuarioId, TipoLista.Categoria).Listar())
                             {
                                 <option value="@categoria.Id">@categoria.Nome</option>
                             }
@@ -51,7 +52,7 @@
                     case AgilusFinan.Domain.Entities.TipoFiltro.centrocusto:
                             <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome">
                                 <option> </option>
-                                @foreach (var centrocusto in new SelectLista(3, TipoLista.CentroCusto).Listar())
+                                @foreach (var centrocusto in new SelectLista(UsuarioLogado.UsuarioId, TipoLista.CentroCusto).Listar())
                                 {
                                     <option value="@centrocusto.Id">@centrocusto.Nome</option>
                                 }
@@ -60,7 +61,7 @@
                     case AgilusFinan.Domain.Entities.TipoFiltro.perfil:
                         <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome">
                             <option> </option>
-                            @foreach (var perfil in new SelectLista(3, TipoLista.Perfil).Listar())
+                            @foreach (var perfil in new SelectLista(UsuarioLogado.UsuarioId, TipoLista.Perfil).Listar())
                             {
                                 <option value="@perfil.Id">@perfil.Nome</option>
                             }
@@ -69,7 +70,7 @@
                     case AgilusFinan.Domain.Entities.TipoFiltro.pessoa:
                         <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome">
                             <option> </option>
-                            @foreach (var pessoa in new SelectLista(3, TipoLista.Pessoa).Listar())
+                            @foreach (var pessoa in new SelectLista(UsuarioLogado.UsuarioId, TipoLista.Pessoa).Listar())
                             {
                                 <option value="@pessoa.Id">@pessoa.Nome</option>
                             }
@@ -78,7 +79,7 @@
                     case AgilusFinan.Domain.Entities.TipoFiltro.tipopessoa:
                         <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome">
                             <option> </option>
-                            @foreach (var tipopessoa in new SelectLista(3, TipoLista.TipoPessoa).Listar())
+                            @foreach (var tipopessoa in new SelectLista(UsuarioLogado.UsuarioId, TipoLista.TipoPessoa).Listar())
                             {
                                 <option value="@tipopessoa.Id">@tipopessoa.Nome</option>
                             }
@@ -87,7 +88,7 @@
                     case AgilusFinan.Domain.Entities.TipoFiltro.tipotelefone:
                         <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome">
                             <option> </option>
-                            @foreach (var tipotelefone in new SelectLista(3, TipoLista.TipoTelefone).Listar())
+                            @foreach (var tipotelefone in new SelectLista(UsuarioLogado.UsuarioId, TipoLista.TipoTelefone).Listar())
                             {
                                 <option value="@tipotelefone.Id">@tipotelefone.Nome</option>
                             }
@@ -96,7 +97,7 @@
                     case AgilusFinan.Domain.Entities.TipoFiltro.usuario:
                         <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome">
                             <option> </option>
-                            @foreach (var usuario in new SelectLista(3, TipoLista.Usuario).Listar())
+                            @foreach (var usuario in new SelectLista(UsuarioLogado.UsuarioId, TipoLista.Usuario).Listar())
                             {
                                 <option value="@usuario.Id">@usuario.Nome</option>
                             }
@@ -105,7 +106,7 @@
                     case AgilusFinan.Domain.Entities.TipoFiltro.modeloboleto:
                         <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome">
                             <option> </option>
-                            @foreach (var modeloboleto in new SelectLista(3, TipoLista.ModeloBoleto).Listar())
+                            @foreach (var modeloboleto in new SelectLista(UsuarioLogado.UsuarioId, TipoLista.ModeloBoleto).Listar())
                             {
                                 <option value="@modeloboleto.Id">@modeloboleto.Nome</option>
                             }
