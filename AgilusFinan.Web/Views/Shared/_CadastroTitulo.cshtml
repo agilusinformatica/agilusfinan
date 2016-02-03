@@ -117,13 +117,17 @@
             titulo.Id = $('#Id').val();
             titulo.TituloRecorrenteId = $('#TituloRecorrenteId').val();
             titulo.ContaId = $('#ContaId').val();
-            titulo.DataVencimento = Utils.convertFormatDate($('#DataVencimento').val());
+            titulo.NomeConta = $('#ContaId').get(0).options[$('#ContaId').get(0).selectedIndex].innerHTML;
+            titulo.DataVencimento = Utils.convertFormatDate($('#DataVencimento').val() == '' ? '2015-01-01' : $('#DataVencimento').val());
             titulo.Descricao = $('#Descricao').val();
             titulo.Valor = $('#Valor').val().replace(/\./g, '').replace(",", ".");
             titulo.CategoriaId = $('#CategoriaId').val();
+            titulo.NomeCategoria = $('#CategoriaId').get(0).options[$('#CategoriaId').get(0).selectedIndex].innerHTML;
             titulo.PessoaId = $('#PessoaId').val();
+            titulo.NomePessoa = $('#PessoaId').get(0).options[$('#PessoaId').get(0).selectedIndex].innerHTML;
             titulo.CentroCustoId = $('#CentroCustoId').val();
-            titulo.Competencia = Utils.convertFormatDate($('#Competencia').val());
+            titulo.CentroCustoNome = $('#CentroCustoId').get(0).options[$('#CentroCustoId').get(0).selectedIndex].innerHTML;
+            titulo.Competencia = Utils.convertFormatDate($('#Competencia').val() == '' ? '2015-01-01' : $('#Competencia').val());
             titulo.Observacao = $('#Observacao').val();
 
             var estaPago = document.getElementById('estapago');
