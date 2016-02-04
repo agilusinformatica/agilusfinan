@@ -1,5 +1,10 @@
+drop procedure pr_conciliar_titulos
+drop type titulossemvinculo
+drop type titulosnaocriados
+
 Create Type TitulosSemVinculo as Table  
 (  
+ id int primary key clustered,
  TituloId int,
  TituloRecorrenteId int,
  Descricao varchar(100),
@@ -18,6 +23,7 @@ go
 
 Create Type TitulosNaoCriados as Table  
 (  
+ id int primary key clustered,
  ContaId int not null,
  DataVencimento smalldatetime not null,
  Descricao varchar(100),
