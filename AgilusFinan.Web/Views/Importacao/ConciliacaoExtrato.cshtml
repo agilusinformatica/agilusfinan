@@ -42,21 +42,23 @@
                     <div class="list-group item-extrato" data-extratoid=@extratoId>
                         <table class="extrato-table">
                             <thead>
-                                <tr>
-                                    <th>Data Lancamento</th>
-                                    <th>Descricao</th>
-                                    <th>Valor</th>
-                                    <th>Tipo de lançamento</th>
-                                </tr>
+                            <tr>
+                                <th style="display:none">ID</th>
+                                <th>Data Lancamento</th>
+                                <th>Descricao</th>
+                                <th>Valor</th>
+                                <th>Tipo de lançamento</th>
+                            </tr>
                             </thead>
 
                             <tbody>
-                                <tr>
-                                    <td>@vinculo.DataLancamento.Date.ToShortDateString()</td>
-                                    <td>@vinculo.Descricao</td>
-                                    <td>@vinculo.Valor</td>
-                                    <td>@vinculo.TipoLancamento</td>
-                                </tr>
+                            <tr>
+                                <td style="display:none">@vinculo.Id</td>
+                                <td>@vinculo.DataLancamento.Date.ToShortDateString()</td>
+                                <td>@vinculo.Descricao</td>
+                                <td>@vinculo.Valor</td>
+                                <td>@vinculo.TipoLancamento</td>
+                            </tr>
                             </tbody>
                         </table>
                         <hr />
@@ -72,31 +74,6 @@
                                             <th style="display:none"> Titulo Recorrente</th>
                                             <th>Operação</th>
                                             <th>Conta</th>
-                                            <th>Data de vencimento</th>
-                                            <th>Descrição</th>
-                                            <th>Valor</th>
-                                            <th>Categoria</th>
-                                            <th>Pessoa</th>
-                                            <th>Acréscimos</th>
-                                            <th>Descontos</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-
-                                </table>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-12">
-                                <table class="table" id="titulosCriar">
-                                    <thead>
-                                        <tr>
-                                            <th style="display:none">RowId</th>
-                                            <th style="display:none">ID</th>
-                                            <th style="display:none">Titulo Recorrente</th>
-                                            <th>Operação</th>
-                                            <th>ContaId</th>
                                             <th>Data de vencimento</th>
                                             <th>Descrição</th>
                                             <th>Valor</th>
@@ -180,10 +157,11 @@
             var getItemExtrato = function() {
                 var itemExtrato = {};
                 var extratoColunas = this.element.find("table > tbody > tr > td");
-                itemExtrato.DataLancamento = convertDate(extratoColunas[0].innerHTML).substring(0, 10);
-                itemExtrato.Descricao = extratoColunas[1].innerHTML;
-                itemExtrato.Valor = parseFloat(extratoColunas[2].innerHTML.replace(",", "."));
-                itemExtrato.TipoLancamento = extratoColunas[3].innerHTML;
+                itemExtrato.Id = extratoColunas[0].innerHTML;
+                itemExtrato.DataLancamento = convertDate(extratoColunas[1].innerHTML).substring(0, 10);
+                itemExtrato.Descricao = extratoColunas[2].innerHTML;
+                itemExtrato.Valor = parseFloat(extratoColunas[3].innerHTML.replace(",", "."));
+                itemExtrato.TipoLancamento = extratoColunas[4].innerHTML;
                 return itemExtrato;
             };
 
@@ -302,7 +280,7 @@
                 total = somaTitulos.call(that);
                 that.element.find('#valorSomatoria').html(total.toFixed(2));
 
-                if (total != Math.abs(that.itemExtrato.Valor)) {
+                if (Math.round(total) != Math.round(Math.abs(that.itemExtrato.Valor))) {
                     that.element.find('#valorSomatoria').css('color', 'red');
 
                 } else {
