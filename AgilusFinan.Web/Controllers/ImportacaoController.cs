@@ -20,7 +20,7 @@ namespace AgilusFinan.Web.Controllers
     {
         public string itemExtratoId { get; set; }
         public ConciliacaoExtrato itemExtrato { get; set; }
-        public bool selectionado { get; set; }
+        public bool selecionado { get; set; }
         public bool isNew { get; set; }
         public List<TituloSelecionado> titulosSelecionados { get; set; }
         public List<TituloIncluido> titulosIncluidos { get; set; }
@@ -125,7 +125,7 @@ namespace AgilusFinan.Web.Controllers
             tabelaTitulosSemVinculo.Columns.Add("Acrescimo", typeof(double));
             tabelaTitulosSemVinculo.Columns.Add("Desconto", typeof(double));
             tabelaTitulosSemVinculo.Columns.Add("DataLancamento", typeof(DateTime));
-            tabelaTitulosSemVinculo.Columns.Add("ConciliacaoExtratoId", typeof(int));
+            tabelaTitulosSemVinculo.Columns.Add("ConciliacaoExtratoId", typeof(string));
             
             DataTable tabelaTitulosNaoCriados = new DataTable();
             tabelaTitulosNaoCriados.Columns.Add("Id", typeof(int));
@@ -141,7 +141,7 @@ namespace AgilusFinan.Web.Controllers
             tabelaTitulosNaoCriados.Columns.Add("DataLancamento", typeof(DateTime));
             tabelaTitulosNaoCriados.Columns.Add("Acrescimo", typeof(double));
             tabelaTitulosNaoCriados.Columns.Add("Desconto", typeof(double));
-            tabelaTitulosNaoCriados.Columns.Add("ConciliacaoExtratoId", typeof(int));
+            tabelaTitulosNaoCriados.Columns.Add("ConciliacaoExtratoId", typeof(string));
 
             foreach (var extrato in extratoConciliacao)
             {

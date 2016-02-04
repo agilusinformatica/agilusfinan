@@ -41,7 +41,10 @@ namespace AgilusFinan.Domain.Entities
                         {
                             conciliacaoExtrato.Descricao = texto.Substring(6, texto.Length - 6);
                         }
-
+                        else if (texto.Contains("<FITID>"))
+                        {
+                            conciliacaoExtrato.Id = texto.Substring(7, texto.Length - 7);
+                        }
                         linha = sr.ReadLine();
                     }
 

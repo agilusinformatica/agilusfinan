@@ -8,7 +8,7 @@ namespace AgilusFinan.Domain.Entities
     public class ConciliacaoExtrato
     {
         //Objeto que encapsula as informações contidas em <STMTTRN> do arquivo OFX
-        public int? Id { get; set; }
+        public string Id { get; set; }
         public TipoLancamento TipoLancamento { get; set; }
         public DateTime DataLancamento { get; set; }
         public decimal Valor { get; set; }

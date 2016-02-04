@@ -16,7 +16,7 @@ Create Type TitulosSemVinculo as Table
  Acrescimo money,
  Desconto money,
  DataLancamento smalldatetime not null,
- ConciliacaoExtratoId int
+ ConciliacaoExtratoId varchar(100)
 )  
 
 go
@@ -36,5 +36,5 @@ Create Type TitulosNaoCriados as Table
  DataLancamento smalldatetime not null,
  Acrescimo money,
  Desconto money,
- ConciliacaoExtratoId int
+ ConciliacaoExtratoId varchar(100)
 )  

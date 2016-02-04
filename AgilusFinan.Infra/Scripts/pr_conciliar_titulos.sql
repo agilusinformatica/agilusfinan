@@ -30,7 +30,7 @@ begin
 			@ContaId int,
 			@PessoaId int,
 			@DataLancamento smalldatetime,
-			@ConciliacaoExtratoId int
+			@ConciliacaoExtratoId varchar(100)
 
 	declare cur cursor for
 		select Acrescimo, DataVencimento, Desconto, Descricao, CategoriaId, TituloId, TituloRecorrenteId, Valor, ContaId, PessoaId, DataLancamento, ConciliacaoExtratoId
