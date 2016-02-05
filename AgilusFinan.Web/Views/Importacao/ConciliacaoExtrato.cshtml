@@ -126,7 +126,7 @@
 
             var setTitulosVinculados = function (titulos, operacao) {
                 var tableVinculo = this.element.find("#titulosVinculados");
-                
+
                 for (var i = 0; i < titulos.length; i++) {
                     var tr = document.createElement('tr');
                     var titulo = titulos[i];
@@ -240,7 +240,7 @@
             this.element.on('click', 'input[name="Excluir"]', function() {
                 var tableId = $(this).closest('table').attr('id');
                 var titulo = findTitulo($(this));
-                
+
                 switch(titulo.Operacao) {
 
                     case 'novo':
@@ -470,7 +470,7 @@
                         setTitulosSelecionados();
                         Utils.createMaskClass(document.querySelectorAll('#titulosAVincularLista input[name=Valor]'), 'moeda');
                         $('#titulosAVincularLista').off('draw.dt');
-                    });         
+                    });
 
                 },
                 error: function(error) {
@@ -545,7 +545,7 @@
                 var titulos = tasks[i].titulosSelecionados;
 
                 for(var j = 0; j < titulos.length; j++){
-                    
+
                     if((titulos[j].TituloRecorrenteId == tituloRecorrente.TituloRecorrenteId
                             && titulos[j].TituloRecorrenteId != null)
                         && (titulos[j].DataVencimento == tituloRecorrente.DataVencimento)){
@@ -613,8 +613,6 @@
                 data.push(temp);
             });
 
-            console.log(JSON.stringify(data));
-
             $.ajax({
                 type: 'POST',
                 url: '@Url.Action("ConciliarTitulos")',
@@ -622,12 +620,13 @@
                     "titulosAVincular": JSON.stringify(data)
                 },
                 success: function() {
-                    console.log("Titulos enviado!");
+                    location.href = '@Url.Action("Index", "Home")';
                 },
-                error: function(err) {
-                    text = err;
-                    console.log(err);
-                    console.log('Erro no ajax!');
+                error: function(object) {
+                    var htmlResponse = document.createElement('html');
+                    htmlResponse.innerHTML = object.responseText;
+                    var erro = htmlResponse.querySelector('h4').textContent;
+                    location.href = '@Url.Action("Erro", "Importacao")?erro=' + erro;
                 }
             });
         });

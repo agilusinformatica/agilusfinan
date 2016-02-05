@@ -68,6 +68,10 @@ namespace AgilusFinan.Web.Controllers
         {
             return View();
         }
+        public ActionResult Erro(string erro)
+        {
+            throw new Exception(erro);
+        }
 
         [HttpPost]
         public ActionResult ConciliacaoExtrato(HttpPostedFileBase file)
