@@ -516,6 +516,15 @@
     <EmbeddedResource Include="Migrations\201601281308436_CamposPercentualDescontoModeloBoleto.resx">
       <DependentUpon>201601281308436_CamposPercentualDescontoModeloBoleto.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602041958157_alteracaoTipoConciliacaoExtratoID.resx">
+      <DependentUpon>201602041958157_alteracaoTipoConciliacaoExtratoID.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602051835073_AdicionaBoletoGerado.resx">
+      <DependentUpon>201602051835073_AdicionaBoletoGerado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602051958518_AdicionaCampoNossoNumeroBoletoGerado.resx">
+      <DependentUpon>201602051958518_AdicionaCampoNossoNumeroBoletoGerado.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\Config\criacao tipo para conciliar titulos.sql" />
