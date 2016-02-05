@@ -143,11 +143,12 @@ namespace AgilusFinan.Web.Controllers
             tabelaTitulosNaoCriados.Columns.Add("Desconto", typeof(double));
             tabelaTitulosNaoCriados.Columns.Add("ConciliacaoExtratoId", typeof(int));
 
+            int seq = 0;
+
             foreach (var extrato in extratoConciliacao)
             {
                 foreach (var titulo in extrato.titulosIncluidos)
                 {
-                    int seq = 0;
                     tabelaTitulosNaoCriados.Rows.Add(++seq, titulo.ContaId, titulo.DataVencimento,
                         titulo.Descricao, titulo.Valor, titulo.CategoriaId, titulo.PessoaId, titulo.CentroCustoId, titulo.Competencia,
                         titulo.Observacao, extrato.itemExtrato.DataLancamento, titulo.Acrescimo, titulo.Desconto, extrato.itemExtrato.Id);
@@ -155,7 +156,6 @@ namespace AgilusFinan.Web.Controllers
 
                 foreach (var vinculo in extrato.titulosSelecionados)
                 {
-                    int seq = 0;
                     tabelaTitulosSemVinculo.Rows.Add(++seq, vinculo.TituloId, vinculo.TituloRecorrenteId, vinculo.Descricao, vinculo.PessoaId, vinculo.ContaId, vinculo.Valor, vinculo.CategoriaId,
                         DateTime.ParseExact(vinculo.DataVencimento, "dd/MM/yyyy", new CultureInfo("en-US")),
                         vinculo.Acrescimo, vinculo.Desconto, extrato.itemExtrato.DataLancamento, extrato.itemExtrato.Id);
