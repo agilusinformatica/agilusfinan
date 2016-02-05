@@ -125,8 +125,31 @@ namespace AgilusFinan.Web.Bases
 
             #region Nosso Número
             //Incremento do Nosso número em Modelo de Boleto
-            modeloBoleto.NossoNumero++;
-            repoModeloBoleto.Alterar(modeloBoleto);
+            //modeloBoleto.NossoNumero++;
+            //repoModeloBoleto.Alterar(modeloBoleto);
+            #endregion
+
+            #region Gravar Boleto
+            var repoBoletoGerado = new RepositorioBoletoGerado();
+
+            var boletogerado = new BoletoGerado();
+
+            boletogerado.ModeloBoletoId = modeloBoletoId;
+            boletogerado.TituloId = tituloId;
+            boletogerado.TituloRecorrenteId = null;
+
+            if (!repoBoletoGerado.Listar().Any(b => b.TituloId == boletogerado.TituloId))
+            {
+                modeloBoleto.NossoNumero++;
+                repoModeloBoleto.Alterar(modeloBoleto);
+                boletogerado.NossoNumero = modeloBoleto.NossoNumero;
+                new RepositorioBoletoGerado().Incluir(boletogerado);
+            }
+            else
+            {
+                modeloBoleto.NossoNumero = repoBoletoGerado.BuscarPorId(tituloId).NossoNumero;
+            }
+
             #endregion
 
             #region Cedente
@@ -217,7 +240,7 @@ namespace AgilusFinan.Web.Bases
             return boleto;
         }
 
-        public static Boleto GerarBoleto(int tituloRecorrenteId, decimal valor, DateTime dataVencimento, int modeloBoletoId)
+        public static Boleto GerarBoleto(int tituloRecorrenteId, decimal valor, DateTime dataVencimento, int modeloBoletoId, bool gerado = false)
         {
             #region Instancioações
             var titulo = new RepositorioTituloRecorrente().BuscarPorId(tituloRecorrenteId);
@@ -234,11 +257,11 @@ namespace AgilusFinan.Web.Bases
             }
             #endregion
 
-            #region Nosso Número
+            #region Nosso Número  
             modeloBoleto.NossoNumero++;
             repoModeloBoleto.Alterar(modeloBoleto);
             #endregion
-
+             
             #region Cedente
             var c = new Cedente(empresa.CpfCnpj, empresa.Nome, conta.Agencia, conta.ContaCorrente.Split('-')[0], conta.ContaCorrente.Split('-')[1]);
             c.Codigo = conta.ContaCorrente;
@@ -370,7 +393,7 @@ namespace AgilusFinan.Web.Bases
             var email = new Email(emailDestinatario, TextoEmail, AssuntoEmail, emailRemetente, anexos, new List<string>() { Path.GetFileName(nomeArquivo) });
             email.DispararMensagem();
         }
-
+          
         public static void EnviarBoletoPorEmail(LoteBoleto loteBoleto, string nomeArquivo)
         {
             string emailDestinatario = "";

@@ -288,6 +288,14 @@
     <Compile Include="Migrations\201602041958157_alteracaoTipoConciliacaoExtratoID.Designer.cs">
       <DependentUpon>201602041958157_alteracaoTipoConciliacaoExtratoID.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201602051835073_AdicionaBoletoGerado.cs" />
+    <Compile Include="Migrations\201602051835073_AdicionaBoletoGerado.Designer.cs">
+      <DependentUpon>201602051835073_AdicionaBoletoGerado.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602051958518_AdicionaCampoNossoNumeroBoletoGerado.cs" />
+    <Compile Include="Migrations\201602051958518_AdicionaCampoNossoNumeroBoletoGerado.Designer.cs">
+      <DependentUpon>201602051958518_AdicionaCampoNossoNumeroBoletoGerado.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AcessosUsuario.cs" />
@@ -301,6 +309,7 @@
     <Compile Include="Services\IConsulta.cs" />
     <Compile Include="Services\Login.cs" />
     <Compile Include="Services\RepositorioBanco.cs" />
+    <Compile Include="Services\RepositorioBoletoGerado.cs" />
     <Compile Include="Services\RepositorioCategoria.cs" />
     <Compile Include="Services\RepositorioCentroCusto.cs" />
     <Compile Include="Services\RepositorioConta.cs" />
@@ -506,9 +515,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201601281308436_CamposPercentualDescontoModeloBoleto.resx">
       <DependentUpon>201601281308436_CamposPercentualDescontoModeloBoleto.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201602041958157_alteracaoTipoConciliacaoExtratoID.resx">
-      <DependentUpon>201602041958157_alteracaoTipoConciliacaoExtratoID.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
