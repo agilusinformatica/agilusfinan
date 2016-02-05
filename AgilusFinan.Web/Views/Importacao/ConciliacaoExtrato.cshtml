@@ -460,13 +460,13 @@
                     dataFinal: dF
                 },
                 url: "@Url.Action("VinculoTitulos")",
-                success: function (data) {
+                success: function(data) {
                     $("#lista").html(data);
                     setTitulosSelecionados();
                     Utils.createMaskClass(document.querySelectorAll('#titulosAVincularLista input[name=Valor]'), 'moeda');
 
 
-                    $('#titulosAVincularLista').on('draw.dt', function () {
+                    $('#titulosAVincularLista').on('draw.dt', function() {
                         setTitulosSelecionados();
                         Utils.createMaskClass(document.querySelectorAll('#titulosAVincularLista input[name=Valor]'), 'moeda');
                         $('#titulosAVincularLista').off('draw.dt');
@@ -480,7 +480,7 @@
 
         }
 
-        var findTask = function (id) {
+        var findTask = function(id) {
             var t;
 
             for (var i = 0; i < tasks.length; i++) {
@@ -490,22 +490,22 @@
                 }
             };
 
-            if(!t) {
+            if (!t) {
                 task = new Task(id);
                 tasks.push(task);
             }
 
         }
 
-        var findTituloVinculo = function(titulo){
+        var findTituloVinculo = function(titulo) {
             var titulosSelecionados = task.titulosSelecionados;
 
-            for(var i = 0; i < titulosSelecionados.length; i++){
-                if(titulosSelecionados[i].TituloId == titulo.TituloId && titulosSelecionados[i].TituloId != null){
+            for (var i = 0; i < titulosSelecionados.length; i++) {
+                if (titulosSelecionados[i].TituloId == titulo.TituloId && titulosSelecionados[i].TituloId != null) {
                     return titulosSelecionados[i];
                 }
 
-                if(titulosSelecionados[i].TituloRecorrenteId == titulo.TituloRecorrenteId && titulosSelecionados[i].DataVencimento == titulo.DataVencimento) {
+                if (titulosSelecionados[i].TituloRecorrenteId == titulo.TituloRecorrenteId && titulosSelecionados[i].DataVencimento == titulo.DataVencimento) {
                     return titulosSelecionados[i];
                 }
 
@@ -513,26 +513,26 @@
             return titulo;
         }
 
-        var getItemTituloSelecionado = function(e){
+        var getItemTituloSelecionado = function(e) {
             //var itemAtual = TitulosPendentes.getTituloSelecionado(e.closest('tr').find('td[name="rowIndex"]').html());
             //var itemAtual = TitulosPendentes.getTituloSelecionado(e.closest('tr').data('rowIndex'));
             var itemAtual = TitulosPendentes.getTituloSelecionado(e.closest('tr').attr('data-rowindex'));
             var taskTitulo = findTituloVinculo(itemAtual);
 
-            if(taskTitulo && taskTitulo.TituloId == itemAtual.TituloId){
+            if (taskTitulo && taskTitulo.TituloId == itemAtual.TituloId) {
                 return taskTitulo;
-            }else{
+            } else {
                 return itemAtual;
             }
 
         }
 
-        var isTituloSelected = function(titulo){
-            for(var i = 0; i < tasks.length; i++){
+        var isTituloSelected = function(titulo) {
+            for (var i = 0; i < tasks.length; i++) {
                 var titulos = tasks[i].titulosSelecionados;
-                for(var j = 0; j < titulos.length; j++){
+                for (var j = 0; j < titulos.length; j++) {
 
-                    if(titulos[j].TituloId == titulo.TituloId && titulos[j].TituloId != null){
+                    if (titulos[j].TituloId == titulo.TituloId && titulos[j].TituloId != null) {
                         return true;
                     }
                 }
@@ -540,15 +540,15 @@
             return false;
         }
 
-        var isTituloRecorrenteSelected = function(tituloRecorrente){
-            for(var i = 0; i < tasks.length; i++){
+        var isTituloRecorrenteSelected = function(tituloRecorrente) {
+            for (var i = 0; i < tasks.length; i++) {
                 var titulos = tasks[i].titulosSelecionados;
 
-                for(var j = 0; j < titulos.length; j++){
+                for (var j = 0; j < titulos.length; j++) {
 
-                    if((titulos[j].TituloRecorrenteId == tituloRecorrente.TituloRecorrenteId
+                    if ((titulos[j].TituloRecorrenteId == tituloRecorrente.TituloRecorrenteId
                             && titulos[j].TituloRecorrenteId != null)
-                        && (titulos[j].DataVencimento == tituloRecorrente.DataVencimento)){
+                        && (titulos[j].DataVencimento == tituloRecorrente.DataVencimento)) {
                         return true;
                     }
 
@@ -560,14 +560,14 @@
         //Titulos Criados
 
         //Eventos
-        $('#vinculoBuscaDialog').on('input change', 'input[name="Valor"]', function(e){
+        $('#vinculoBuscaDialog').on('input change', 'input[name="Valor"]', function(e) {
             var titulo = getItemTituloSelecionado($(this));
-            var tr =  $(this).closest('tr');
+            var tr = $(this).closest('tr');
             var valorInput = tr.find('input[name="Valor"]');
             if (valorInput.val() != undefined) titulo.Valor = Utils.getValue(valorInput).replace(/\,|\./g, '') / 100;
         });
 
-        $("#vinculoBuscaDialog").on('click', 'input[type="checkbox"]', function (e) {
+        $("#vinculoBuscaDialog").on('click', 'input[type="checkbox"]', function(e) {
             var titulo = getItemTituloSelecionado($(this));
             var valorInput = $(this).closest('tr').find('input[name="Valor"]');
 
@@ -584,12 +584,12 @@
             }
         });
 
-        $('.adicionarTitulo').click(function(){
+        $('.adicionarTitulo').click(function() {
             findTask($(this).attr("data-botaoid"));
             cadastroTituloDialog.dialog('open');
         });
 
-        $(".vincularTitulos").click(function () {
+        $(".vincularTitulos").click(function() {
             findTask($(this).attr("data-botaoid"));
             $("#dataInicial").val(Utils.primeiroDiaMes(task.itemExtrato.DataLancamento, 'MDY'));
             $("#dataFinal").val(Utils.ultimoDiaMes(task.itemExtrato.DataLancamento, 'MDY'));
@@ -599,11 +599,11 @@
             consultarPeriodo(getTitulosPendentes);
         });
 
-        $('#efetivar').click(function(){
+        $('#efetivar').click(function() {
 
             var data = [];
 
-            tasks.forEach(function(t){
+            tasks.forEach(function(t) {
                 var temp = {
                     titulosSelecionados: t.titulosSelecionados,
                     titulosIncluidos: t.titulosIncluidos,
@@ -619,21 +619,21 @@
                 data: {
                     "titulosAVincular": JSON.stringify(data)
                 },
-                success: function() {
-                    location.href = '@Url.Action("Index", "Home")';
-                },
-                error: function(object) {
-                    var htmlResponse = document.createElement('html');
-                    htmlResponse.innerHTML = object.responseText;
-                    var erro = htmlResponse.querySelector('h4').textContent;
-                    location.href = '@Url.Action("Erro", "Importacao")?erro=' + erro;
+                success: function(data) {
+                    if (data !== '') {
+                        $.notify({ message: data }, { type: 'danger' });
+                    } else {
+                        window.location = "../home/index";
+                    }
                 }
             });
+
         });
 
         $('.item-vinculo').show(function(){
-            $('.item-vinculo').delay(1000).animate({opacity:100}, 3000);
+            $('.item-vinculo').delay(1000).animate({opacity:100}, 1500);
         });
+
     }());
 
 </script>
