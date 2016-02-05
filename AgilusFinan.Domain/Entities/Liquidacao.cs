@@ -15,7 +15,7 @@ namespace AgilusFinan.Domain.Entities
         public decimal Desconto { get; set; }
         public int TituloId { get; set; }
         public virtual Titulo Titulo { get; set; }
-        public int? ConciliacaoExtratoId { get; set; }
+        public string ConciliacaoExtratoId { get; set; }
 
     }
 }

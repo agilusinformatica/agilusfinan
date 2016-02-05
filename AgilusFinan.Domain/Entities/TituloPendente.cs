@@ -20,5 +20,6 @@ namespace AgilusFinan.Domain.Entities
         public string NomePessoa { get; set; }
         public string NomeCentroCusto { get; set; }
         public DirecaoCategoria Direcao { get; set; }
+        public string NomeConta { get; set; }
     }
 }

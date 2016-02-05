@@ -35,7 +35,7 @@
 
                 @if (titulo.Valor == null)
                 {
-                    <td> R$ <input style="width: 80px" type="text" name="Valor" disabled="disabled" value="0,00" /> </td>
+                    <td>  <input style="width: 70px" type="text" name="Valor" disabled="disabled" value="0,00" /> </td>
                 }
                 else
                 {
@@ -43,10 +43,10 @@
                 }
 
                 <td name="Direcao">@titulo.Direcao</td>
-                <td name="CategoriaId">@titulo.CategoriaId</td>
+                <td name="CategoriaId">@titulo.NomeCategoria</td>
                 <td name="DataVencimento">@titulo.DataVencimento.Date.ToShortDateString()</td>
-                <td name="PessoaId">@titulo.PessoaId</td>
-                <td name="ContaId">@titulo.ContaId</td>
+                <td name="PessoaId">@titulo.NomePessoa</td>
+                <td name="ContaId">@titulo.NomeConta</td>
                 <td name="rowIndex">@rowIndex</td>
             </tr>
             {
@@ -56,7 +56,6 @@
     </tbody>
 </table>
 <input class="btn btn-default modal" value="Vincular" />
-
 
 <style>
 
@@ -70,20 +69,20 @@
 
         if ($.fn.DataTable.isDataTable('#titulosAVincularLista')) {
             $('#titulosAVincularLista').DataTable().destroy();
-            
         }
 
         Utils.initializeDataTables('#titulosAVincularLista');
 
         var initEvents = function() {
             Utils.createMaskClass(document.querySelectorAll('#titulosAVincularLista input[name=Valor]'), 'moeda');
-        }();
+            console.log($('#titulosAVincularLista input[name=Valor]'));
+        };
 
         var oTable = $('#titulosAVincularLista').dataTable();
 	
         oTable.fnSetColumnVis(1, false);
         oTable.fnSetColumnVis(2, false);
-        //oTable.fnSetColumnVis(10, false);
+        oTable.fnSetColumnVis(10, false);
 
         var getTituloSelecionado = function (index) {
             //Conversão do formato da data antes do retorno.
