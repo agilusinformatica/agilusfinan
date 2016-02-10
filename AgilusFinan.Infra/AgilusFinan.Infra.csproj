@@ -296,6 +296,10 @@
     <Compile Include="Migrations\201602051958518_AdicionaCampoNossoNumeroBoletoGerado.Designer.cs">
       <DependentUpon>201602051958518_AdicionaCampoNossoNumeroBoletoGerado.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201602101257274_alteracaoTipoConciliacaoExtratoID2.cs" />
+    <Compile Include="Migrations\201602101257274_alteracaoTipoConciliacaoExtratoID2.Designer.cs">
+      <DependentUpon>201602101257274_alteracaoTipoConciliacaoExtratoID2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AcessosUsuario.cs" />
@@ -524,6 +528,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602051958518_AdicionaCampoNossoNumeroBoletoGerado.resx">
       <DependentUpon>201602051958518_AdicionaCampoNossoNumeroBoletoGerado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602101257274_alteracaoTipoConciliacaoExtratoID2.resx">
+      <DependentUpon>201602101257274_alteracaoTipoConciliacaoExtratoID2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
