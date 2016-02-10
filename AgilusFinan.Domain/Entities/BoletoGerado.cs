@@ -12,5 +12,7 @@ namespace AgilusFinan.Domain.Entities
         public int? TituloRecorrenteId { get; set; }
         public int ModeloBoletoId { get; set; }
         public int NossoNumero { get; set; }
+        public DateTime? DataVencimento { get; set; }
+
     }
 }

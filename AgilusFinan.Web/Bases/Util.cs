@@ -123,31 +123,21 @@ namespace AgilusFinan.Web.Bases
             }
             #endregion
 
-            #region Nosso Número
-            //Incremento do Nosso número em Modelo de Boleto
-            //modeloBoleto.NossoNumero++;
-            //repoModeloBoleto.Alterar(modeloBoleto);
-            #endregion
-
             #region Gravar Boleto
             var repoBoletoGerado = new RepositorioBoletoGerado();
+            var boletogerado = repoBoletoGerado.Listar(b => b.TituloId == tituloId).FirstOrDefault();
 
-            var boletogerado = new BoletoGerado();
-
-            boletogerado.ModeloBoletoId = modeloBoletoId;
-            boletogerado.TituloId = tituloId;
-            boletogerado.TituloRecorrenteId = null;
-
-            if (!repoBoletoGerado.Listar().Any(b => b.TituloId == boletogerado.TituloId))
+            if (boletogerado == null)
             {
+                boletogerado = new BoletoGerado();
+                boletogerado.ModeloBoletoId = modeloBoletoId;
+                boletogerado.TituloId = tituloId;
+                boletogerado.TituloRecorrenteId = null;
+
                 modeloBoleto.NossoNumero++;
                 repoModeloBoleto.Alterar(modeloBoleto);
                 boletogerado.NossoNumero = modeloBoleto.NossoNumero;
-                new RepositorioBoletoGerado().Incluir(boletogerado);
-            }
-            else
-            {
-                modeloBoleto.NossoNumero = repoBoletoGerado.BuscarPorId(tituloId).NossoNumero;
+                repoBoletoGerado.Incluir(boletogerado);
             }
 
             #endregion
@@ -158,7 +148,7 @@ namespace AgilusFinan.Web.Bases
             #endregion
 
             #region Boleto
-            Boleto boleto = new Boleto(titulo.DataVencimento, titulo.Valor, modeloBoleto.Carteira, modeloBoleto.NossoNumero.ToString(), c, new EspecieDocumento(numeroBanco));
+            Boleto boleto = new Boleto(titulo.DataVencimento, titulo.Valor, modeloBoleto.Carteira, boletogerado.NossoNumero.ToString(), c, new EspecieDocumento(numeroBanco));
             boleto.NumeroDocumento = tituloId.ToString();
             boleto.Banco = new BoletoNet.Banco(numeroBanco);
             #endregion
@@ -257,9 +247,23 @@ namespace AgilusFinan.Web.Bases
             }
             #endregion
 
-            #region Nosso Número  
-            modeloBoleto.NossoNumero++;
-            repoModeloBoleto.Alterar(modeloBoleto);
+            #region Gravar Boleto
+            var repoBoletoGerado = new RepositorioBoletoGerado();
+            var boletogerado = repoBoletoGerado.Listar(b => b.TituloRecorrenteId == tituloRecorrenteId && b.DataVencimento == dataVencimento).FirstOrDefault();
+
+            if (boletogerado == null)
+            {
+                boletogerado = new BoletoGerado();
+                boletogerado.ModeloBoletoId = modeloBoletoId;
+                boletogerado.TituloId = null;
+                boletogerado.TituloRecorrenteId = tituloRecorrenteId;
+                boletogerado.DataVencimento = dataVencimento;
+
+                modeloBoleto.NossoNumero++;
+                repoModeloBoleto.Alterar(modeloBoleto);
+                boletogerado.NossoNumero = modeloBoleto.NossoNumero;
+                repoBoletoGerado.Incluir(boletogerado);
+            }
             #endregion
              
             #region Cedente
@@ -268,7 +272,7 @@ namespace AgilusFinan.Web.Bases
             #endregion
 
             #region Boleto
-            Boleto boleto = new Boleto(dataVencimento, valor, modeloBoleto.Carteira, modeloBoleto.NossoNumero.ToString(), c, new EspecieDocumento(numeroBanco));
+            Boleto boleto = new Boleto(dataVencimento, valor, modeloBoleto.Carteira, boletogerado.NossoNumero.ToString(), c, new EspecieDocumento(numeroBanco));
             boleto.NumeroDocumento = tituloRecorrenteId.ToString();
             boleto.Banco = new BoletoNet.Banco(numeroBanco);
             #endregion

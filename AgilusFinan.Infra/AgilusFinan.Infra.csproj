@@ -300,6 +300,10 @@
     <Compile Include="Migrations\201602101257274_alteracaoTipoConciliacaoExtratoID2.Designer.cs">
       <DependentUpon>201602101257274_alteracaoTipoConciliacaoExtratoID2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201602101651599_AdicionaDataVencimentoEmBoletoGerado.cs" />
+    <Compile Include="Migrations\201602101651599_AdicionaDataVencimentoEmBoletoGerado.Designer.cs">
+      <DependentUpon>201602101651599_AdicionaDataVencimentoEmBoletoGerado.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AcessosUsuario.cs" />
@@ -531,6 +535,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602101257274_alteracaoTipoConciliacaoExtratoID2.resx">
       <DependentUpon>201602101257274_alteracaoTipoConciliacaoExtratoID2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602101651599_AdicionaDataVencimentoEmBoletoGerado.resx">
+      <DependentUpon>201602101651599_AdicionaDataVencimentoEmBoletoGerado.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
