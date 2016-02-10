@@ -320,6 +320,7 @@
 
         //Titulos selecionados
         var setTitulosSelecionados = function () {
+            //debugger;
             var inputs = $('#titulosAVincularLista').find('input:checkbox');
             $.each(inputs, function (input) {
                 var titulo = TitulosPendentes.getTituloSelecionado($(inputs[input]).closest('tr').attr('data-rowindex'));
@@ -336,6 +337,15 @@
                 if (!tituloRecorrenteExists && isRecorrenteSelected) {
                     var valorInput = tr.find('input[name="Valor"]');
                     if (titulo.Valor != null) valorInput.val(Utils.moneyFormatConvert(titulo.Valor));
+                    
+                    tasks.forEach(function (tsk) {                        
+                        tsk.titulosSelecionados.forEach(function(t) {
+                            if (t.TituloRecorrenteId == titulo.TituloRecorrenteId && titulo.TituloId == null && t.DataVencimento == titulo.DataVencimento) {
+                                valorInput.val(Utils.moneyFormatConvert(t.Valor));
+                            }
+                        });
+                    });
+
                     $(inputs[input]).prop('disabled', true);
                 }
 
@@ -346,6 +356,7 @@
 
                     if(t.TituloRecorrenteId == titulo.TituloRecorrenteId && titulo.TituloId == null && t.DataVencimento == titulo.DataVencimento){
                         var valorInput = tr.find('input[name="Valor"]');
+                        console.log(titulo);
                         valorInput.val(Utils.moneyFormatConvert(t.Valor));
                         valorInput.prop('disabled', false);
                         $(inputs[input]).prop('checked', true);
@@ -465,11 +476,17 @@
                     setTitulosSelecionados();
                     Utils.createMaskClass(document.querySelectorAll('#titulosAVincularLista input[name=Valor]'), 'moeda');
 
+                    //$('#titulosAVincularLista').on('draw.dt search.dt', function() {
+                    //    setTitulosSelecionados();
+                    //    Utils.createMaskClass(document.querySelectorAll('#titulosAVincularLista input[name=Valor]'), 'moeda');
+                    //    $('#titulosAVincularLista').off('draw.dt');
+                    //});
 
-                    $('#titulosAVincularLista').on('draw.dt', function() {
-                        setTitulosSelecionados();
-                        Utils.createMaskClass(document.querySelectorAll('#titulosAVincularLista input[name=Valor]'), 'moeda');
-                        $('#titulosAVincularLista').off('draw.dt');
+                    $("#titulosAVincularLista").dataTable().fnSettings().aoDrawCallback.push({
+                        "fn": function(nRow) {
+                            setTitulosSelecionados();
+                            Utils.createMaskClass(document.querySelectorAll('#titulosAVincularLista input[name=Valor]'), 'moeda');
+                        }
                     });
 
                 },

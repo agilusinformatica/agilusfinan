@@ -204,7 +204,8 @@
 		}
 		$(table).addClass("responsive no-wrap");
 
-		$(table).DataTable({
+        $(table).DataTable({
+                bRetrieve: true,
 				language: {
 				sEmptyTable: "Nenhum registro encontrado",
 				sInfo: "Mostrando de _START_ até _END_ de _TOTAL_ registros",
@@ -214,7 +215,7 @@
 				sInfoThousands: ".",
 				sLengthMenu: "_MENU_ resultados por página",
 				sLoadingRecords: "Carregando...",
-				sProcessing: "Processando...",
+                sProcessing: "Processando...",                
 				sZeroRecords: "Nenhum registro encontrado",
 				sSearch: "Pesquisar",
 				oPaginate: {
