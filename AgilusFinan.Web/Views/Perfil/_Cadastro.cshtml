@@ -1,7 +1,7 @@
 ﻿@model AgilusFinan.Web.ViewModels.PerfilViewModel
-<link href="~/Scripts/jquerysctipttop.css" rel="stylesheet" />
-<link href="~/Scripts/bootstrap-treefy.css" rel="stylesheet" />
-<link href="~/Scripts/font-awesome.min.css" rel="stylesheet" />
+<link href="~/Content/jquerysctipttop.css" rel="stylesheet" />
+<link href="~/Content/bootstrap-treefy.css" rel="stylesheet" />
+<link href="~/Content/font-awesome.min.css" rel="stylesheet" />
 <script src="~/Scripts/bootstrap-treefy.js"></script>
 
 @using (Html.BeginForm())
@@ -55,19 +55,6 @@
 </div>
 
 <script>
-    //var teste;
-    //document.getElementById("enviar").addEventListener("click", function (e) {
-    //    e.preventDefault();
-    //    UpdatePerfil();
-    //});
-
-    //Intercepta post no submit
-    //Para usar esse código é necessário comentar ou apagar o id "enviar" e comentar o código acima
-    //$('form').submit(function (data) {
-    //    data.preventDefault();
-    //    console.log($(this).serialize());
-    //    UpdatePerfil();
-    //});
 
     function UpdatePerfil(manterTela) {
         var teste = $.ajax({
