@@ -61,9 +61,10 @@ namespace AgilusFinan.Web.Controllers
         public double Desconto { get; set; }
     }
 
-    public class ImportacaoController : Controller
+    public class ConciliacaoController : Controller
     {
         // GET: ConciliacaoExtrato
+        [Permissao]
         public ActionResult Index()
         {
             return View();

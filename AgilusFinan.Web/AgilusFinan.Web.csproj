@@ -153,7 +153,7 @@
     <Compile Include="Controllers\BoletoGeradoController.cs" />
     <Compile Include="Controllers\CategoriaController.cs" />
     <Compile Include="Controllers\CentroCustoController.cs" />
-    <Compile Include="Controllers\ImportacaoController.cs" />
+    <Compile Include="Controllers\ConciliacaoController.cs" />
     <Compile Include="Controllers\ContaController.cs" />
     <Compile Include="Controllers\ConviteController.cs" />
     <Compile Include="Controllers\EmpresaController.cs" />
@@ -547,8 +547,8 @@
     <Content Include="Views\Transferencia\Create.cshtml" />
     <Content Include="Views\Transferencia\Edit.cshtml" />
     <Content Include="Scripts\PortugueseBrasil.json" />
-    <Content Include="Views\Importacao\Index.cshtml" />
-    <Content Include="Views\Importacao\ConciliacaoExtrato.cshtml" />
+    <Content Include="Views\Conciliacao\Index.cshtml" />
+    <Content Include="Views\Conciliacao\ConciliacaoExtrato.cshtml" />
     <Content Include="Views\Recebimento\GerarBoleto.cshtml" />
     <Content Include="Views\LoteBoleto\Index.cshtml" />
     <Content Include="Views\ModeloBoleto\Index.cshtml" />
@@ -558,7 +558,7 @@
     <Content Include="Views\Shared\_PainelPeriodo.cshtml" />
     <Content Include="Views\Titulo\IndexData.cshtml" />
     <Content Include="Views\Transferencia\IndexData.cshtml" />
-    <Content Include="Views\Importacao\_VinculoTitulos.cshtml" />
+    <Content Include="Views\Conciliacao\_VinculoTitulos.cshtml" />
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce-small.woff" />
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce-small.ttf" />
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce-small.json" />

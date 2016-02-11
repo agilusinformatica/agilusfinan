@@ -3,8 +3,6 @@
 }
 
 @using AgilusFinan.Domain.Entities
-@using AgilusFinan.Web.Bases
-@using AgilusFinan.Web.ViewModels
 @model List<ConciliacaoExtrato>
 <h2>Vinculo Extrato/Titulos</h2>
 
@@ -28,50 +26,69 @@
 
 <div class="container">
 
-    <div class="row">
-        <div class="col-md-4">
-            <button class="btn btn-default" id="efetivar">Efetivar</button>
-        </div>
-    </div>
-    <hr />
-    <div class="item-vinculo" style="display:none;opacity:0">
-        @foreach (var vinculo in Model)
-        {
-            <div class="row">
-                <div class="col-md-10">
-                    <div class="list-group item-extrato" data-extratoid=@extratoId>
-                        <table class="extrato-table">
-                            <thead>
-                            <tr>
-                                <th style="display:none">ID</th>
-                                <th>Data Lancamento</th>
-                                <th>Descricao</th>
-                                <th>Valor</th>
-                                <th>Tipo de lançamento</th>
-                            </tr>
-                            </thead>
+    <div class="row body-vinculo" style="display: none; opacity: 0.0">
+        <div class="col-sm-offset-1 col-sm-9">
+            @foreach (var vinculo in Model)
+            {
+                <div class="row item-vinculo" data-extratoid=@extratoId>
 
-                            <tbody>
-                            <tr>
-                                <td style="display:none">@vinculo.Id</td>
-                                <td>@vinculo.DataLancamento.Date.ToShortDateString()</td>
-                                <td>@vinculo.Descricao</td>
-                                <td>@vinculo.Valor</td>
-                                <td>@vinculo.TipoLancamento</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                        <hr />
+                    <div class="row item-extrato">
+                        <div class="col-sm-offset-1 col-sm-10 ">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th style="display: none">ID</th>
+                                        <th>Data Lancamento</th>
+                                        <th>Descricao</th>
+                                        <th>Valor</th>
+                                        <th>Tipo de lançamento</th>
+                                    </tr>
+                                </thead>
 
-                        <div class="row">
-                            <div class="col-md-12">
-                                <p>Total: <span id="valorSomatoria">0.00</span></p>
-                                <table class="table" id="titulosVinculados">
+                                <tbody>
+                                    <tr>
+                                        <td style="display: none">@vinculo.Id</td>
+                                        <td>@vinculo.DataLancamento.Date.ToShortDateString()</td>
+                                        <td>@vinculo.Descricao</td>
+                                        <td>@vinculo.Valor</td>
+                                        <td>@vinculo.TipoLancamento</td>
+                                    </tr>
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+
+                    <br />
+
+                    <div class="row item-display">
+                        <div class="col-sm-offset-1 col-md-10">
+                            <p>Total:<span id="valorSomatoria">0.00</span></p>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-sm-offset-1 col-sm-10">
+                            <div class="btn-group btn-group-sm" role="toolbar" aria-label="...">
+                                <button class="btn btn-default vincularTitulos" data-botaoid=@extratoId>Buscar</button>
+                                <button class="btn btn-default adicionarTitulo" data-botaoid=@extratoId>Adicionar</button>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <br />
+
+                    <div class="row">
+                        <div class="col-sm-10 col-lg-12">
+                            <div class="table-responsive">
+                                <table class="table table-hover" id="titulosVinculados" style="display: none">
                                     <thead>
                                         <tr>
-                                            <th style="display:none">RowId</th>
-                                            <th style="display:none">ID</th>
-                                            <th style="display:none"> Titulo Recorrente</th>
+                                            <th style="display: none">RowId</th>
+                                            <th style="display: none">ID</th>
+                                            <th style="display: none"> Titulo Recorrente</th>
                                             <th>Operação</th>
                                             <th>Conta</th>
                                             <th>Data de vencimento</th>
@@ -84,34 +101,50 @@
                                             <th></th>
                                         </tr>
                                     </thead>
-
                                 </table>
                             </div>
                         </div>
-
-                        <div class="row">
-                            <div class="col-sm-1 col-sm-offset-1">
-                                <button class="btn btn-default vincularTitulos" data-botaoid=@extratoId>Buscar</button> <br />
-
-                            </div>
-                            <div class="col-sm-1 ">
-                                <button class="btn btn-default adicionarTitulo" data-botaoid=@extratoId>Adicionar</button> <br />
-
-                            </div>
-                        </div>
                     </div>
-                    @{
-            extratoId = extratoId + 1;
-                    }
-                </div>
-            </div>
 
-        }
+                    <h4 id="alerta">Nenhum título está vinculado a este item.</h4>
+
+                    @{
+                extratoId = extratoId + 1;
+                    }
+
+                </div>
+            }
+        </div>
     </div>
+
+    <hr />
+
+    <div>
+        <div class="row">
+            <div class="btn-group btn-group-md">
+                <button class="btn btn-default" id="efetivar" disabled="disabled">Efetivar</button>
+            </div>
+        </div>
+        <br />
+
+        <div id="itens-validados-wraper" style="display: none">
+            <p>Os seguintes itens estão com a soma de titulos pendentes desigual ao valor total do item do extrato:</p>
+            <ul id="item-nao-validados"></ul>
+        </div>
+
+    </div>
+
 </div>
 
 <script>
+    var tasks;
     var conciliacaoExtratoController = (function () {
+
+        //variaveis
+        tasks =[];
+        var task;
+        var rowIndex = 0;
+
         //objeto extrato
         var convertDate = function (date) {
             var dia = date.substring(0, 2);
@@ -124,17 +157,19 @@
         var ItemExtratoDOM = function(element) {
             this.element = element;
 
-            var setTitulosVinculados = function (titulos, operacao) {
+            var setTitulosVinculados = function (titulos) {
                 var tableVinculo = this.element.find("#titulosVinculados");
+                var alert = this.element.find('#alerta');
+
+                tableVinculo.show();
 
                 for (var i = 0; i < titulos.length; i++) {
                     var tr = document.createElement('tr');
                     var titulo = titulos[i];
 
-                    titulo.Operacao = operacao;
                     tr.innerHTML =
                         '<td style="display: none;">' + titulo.RowIndex + '</td>' +
-                         '<td style="display: none;">' + titulo.TituloId + '</td>' +
+                        '<td style="display: none;">' + titulo.TituloId + '</td>' +
                         '<td style="display: none;">' + titulo.TituloRecorrenteId + '</td>' +
                         '<td>' + titulo.Operacao + '</td>' +
                         '<td>' + titulo.NomeConta + '</td>' +
@@ -143,15 +178,22 @@
                         '<td>' + Utils.moneyFormatConvert(titulo.Valor.toFixed(2)) + '</td>' +
                         '<td>' + titulo.NomeCategoria + '</td>' +
                         '<td>' + titulo.NomePessoa + '</td>' +
-                        '<td><input type="text" name="Acrescimo" value=' + titulo.Acrescimo.toFixed(2) + ' "></td>' +
-                        '<td><input type="text" name="Desconto" value=' + titulo.Desconto.toFixed(2) + ' "></td>' +
+                        '<td><input type="text" class="form-control" name="Acrescimo" value=' + titulo.Acrescimo.toFixed(2) + ' "></td>' +
+                        '<td><input type="text" class="form-control" name="Desconto" value=' + titulo.Desconto.toFixed(2) + ' "></td>' +
                         '<td><input type="button" value="Excluir" name="Excluir"></td>';
 
                     tableVinculo.append(tr);
                     Utils.createMask($(tr).find('input[name="Acrescimo"]').get(0), 'moeda');
                     Utils.createMask($(tr).find('input[name="Desconto"]').get(0), 'moeda');
-
                 }
+
+                alert.html('');
+
+                if (titulos.length == 0) {
+                    tableVinculo.hide();
+                    alert.html("Nenhum título está vinculado a este item.");
+                }
+
             }
 
             var getItemExtrato = function() {
@@ -192,11 +234,11 @@
             var total = 0;
 
             var vincularTitulo = function(titulo) {
-                this.titulosSelecionados.push(titulo);
+                that.titulosSelecionados.push(titulo);
             };
 
             var desvincularTitulo = function(titulo) {
-                this.titulosSelecionados.forEach(function(t, index, titulos) {
+                that.titulosSelecionados.forEach(function(t, index, titulos) {
 
                     if (titulo.RowIndex == t.RowIndex) {
                         titulos.splice(index, 1);
@@ -209,7 +251,7 @@
                 var rowIndex = element.closest('tr').children()[0].innerHTML;
 
                 for (var i = 0; i < that.titulosSelecionados.length; i++) {
-                    if (that.titulosSelecionados[i].RowIndex == rowIndex) {
+                    if (that.titulosSelecionados[i].RowIndex == rowIndex) {                        
                         titulo = that.titulosSelecionados[i];
                     }
                 }
@@ -225,21 +267,20 @@
             }
 
             //Mudança de contexto 'this' para o objeto input pertecente a esta Task.
-            this.element.on('input change', 'input[name="Acrescimo"]', function() {
+            that.element.on('input change', 'input[name="Acrescimo"]', function() {
                 var titulo = findTitulo($(this));
                 titulo.Acrescimo = $(this).val().replace(/\,|\./g, '') / 100;
                 updateTotal.call(that);
             });
 
-            this.element.on('input change', 'input[name="Desconto"]', function() {
+            that.element.on('input change', 'input[name="Desconto"]', function() {
                 var titulo = findTitulo($(this));
                 titulo.Desconto = $(this).val().replace(/\,|\./g, '') / 100;
                 updateTotal.call(that);
             });
 
-            this.element.on('click', 'input[name="Excluir"]', function() {
-                var tableId = $(this).closest('table').attr('id');
-                var titulo = findTitulo($(this));
+            that.element.on('click', 'input[name="Excluir"]', function() {
+                var titulo = findTitulo.call(that, $(this));
 
                 switch(titulo.Operacao) {
 
@@ -257,6 +298,7 @@
                 }
 
                 updateItemExtratoDOM.call(that);
+
             });
 
             var somaTitulos = function() {
@@ -276,23 +318,86 @@
                 }
             };
 
+            var comparaSomaValorTotal = function() {
+                return this.somaTitulos() === Math.abs(this.itemExtrato.Valor);
+            }
+
+            var titulosSomaIncompativel = function() {
+                var itemList = [];
+                var totalTasksSemVinculo = 0;
+
+                tasks.forEach(function(t) {
+                    if (!t.comparaSomaValorTotal() && (t.titulosSelecionados.length > 0 || t.titulosIncluidos.length > 0)) {
+                        itemList.push(t);
+                    }
+
+                    if (t.titulosIncluidos.length == 0 && t.titulosSelecionados.length == 0) {
+                        totalTasksSemVinculo++;
+                    }
+                });
+
+                if (itemList.length > 0) {
+                    var li = '';
+
+                    for (var i = 0; i < itemList.length; i++) {
+                        li += '<li data-extratolinhaid='+ itemList[i].itemExtratoId +'><a>' + itemList[i].itemExtrato.DataLancamento + ' - ' + itemList[i].itemExtrato.Descricao + ': ' + itemList[i].itemExtrato.Valor + '</a></li>';
+                    }
+
+                    $('#item-nao-validados').html(li);
+                    $('#item-nao-validados').closest('div').show();
+                    $('#efetivar').prop('disabled', true);
+
+                } else {
+                    $('#item-nao-validados').html('');
+                    $('#item-nao-validados').closest('div').hide();
+                    $('#efetivar').prop('disabled', false);
+
+                }
+
+                if (tasks.length == 0) {
+                    $('#efetivar').prop('disabled', true);
+
+                }
+                
+                if (totalTasksSemVinculo == tasks.length) {
+                    $('#efetivar').prop('disabled', true);
+                }
+            
+            }
+
             var updateTotal = function() {
                 total = somaTitulos.call(that);
                 that.element.find('#valorSomatoria').html(total.toFixed(2));
 
-                if (Math.round(total) != Math.round(Math.abs(that.itemExtrato.Valor))) {
-                    that.element.find('#valorSomatoria').css('color', 'red');
+                if (Math.abs(total) != Math.abs(that.itemExtrato.Valor)) {
+                    that.element.css('background-color', '#FFBABA');
 
                 } else {
-                    that.element.find('#valorSomatoria').css('color', 'green');
+                    that.element.css('background-color', '#67F097');
                 }
+
+                if (total == 0) {
+                    that.element.css('background-color', 'grey');
+                }
+
+                titulosSomaIncompativel();
             }
 
             var updateItemExtratoDOM = function() {
                 this.itemExtratoDOM.clear();
                 updateTotal.call(this);
-                this.itemExtratoDOM.setTitulosVinculados(this.titulosSelecionados, 'vinculo');
-                this.itemExtratoDOM.setTitulosVinculados(this.titulosIncluidos, 'novo');
+                var temp = [];
+
+                this.titulosSelecionados.forEach(function(ts) {
+                    temp.push(ts);
+                });
+
+                this.titulosIncluidos.forEach(function(ti) {
+                    temp.push(ti);
+                });
+
+                this.itemExtratoDOM.setTitulosVinculados(temp);
+
             };
 
             return {
@@ -308,19 +413,14 @@
                 vincularTitulo: vincularTitulo,
                 desvincularTitulo: desvincularTitulo,
                 somaTitulos: somaTitulos ,
-                updateTotal: updateTotal
+                updateTotal: updateTotal,
+                comparaSomaValorTotal: comparaSomaValorTotal
             }
 
         }
 
-        //variaveis
-        var tasks =[];
-        var task;
-        var rowIndex = 0;
-
         //Titulos selecionados
         var setTitulosSelecionados = function () {
-            //debugger;
             var inputs = $('#titulosAVincularLista').find('input:checkbox');
             $.each(inputs, function (input) {
                 var titulo = TitulosPendentes.getTituloSelecionado($(inputs[input]).closest('tr').attr('data-rowindex'));
@@ -337,8 +437,8 @@
                 if (!tituloRecorrenteExists && isRecorrenteSelected) {
                     var valorInput = tr.find('input[name="Valor"]');
                     if (titulo.Valor != null) valorInput.val(Utils.moneyFormatConvert(titulo.Valor));
-                    
-                    tasks.forEach(function (tsk) {                        
+
+                    tasks.forEach(function (tsk) {
                         tsk.titulosSelecionados.forEach(function(t) {
                             if (t.TituloRecorrenteId == titulo.TituloRecorrenteId && titulo.TituloId == null && t.DataVencimento == titulo.DataVencimento) {
                                 valorInput.val(Utils.moneyFormatConvert(t.Valor));
@@ -356,7 +456,6 @@
 
                     if(t.TituloRecorrenteId == titulo.TituloRecorrenteId && titulo.TituloId == null && t.DataVencimento == titulo.DataVencimento){
                         var valorInput = tr.find('input[name="Valor"]');
-                        console.log(titulo);
                         valorInput.val(Utils.moneyFormatConvert(t.Valor));
                         valorInput.prop('disabled', false);
                         $(inputs[input]).prop('checked', true);
@@ -394,6 +493,7 @@
             },
             close: function () {
                 $('#lista').html('');
+                task = undefined;
             }
         });
 
@@ -413,7 +513,7 @@
                         cadastro.RowIndex = 'N' + rowIndex++;
                         cadastro.DataVencimento = dataVencimentoAuxiliar[2] + '/' + dataVencimentoAuxiliar[1] + '/' + dataVencimentoAuxiliar[0];
                         cadastro.Competencia = dataVencimentoCompetencia[2] + '/' + dataVencimentoCompetencia[1] + '/' + dataVencimentoCompetencia[0];
-
+                        cadastro.Operacao = 'novo';
                         cadastro.Valor = cadastro.Valor == '' ? 0.00 : parseFloat(cadastro.Valor);
                         cadastro.Acrescimo = 0.0;
                         cadastro.Desconto = 0.0;
@@ -476,12 +576,6 @@
                     setTitulosSelecionados();
                     Utils.createMaskClass(document.querySelectorAll('#titulosAVincularLista input[name=Valor]'), 'moeda');
 
-                    //$('#titulosAVincularLista').on('draw.dt search.dt', function() {
-                    //    setTitulosSelecionados();
-                    //    Utils.createMaskClass(document.querySelectorAll('#titulosAVincularLista input[name=Valor]'), 'moeda');
-                    //    $('#titulosAVincularLista').off('draw.dt');
-                    //});
-
                     $("#titulosAVincularLista").dataTable().fnSettings().aoDrawCallback.push({
                         "fn": function(nRow) {
                             setTitulosSelecionados();
@@ -511,7 +605,6 @@
                 task = new Task(id);
                 tasks.push(task);
             }
-
         }
 
         var findTituloVinculo = function(titulo) {
@@ -531,8 +624,6 @@
         }
 
         var getItemTituloSelecionado = function(e) {
-            //var itemAtual = TitulosPendentes.getTituloSelecionado(e.closest('tr').find('td[name="rowIndex"]').html());
-            //var itemAtual = TitulosPendentes.getTituloSelecionado(e.closest('tr').data('rowIndex'));
             var itemAtual = TitulosPendentes.getTituloSelecionado(e.closest('tr').attr('data-rowindex'));
             var taskTitulo = findTituloVinculo(itemAtual);
 
@@ -547,12 +638,14 @@
         var isTituloSelected = function(titulo) {
             for (var i = 0; i < tasks.length; i++) {
                 var titulos = tasks[i].titulosSelecionados;
+                
                 for (var j = 0; j < titulos.length; j++) {
 
                     if (titulos[j].TituloId == titulo.TituloId && titulos[j].TituloId != null) {
                         return true;
                     }
                 }
+
             }
             return false;
         }
@@ -610,9 +703,7 @@
             findTask($(this).attr("data-botaoid"));
             $("#dataInicial").val(Utils.primeiroDiaMes(task.itemExtrato.DataLancamento, 'MDY'));
             $("#dataFinal").val(Utils.ultimoDiaMes(task.itemExtrato.DataLancamento, 'MDY'));
-
             vinculoBuscaDialog.dialog("open");
-
             consultarPeriodo(getTitulosPendentes);
         });
 
@@ -647,8 +738,15 @@
 
         });
 
-        $('.item-vinculo').show(function(){
-            $('.item-vinculo').delay(1000).animate({opacity:100}, 1500);
+        $('.body-vinculo').show(function(){
+            $(this).delay(1000).animate({opacity:100}, 1500);
+        });
+
+        $("#itens-validados-wraper").on('click', 'li', function() {
+
+            $('html, body').animate({
+                scrollTop: $('[data-extratoid=' + $(this).attr('data-extratolinhaid') + ']').offset().top
+            }, 500);
         });
 
     }());
@@ -657,105 +755,67 @@
 
 
 <style>
-    .item-vinculo {
+    .body-vinculo {
+        font-size: 14px;
     }
 
-    .item-extrato {
+    .item-vinculo {
+        background-color: grey;
         border: 1px solid grey;
         box-shadow: 5px 5px 30px grey;
-        padding-bottom: 20px;
-    }
-
-    .extrato-table {
-        border: 1px solid;
-        margin-top: 10px;
         margin-bottom: 20px;
-        margin-left: 60px;
-        table-layout: fixed;
-        width: 90%;
-        font-size: 12px;
     }
 
-        .extrato-table > tbody > tr > td {
-            width: 200px;
+        .item-vinculo table {
+            box-shadow: 5px 5px 10px grey ;
+            font-size: 10px;
+            background-color: white;
         }
 
-        .extrato-table > thead {
-            background-color: lightgray;
-            border: 1px solid grey;
-            width: 100px;
-            z-index: 0;
-        }
-
-            .extrato-table > thead > th {
-                border: 1px solid black;
-                margin: 100px;
+            .item-vinculo table > thead {
+                background-color: steelblue;
+                color: white;
             }
 
-    .dialog {
-        width: 100%;
+    .item-extrato {
     }
 
-    #vinculoBuscaDialog > table {
-        border: 1px solid;
-        margin-top: 10px;
-        margin-bottom: 10px;
-        margin-left: 60px;
-        table-layout: fixed;
-        font-size: 13px;
-        -ms-word-wrap: break-word;
-        word-wrap: break-word;
+        .item-extrato table {
+            margin-top: 10px;
+            background-color: white;
+            border-top: 1px solid lightgrey;
+            border-bottom: 1px solid lightgrey;
+            border-left: 1px solid lightgrey;
+            border-right: 1px solid lightgrey;
+            box-shadow: 5px 5px 30px grey;
+        }
+
+    .item-display {
     }
 
-    /*Tabela de titulos a ser vinculados*/
-    #titulosAVincularLista input {
+    #alerta {
+        margin-left: 30%;
     }
 
-    /*Painel pariodo*/
+    #valorSomatoria {
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    #titulosAVincularLista {
+    }
+
+        #titulosAVincularLista  td:nth-child(3) {
+            width: 10%;
+        }
+
     #painel-periodo {
-        height: 0;
-        font-size: 12px;
-        width: 90%;
-        height: 40px;
-        background: grey;
-        float: left;
-        margin-left: 5%;
-    }
-
-        #painel-periodo .panel {
-            margin-bottom: 3px;
-            border-radius: 0;
-            height: auto;
-            border: 1px solid black;
-        }
-
-        #painel-periodo .panel-body {
-            padding-top: 3px;
-            padding-bottom: 3px;
-        }
-
-        #painel-periodo .panel-heading {
-            margin-bottom: 3px;
-            border-radius: 0;
-            padding-top: 3px;
-            padding-bottom: 3px;
-        }
-
-    /*Lista de titulos já vinculados*/
-    #titulosVinculados, #titulosCriar {
         font-size: 12px;
     }
 
-        #titulosVinculados input[type=text] {
-            width: 70px;
-        }
+    #item-nao-validados a {
+        cursor: pointer;
+    }
 
-        #titulosVinculados th {
-        }
 
-        #titulosVinculados > tbody > tr > td {
-        }
-
-        #titulosVinculados td {
-        }
 </style>

@@ -1,21 +1,21 @@
 ﻿@model System.Collections.Generic.List<AgilusFinan.Domain.Entities.TituloPendente>
 
-<table class="table" id="titulosAVincularLista">
+<table class="table table-hover" id="titulosAVincularLista">
     <thead>
-    <tr>
-        <th></th>
-        <th>Titulo ID</th>
-        <th>Titulo Recorrente ID</th>
-        <th>Descrição</th>
-        <th>Valor</th>
-        <th>Direção</th>
-        <th>Categoria ID</th>
-        <th>Data Vencimento</th>
-        <th>Pessoa ID</th>
-        <th>Conta ID</th>
-        <th>RowIndex</th>
+        <tr>
+            <th></th>
+            <th>Titulo ID</th>
+            <th>Titulo Recorrente ID</th>
+            <th>Descrição</th>
+            <th>Valor</th>
+            <th>Direção</th>
+            <th>Categoria ID</th>
+            <th>Data Vencimento</th>
+            <th>Pessoa ID</th>
+            <th>Conta ID</th>
+            <th>RowIndex</th>
 
-    </tr>
+        </tr>
     </thead>
 
     <tbody>
@@ -24,9 +24,9 @@
         }
         @foreach (var titulo in Model)
         {
-            <tr data-rowIndex=@rowIndex>
+            <tr data-rowindex=@rowIndex>
 
-                <td><input type="checkbox" name="vinculoCheckbox" /></td>
+                <td><input class="input-sm" type="checkbox" name="vinculoCheckbox" /></td>
                 <td name="TituloId">@titulo.TituloId</td>
                 <td name="TituloRecorrenteId">@titulo.TituloRecorrenteId</td>
                 <td name="Descricao">@titulo.Descricao</td>
@@ -35,7 +35,7 @@
 
                 @if (titulo.Valor == null)
                 {
-                    <td>  <input style="width: 70px" type="text" name="Valor" disabled="disabled" value="0,00" /> </td>
+                    <td> <input class="form-control" type="text" name="Valor" disabled="disabled" value="0,00" /> </td>
                 }
                 else
                 {
@@ -49,9 +49,9 @@
                 <td name="ContaId">@titulo.NomeConta</td>
                 <td name="rowIndex">@rowIndex</td>
             </tr>
-            {
-                rowIndex = rowIndex + 1;
-            }
+                {
+                    rowIndex = rowIndex + 1;
+                }
         }
     </tbody>
 </table>
