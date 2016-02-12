@@ -39,44 +39,40 @@ BEGIN
 
 	WHILE @data_base <= @data_final_analise
 	BEGIN
-      set @data_base = 
-         case @tipo_recorrencia 
-            when 0 then dateadd(week, @cont, @data_primeiro_vencimento) -- semanal
-            when 1 then dateadd(week, @cont*2, @data_primeiro_vencimento) -- quinzenal (semana sim, semana não)
-            when 2 then dateadd(MONTH, @cont, @data_primeiro_vencimento) -- mensal
-            when 3 then dateadd(MONTH, @cont*2, @data_primeiro_vencimento) -- bimestral
-            when 4 then dateadd(MONTH, @cont*3, @data_primeiro_vencimento) -- trimestral
-            when 5 then dateadd(MONTH, @cont*6, @data_primeiro_vencimento) -- semestral
-            when 6 then dateadd(year, @cont, @data_primeiro_vencimento) -- anual
-         end
+		set @data_base = 
+			case @tipo_recorrencia 
+			when 0 then dateadd(week, @cont, @data_primeiro_vencimento) -- semanal
+			when 1 then dateadd(week, @cont*2, @data_primeiro_vencimento) -- quinzenal (semana sim, semana não)
+			when 2 then dateadd(MONTH, @cont, @data_primeiro_vencimento) -- mensal
+			when 3 then dateadd(MONTH, @cont*2, @data_primeiro_vencimento) -- bimestral
+			when 4 then dateadd(MONTH, @cont*3, @data_primeiro_vencimento) -- trimestral
+			when 5 then dateadd(MONTH, @cont*6, @data_primeiro_vencimento) -- semestral
+			when 6 then dateadd(year, @cont, @data_primeiro_vencimento) -- anual
+			end
       
-      if @dia_vencimento is not null and @tipo_recorrencia >= 2
+		if @dia_vencimento is not null and @tipo_recorrencia >= 2
 			set @data_base = @data_base-day(@data_base)+@dia_vencimento
-      if @dia_vencimento is not null and @tipo_recorrencia in (0,1)
-         while datepart(dw, @data_base) != @dia_vencimento
-			   set @data_base = @data_base + 1
+		if @dia_vencimento is not null and @tipo_recorrencia in (0,1)
+			while datepart(dw, @data_base) != @dia_vencimento
+				set @data_base = @data_base + 1
 			
-		WHILE dbo.fn_feriado(@data_base) = 1 or DATEPART(DW,@data_base) in (7, 1)
-		BEGIN
-			if @direcao_vencimento = 0 -- antecipar
-				set @data_base = @data_base-1
-			if @direcao_vencimento = 1 -- postergar
-				set @data_base = @data_base+1
-		END
+
+		set @data_base = dbo.fn_ajusta_vencimento(@data_base, @direcao_vencimento)
+
 		
-      if (@data_base >= @data_inicial and @data_base < @data_final+1 and @data_base >= @data_primeiro_vencimento) 
+		if (@data_base >= @data_inicial and @data_base < @data_final+1 and @data_base >= @data_primeiro_vencimento) 
 			insert into @vencimentos(data_vencimento)
 			select @data_base
 			where not exists (
-							   select 1 
-							   from Titulo 
-							   where TituloRecorrenteId = @id_titulo_recorrente
-							   and DataVencimento = @data_base)
+								select 1 
+								from Titulo 
+								where TituloRecorrenteId = @id_titulo_recorrente
+								and DataVencimento = @data_base)
 
-	  set @cont = @cont + 1
+		set @cont = @cont + 1
 
-      if @cont > @qtde_parcelas-1
-         return
+		if @cont > @qtde_parcelas-1
+			return
 	END
    return
 END

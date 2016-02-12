@@ -570,9 +570,11 @@
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\readme.md" />
     <Content Include="Scripts\tinymce\langs\readme.md" />
     <Content Include="Views\Shared\_CadastroTitulo.cshtml" />
+    <Content Include="Views\BoletoGerado\Delete.cshtml" />
+    <Content Include="Views\BoletoGerado\Edit.cshtml" />
+    <Content Include="Views\BoletoGerado\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\BoletoGerado\" />
     <Folder Include="Views\Funcaos\" />
   </ItemGroup>
   <ItemGroup>

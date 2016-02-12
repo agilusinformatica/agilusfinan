@@ -5,6 +5,7 @@ using AgilusFinan.Infra.Services;
 using BoletoNet;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -230,7 +231,7 @@ namespace AgilusFinan.Web.Bases
             return boleto;
         }
 
-        public static Boleto GerarBoleto(int tituloRecorrenteId, decimal valor, DateTime dataVencimento, int modeloBoletoId, bool gerado = false)
+        public static Boleto GerarBoleto(int tituloRecorrenteId, decimal valor, DateTime dataVencimento, int modeloBoletoId)
         {
             #region Instancioações
             var titulo = new RepositorioTituloRecorrente().BuscarPorId(tituloRecorrenteId);
@@ -455,6 +456,7 @@ namespace AgilusFinan.Web.Bases
             byte[] byteArray = Encoding.UTF8.GetBytes(src);
             return new MemoryStream(byteArray);
         }
+
 
 
     }

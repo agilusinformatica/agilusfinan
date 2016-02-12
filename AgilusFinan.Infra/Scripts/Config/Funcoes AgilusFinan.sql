@@ -73,6 +73,12 @@ INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) V
 INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (72, 'Alterar', 'ModeloBoleto/Edit', 70)
 INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (73, 'Excluir', 'ModeloBoleto/Delete', 70)
 INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (74, N'Gerar Boleto', N'Recebimento/GerarBoleto', 3)
+INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (75, N'Boletos Gerados', N'BoletoGerado/Index', 20)
+INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (76, N'Alterar', N'BoletoGerado/Edit', 75)
+INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (77, N'Excluir', N'BoletoGerado/Delete', 75)
+
+
+
 
 
 SET IDENTITY_INSERT [dbo].[Funcao] OFF
