@@ -574,9 +574,7 @@
     <Content Include="Views\BoletoGerado\Edit.cshtml" />
     <Content Include="Views\BoletoGerado\Index.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Funcaos\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
