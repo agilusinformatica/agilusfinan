@@ -35,7 +35,8 @@ BEGIN
 	declare 
 		@cont int = 0,
 		@data_final_analise datetime = dateadd(week, +1, @data_final),
-		@data_base datetime = @data_primeiro_vencimento
+		@data_base datetime = @data_primeiro_vencimento,
+		@data_calculo datetime
 
 	WHILE @data_base <= @data_final_analise
 	BEGIN
@@ -51,7 +52,13 @@ BEGIN
 			end
       
 		if @dia_vencimento is not null and @tipo_recorrencia >= 2
-			set @data_base = @data_base-day(@data_base)+@dia_vencimento
+		begin
+		    
+			set @data_calculo = @data_base-day(@data_base)+@dia_vencimento
+			while month(@data_calculo) != month(@data_base)
+				set @data_calculo = @data_calculo - 1
+			set @data_base = @data_calculo
+		end
 		if @dia_vencimento is not null and @tipo_recorrencia in (0,1)
 			while datepart(dw, @data_base) != @dia_vencimento
 				set @data_base = @data_base + 1

@@ -172,7 +172,6 @@
     <Compile Include="Controllers\RecuperarSenhaController.cs" />
     <Compile Include="Controllers\ResumoTituloCategoriaController.cs" />
     <Compile Include="Controllers\SaldoController.cs" />
-    <Compile Include="Controllers\task.cs" />
     <Compile Include="Controllers\TipoPessoaController.cs" />
     <Compile Include="Controllers\TipoTelefoneController.cs" />
     <Compile Include="Controllers\TituloRecorrenteController.cs" />
