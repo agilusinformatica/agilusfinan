@@ -40,7 +40,7 @@
                             input.value = '0,' + input.value;
                         }
 
-                        if ((input.value.length === 1) && (event.keyCode != 8 || event.keycode != 46)) {
+                        if ((input.value.length === 1) && (event.keyCode != 8 || event.keyCode != 46)) {
 							input.value = "0,0" + input.value;
 						}
 

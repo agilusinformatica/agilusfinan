@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 
@@ -22,11 +23,9 @@ namespace AgilusFinan.Domain.Entities
         public int PessoaId { get; set; }
         public int CategoriaId { get; set; }
         public int? CentroCustoId { get; set; }
-        public virtual DateTime DataCadastro { get { return DateTime.Now.Date; } set {} }
-
+        [Display(Name="A partir de")]
+        public DateTime DataCadastro { get; set; }
         public virtual IList<Titulo> Titulos { get; set; }
-
-        
     }
 
     public enum PeriodoRecorrencia { Semanal, Quinzenal, Mensal, Bimestral, Trimestral, Semestral, Anual }

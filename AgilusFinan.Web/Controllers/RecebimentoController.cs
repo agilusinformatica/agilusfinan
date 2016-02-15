@@ -180,7 +180,7 @@ namespace AgilusFinan.Web.Controllers
                 throw new Exception("Já existe pagamento para este título.");
             }
         }
-
+        [Permissao]
         public ActionResult GerarBoleto(int tituloId, int modeloBoletoId)
         {
             var boletobancario = Util.GerarBoletoBancario(tituloId, modeloBoletoId);

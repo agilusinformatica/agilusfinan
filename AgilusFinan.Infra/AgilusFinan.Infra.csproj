@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bases\Util.cs" />
     <Compile Include="Context\Context.cs" />
     <Compile Include="Migrations\201501301837478_Inicial.cs" />
     <Compile Include="Migrations\201501301837478_Inicial.Designer.cs">
@@ -300,6 +301,10 @@
     <Compile Include="Migrations\201602101257274_alteracaoTipoConciliacaoExtratoID2.Designer.cs">
       <DependentUpon>201602101257274_alteracaoTipoConciliacaoExtratoID2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201602101651599_AdicionaDataVencimentoEmBoletoGerado.cs" />
+    <Compile Include="Migrations\201602101651599_AdicionaDataVencimentoEmBoletoGerado.Designer.cs">
+      <DependentUpon>201602101651599_AdicionaDataVencimentoEmBoletoGerado.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AcessosUsuario.cs" />
@@ -532,10 +537,16 @@
     <EmbeddedResource Include="Migrations\201602101257274_alteracaoTipoConciliacaoExtratoID2.resx">
       <DependentUpon>201602101257274_alteracaoTipoConciliacaoExtratoID2.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602101651599_AdicionaDataVencimentoEmBoletoGerado.resx">
+      <DependentUpon>201602101651599_AdicionaDataVencimentoEmBoletoGerado.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\Config\criacao tipo para conciliar titulos.sql" />
     <Content Include="Scripts\Config\Funcoes AgilusFinan.sql" />
+    <Content Include="Scripts\fn_ajusta_vencimento.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Scripts\fn_feriado.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -572,9 +583,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Programs\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

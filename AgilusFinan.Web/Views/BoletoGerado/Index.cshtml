@@ -1,0 +1,60 @@
+﻿@model IEnumerable<AgilusFinan.Domain.Entities.BoletoGerado>
+
+@{
+    ViewBag.Title = "Boletos Gerados";
+}
+
+<h2>Boletos Gerados</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Empresa.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TituloId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TituloRecorrenteId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ModeloBoletoId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NossoNumero)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataVencimento)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Empresa.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TituloId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TituloRecorrenteId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ModeloBoletoId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NossoNumero)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataVencimento)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

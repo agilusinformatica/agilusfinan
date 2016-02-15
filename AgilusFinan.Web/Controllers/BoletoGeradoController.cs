@@ -1,4 +1,7 @@
-﻿using System;
+﻿using AgilusFinan.Domain.Entities;
+using AgilusFinan.Infra.Services;
+using AgilusFinan.Web.Bases;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -6,12 +9,8 @@ using System.Web.Mvc;
 
 namespace AgilusFinan.Web.Controllers
 {
-    public class BoletoGeradoController : Controller
+    public class BoletoGeradoController : ControllerPadrao<BoletoGerado, RepositorioBoletoGerado>
     {
-        // GET: BoletoGerado
-        public ActionResult Index()
-        {
-            return View();
-        }
+
     }
 }
