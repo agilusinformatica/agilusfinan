@@ -17,15 +17,15 @@
                     </ul>
                 </div>
                 <div class="logo-element">
-                    IN+
+                    AF
                 </div>
             </li>
             <li class="@Html.IsSelected(action: "Index")">
-                <a href="@Url.Action("Index", "Home")"><i class="fa fa-laptop"></i> <span class="nav-label">Dashboard</span> </a>
+                <a href="@Url.Action("Index", "Home")"><i class="fa fa-home"></i> <span class="nav-label">Inicio</span> </a>
             </li>
 
             <li class="@Html.IsSelected(action: "Minor")">
-                <a href="#"><i class="fa fa-picuture-o"></i><span class="nav-label">Movimentaçoes</span><span class="fa arrow"></span></a>
+                <a href="#"><i class="fa fa-arrow-circle-o-right"></i><span class="nav-label">Movimentaçoes</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
                     <li>@Html.ActionLink("Pagamento", "Index", "Pagamento")</li>
                     <li>@Html.ActionLink("Recebimento", "Index", "Recebimento")</li>
@@ -37,7 +37,7 @@
             </li>
 
             <li class="@Html.IsSelected(action: "Minor")">
-                <a href="#"><i class="fa fa-picuture-o"></i><span class="nav-label">Cadastros</span><span class="fa arrow"></span></a>
+                <a href="#"><i class="fa fa-pencil"></i><span class="nav-label">Cadastros</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
                     <li>@Html.ActionLink("Conta", "Index", "Conta")</li>
                     <li>@Html.ActionLink("Banco", "Index", "Banco")</li>
@@ -54,7 +54,7 @@
             </li>
 
             <li class="@Html.IsSelected(action: "Minor")">
-                <a href="#"><i class="fa fa-picuture-o"></i><span class="nav-label">Segurança</span><span class="fa arrow"></span></a>
+                <a href="#"><i class="fa fa-lock"></i><span class="nav-label">Segurança</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
                     <li>@Html.ActionLink("Usuários", "Index", "Usuario")</li>
                     <li>@Html.ActionLink("Perfil", "Index", "Perfil")</li>
@@ -62,7 +62,7 @@
             </li>
 
             <li class="@Html.IsSelected(action: "Minor")">
-                <a href="#"><i class="fa fa-picuture-o"></i><span class="nav-label">Relatórios</span><span class="fa arrow"></span></a>
+                <a href="#"><i class="fa fa-bar-chart"></i><span class="nav-label">Relatórios</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
                     <li>@Html.ActionLink("Extrato", "Index", "Extrato")</li>
                     <li>@Html.ActionLink("Fluxo de Caixa", "Index", "FluxoCaixa")</li>
