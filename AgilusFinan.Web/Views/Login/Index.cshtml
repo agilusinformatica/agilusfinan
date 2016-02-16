@@ -17,23 +17,50 @@
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
     <script src="~/Scripts/jquery-ui-1.10.4.js"></script>
+
+
 </head>
-<body>
-    <div class="jumbotron">
-        <div class="col-md-3">
-            <h3>Login AgilusFinan</h3> <br />
-            <form action="/Login/Index" method="post">
+<body class="gray-bg">
+
+    <div class="middle-box text-center loginscreen animated fadeInDown">
+
+        <div>
+
+            <div>
+                <h2 class="logo-name">AF</h2>
+
+                @*<img src="~/Content/Images/agilus.jpg"/>*@
+
+            </div>
+
+
+            <h3>Bem vindo ao AgilusFinan!</h3>
+            <p>Login:</p>
+
+            <form class="m-t" action="/Login/Index" method="post">
                 @Html.AntiForgeryToken()
-                @Html.ValidationSummary(true)<br />
-                E-mail: <input type="text" name="Usuario" id="Usuario" class="form-control" /> <br />
-                Senha: <input type="password" name="Senha" id="Senha" class="form-control" /> <br />
+                @Html.ValidationSummary(true)
+
+
+                <div class="form-group">
+                    <input type="text" name="Usuario" id="Usuario" placeholder="Usuário" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <input type="password" name="Senha" id="Senha" placeholder="Senha" class="form-control" />
+                </div>
+
+                <input type="submit" value="Login" class="btn btn-primary block full-width m-b" @*onclick="document.getElementById('Senha').value = Sha256.hash(document.getElementById('Senha').value);"*@ />
+                <a href="/Login/EsqueciSenha"><small>Esqueceu sua senha?</small></a>
+                <p class="text-muted text-center"><small>Ainda não tem cadastro?</small></p>
+                <a class="btn btn-sm btn-white btn-block" href="~/Empresa/Create">Criar conta</a>
+
                 <input type="hidden" name="returnUrl" id="returnUrl" value="@Request["ReturnUrl"]" />
-                <input type="submit" value="Login" class="btn btn-primary" @*onclick="document.getElementById('Senha').value = Sha256.hash(document.getElementById('Senha').value);"*@ />
             </form>
-            <a href="~/Empresa/Create">Cadastrar-se</a><br />
-            <a href="/Login/EsqueciSenha">Esqueceu a senha?</a>
+
         </div>
     </div>
+
     @*<script src="~/Scripts/sha256.js"></script>*@
 </body>
 </html>
