@@ -1,5 +1,5 @@
-﻿@using AgilusFinan.Web.Controllers
-@using Inspinia_MVC5_SeedProject
+﻿@using Inspinia_MVC5
+
 <nav class="navbar-default navbar-static-side" role="navigation">
     <div class="sidebar-collapse">
         <ul class="nav" id="side-menu">
@@ -13,7 +13,7 @@
                         </span>
                     </a>
                     <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                        <li><a href="#">Logout</a></li>
+                        <li>@Html.ActionLink("Logoff", "Logoff", "Login")</li>
                     </ul>
                 </div>
                 <div class="logo-element">
@@ -21,10 +21,7 @@
                 </div>
             </li>
             <li class="@Html.IsSelected(action: "Index")">
-                <a href="@Url.Action("Index", "Home")"><i class="fa fa-laptop"></i> <span class="nav-label">Main page</span> </a>
-            </li>
-            <li class="@Html.IsSelected(action: "Minor")">
-                <a href="@Url.Action("Index", "Home")"><i class="fa fa-desktop"></i> <span class="nav-label">Minor page</span></a>
+                <a href="@Url.Action("Index", "Home")"><i class="fa fa-laptop"></i> <span class="nav-label">Home</span> </a>
             </li>
 
             <li class="@Html.IsSelected(action: "Minor")">
@@ -36,6 +33,39 @@
                     <li>@Html.ActionLink("Titulo Recorrente", "Index", "TituloRecorrente")</li>
                     <li>@Html.ActionLink("Gerador de Boletos", "Index", "LoteBoleto")</li>
                     <li>@Html.ActionLink("Conciliaçao de Extrato", "Index", "Conciliacao")</li>
+                </ul>
+            </li>
+
+            <li class="@Html.IsSelected(action: "Minor")">
+                <a href="#"><i class="fa fa-picuture-o"></i><span class="nav-label">Cadastros</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse">
+                    <li>@Html.ActionLink("Conta", "Index", "Conta")</li>
+                    <li>@Html.ActionLink("Banco", "Index", "Banco")</li>
+                    <li>@Html.ActionLink("Categoria", "Index", "Categoria")</li>
+                    <li>@Html.ActionLink("Centro de Custo", "Index", "CentroCusto")</li>
+                    <li>@Html.ActionLink("Tipo de Pessoa", "Index", "TipoPessoa")</li>
+                    <li>@Html.ActionLink("Modelo de Boleto", "Index", "ModeloBoleto")</li>
+                    <li>@Html.ActionLink("Pessoa", "Index", "Pessoa")</li>
+                    <li>@Html.ActionLink("Tipo de Telefone", "Index", "TipoTelefone")</li>
+                    <li>@Html.ActionLink("Feriados Regionais", "Index", "FeriadoRegional")</li>
+                    <li>@Html.ActionLink("Boletos Gerados", "Index", "BoletoGerado")</li>
+
+                </ul>
+            </li>
+
+            <li class="@Html.IsSelected(action: "Minor")">
+                <a href="#"><i class="fa fa-picuture-o"></i><span class="nav-label">Segurança</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse">
+                    <li>@Html.ActionLink("Usuários", "Index", "Usuario")</li>
+                    <li>@Html.ActionLink("Perfil", "Index", "Perfil")</li>
+                </ul>
+            </li>
+
+            <li class="@Html.IsSelected(action: "Minor")">
+                <a href="#"><i class="fa fa-picuture-o"></i><span class="nav-label">Relatórios</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse">
+                    <li>@Html.ActionLink("Extrato", "Index", "Extrato")</li>
+                    <li>@Html.ActionLink("Fluxo de Caixa", "Index", "FluxoCaixa")</li>
                 </ul>
             </li>
 
