@@ -3,8 +3,16 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="icon" type="image/png" sizes="32x32" href="~/Content/Images/icons/favicon-32x32.png">
     <title>@ViewBag.Title</title>
+
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
+    <!-- Add local styles, mostly for plugins css file -->
+    @if (IsSectionDefined("Styles"))
+    {@RenderSection("Styles", required: false)}
+
+
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
@@ -14,7 +22,33 @@
 </head>
 <body>
 
-    <section class="menu-container">
+    <div id="wrapper" class="@Html.PageClass()">
+
+        <!-- Navigation -->
+        @Html.Partial("_Navigation")
+
+        <!-- Page wraper -->
+        <div id="page-wrapper" class="gray-bg @ViewBag.SpecialClass">
+
+            <!-- Top Navbar -->
+            @Html.Partial("_TopNavbar")
+
+            <!-- Main view  -->
+            @RenderBody()
+
+            <!-- Footer -->
+            @Html.Partial("_Footer")
+
+        </div>
+        <!-- End page wrapper-->
+        <!-- Right Sidebar -->
+        @Html.Partial("_RightSidebar")
+
+    </div>
+
+
+</body>
+    @*<section class="menu-container">
         <div class="logo">
             <a href="~/Home">
                 <img src="~/Content/Images/agilus_steelblue.jpg" width="20" height="20"/>
@@ -70,65 +104,11 @@
 
         </div>
 
-        @*<button class="menu-toggle">
-            <img src="~/Content/Images/threelines.png"/>
-        </button>*@
-
        <button type="button" class="menu-toggle" id="menu">
            <img src="~/Content/Images/threelines.png" />
         </button>
 
     </section>
-
-    @*Bootstrap
-
-        <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a href="~/Home" class="navbar-brand">
-                        <img src="~/Content/Images/agilus.jpg" width="20" height="20" />
-                        AgilusFinan
-                    </a>
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Movimentações</a>
-                            <ul class="dropdown-menu">
-                                <li>@Html.ActionLink("Pagamento", "Index", "Pagamento")</li>
-                                <li>@Html.ActionLink("Recebimento", "Index", "Recebimento")</li>
-                                <li>@Html.ActionLink(" Transferência", "Index", "Transferencia")</li>
-                                <li>@Html.ActionLink("Titulo Recorrente", "Index", "TituloRecorrente")</li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Cadastros</a>
-                            <ul class="dropdown-menu">
-                                <li>@Html.ActionLink("Conta", "Index", "Conta")</li>
-                                <li>@Html.ActionLink("Banco", "Index", "Banco")</li>
-                                <li>@Html.ActionLink("Categoria", "Index", "Categoria")</li>
-                                <li>@Html.ActionLink("Centro de Custo", "Index", "CentroCusto")</li>
-                                <li>@Html.ActionLink("Tipo de Pessoa", "Index", "TipoPessoa")</li>
-                                <li>@Html.ActionLink("Pessoa", "Index", "Pessoa")</li>
-                                <li>@Html.ActionLink("Tipo de Telefone", "Index", "TipoTelefone")</li>
-                                <li>@Html.ActionLink("Feriados Regionais", "Index", "FeriadoRegional")</li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Segurança</a>
-                            <ul class="dropdown-menu">
-                                <li>@Html.ActionLink("Usuários", "Index", "Usuario")</li>
-                                <li>@Html.ActionLink("Perfil", "Index", "Perfil")</li>
-                            </ul>
-                </div>
-        </div>
-    *@
-
 
     <div class="container body-content">
         @RenderBody()
@@ -180,6 +160,11 @@
 
 
 </script>
-@section Scripts {
+@section Scripts {*@
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/plugins/slimScroll")
+    @Scripts.Render("~/bundles/inspinia")
+    @Scripts.Render("~/bundles/skinConfig")
+
+    @RenderSection("scripts", required: false)
 }
