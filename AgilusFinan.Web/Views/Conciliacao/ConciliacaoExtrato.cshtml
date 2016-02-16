@@ -14,7 +14,7 @@
     <div id="painel-periodo">
         @Html.Partial("_PainelPeriodo")
         <hr />
-        <div id="lista"></div>
+        <div class="table-responsive" id="lista"></div>
     </div>
 </div>
 
@@ -27,7 +27,7 @@
 <div class="container">
 
     <div class="row body-vinculo" style="display: none; opacity: 0.0">
-        <div class="col-sm-offset-1 col-sm-9">
+        <div class="col-sm-offset-1 col-md-10">
             @foreach (var vinculo in Model)
             {
                 <div class="row item-vinculo" data-extratoid=@extratoId>
@@ -81,7 +81,7 @@
                     <br />
 
                     <div class="row">
-                        <div class="col-sm-10 col-lg-12">
+                        <div class="col-sm-12 col-lg-12">
                             <div class="table-responsive">
                                 <table class="table table-hover" id="titulosVinculados" style="display: none">
                                     <thead>
@@ -137,11 +137,10 @@
 </div>
 
 <script>
-    var tasks;
     var conciliacaoExtratoController = (function () {
 
         //variaveis
-        tasks =[];
+        var tasks =[];
         var task;
         var rowIndex = 0;
 
