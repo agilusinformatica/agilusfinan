@@ -8,8 +8,8 @@
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                         <span class="clear">
                             <span class="block m-t-xs">
-                                <strong class="font-bold">Example user</strong>
-                            </span> <span class="text-muted text-xs block">Example menu <b class="caret"></b></span>
+                                <strong class="font-bold">@AgilusFinan.Domain.Entities.UsuarioLogado.Nome</strong>
+                            </span> <span class="text-muted text-xs block">@AgilusFinan.Domain.Entities.UsuarioLogado.NomePerfil<b class="caret"></b></span>
                         </span>
                     </a>
                     <ul class="dropdown-menu animated fadeInRight m-t-xs">
@@ -25,7 +25,7 @@
             </li>
 
             <li class="@Html.IsSelected(action: "Minor")">
-                <a href="#"><i class="fa fa-arrow-circle-o-right"></i><span class="nav-label">Movimentaçoes</span><span class="fa arrow"></span></a>
+                <a href="#"><i class="fa fa-arrow-circle-o-right"></i><span class="nav-label">Movimentações</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
                     <li>@Html.ActionLink("Pagamento", "Index", "Pagamento")</li>
                     <li>@Html.ActionLink("Recebimento", "Index", "Recebimento")</li>

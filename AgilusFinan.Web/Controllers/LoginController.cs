@@ -26,11 +26,14 @@ namespace AgilusFinan.Web.Controllers
         public ActionResult Index(string usuario, string senha)
         {
             Usuario usu = Login.ValidaLogin(usuario, senha);
+            Perfil prf = new RepositorioPerfil().BuscarPorId(usu.PerfilId);
             FormsAuthentication.SetAuthCookie(usuario, false);
 
             UsuarioLogado.EmpresaId = usu.EmpresaId;
             UsuarioLogado.PerfilId = usu.PerfilId;
             UsuarioLogado.UsuarioId = usu.Id;
+            UsuarioLogado.Nome = usu.Nome;
+            UsuarioLogado.NomePerfil = prf.Descricao;
 
             string returnUrl = Request.Form["returnUrl"];
             if (this.Url.IsLocalUrl(returnUrl))
