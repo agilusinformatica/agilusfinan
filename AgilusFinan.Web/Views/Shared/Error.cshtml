@@ -12,15 +12,15 @@
         {
             <h4>@Model.Exception.Message</h4>
             <h4>@(Model.Exception.InnerException != null ? Model.Exception.InnerException.Message : "") </h4>
-            <button id="voltar" class="btn btn-info" onclick="window.history.back();">Voltar</button>
+            <button id="voltar" class="btn btn-primary" onclick="window.history.back();">Voltar</button>
             <br /><br /><br /><br />
-            <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#stacktrace">Stack Trace</button>
+            <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#stacktrace">Stack Trace</button>
             <div id="stacktrace" class="collapse">@Model.Exception.StackTrace</div>
         }
         else
         {
             <h4>O erro foi reportado ao Administrador.</h4>
-            <button id="voltar" class="btn btn-info" onclick="window.history.back();">Voltar</button>
+            <button id="voltar" class="btn btn-primary" onclick="window.history.back();">Voltar</button>
         }
 }
 </div>

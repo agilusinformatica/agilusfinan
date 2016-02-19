@@ -8,6 +8,48 @@ namespace AgilusFinan.Domain.Entities
 {
     public static class UsuarioLogado
     {
+        public static string Nome
+        {
+            get
+            {
+                string retorno;
+                if (HttpContext.Current.Session["NomeUsuarioLogado"] != null)
+                {
+                    retorno = (string)HttpContext.Current.Session["NomeUsuarioLogado"];
+                }
+                else
+                {
+                    retorno = String.Empty;
+                }
+                return retorno;
+            }
+            set 
+            { 
+                HttpContext.Current.Session["NomeUsuarioLogado"] = value; 
+            }
+        }
+
+        public static string NomePerfil
+        {
+            get
+            {
+                string retorno;
+                if (HttpContext.Current.Session["NomePerfilLogado"] != null)
+                {
+                    retorno = (string)HttpContext.Current.Session["NomePerfilLogado"];
+                }
+                else
+                {
+                    retorno = String.Empty;
+                }
+                return retorno;
+            }
+            set 
+            { 
+                HttpContext.Current.Session["NomePerfilLogado"] = value; 
+            }
+        }
+
         public static int UsuarioId
         {
             get
