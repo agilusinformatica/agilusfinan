@@ -8,19 +8,25 @@
     <div class="col-lg-4 col-xs-12">
 
         <div class="ibox float-e-margins">
-            <div class="ibox-title">Saldo</div>
-            <div class="ibox-content" id="Saldo"></div>
+            <div class="ibox-title">
+                <a href="@Url.Action("Index", "Extrato")" class="btn btn-primary btn-xs pull-right">Extrato <i class="fa fa-arrow-circle-o-right"></i></a>
+                <h5>Saldo</h5>
+            </div>
+            <div class="ibox-content"> 
+                <h1 id="Saldo" class="no-margins"></h1>
+            </div>
         </div>
 
         <div class="row">
 
             <div class="col-lg-12 col-xs-12">
-
                 <div class="ibox float-e-margins">
-                    <div class="ibox-title">Resumo de títulos</div>
-                    <div class="ibox-content" id="resumoTitulos"></div>
+                    <div class="ibox-title">
+                        <h5>Resumo de títulos</h5>
+                    </div>
+                    <div class="ibox-content" id="resumoTitulos">
+                    </div>
                 </div>
-
             </div>
 
         </div>
@@ -30,24 +36,25 @@
     <div class="col-lg-8 col-xs-12">
 
         <div class="ibox float-e-margins">
-            <div class="ibox-title">Títulos Pendentes</div>
+            <div class="ibox-title">
+                <h5>Títulos Pendentes</h5>
+            </div>
             <div class="ibox-content" id="TitulosPendentes"></div>
         </div>
 
         <div class="row">
             <div class="col-lg-12 col-xs-12">
-
                 <div class="ibox float-e-margins">
-                    <div class="ibox-title">Previsto x Realizado</div>
-                    <div class="ibox-content" id="PrevistosRealizados"></div>
+                    <div class="ibox-title">
+                        <h5>Previsto x Realizado</h5>
+                    </div>
+                    <div class="ibox-content" id="PrevistosRealizados">
+                    </div>
                 </div>
-
             </div>
         </div>
     </div>
 </div>
-
-
 
 <script>
 

@@ -13,59 +13,71 @@
                         </span>
                     </a>
                     <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                        <li>@Html.ActionLink("Logoff", "Logoff", "Login")</li>
+                        <li>@Html.ActionLink("Alterar Senha", "RedefinirSenha", "Login")</li>
+                        <li>@Html.ActionLink("Sair", "Logoff", "Login")</li>
+
                     </ul>
                 </div>
                 <div class="logo-element">
-                    AF
+                    FN
                 </div>
             </li>
-            <li class="@Html.IsSelected(action: "Index")">
-                <a href="@Url.Action("Index", "Home")"><i class="fa fa-home"></i> <span class="nav-label">Inicio</span> </a>
+            <li class="@Html.IsSelected(controller: "Home")">
+                <a href="@Url.Action("Index", "Home")"><i class="fa fa-home"></i> <span class="nav-label">Página Inicial</span> </a>
             </li>
-
-            <li class="@Html.IsSelected(action: "Minor")">
-                <a href="#"><i class="fa fa-arrow-circle-o-right"></i><span class="nav-label">Movimentações</span><span class="fa arrow"></span></a>
+             
+            <li class="@Html.IsSelected(controller: "Recebimento") @Html.IsSelected(controller: "Pagamento") @Html.IsSelected(controller: "Transferencia") @Html.IsSelected(controller: "TituloRecorrente") @Html.IsSelected(controller: "LoteBoleto") @Html.IsSelected(controller: "Conciliacao")">
+                <a href="#"><i class="fa fa-exchange"></i><span class="nav-label">Movimentações</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li>@Html.ActionLink("Pagamento", "Index", "Pagamento")</li>
-                    <li>@Html.ActionLink("Recebimento", "Index", "Recebimento")</li>
-                    <li>@Html.ActionLink("Transferência", "Index", "Transferencia")</li>
-                    <li>@Html.ActionLink("Titulo Recorrente", "Index", "TituloRecorrente")</li>
-                    <li>@Html.ActionLink("Gerador de Boletos", "Index", "LoteBoleto")</li>
-                    <li>@Html.ActionLink("Conciliaçao de Extrato", "Index", "Conciliacao")</li>
+                    <li class="@Html.IsSelected(controller: "Pagamento")">@Html.ActionLink("Pagamento", "Index", "Pagamento")</li>
+                    <li class="@Html.IsSelected(controller: "Recebimento")">@Html.ActionLink("Recebimento", "Index", "Recebimento")</li>
+                    <li class="@Html.IsSelected(controller: "Transferencia")">@Html.ActionLink("Transferência", "Index", "Transferencia")</li>
+                    <li class="@Html.IsSelected(controller: "TituloRecorrente")">@Html.ActionLink("Titulo Recorrente", "Index", "TituloRecorrente")</li>
+                    <li class="@Html.IsSelected(controller: "LoteBoleto")">@Html.ActionLink("Gerador de Boletos", "Index", "LoteBoleto")</li>
+                    <li class="@Html.IsSelected(controller: "Conciliacao")">@Html.ActionLink("Conciliaçao de Extrato", "Index", "Conciliacao")</li>
                 </ul>
             </li>
 
-            <li class="@Html.IsSelected(action: "Minor")">
-                <a href="#"><i class="fa fa-pencil"></i><span class="nav-label">Cadastros</span><span class="fa arrow"></span></a>
+            <li class="@Html.IsSelected(controller: "Conta")
+                @Html.IsSelected(controller: "Banco")
+                @Html.IsSelected(controller: "Categoria")
+                @Html.IsSelected(controller: "CentroCusto")
+                @Html.IsSelected(controller: "TipoPessoa")
+                @Html.IsSelected(controller: "ModeloBoleto")
+                @Html.IsSelected(controller: "Pessoa")
+                @Html.IsSelected(controller: "TipoTelefone")
+                @Html.IsSelected(controller: "FeriadoRegional")
+                @Html.IsSelected(controller: "BoletoGerado")
+            ">
+                <a href=" #">
+                <i class="fa fa-pencil"></i><span class="nav-label">Cadastros</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li>@Html.ActionLink("Conta", "Index", "Conta")</li>
-                    <li>@Html.ActionLink("Banco", "Index", "Banco")</li>
-                    <li>@Html.ActionLink("Categoria", "Index", "Categoria")</li>
-                    <li>@Html.ActionLink("Centro de Custo", "Index", "CentroCusto")</li>
-                    <li>@Html.ActionLink("Tipo de Pessoa", "Index", "TipoPessoa")</li>
-                    <li>@Html.ActionLink("Modelo de Boleto", "Index", "ModeloBoleto")</li>
-                    <li>@Html.ActionLink("Pessoa", "Index", "Pessoa")</li>
-                    <li>@Html.ActionLink("Tipo de Telefone", "Index", "TipoTelefone")</li>
-                    <li>@Html.ActionLink("Feriados Regionais", "Index", "FeriadoRegional")</li>
-                    <li>@Html.ActionLink("Boletos Gerados", "Index", "BoletoGerado")</li>
-
+                    <li class="@Html.IsSelected(controller: "Conta")">@Html.ActionLink("Conta", "Index", "Conta")</li>
+                    <li class="@Html.IsSelected(controller: "Banco")">@Html.ActionLink("Banco", "Index", "Banco")</li>
+                    <li class="@Html.IsSelected(controller: "Categoria")">@Html.ActionLink("Categoria", "Index", "Categoria")</li>
+                    <li class="@Html.IsSelected(controller: "CentroCusto")">@Html.ActionLink("Centro de Custo", "Index", "CentroCusto")</li>
+                    <li class="@Html.IsSelected(controller: "TipoPessoa")">@Html.ActionLink("Tipo de Pessoa", "Index", "TipoPessoa")</li>
+                    <li class="@Html.IsSelected(controller: "ModeloBoleto")">@Html.ActionLink("Modelo de Boleto", "Index", "ModeloBoleto")</li>
+                    <li class="@Html.IsSelected(controller: "Pessoa")">@Html.ActionLink("Pessoa", "Index", "Pessoa")</li>
+                    <li class="@Html.IsSelected(controller: "TipoTelefone")">@Html.ActionLink("Tipo de Telefone", "Index", "TipoTelefone")</li>
+                    <li class="@Html.IsSelected(controller: "FeriadoRegional")">@Html.ActionLink("Feriados Regionais", "Index", "FeriadoRegional")</li>
+                    <li class="@Html.IsSelected(controller: "BoletoGerado")">@Html.ActionLink("Boletos Gerados", "Index", "BoletoGerado")</li>
                 </ul>
             </li>
 
-            <li class="@Html.IsSelected(action: "Minor")">
+            <li class="@Html.IsSelected(controller: "Usuario") @Html.IsSelected(controller: "Perfil")">
                 <a href="#"><i class="fa fa-lock"></i><span class="nav-label">Segurança</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li>@Html.ActionLink("Usuários", "Index", "Usuario")</li>
-                    <li>@Html.ActionLink("Perfil", "Index", "Perfil")</li>
+                    <li class="@Html.IsSelected(controller: "Usuario")">@Html.ActionLink("Usuários", "Index", "Usuario")</li>
+                    <li class="@Html.IsSelected(controller: "Perfil")">@Html.ActionLink("Perfil", "Index", "Perfil")</li>
                 </ul>
             </li>
 
-            <li class="@Html.IsSelected(action: "Minor")">
+            <li class="@Html.IsSelected(controller: "Extrato") @Html.IsSelected(controller: " FluxoCaixa") ">
                 <a href="#"><i class="fa fa-bar-chart"></i><span class="nav-label">Relatórios</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li>@Html.ActionLink("Extrato", "Index", "Extrato")</li>
-                    <li>@Html.ActionLink("Fluxo de Caixa", "Index", "FluxoCaixa")</li>
+                    <li class="@Html.IsSelected(controller: "Extrato")">@Html.ActionLink("Extrato", "Index", "Extrato")</li>
+                    <li class="@Html.IsSelected(controller: "FluxoCaixa")">@Html.ActionLink("Fluxo de Caixa", "Index", "FluxoCaixa")</li>
                 </ul>
             </li>
 

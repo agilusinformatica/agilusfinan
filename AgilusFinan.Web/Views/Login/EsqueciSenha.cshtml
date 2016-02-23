@@ -1,25 +1,31 @@
-﻿
-@{
-    Layout = null;
+﻿@{
+    Layout = "~/Views/Shared/_LayoutOff.cshtml";
+    ViewBag.Title = "Esqueci Senha";
 }
 
-<!DOCTYPE html>
+<div class="passwordBox animated fadeInDown">
+    <div class="row">
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>EsqueciSenha</title>
-</head>
-<body>
-    <h2>Esqueci Senha</h2>
+        <div class="col-md-12">
+            <div class="ibox-content">
 
-    <p>Digite seu email para recuperar a senha:</p>
+                <h2>Esqueceu a Senha?</h2>
 
-    @using (Html.BeginForm())
-    {
-        <input type="text" id="email" name="email" />
-        <input type="submit" value="Enviar" class="btn btn-default" />
-    }
-    @Html.ActionLink("Voltar", "Index")
-</body>
-</html>
+                <p>Fique tranquilo. Digite seu e-mail que mandaremos um link para sua senha ser redefinida.</p>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        @using (Html.BeginForm())
+                        {  
+                            <div class="form-group">
+                                <input type="email" id="email" name="email" class="form-control" placeholder="Endereço do E-mail" required="">
+                            </div>
+
+                            <input type="submit" class="btn btn-primary block full-width m-b" value="Enviar">
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

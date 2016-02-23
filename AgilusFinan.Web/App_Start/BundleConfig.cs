@@ -40,7 +40,6 @@ namespace AgilusFinan.Web
                       "~/Content/datatables.min.css",
                       "~/Content/jquery-ui.css",
                       "~/Content/responsive.dataTables.min.css",
-                      "~/Content/font-awesome.min.css",
                       "~/Content/animate.css",
                       "~/Content/style.css"));
 
@@ -62,6 +61,10 @@ namespace AgilusFinan.Web
             // Inspinia skin config script
             bundles.Add(new ScriptBundle("~/bundles/skinConfig").Include(
                       "~/Scripts/app/skin.config.min.js"));
+
+            // Font Awesome icons
+            bundles.Add(new StyleBundle("~/font-awesome/css").Include(
+                      "~/fonts/font-awesome/css/font-awesome.min.css", new CssRewriteUrlTransform()));
 
             // SlimScroll
             bundles.Add(new ScriptBundle("~/plugins/slimScroll").Include(

@@ -1,18 +1,10 @@
 ﻿
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_LayoutOff.cshtml";
+    ViewBag.Title = "Alterar Senha";
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>RedefinirSenha</title>
-    @Styles.Render("~/Content/css")
-</head>
-<body>
-
+<div class="middle-box text-center animated fadeInDown">
     @using (Html.BeginForm())
     {
 
@@ -20,28 +12,26 @@
         {
             <p>@ViewBag.MensagemErro</p>
         }
-
-        <div class="form-horizontal">
+        <h2>Nova senha</h2>
+        <div class="form-horizontal m-t">
             <div class="form-group">
-                <label class="control-label col-md-2">Digite sua Senha:</label>
-                <input class="form-control col-md-10" type="password" id="senha" name="senha" />
+                @*<label class="control-label col-sm-2">Digite sua Senha:</label>
+                <div class="col-sm-2">*@
+                <input class="form-control" type="password" placeholder="Digite a senha" id="senha" name="senha" />
+                @*</div>*@
             </div>
 
             <div class="form-group">
-                <label class="control-label col-md-2">Confirme sua Senha:</label>
-                <input class="form-control input-group-sm" type="password" id="confirmaSenha" name="confirmaSenha" />
+                @*<label class="control-label col-sm-2">Confirme sua Senha:</label>
+                <div class="col-sm-2">*@
+                    <input class="form-control" type="password" placeholder="Confirme" id="confirmaSenha" name="confirmaSenha" />
+                @*</div>*@
             </div>
 
-            <div class="form-group">
-                <div class="col-sm-offset-1 col-md-10">
-                    <input type="submit" class="btn btn-default" value="Alterar" id="Enviar" />
-                </div>
-            </div>
+            <input type="submit" class="btn btn-primary block full-width m-b" value="Alterar" id="Enviar" />
         </div>
+   }
+</div>
 
-    }
-</body>
-
-</html>
 
 
