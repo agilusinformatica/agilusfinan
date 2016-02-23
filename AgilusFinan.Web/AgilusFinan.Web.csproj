@@ -608,6 +608,8 @@
     <Content Include="Scripts\plugins\codemirror\mode\solr\solr.js" />
     <Content Include="Scripts\plugins\codemirror\mode\sparql\index.html" />
     <Content Include="Scripts\plugins\codemirror\mode\sparql\sparql.js" />
+    <Content Include="Scripts\plugins\codemirror\mode\sql\index.html" />
+    <Content Include="Scripts\plugins\codemirror\mode\sql\sql.js" />
     <Content Include="Scripts\plugins\codemirror\mode\stex\index.html" />
     <Content Include="Scripts\plugins\codemirror\mode\stex\stex.js" />
     <Content Include="Scripts\plugins\codemirror\mode\stex\test.js" />
@@ -1159,7 +1161,6 @@
     <Content Include="Views\Shared\_LayoutOff.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Scripts\plugins\codemirror\mode\sql\" />
     <Folder Include="Views\Movimentacoes\" />
   </ItemGroup>
   <ItemGroup>
