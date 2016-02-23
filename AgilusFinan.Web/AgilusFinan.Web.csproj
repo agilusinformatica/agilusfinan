@@ -164,6 +164,7 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\LoteBoletoController.cs" />
     <Compile Include="Controllers\ModeloBoletoController.cs" />
+    <Compile Include="Controllers\MovimentacoesController.cs" />
     <Compile Include="Controllers\PagamentoController.cs" />
     <Compile Include="Controllers\PerfilController.cs" />
     <Compile Include="Controllers\PessoaController.cs" />
@@ -332,7 +333,9 @@
     <Content Include="Content\plugins\touchspin\jquery.bootstrap-touchspin.min.css" />
     <Content Include="Content\responsive.dataTables.min.css" />
     <Content Include="Content\style.css" />
-    <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="fonts\font-awesome\css\font-awesome.css" />
+    <Content Include="fonts\font-awesome\css\font-awesome.min.css" />
+    <Content Include="fonts\font-awesome\fonts\fontawesome-webfont.svg" />
     <Content Include="Scripts\app\inspinia.js" />
     <Content Include="Scripts\app\skin.config.min.js" />
     <Content Include="Scripts\bootstrap-notify.min.js" />
@@ -376,9 +379,6 @@
     <Content Include="Scripts\bootstrap-treefy.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="fonts\fontawesome-webfont.eot" />
-    <Content Include="fonts\fontawesome-webfont.ttf" />
-    <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="Content\plugins\bootstrap-rtl\bootstrap-rtl.css.map" />
     <Content Include="Content\plugins\footable\fonts\footable.eot" />
     <Content Include="Content\plugins\footable\fonts\footable.ttf" />
@@ -386,15 +386,43 @@
     <Content Include="Content\plugins\slick\fonts\slick.eot" />
     <Content Include="Content\plugins\slick\fonts\slick.ttf" />
     <Content Include="Content\plugins\slick\fonts\slick.woff" />
-    <None Include="fonts\fontawesome-webfont.woff2" />
-    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\font-awesome\fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\font-awesome\fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\font-awesome\fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\font-awesome\fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\font-awesome\fonts\FontAwesome.otf" />
+    <Content Include="fonts\font-awesome\less\animated.less" />
+    <Content Include="fonts\font-awesome\less\bordered-pulled.less" />
+    <Content Include="fonts\font-awesome\less\core.less" />
+    <Content Include="fonts\font-awesome\less\fixed-width.less" />
+    <Content Include="fonts\font-awesome\less\font-awesome.less" />
+    <Content Include="fonts\font-awesome\less\icons.less" />
+    <Content Include="fonts\font-awesome\less\larger.less" />
+    <Content Include="fonts\font-awesome\less\list.less" />
+    <Content Include="fonts\font-awesome\less\mixins.less" />
+    <Content Include="fonts\font-awesome\less\path.less" />
+    <Content Include="fonts\font-awesome\less\rotated-flipped.less" />
+    <Content Include="fonts\font-awesome\less\stacked.less" />
+    <Content Include="fonts\font-awesome\less\variables.less" />
+    <Content Include="fonts\font-awesome\scss\font-awesome.scss" />
+    <Content Include="fonts\font-awesome\scss\_animated.scss" />
+    <Content Include="fonts\font-awesome\scss\_bordered-pulled.scss" />
+    <Content Include="fonts\font-awesome\scss\_core.scss" />
+    <Content Include="fonts\font-awesome\scss\_fixed-width.scss" />
+    <Content Include="fonts\font-awesome\scss\_icons.scss" />
+    <Content Include="fonts\font-awesome\scss\_larger.scss" />
+    <Content Include="fonts\font-awesome\scss\_list.scss" />
+    <Content Include="fonts\font-awesome\scss\_mixins.scss" />
+    <Content Include="fonts\font-awesome\scss\_path.scss" />
+    <Content Include="fonts\font-awesome\scss\_rotated-flipped.scss" />
+    <Content Include="fonts\font-awesome\scss\_stacked.scss" />
+    <Content Include="fonts\font-awesome\scss\_variables.scss" />
     <None Include="Properties\PublishProfiles\agilusfinan - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\agilusfinan - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\datatables.min.js" />
     <Content Include="Scripts\dataTables.responsive.min.js" />
     <Content Include="Scripts\date-eu.js" />
-    <Content Include="Content\font-awesome.min.css" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\jquery-2.1.1.min.map" />
@@ -580,8 +608,6 @@
     <Content Include="Scripts\plugins\codemirror\mode\solr\solr.js" />
     <Content Include="Scripts\plugins\codemirror\mode\sparql\index.html" />
     <Content Include="Scripts\plugins\codemirror\mode\sparql\sparql.js" />
-    <Content Include="Scripts\plugins\codemirror\mode\sql\index.html" />
-    <Content Include="Scripts\plugins\codemirror\mode\sql\sql.js" />
     <Content Include="Scripts\plugins\codemirror\mode\stex\index.html" />
     <Content Include="Scripts\plugins\codemirror\mode\stex\stex.js" />
     <Content Include="Scripts\plugins\codemirror\mode\stex\test.js" />
@@ -1074,7 +1100,6 @@
     <Content Include="Views\Usuario\Delete.cshtml" />
     <Content Include="Views\Convite\Create.cshtml" />
     <Content Include="Views\Login\EfetivarConvite.cshtml" />
-    <Content Include="Views\Empresa\Create.cshtml" />
     <Content Include="Views\Perfil\Index.cshtml" />
     <Content Include="Views\Perfil\Create.cshtml" />
     <Content Include="Views\Login\EsqueciSenha.cshtml" />
@@ -1130,8 +1155,13 @@
     <Content Include="Views\Shared\_RightSidebar.cshtml" />
     <Content Include="Views\Shared\_SkinConfig.cshtml" />
     <Content Include="Views\Shared\_TopNavbar.cshtml" />
+    <Content Include="Views\Empresa\Create.cshtml" />
+    <Content Include="Views\Shared\_LayoutOff.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Scripts\plugins\codemirror\mode\sql\" />
+    <Folder Include="Views\Movimentacoes\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />

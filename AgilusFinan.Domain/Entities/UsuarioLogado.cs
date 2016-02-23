@@ -71,7 +71,8 @@ namespace AgilusFinan.Domain.Entities
             }
         }
 
-        public static int PerfilId { 
+        public static int PerfilId 
+        { 
             get 
             { 
                 return (int)HttpContext.Current.Session["IdPerfilLogado"];
@@ -82,7 +83,8 @@ namespace AgilusFinan.Domain.Entities
             } 
         }
 
-        public static int EmpresaId { 
+        public static int EmpresaId 
+        { 
             get 
             {
                 var sessao = HttpContext.Current.Session;
@@ -101,6 +103,5 @@ namespace AgilusFinan.Domain.Entities
                 HttpContext.Current.Session["IdEmpresaLogada"] = value; 
             } 
         }
-        public static List<Funcao> Acessos { get; set; }
     }
 }

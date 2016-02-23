@@ -131,11 +131,26 @@ namespace AgilusFinan.Web.Controllers
         public ActionResult RedefinirSenha(string senha, string confirmaSenha)
         {
             string token = Request["token"];
-            int EsqueciSenhaId = Convert.ToInt32(Criptografia.Decriptar(token));
             var db = new Contexto();
-            var usuario= db.Usuarios.FirstOrDefault(u=> u.Id == (db.EsquecimentosSenha.FirstOrDefault(e => e.Id == EsqueciSenhaId).UsuarioId));
+            Usuario usuario = new Usuario();
 
-              //Alterar senha
+            if (!String.IsNullOrEmpty(token))
+            {
+                int EsqueciSenhaId = Convert.ToInt32(Criptografia.Decriptar(token));
+                usuario = db.Usuarios.FirstOrDefault(u => u.Id == (db.EsquecimentosSenha.FirstOrDefault(e => e.Id == EsqueciSenhaId).UsuarioId));
+            }
+            else
+            {
+                if (UsuarioLogado.EmpresaId != 0)
+                {
+                    usuario = db.Usuarios.FirstOrDefault(u => u.Id == UsuarioLogado.UsuarioId);
+                }
+                else
+                    ViewBag.MensagemErro = "Não há usuário logado no momento";
+            }
+
+
+            //Alterar senha
             if (senha == confirmaSenha)
             {
                 usuario.Senha = senha;
