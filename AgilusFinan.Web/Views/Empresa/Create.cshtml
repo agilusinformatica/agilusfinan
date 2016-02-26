@@ -18,7 +18,7 @@
                 <h2>Cadastre-se</h2>
                 <p>Bem-vindo ao Agilus Finan. Informe seus dados para usufruir do sistema.</p>
 
-                <form action="/Empresa/Create" method="post" class="wizard-big" id="form">
+                <form action="/Empresa/Create" method="post" class="wizard-big" id="form" enctype="multipart/form-data">
                     <h1>Conta</h1>
                     <fieldset>
                         <div class="row">
@@ -27,7 +27,7 @@
                                 <div class="form-group">
                                     <label class="control-label">CPF / CNPJ</label>
                                     @Html.EditorFor(model => model.CpfCnpj, new { htmlAttributes = new { @class = "form-control" } })
-                                 </div>
+                                </div>
 
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label" })
@@ -52,10 +52,15 @@
                                     </div>
                                     @Html.ValidationMessageFor(model => model.EmailFinanceiro, "", new { @class = "text-danger" })
                                 </div>
+
+                                <div class="form-group">
+                                    <label class="control-label">Logotipo</label>
+                                    <input type="file" name="Logotipo" id="Logotipo"  />
+                                </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="text-center">
-                                    <div style="margin-top: 20px">
+                                    <div style="margin-top: 100px">
                                         <i class="fa fa-sign-in" style="font-size: 180px; color: #e5e5e5"></i>
                                     </div>
                                 </div>
@@ -72,14 +77,13 @@
                                     @Html.ValidationMessageFor(model => model.Endereco, "", new { @class = "text-danger" })
                                 </div>
                             </div>
-                        </div>
-                    </fieldset>
-                    <h1>Logotipo</h1>
-                    <fieldset>
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Logotipo, htmlAttributes: new { @class = "control-label" })
-                            <input type="file" class="file" name="Logotipo" id="Logotipo" />
-                            @Html.ValidationMessageFor(model => model.Logotipo, "", new { @class = "text-danger" })
+                            <div class="col-lg-6">
+                                <div class="text-center">
+                                    <div style="margin-top: 130px">
+                                        <i class="fa fa-home" style="font-size: 180px; color: #e5e5e5"></i>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </fieldset>
                     <h1>Finalizando</h1>
@@ -88,6 +92,8 @@
                         <input id="acceptTerms" name="acceptTerms" type="checkbox" class="required"> <label for="acceptTerms">Eu concordo com os termos e condições.</label>
                     </fieldset>
                 </form>
+
+
             </div>
         </div>
     </div>
@@ -103,12 +109,17 @@
     @Scripts.Render("~/plugins/iCheck")
     @Scripts.Render("~/plugins/validate")
 }
+<script src="~/Scripts/bootstrap-filestyle.min.js"></script>
 <script>
 
+
+
     $(document).ready(function () {
-        $("#wizard").steps();
         $("#form").steps({
             bodyTag: "fieldset",
+            transitionEffect: "slideLeft",
+            enableAllSteps: true,
+
             labels: {
                 cancel: "Cancelar",
                 current: "Próximo Passo:",
@@ -184,6 +195,12 @@
         });
 
         Utils.createMask(document.getElementById('CpfCnpj'), "cpf");
+        
+        $(":file").filestyle({
+            buttonName: "btn-primary",
+            buttonText: "Procurar",
+            placeholder: "Sem Arquivo",
+        });
 
     });
 </script>

@@ -198,6 +198,10 @@
       <DependentUpon>dbAgilusFinan.mdf</DependentUpon>
     </Content>
     <Content Include="Content\animate.css" />
+    <Content Include="Content\plugins\bootstrap-fileinput\css\fileinput.css" />
+    <Content Include="Content\plugins\bootstrap-fileinput\css\fileinput.min.css" />
+    <Content Include="Content\plugins\bootstrap-fileinput\img\loading-sm.gif" />
+    <Content Include="Content\plugins\bootstrap-fileinput\img\loading.gif" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\datatables.min.css" />
@@ -338,6 +342,7 @@
     <Content Include="fonts\font-awesome\fonts\fontawesome-webfont.svg" />
     <Content Include="Scripts\app\inspinia.js" />
     <Content Include="Scripts\app\skin.config.min.js" />
+    <Content Include="Scripts\bootstrap-filestyle.min.js" />
     <Content Include="Scripts\bootstrap-notify.min.js" />
     <Content Include="Content\Images\close.png" />
     <Content Include="Content\Images\icons\android-icon-144x144.png" />

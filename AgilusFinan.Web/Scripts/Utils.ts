@@ -63,7 +63,6 @@
 				break;
 
             case "cpf":
-                console.log(input.value);
 				if (input.value == undefined) {
 					maskEventCnpj(input, undefined, input.innerHTML);
 					input.addEventListener("input", e => maskEventCnpj(input, e, input.innerHTML));

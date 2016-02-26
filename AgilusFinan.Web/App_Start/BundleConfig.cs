@@ -241,12 +241,12 @@ namespace AgilusFinan.Web
 
             // dropZone styles
             bundles.Add(new StyleBundle("~/Content/plugins/dropzone/dropZoneStyles").Include(
-                      "~/Content/plugins/dropzone/basic.css",
-                      "~/Content/plugins/dropzone/dropzone.css"));
+                    "~/Content/plugins/dropzone/basic.css",
+                    "~/Content/plugins/dropzone/dropzone.css"));
 
             // dropZone 
             bundles.Add(new ScriptBundle("~/plugins/dropZone").Include(
-                      "~/Scripts/plugins/dropzone/dropzone.js"));
+                    "~/Scripts/plugins/dropzone/dropzone.js"));
 
             // summernote styles
             bundles.Add(new StyleBundle("~/plugins/summernoteStyles").Include(
