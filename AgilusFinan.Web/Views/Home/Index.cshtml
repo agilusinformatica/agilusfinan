@@ -2,6 +2,9 @@
     ViewBag.Title = "AgilusFinan";
 }
 
+
+@Scripts.Render("~/plugins/sparkline")
+
 @Html.Partial("_PainelPeriodo")
 
 <div class="row">
@@ -9,11 +12,16 @@
 
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-                <a href="@Url.Action("Index", "Extrato")" class="btn btn-primary btn-xs pull-right">Extrato <i class="fa fa-arrow-circle-o-right"></i></a>
-                <h5>Saldo</h5>
+                <a href="@Url.Action("Index", "Extrato")" class="btn btn-primary btn-xs pull-right">Extrato<i class="fa fa-arrow-circle-o-right"></i></a>
+                <h5>Saldo</h5> 
             </div>
             <div class="ibox-content"> 
-                <h1 id="Saldo" class="no-margins"></h1>
+                <div>
+                    <div class="pull-right text-right">
+                        <span id="bar"></span>
+                    </div>
+                    <h2 id="Saldo" class="no-margins"></h2>
+                </div>
             </div>
         </div>
 
@@ -30,7 +38,6 @@
             </div>
 
         </div>
-
     </div>
 
     <div class="col-lg-8 col-xs-12">
@@ -57,6 +64,16 @@
 </div>
 
 <script>
+
+    //implementação do plungin peity.js
+    $("#bar").sparkline([19.115, 19.103, 19.000, 18.950, 20.000, 21.350, 21.000, 21.045, 19.550, 19.850, 20.123, 20.345, 21.450, 19.365, 19.999, 18.999], {
+        type: 'bar',
+        barWidth: 10,
+        height: 20,
+        barColor: '#1ab394',
+        negBarColor: '#dbdbdb'
+    });
+
 
     var consultaDashboard = function () {
 

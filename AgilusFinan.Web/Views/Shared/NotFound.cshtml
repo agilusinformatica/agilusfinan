@@ -1,29 +1,47 @@
 ﻿@model System.Web.Mvc.HandleErrorInfo
 @{
     ViewBag.Title = "Ops!";
+    Layout = null;
+    
 }
+<!DOCTYPE html>
 <html>
 <head>
     <title>Ops!</title>
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Fonts/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="~/Content/animate.css" rel="stylesheet">
+    <link href="~/Content/style.css" rel="stylesheet">
 </head>
-<body>
-    <hgroup class="title">
-        <h1 class="error">Erro.</h1>
-        @if (@Model != null)
-        {
-            <h2 class="error">@Model.Exception</h2>
-        }
-        else
-        {
-            <h2>
-                Ops! 404 (Page Not Found)!
-             
- 
-                A página não foi encontrada, provavelmente o 
-                endereço foi movido ou removido. 
-                Contacte seu administrador de redes.
-            </h2>
-        }
-    </hgroup>
+<body class="gray-bg">
+    <div class="middle-box text-center animated fadeInDown">
+        <h1>404</h1>
+        <h3 class="font-bold">Pagina não encontrada</h3>
+
+        <div class="error-desc">
+            @if (@Model != null)
+            {
+                <h2 class="error">@Model.Exception</h2>
+            }
+            else
+            {
+                <h2>
+                    Ops! 404 (Pagina não encontrada)!
+
+                    A página não foi encontrada, provavelmente o
+                    endereço foi movido ou removido.
+                    Contacte seu administrador de redes.
+                </h2>
+            }
+            <form class="form-inline m-t" role="form">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Procurar na pagina">
+                </div>
+                <button type="submit" class="btn btn-primary">Procurar</button>
+            </form>
+        </div>        
+    </div>
 </body>
 </html>

@@ -16,6 +16,13 @@
     {
         @RenderSection("Styles", required: false)
     }
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/agilusLibrary")
+
+    @*Plugins*@
+    @Styles.Render("~/plugins/toastrStyles")
+    @Scripts.Render("~/plugins/toastr")
     <link href="~/Content/bootstrap.min.css" rel="stylesheet">
     <link href="~/Fonts/font-awesome/css/font-awesome.css" rel="stylesheet">
 

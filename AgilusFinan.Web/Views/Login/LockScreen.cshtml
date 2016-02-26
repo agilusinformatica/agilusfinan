@@ -1,0 +1,31 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_LayoutOff.cshtml";
+    ViewBag.Title = "Tela de Bloqueio";
+}
+
+
+
+<div class="lock-word animated fadeInDown">
+    <span style="margin-left: 100px;">TELA BLOQUEADA</span>
+</div>
+<div class="middle-box text-center lockscreen animated fadeInDown">
+    <div>
+        @if (!(ViewBag.MensagemErro == String.Empty))
+        {
+        <p>@ViewBag.MensagemErro</p>
+        }
+        <div class="m-b-md">
+            <img alt="image" class="img-circle circle-border" src="https://fbcdn-sphotos-a-a.akamaihd.net/hphotos-ak-xfa1/v/t1.0-9/960118_352106158246251_917163951_n.jpg?oh=bcc88125d593125a9a8893ecae122533&oe=575519AA&__gda__=1466408468_6a601380033b195e792ce68031289e27" width="120">
+        </div>
+        <h3>@AgilusFinan.Domain.Entities.UsuarioLogado.Nome</h3>
+        <p>Sua tela foi bloqueada por questões de segurança. Por favor, digite sua senha novamente para voltar ao AgilusFinan.</p>
+        <form class="m-t" method="post" role="form" action="/Login/LockScreen">
+            <div class="form-group">
+                <input type="password" class="form-control" placeholder="******" required="" name="Senha" id="Senha">
+                <input type="hidden" value="@AgilusFinan.Domain.Entities.UsuarioLogado.UsuarioId" id="UsuarioId" name="UsuarioId" />
+            </div>
+            <button type="submit" class="btn btn-primary block full-width">Desbloquear</button>
+        </form>
+    </div>
+</div>

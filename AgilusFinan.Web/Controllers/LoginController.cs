@@ -164,5 +164,29 @@ namespace AgilusFinan.Web.Controllers
                 return View();
             }
         }
+
+        public ActionResult LockScreen()
+        {
+            Logoff();
+            return View();
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public ActionResult LockScreen(string Senha, int UsuarioId)
+        {
+            var usuario = new RepositorioUsuario().BuscarPorId(UsuarioId);
+            if (usuario.Senha == Senha)
+            {
+                return Index(usuario.Email, Senha);
+            }
+            else
+            {
+                ViewBag.MensagemErro = "Senha incorreta";
+                return View();
+            }
+                
+
+        } 
     }
 }

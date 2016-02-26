@@ -12,7 +12,6 @@
 	}
 
 	export function createMask(input: HTMLInputElement, mask: any) {
-
 		switch (mask) {
 
 			case "telefone":
@@ -63,7 +62,8 @@
 				});
 				break;
 
-			case "cpf":
+            case "cpf":
+                console.log(input.value);
 				if (input.value == undefined) {
 					maskEventCnpj(input, undefined, input.innerHTML);
 					input.addEventListener("input", e => maskEventCnpj(input, e, input.innerHTML));

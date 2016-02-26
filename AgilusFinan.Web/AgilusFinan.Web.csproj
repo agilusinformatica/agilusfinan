@@ -417,6 +417,7 @@
     <Content Include="fonts\font-awesome\scss\_rotated-flipped.scss" />
     <Content Include="fonts\font-awesome\scss\_stacked.scss" />
     <Content Include="fonts\font-awesome\scss\_variables.scss" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Properties\PublishProfiles\agilusfinan - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\agilusfinan - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -1159,6 +1160,7 @@
     <Content Include="Views\Shared\_TopNavbar.cshtml" />
     <Content Include="Views\Empresa\Create.cshtml" />
     <Content Include="Views\Shared\_LayoutOff.cshtml" />
+    <Content Include="Views\Login\LockScreen.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Movimentacoes\" />
