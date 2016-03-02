@@ -97,7 +97,8 @@
             error: function (e) {
                 $("#resumoTitulos>img").remove();
                 $("#resumoTitulos").html(e.message);
-            }
+            },
+            complete: Utils.verificaSessaoAjax
         });
 
         $.ajax({

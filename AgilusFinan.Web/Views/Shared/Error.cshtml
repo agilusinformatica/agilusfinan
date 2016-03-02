@@ -2,7 +2,15 @@
  
 @{
     ViewBag.Title = "Erro";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    if (AgilusFinan.Domain.Entities.UsuarioLogado.EmpresaId == 0)
+    {
+        Layout = "~/Views/Shared/_LayoutOff.cshtml";    
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";          
+    }
 }
  
 <h1>Erro</h1>

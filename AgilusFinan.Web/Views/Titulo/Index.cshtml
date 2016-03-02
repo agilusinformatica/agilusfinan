@@ -36,7 +36,8 @@
             error: function (e) {
                 $("#listagem>img").remove();
                 $("#listagem").html(e.message);
-            }
+            },
+            complete: Utils.verificaSessaoAjax
         });
 
     };
