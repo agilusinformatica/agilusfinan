@@ -103,7 +103,8 @@
                     if (contador == boletos.length) {
                         $('.progress').delay(1000).fadeToggle(500, () => $('#progressbar').attr("style", "width: 0%").html('<img src="../Content/Images/ellipsis.gif" height="20"/>'));
                     }
-                }
+                },
+                complete: Utils.verificaSessaoAjax
             });
         });
     }

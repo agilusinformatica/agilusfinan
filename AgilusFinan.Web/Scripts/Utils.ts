@@ -107,7 +107,13 @@
 			$(input).mask("00.000.000/0000-00");
 
 		}
-	}
+    }
+
+    export function verificaSessaoAjax (xhr, status) {
+        if (xhr.getResponseHeader("SESSAO EXPIRADA") != null) {
+            window.location.reload();
+        }
+    }
 
 	export function moneyFormatConvert(value: string) {
 		var joined,

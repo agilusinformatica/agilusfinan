@@ -44,6 +44,13 @@ namespace AgilusFinan.Web
                     }
                 }
             }
+            else if (HttpContext.Current.Session != null)
+            {
+                if (!HttpContext.Current.Session.IsNewSession)
+                {
+                    Response.Headers.Add("SESSAO EXPIRADA", "SESSAO EXPIRADA");
+                }
+            }
         }
     }
 }
