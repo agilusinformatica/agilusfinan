@@ -6,7 +6,6 @@
 }
 
 
-    @Html.AntiForgeryToken()
 
     <div class="row wrapper wrapper-content animated fadeInRight">
     <div class="col-lg-12">
@@ -19,6 +18,7 @@
                 <p>Bem-vindo ao Agilus Finan. Informe seus dados para usufruir do sistema.</p>
 
                 <form action="/Empresa/Create" method="post" class="wizard-big" id="form" enctype="multipart/form-data">
+                    @Html.AntiForgeryToken()
                     <h1>Conta</h1>
                     <fieldset>
                         <div class="row">
@@ -55,8 +55,10 @@
 
                                 <div class="form-group">
                                     <label class="control-label">Logotipo</label>
-                                    <input type="file" name="Logotipo" id="Logotipo"  />
+                                    <input type="file" name="file" id="file" />
+                                    @Html.HiddenFor(model => model.Logotipo)
                                 </div>
+
                             </div>
                             <div class="col-lg-6">
                                 <div class="text-center">
@@ -110,11 +112,12 @@
     @Scripts.Render("~/plugins/validate")
 }
 <script src="~/Scripts/bootstrap-filestyle.min.js"></script>
+<script src="~/Scripts/plugins/exif/exif.js"></script>
+
 <script>
 
-
-
     $(document).ready(function () {
+
         $("#form").steps({
             bodyTag: "fieldset",
             transitionEffect: "slideLeft",
@@ -159,12 +162,12 @@
             onStepChanged: function (event, currentIndex, priorIndex) {
                 // Suppress (skip) "Warning" step if the user is old enough.
                 if (currentIndex === 2 && Number($("#age").val()) >= 18) {
-                    $(this).steps("próximo");
+                    $(this).steps("next");
                 }
 
                 // Suppress (skip) "Warning" step if the user is old enough and wants to the previous step.
                 if (currentIndex === 2 && priorIndex === 3) {
-                    $(this).steps("anterior");
+                    $(this).steps("previous");
                 }
             },
             onFinishing: function (event, currentIndex) {

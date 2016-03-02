@@ -273,6 +273,14 @@ namespace AgilusFinan.Web
             bundles.Add(new StyleBundle("~/Content/plugins/colorpicker/colorpickerStyles").Include(
                       "~/Content/plugins/colorpicker/bootstrap-colorpicker.min.css"));
 
+            //croppie styles
+            bundles.Add(new StyleBundle("~/Content/plugins/croppie/imagecroppieStyles").Include(
+                    "~/Content/plugins/croppie/croppie.css"));
+
+            // image croppie
+            bundles.Add(new ScriptBundle("~/plugins/imagecroppie").Include(
+                    "~/Scripts/plugins/croppie/croppie.min.js"));
+
             // image cropper
             bundles.Add(new ScriptBundle("~/plugins/imagecropper").Include(
                       "~/Scripts/plugins/cropper/cropper.min.js"));

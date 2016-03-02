@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 
@@ -11,6 +12,7 @@ namespace AgilusFinan.Domain.Entities
         public string Nome { get; set; }
         public string Email { get; set; }
         public int PerfilId { get; set; }
+        [DataType(DataType.Password)]
         public string Senha { get; set; }
         public bool Ativo { get; set; }
         public Endereco Endereco { get; set; }

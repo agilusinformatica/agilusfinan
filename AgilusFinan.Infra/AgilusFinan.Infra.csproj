@@ -323,6 +323,7 @@
     <Compile Include="Services\RepositorioCentroCusto.cs" />
     <Compile Include="Services\RepositorioConta.cs" />
     <Compile Include="Services\RepositorioConvite.cs" />
+    <Compile Include="Services\RepositorioEmpresa.cs" />
     <Compile Include="Services\RepositorioFeriadoRegional.cs" />
     <Compile Include="Services\RepositorioModeloBoleto.cs" />
     <Compile Include="Services\RepositorioPadrao.cs" />

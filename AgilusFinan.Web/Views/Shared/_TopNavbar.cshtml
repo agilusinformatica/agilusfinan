@@ -1,4 +1,15 @@
-﻿<div class="row border-bottom">
+﻿@{
+    var empresaId = AgilusFinan.Domain.Entities.UsuarioLogado.EmpresaId;
+    string imageDataUrl = "";
+    AgilusFinan.Domain.Entities.Empresa emp = new AgilusFinan.Infra.Services.RepositorioEmpresa().BuscarPorId(empresaId);
+    if (emp.Logotipo != null)
+    {
+        string imageBase64Data = Convert.ToBase64String(emp.Logotipo);
+        imageDataUrl = string.Format("data:image/jpg;base64, {0}", imageBase64Data);
+    }
+
+}
+<div class="row border-bottom">
     <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
         <div class="navbar-header">
             <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
@@ -10,7 +21,16 @@
         </div>
         <ul class="nav navbar-top-links navbar-right">
             <li>
-                <span class="m-r-sm text-muted welcome-message" data-i18n="topnav.welcometext">Agilusfinan</span>
+                <span class="m-r-sm text-muted welcome-message" data-i18n="topnav.welcometext">
+                    @if (imageDataUrl != "")
+                    {
+                        <img alt="image" class="img-small" src="@imageDataUrl" width="150" height="40" />
+                    }
+                    else
+                    {
+                        @emp.Nome
+                    }
+                </span>
             </li>
             <li class="dropdown">
                 <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">

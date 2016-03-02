@@ -265,6 +265,7 @@
     <Content Include="Content\plugins\codemirror\codemirror.css" />
     <Content Include="Content\plugins\colorpicker\bootstrap-colorpicker.min.css" />
     <Content Include="Content\plugins\cropper\cropper.min.css" />
+    <Content Include="Content\plugins\croppie\croppie.css" />
     <Content Include="Content\plugins\datapicker\datepicker3.css" />
     <Content Include="Content\plugins\dataTables\datatables.min.css" />
     <Content Include="Content\plugins\daterangepicker\daterangepicker-bs3.css" />
@@ -657,6 +658,7 @@
     <Content Include="Scripts\plugins\codemirror\mode\z80\z80.js" />
     <Content Include="Scripts\plugins\colorpicker\bootstrap-colorpicker.min.js" />
     <Content Include="Scripts\plugins\cropper\cropper.min.js" />
+    <Content Include="Scripts\plugins\croppie\croppie.min.js" />
     <Content Include="Scripts\plugins\d3\d3.min.js" />
     <Content Include="Scripts\plugins\datapicker\bootstrap-datepicker.js" />
     <Content Include="Scripts\plugins\dataTables\datatables.min.js" />
@@ -667,6 +669,7 @@
     <Content Include="Scripts\plugins\dropzone\dropzone.js" />
     <Content Include="Scripts\plugins\easypiechart\easypiechart.js" />
     <Content Include="Scripts\plugins\easypiechart\jquery.easypiechart.js" />
+    <Content Include="Scripts\plugins\exif\exif.js" />
     <Content Include="Scripts\plugins\flot\curvedLines.js" />
     <Content Include="Scripts\plugins\flot\excanvas.min.js" />
     <Content Include="Scripts\plugins\flot\jquery.flot.js" />
