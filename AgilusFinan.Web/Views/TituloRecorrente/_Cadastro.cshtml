@@ -130,7 +130,7 @@
 
         $("#SelecaoDiaVencimento").html("");
         var tiposRecorrencia = $("#Recorrencia");
-        if (tiposRecorrencia.val() == 0)
+        if (tiposRecorrencia.val() == 0 || tiposRecorrencia.val() == 1)
         {
             document.getElementById("SelecaoDiaVencimento").innerHTML =
                    '<select id="DiaVencimento" name="DiaVencimento" class="form-control">' +
