@@ -5,6 +5,7 @@ using AgilusFinan.Infra.Services;
 using AgilusFinan.Web.Bases;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -21,7 +22,7 @@ namespace AgilusFinan.Web.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public ActionResult Create(Empresa empresa)
+        public ActionResult Create(Empresa empresa, HttpPostedFileBase file)
         {
             Contexto db = new Contexto();
             empresa.Ativo = true;
@@ -48,11 +49,21 @@ namespace AgilusFinan.Web.Controllers
             };
             db.Convites.Add(convite);
 
+
             // inclusão das permissões no perfil
             foreach (var funcao in db.Funcoes)
             {
                 Acesso acesso = new Acesso() {PerfilId = perfil.Id, FuncaoId = funcao.Id};
                 db.Acessos.Add(acesso);
+            }
+
+            if (file != null)
+            {
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    file.InputStream.CopyTo(ms);
+                    empresa.Logotipo = ms.ToArray();
+                }
             }
 
             db.SaveChanges();
