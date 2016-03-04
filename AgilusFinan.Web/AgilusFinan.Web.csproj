@@ -323,6 +323,7 @@
     <Content Include="Content\plugins\ladda\ladda.min.css" />
     <Content Include="Content\plugins\morris\morris-0.4.3.min.css" />
     <Content Include="Content\plugins\nouslider\jquery.nouislider.css" />
+    <Content Include="Content\plugins\select2\select2-bootstrap.css" />
     <Content Include="Content\plugins\select2\select2.min.css" />
     <Content Include="Content\plugins\slick\ajax-loader.gif" />
     <Content Include="Content\plugins\slick\fonts\slick.svg" />

@@ -22,10 +22,11 @@
         @Styles.Render("~/font-awesome/css")
         @Scripts.Render("~/bundles/agilusLibrary")
         @Scripts.Render("~/bundles/datatables")
-
         @*Plugins*@
         @Styles.Render("~/plugins/toastrStyles")
         @Scripts.Render("~/plugins/toastr")
+        @Styles.Render("~/plugins/select2Styles")
+        @Scripts.Render("~/plugins/select2")
 
     </head>
     <body>
@@ -57,9 +58,16 @@
     </body>
 </html>
 
+<script>
+    $(document).ready(function () {
+        //plugin de busca em todos os Select's do sistema
+        $('select').select2();
+    });
+</script>
 @if (TempData["Alerta"] != null)
 {
     <script>
+
         toastr.options = {
             "closeButton": true,
             "debug": false,
@@ -91,3 +99,4 @@
 @Scripts.Render("~/bundles/skinConfig")
 
 @RenderSection("scripts", required: false)
+

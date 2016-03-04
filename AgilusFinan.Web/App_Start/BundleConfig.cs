@@ -356,9 +356,10 @@ namespace AgilusFinan.Web
             bundles.Add(new ScriptBundle("~/plugins/footable").Include(
                       "~/Scripts/plugins/footable/footable.all.min.js"));
 
-            // Select2 Styless
+            // Select2 Styles
             bundles.Add(new StyleBundle("~/plugins/select2Styles").Include(
-                      "~/Content/plugins/select2/select2.min.css"));
+                      "~/Content/plugins/select2/select2.min.css",
+                      "~/Content/plugins/select2/select2-bootstrap.css"));
 
             // Select2
             bundles.Add(new ScriptBundle("~/plugins/select2").Include(
