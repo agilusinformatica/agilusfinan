@@ -109,9 +109,9 @@
 		}
     }
 
-    export function verificaSessaoAjax (xhr, status) {
-        if (xhr.getResponseHeader("SESSAO EXPIRADA") != null) {
-            window.location.reload();
+    export function verificaSessaoAjax(xhr, status) {
+        if (xhr.responseText.indexOf("<title>Login AgilusFinan</title>") != -1) {
+            window.location.reload()
         }
     }
 
