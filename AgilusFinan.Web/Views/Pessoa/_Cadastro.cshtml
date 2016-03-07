@@ -56,26 +56,16 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.EmailContato, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10" style="width:26%">
-                <div class="input-group">
-                    <span class="input-group-addon" id="basic-addon1">@@</span>
-                    @Html.EditorFor(model => model.EmailContato, new
-                    {
-                        htmlAttributes = new { @class = "form-control" }
-                    })
-                </div>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.EmailContato, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.EmailContato, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.EmailFinanceiro, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10" style="width:30%">
-                <span class="input-group-addon" id="basic-addon1">@@</span>
-                @Html.EditorFor(model => model.EmailFinanceiro, new
-                {
-                    htmlAttributes = new { @class = "form-control" }
-                })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.EmailFinanceiro, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.EmailFinanceiro, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -88,6 +78,7 @@
             </div>
         </div>
         <div class="form-group">
+            @Html.LabelFor(model => model.Endereco, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Endereco, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Endereco, "", new { @class = "text-danger" })
@@ -95,6 +86,7 @@
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.ContaBancaria, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.ContaBancaria, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.ContaBancaria, "", new { @class = "text-danger" })
@@ -109,8 +101,15 @@
                     {
                         <td>
                             @Html.LabelFor(model => model.TiposPorPessoa, tipo.Nome, htmlAttributes: new { @class = "control-label col-md-1" })
+                        </td>
+                    }
+                </tr>
+                <tr>
+                    @foreach (var tipo in Model.TiposPorPessoa)
+                    {
+                        <td style="text-align: center">
                             <input type="hidden" value="@(tipo.Id)" />
-                            <input class="form-control" type="checkbox" @(tipo.Marcado ? "checked" : "") />
+                            <input type="checkbox" @(tipo.Marcado ? "checked" : "")/>
                         </td>
                     }
                 </tr>
@@ -136,50 +135,50 @@
 <script src="~/Scripts/HelloTable.js"></script>
 
 <script>
-    // Validação
+    //// Validação
 
-    $(document).ready(function () {
+    //$(document).ready(function () {
 
-        var settings = $.data($('form')[0], 'validator').settings;
+    //    var settings = $.data($('form')[0], 'validator').settings;
 
-        $("form").bind("invalid-form.validate", function (form, validator) {
-            var errors = validator.numberOfInvalids();
-            var message = "Please fix" + errors + " errors.";
+    //    $("form").bind("invalid-form.validate", function (form, validator) {
+    //        var errors = validator.numberOfInvalids();
+    //        var message = "Please fix" + errors + " errors.";
 
-            for (var x = 0; x < validator.errorList.length; x++) {
-                message += "<br/>\u25CF " + validator.errorList[x].message;
-            }
-            $("#errorList").html(message);
-            $("#errorList").slideDown('fast');
+    //        for (var x = 0; x < validator.errorList.length; x++) {
+    //            message += "<br/>\u25CF " + validator.errorList[x].message;
+    //        }
+    //        $("#errorList").html(message);
+    //        $("#errorList").slideDown('fast');
 
-        });
+    //    });
 
-        settings.rules = {
-            Cpf: {
-                required: true
-            },
-            Nome: {
-                required: true,
-                minlength: 10
-            },
-            DataNascimento: {
-                required: true
-            }
-        }
+    //    settings.rules = {
+    //        Cpf: {
+    //            required: true
+    //        },
+    //        Nome: {
+    //            required: true,
+    //            minlength: 10
+    //        },
+    //        DataNascimento: {
+    //            required: true
+    //        }
+    //    }
 
-        settings.messages = {
-            CPf: "Campo CPF é obrigatório",
-            Nome: {
-                required: "Campo nome é obrigatório.",
-                minlength: "Campo deve conter ao menos 10 caracteres."
-            }
-        }
+    //    settings.messages = {
+    //        CPf: "Campo CPF é obrigatório",
+    //        Nome: {
+    //            required: "Campo nome é obrigatório.",
+    //            minlength: "Campo deve conter ao menos 10 caracteres."
+    //        }
+    //    }
 
-        settings.submitHandler = function (form) {
-            UpdatePessoa();
-        };
+    //    settings.submitHandler = function (form) {
+    //        UpdatePessoa();
+    //    };
 
-    });
+    //});
 
 
     // montagem da tabela de telefones
@@ -254,7 +253,7 @@
         pessoa.TiposPorPessoa = [{}];
 
         var tab = document.getElementById('tabTiposPessoa');
-        for (var i = 0, cell; cell = tab.rows[0].cells[i]; i++) {
+        for (var i = 0, cell; cell = tab.rows[1].cells[i]; i++) {
             var TipoPorPessoa = {};
             TipoPorPessoa.Id = cell.getElementsByTagName('input')[0].value;
             TipoPorPessoa.Marcado = cell.getElementsByTagName('input')[1].checked;

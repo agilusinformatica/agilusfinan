@@ -3,33 +3,58 @@
     @{
         string nomePropriedade = ViewData.ModelMetadata.PropertyName;
     }
-    <label class="control-label col-md-2" for="@(nomePropriedade+"_"+"BancoId")">Banco</label>
-    <select name="@(nomePropriedade + "." + "BancoId")" id="@(nomePropriedade + "_" + "BancoId")" class="form-control">
-        <option> </option>
-        @foreach (var item in ViewBag.ListaBancos)
-        {
-            <option value="@item.Id" @(item.Id == Model.BancoId ? "selected" : "")>@item.Nome</option>
-        }
-    </select>
-    @Html.ValidationMessageFor(model => model.BancoId, "", new { @class = "text-danger" })
 
-    <label class="control-label col-md-2" for="@(nomePropriedade+"_"+"Agencia")">Agência</label>
-    <input type="text" name="@(nomePropriedade + "." + "Agencia")" id="@(nomePropriedade + "_" + "Agencia")" class="form-control" value="@Model.Agencia"/>
-    @Html.ValidationMessageFor(model => model.Agencia, "", new { @class = "text-danger" })
+    <div class="form-group">
+        <label class="control-label col-md-2" for="@(nomePropriedade+"_"+"BancoId")">Banco</label>
+        <div class="col-md-10">
+            <select name="@(nomePropriedade + "." + "BancoId")" id="@(nomePropriedade + "_" + "BancoId")" class="form-control">
+                <option> </option>
+                @foreach (var item in ViewBag.ListaBancos)
+                {
+                    <option value="@item.Id" @(item.Id == Model.BancoId ? "selected" : "")>@item.Nome</option>
+                }
+            </select>
+            @Html.ValidationMessageFor(model => model.BancoId, "", new { @class = "text-danger" })
+        </div>
+    </div>
 
-    <label class="control-label col-md-2" for="@(nomePropriedade + "_" + "Numero")">Conta</label>
-    <input type="text" name="@(nomePropriedade + "." + "Numero")" id="@(nomePropriedade + "_" + "Numero")" class="form-control" value="@Model.Numero"/>
-    @Html.ValidationMessageFor(model => model.Numero, "", new { @class = "text-danger" })
+    <div class="form-group">
+        <label class="control-label col-md-2" for="@(nomePropriedade+"_"+"Agencia")">Agência</label>
+        <div class="col-md-10">
+            <input type="text" name="@(nomePropriedade + "." + "Agencia")" id="@(nomePropriedade + "_" + "Agencia")" class="form-control" value="@Model.Agencia"/>
+            @Html.ValidationMessageFor(model => model.Agencia, "", new { @class = "text-danger" })
+        </div>
+    </div>
 
-    <label class="control-label col-md-2" for="@(nomePropriedade + "_" + "Poupanca")">Poupança?</label>
-    <input type="checkbox" name="@(nomePropriedade + "." + "Poupanca")" id="@(nomePropriedade + "_" + "Poupanca")" class="form-control" @(Model.Poupanca ? "checked" : "") />
-    @Html.ValidationMessageFor(model => model.Poupanca, "", new { @class = "text-danger" })
+    <div class="form-group">
+        <label class="control-label col-md-2" for="@(nomePropriedade + "_" + "Numero")">Conta</label>
+        <div class="col-md-10">
+            <input type="text" name="@(nomePropriedade + "." + "Numero")" id="@(nomePropriedade + "_" + "Numero")" class="form-control" value="@Model.Numero"/>
+            @Html.ValidationMessageFor(model => model.Numero, "", new { @class = "text-danger" })
+        </div>
+    </div>
 
-    <label class="control-label col-md-2" for="@(nomePropriedade+"_"+"NomeTitular")">Nome do Titular</label>
-    <input type="text" name="@(nomePropriedade + "." + "NomeTitular")" id="@(nomePropriedade + "_" + "NomeTitular")" class="form-control" value="@Model.NomeTitular"/>
-    @Html.ValidationMessageFor(model => model.NomeTitular, "", new { @class = "text-danger" })
+    <div class="form-group">
+        <label class="control-label col-md-2" for="@(nomePropriedade + "_" + "Poupanca")">Poupança?</label>
+        <div class="col-md-10">
+            <input type="checkbox" name="@(nomePropriedade + "." + "Poupanca")" id="@(nomePropriedade + "_" + "Poupanca")" @(Model.Poupanca ? "checked" : "") />
+            @Html.ValidationMessageFor(model => model.Poupanca, "", new { @class = "text-danger" })
+        </div>
+    </div>
 
-    <label class="control-label col-md-2" for="@(nomePropriedade+"_"+"CpfTitular")">Cpf do Titular</label>
-    <input type="text" name="@(nomePropriedade + "." + "CpfTitular")" id="@(nomePropriedade + "_" + "CpfTitular")" class="form-control" value="@Model.CpfTitular"/>
-    @Html.ValidationMessageFor(model => model.CpfTitular, "", new { @class = "text-danger" })
+    <div class="form-group">
+        <label class="control-label col-md-2" for="@(nomePropriedade+"_"+"NomeTitular")">Nome do Titular</label>
+        <div class="col-md-10">
+            <input type="text" name="@(nomePropriedade + "." + "NomeTitular")" id="@(nomePropriedade + "_" + "NomeTitular")" class="form-control" value="@Model.NomeTitular"/>
+            @Html.ValidationMessageFor(model => model.NomeTitular, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2" for="@(nomePropriedade+"_"+"CpfTitular")">Cpf do Titular</label>
+        <div class="col-md-10">
+            <input type="text" name="@(nomePropriedade + "." + "CpfTitular")" id="@(nomePropriedade + "_" + "CpfTitular")" class="form-control" value="@Model.CpfTitular"/>
+            @Html.ValidationMessageFor(model => model.CpfTitular, "", new { @class = "text-danger" })
+        </div>
+    </div>
 </fieldset>
