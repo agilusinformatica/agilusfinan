@@ -29,6 +29,8 @@
         @Scripts.Render("~/plugins/select2")
         @Styles.Render("~/Content/plugins/iCheck/iCheckStyles")
         @Scripts.Render("~/plugins/iCheck")
+        @Styles.Render("~/plugins/dataPickerStyles")
+        @Scripts.Render("~/plugins/dataPicker")
 
         <style>
             .select2-selection {
@@ -41,10 +43,18 @@
                 border-color: #1ab394 !important;
                 outline: none !important;
             }
+            .select2-search__field{
+                border-color: #1ab394 !important;
+                outline: none !important;
+            }
+            .select2-results__option--highlighted{
+                background-color: #1ab394 !important;
+            }
         </style>
     </head>
 
     <body>
+
         <div id="wrapper" class="@Html.PageClass()">
 
             <!-- Navigation -->
@@ -82,7 +92,34 @@
             radioClass: 'iradio_square-green',
             //increaseArea: '20%' // optional
         });
+
+        //$('.inputdate').datepicker({
+        //    forceParse: true,
+        //    autoclose: true,
+        //    language: 'pt-BR',
+        //    format: "dd/mm/yyyy",
+        //    todayHighlight: true,
+        //    todayBtn: "linked",
+        //    clearBtn: true
+        //});
+
+        Utils.defineInputDatePicker(document.getElementsByClassName('inputdate'));
+
+        $('.input-daterange').datepicker({
+            forceParse: true,
+            autoclose: true,
+            language: 'pt-BR',
+            format: "dd/mm/yyyy",
+            todayHighlight: true,
+            todayBtn: "linked",
+            clearBtn: true
+        });
+
+        Utils.createMaskClass(document.getElementsByClassName('inputdate'), "data");
+
     });
+
+
 </script>
 @if (TempData["Alerta"] != null)
 {

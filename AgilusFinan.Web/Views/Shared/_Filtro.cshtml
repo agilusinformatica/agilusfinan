@@ -20,7 +20,7 @@
                         <input type="text" data-grupo="filtro" data-filtro="@item.Nome" value="@item.Valor" class="form-control" />
                         break;
                     case AgilusFinan.Domain.Entities.TipoFiltro.data:
-                        <input type="date" data-grupo="filtro" data-filtro="@item.Nome" value="@item.Valor.ToString("yyyy-MM-dd")" class="form-control" />
+                        <input type="text" data-grupo="filtro" data-filtro="@item.Nome" value="@item.Valor.ToString("dd/MM/yyyy")" class="form-control inputdate" />
                         break;
                     case AgilusFinan.Domain.Entities.TipoFiltro.conta:
                         <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome">

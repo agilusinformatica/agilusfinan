@@ -6,6 +6,7 @@ using BoletoNet;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -457,7 +458,19 @@ namespace AgilusFinan.Web.Bases
             return new MemoryStream(byteArray);
         }
 
+        public static Color CorContrastante(Color cor)
+        {
+            int r = cor.R * 2;
+            int g = cor.G * 5;
+            int b = cor.B;
 
+            if ((r + g + b) < 1024)
+                return Color.White;
+            else
+                return Color.Black;
+
+
+        }
 
     }
 }

@@ -9,9 +9,27 @@
 				createMask(input[element], mask);
 			}
 		}
-	}
+    }
 
-	export function createMask(input: HTMLInputElement, mask: any) {
+    //Cria mascara de um lista de Inputs, selecionados pela classe (document.getElementsByClassName("classe"))
+    export function defineInputDatePicker(inputs: Array<HTMLInputElement>) {
+        for (var element in inputs) {
+            if (inputs.hasOwnProperty(element)) {
+                $(inputs[element]).datepicker({
+                    forceParse: true,
+                    autoclose: true,
+                    language: 'pt-BR',
+                    format: "dd/mm/yyyy",
+                    todayHighlight: true,
+                    todayBtn: "linked",
+                    clearBtn: true
+                    
+                });
+            }
+        }
+    }
+
+    export function createMask(input: HTMLInputElement, mask: any) {
 		switch (mask) {
 
 			case "telefone":
@@ -186,12 +204,15 @@
 
 	export function convertFormatDate(date: string) {
 		var dash = new RegExp(/^[0-3][0-9]\/[0-1][0-9]\/[1-2][0-9]{3}$/).exec(date);
-		//var slash = new RegExp("/^[1-2][0-9]{3}\-[0-1][0-9]\-[0-3][0-9]$/").exec(date);
+        //var slash = new RegExp("/^[1-2][0-9]{3}\-[0-1][0-9]\-[0-3][0-9]$/").exec(date);
 
-		if (dash) {
-			var convert = date.split("/");
-			return convert[2] + "-" + convert[1] + "-" + convert[0];
-		}
+        if (dash) {
+            return date.split("/").reverse().join("-");
+        }
+        else {
+            return date.split("-").reverse().join("/");
+        }
+
 
 		return date;
 

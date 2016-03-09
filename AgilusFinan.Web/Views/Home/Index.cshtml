@@ -75,10 +75,11 @@
     });
 
 
+
     var consultaDashboard = function () {
 
-        var dataInicial = $('#dataInicial').val();
-        var dataFinal = $('#dataFinal').val();
+        var dataInicial = Utils.convertFormatDate($('#dataInicial').val());
+        var dataFinal = Utils.convertFormatDate($('#dataFinal').val());
 
         $.ajax({
             url: "../ResumoTituloCategoria",

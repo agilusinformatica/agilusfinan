@@ -84,6 +84,22 @@
 </div>
 
 <script>
+
+    $('#Competencia').val($('#Competencia').val().substring(3, 10));
+    $('#Competencia').removeClass('inputdate');
+
+    $('#Competencia').datepicker({
+        forceParse: true,
+        autoclose: true,
+        language: 'pt-BR',
+        format: 'mm/yyyy',
+        clearBtn: true,
+        minViewMode: 1
+    });
+
+    Utils.createMask(document.getElementById('Competencia'), '00/0000');
+
+
     var CadastroTitulo = function () {
         Utils.createMask(document.getElementById("Valor"), "moeda");
         var contaPadrao = $('#ContaId').val();

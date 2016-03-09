@@ -662,6 +662,7 @@
     <Content Include="Scripts\plugins\croppie\croppie.min.js" />
     <Content Include="Scripts\plugins\d3\d3.min.js" />
     <Content Include="Scripts\plugins\datapicker\bootstrap-datepicker.js" />
+    <Content Include="Scripts\plugins\datapicker\bootstrap-datepicker.pt-BR.js" />
     <Content Include="Scripts\plugins\dataTables\datatables.min.js" />
     <Content Include="Scripts\plugins\daterangepicker\daterangepicker.js" />
     <Content Include="Scripts\plugins\diff_match_patch\javascript\diff_match_patch.js" />

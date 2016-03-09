@@ -193,7 +193,8 @@ namespace AgilusFinan.Web
 
             // dataPicker 
             bundles.Add(new ScriptBundle("~/plugins/dataPicker").Include(
-                      "~/Scripts/plugins/datapicker/bootstrap-datepicker.js"));
+                      "~/Scripts/plugins/datapicker/bootstrap-datepicker.js",
+                      "~/Scripts/plugins/datapicker/bootstrap-datepicker.pt-BR.js"));
 
             // nouiSlider styles
             bundles.Add(new StyleBundle("~/plugins/nouiSliderStyles").Include(

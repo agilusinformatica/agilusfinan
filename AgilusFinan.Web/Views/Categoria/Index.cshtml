@@ -1,4 +1,5 @@
 ﻿@using AgilusFinan.Domain.Entities
+@using AgilusFinan.Web.Bases;
 @model IEnumerable<AgilusFinan.Domain.Entities.Categoria>
 <link href="~/Content/jquerysctipttop.css" rel="stylesheet" />
 <link href="~/Content/bootstrap-treefy.css" rel="stylesheet" />
@@ -8,18 +9,16 @@
     ViewBag.Title = "Categoria";
 }
 
-<h2>Categoria</h2>
+
 
 <p>
-    @Html.ActionLink("Adicionar", "Create")
+    @*@Html.ActionLink("Incluir", "Create", null, new { @class = "btn btn-primary btn-outline" })*@
+    <a href="@Url.Action("Create")" class="btn btn-primary"><i class="fa fa-plus"></i><span> Incluir</span></a>
 </p>
 <table class="table" id="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Nome)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cor)
         </th>
         <th></th>
     </tr>
@@ -30,18 +29,16 @@
     
     <tr data-node="treetable-@item.Key" data-pnode="treetable-parent-@PaiId">
         <td>
-            @item.Value
-        </td>
-        <td>
             @{
                 int cor = Model.Where(x => x.Id == item.Key).First().Cor;
+                string corContrastante = Util.CorContrastante(System.Drawing.Color.FromArgb(cor)).ToArgb().ToString("X").Substring(2,6);
             }
-            <div id="selectedcolor" style="background-color: #@cor.ToString("X").PadLeft(6,'0'); width: 100px; height: 20px;"></div>
+            <div id="selectedcolor" class="label" style="background-color: #@cor.ToString("X").PadLeft(6,'0'); color: #@corContrastante; ">@item.Value</div>
         </td>
         <td>
-            @Html.ActionLink(" ", "Edit", new { id = item.Key }, new { @class = "glyphicon glyphicon-pencil" }) |
-            @Html.ActionLink(" ", "Delete", new { id = item.Key }, new { @class = "glyphicon glyphicon-trash" }) |
-            @Html.ActionLink("Incluir Filha", "CreateFilha", new { CategoriaPaiId = item.Key, direcao = Model.Where(x => x.Id  == item.Key).First().Direcao}) 
+            @Html.ActionLink(" ", "Edit", new { id = item.Key }, new { @class = "btn btn-primary dim fa fa-pencil", @title="Alterar" })
+            @Html.ActionLink(" ", "Delete", new { id = item.Key }, new { @class = "btn btn-primary dim fa fa-trash-o", @title="Excluir" })
+            @Html.ActionLink(" ", "CreateFilha", new { CategoriaPaiId = item.Key, direcao = Model.Where(x => x.Id == item.Key).First().Direcao }, new { @class = "btn btn-primary dim fa fa-level-down", @title= "Incluir Filha" }) 
 
         </td>
     </tr>
