@@ -1,9 +1,13 @@
-﻿@model Decimal
+﻿@model List<AgilusFinan.Web.ViewModels.SaldoViewModel>
 
 @{
     Layout = null;
 }
     
 
-@Model.ToString("C")
+@foreach (var saldo in Model)
+{
+   @(saldo.Conta.Nome+": "+saldo.Saldo.ToString("C")) <br />
+}
+
 
