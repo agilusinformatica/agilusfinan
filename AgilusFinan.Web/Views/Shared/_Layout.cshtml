@@ -86,25 +86,11 @@
 
 <script>
     $(document).ready(function () {
-        //plugin de busca em todos os Select's do sistema
         $('select').select2();
-
         $('input[type="checkbox"]').iCheck({
             checkboxClass: 'icheckbox_square-green',
             radioClass: 'iradio_square-green',
-            //increaseArea: '20%' // optional
         });
-
-        //$('.inputdate').datepicker({
-        //    forceParse: true,
-        //    autoclose: true,
-        //    language: 'pt-BR',
-        //    format: "dd/mm/yyyy",
-        //    todayHighlight: true,
-        //    todayBtn: "linked",
-        //    clearBtn: true
-        //});
-
         Utils.defineInputDatePicker(document.getElementsByClassName('inputdate'));
 
         $('.input-daterange').datepicker({
@@ -118,10 +104,7 @@
         });
 
         Utils.createMaskClass(document.getElementsByClassName('inputdate'), "data");
-
     });
-
-
 </script>
 @if (TempData["Alerta"] != null)
 {

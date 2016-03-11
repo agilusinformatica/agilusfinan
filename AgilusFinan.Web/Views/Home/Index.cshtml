@@ -12,10 +12,15 @@
 
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-                <a href="@Url.Action("Index", "Extrato")" class="btn btn-primary btn-xs pull-right">Extrato<i class="fa fa-arrow-circle-o-right"></i></a>
                 <h5>Saldo</h5> 
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-down"></i>
+                    </a>
+                    <a href="@Url.Action("Index", "Extrato")" class="btn btn-primary btn-xs pull-right">Extrato  <i class="fa fa-arrow-circle-o-right"></i></a>
+                </div>
             </div>
-            <div class="ibox-content"> 
+            <div class="ibox-content" style="display: none;"> 
                 <div>
                     <div class="pull-right text-right">
                         <span id="bar"></span>
@@ -31,6 +36,11 @@
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>Resumo de títulos</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </div>
                     </div>
                     <div class="ibox-content" id="resumoTitulos">
                     </div>
@@ -45,6 +55,11 @@
         <div class="ibox float-e-margins">
             <div class="ibox-title">
                 <h5>Títulos Pendentes</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
             </div>
             <div class="ibox-content" id="TitulosPendentes"></div>
         </div>
@@ -54,6 +69,11 @@
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>Previsto x Realizado</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </div>
                     </div>
                     <div class="ibox-content" id="PrevistosRealizados">
                     </div>
@@ -65,14 +85,14 @@
 
 <script>
 
-    //implementação do plungin peity.js
-    $("#bar").sparkline([19.115, 19.103, 19.000, 18.950, 20.000, 21.350, 21.000, 21.045, 19.550, 19.850, 20.123, 20.345, 21.450, 19.365, 19.999, 18.999], {
-        type: 'bar',
-        barWidth: 10,
-        height: 25,
-        barColor: '#1ab394',
-        negBarColor: '#dbdbdb'
-    });
+    ////implementação do plungin peity.js
+    //$("#bar").sparkline([19.115, 19.103, 19.000, 18.950, 20.000, 21.350, 21.000, 21.045, 19.550, 19.850, 20.123, 20.345, 21.450, 19.365, 19.999, 18.999], {
+    //    type: 'bar',
+    //    barWidth: 10,
+    //    height: 25,
+    //    barColor: '#1ab394',
+    //    negBarColor: '#dbdbdb'
+    //});
 
 
 

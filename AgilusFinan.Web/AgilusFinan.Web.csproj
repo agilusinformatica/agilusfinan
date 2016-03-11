@@ -190,6 +190,7 @@
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\PerfilViewModel.cs" />
     <Compile Include="ViewModels\PessoaViewModel.cs" />
+    <Compile Include="ViewModels\SaldoViewModel.cs" />
     <Compile Include="ViewModels\TituloViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

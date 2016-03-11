@@ -5,7 +5,7 @@
         </div>
         <div class="ibox-content">
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <input type="button" class="btn btn-default botaomes" value="@DateTime.Now.AddMonths(-3).ToString("MMM")" data-inicial-mes="@DateTime.Now.AddMonths(-3).ToString("01/MM/yyyy")" data-final-mes="@DateTime.Now.AddDays(-DateTime.Now.Day).AddDays(1).AddMonths(-2).AddDays(-1).ToString("dd/MM/yyyy")" />
                     <input type="button" class="btn btn-default botaomes" value="@DateTime.Now.AddMonths(-2).ToString("MMM")" data-inicial-mes="@DateTime.Now.AddMonths(-2).ToString("01/MM/yyyy")" data-final-mes="@DateTime.Now.AddDays(-DateTime.Now.Day).AddDays(1).AddMonths(-1).AddDays(-1).ToString("dd/MM/yyyy")" />
                     <input type="button" class="btn btn-default botaomes" value="@DateTime.Now.AddMonths(-1).ToString("MMM")" data-inicial-mes="@DateTime.Now.AddMonths(-1).ToString("01/MM/yyyy")" data-final-mes="@DateTime.Now.AddDays(-DateTime.Now.Day).AddDays(1).AddMonths(0).AddDays(-1).ToString("dd/MM/yyyy")" />
@@ -13,14 +13,14 @@
                     <input type="button" class="btn btn-default botaomes" value="@DateTime.Now.AddMonths(1).ToString("MMM")" data-inicial-mes="@DateTime.Now.AddMonths(1).ToString("01/MM/yyyy")" data-final-mes="@DateTime.Now.AddDays(-DateTime.Now.Day).AddDays(1).AddMonths(2).AddDays(-1).ToString("dd/MM/yyyy")" />
                 </div>
 
-                <div class="col-md-2" >
+                <div class="col-md-3" >
                     <div class="input-daterange input-group" id="datepicker">
                         <input type="text" class="form-control inputdate" name="start" id="dataInicial" value="@DateTime.Now.ToString("01/MM/yyyy")" />
                         <span class="input-group-addon">a</span>
                         <input type="text" class="form-control inputdate" name="end" id="dataFinal" value="@DateTime.Now.AddDays(-DateTime.Now.Day).AddDays(1).Date.AddMonths(1).AddDays(-1).Date.ToString("dd/MM/yyyy")" />
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-5">
                     <span class="btn btn-primary" id="consultar">
                         Consultar <i class="fa fa-search"></i>
                     </span>
@@ -45,10 +45,4 @@
         if (callback)
             callback();
     };
-
-
-
-
-
-
 </script>

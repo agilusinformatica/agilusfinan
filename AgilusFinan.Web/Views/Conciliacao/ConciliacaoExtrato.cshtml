@@ -109,7 +109,7 @@
                     <h4 id="alerta">Nenhum título está vinculado a este item.</h4>
 
                     @{
-                extratoId = extratoId + 1;
+                        extratoId = extratoId + 1;
                     }
 
                 </div>
@@ -557,8 +557,8 @@
 
         var getTitulosPendentes = function() {
 
-            var dataInicial = $('#dataInicial').val();
-            var dataFinal = $('#dataFinal').val();
+            var dataInicial = Utils.convertFormatDate($('#dataInicial').val());
+            var dataFinal = Utils.convertFormatDate($('#dataFinal').val());
 
             var dI = dataInicial.substring(8, 10) + '/' + dataInicial.substring(5, 7) + '/' + dataInicial.substring(0, 4);
             var dF = dataFinal.substring(8, 10) + '/' + dataFinal.substring(5, 7) + '/' + dataFinal.substring(0, 4);
@@ -701,8 +701,8 @@
 
         $(".vincularTitulos").click(function() {
             findTask($(this).attr("data-botaoid"));
-            $("#dataInicial").val(Utils.primeiroDiaMes(task.itemExtrato.DataLancamento, 'MDY'));
-            $("#dataFinal").val(Utils.ultimoDiaMes(task.itemExtrato.DataLancamento, 'MDY'));
+            $("#dataInicial").val(Utils.convertFormatDate(Utils.primeiroDiaMes(task.itemExtrato.DataLancamento, 'MDY')));
+            $("#dataFinal").val(Utils.convertFormatDate(Utils.ultimoDiaMes(task.itemExtrato.DataLancamento, 'MDY')));
             vinculoBuscaDialog.dialog("open");
             consultarPeriodo(getTitulosPendentes);
         });
@@ -750,6 +750,7 @@
         });
 
     }());
+
 
 </script>
 

@@ -11,7 +11,6 @@
 		}
     }
 
-    //Cria mascara de um lista de Inputs, selecionados pela classe (document.getElementsByClassName("classe"))
     export function defineInputDatePicker(inputs: Array<HTMLInputElement>) {
         for (var element in inputs) {
             if (inputs.hasOwnProperty(element)) {
@@ -26,6 +25,12 @@
                     
                 });
             }
+        }
+    }
+
+    export function defineInputSelect(inputs: Array<HTMLSelectElement>) {
+        for (var element in inputs) {
+            $(inputs[element]).select2();
         }
     }
 

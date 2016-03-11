@@ -73,7 +73,12 @@
         $('#check').change(function () {
             $('.checkbox').prop('checked', $(this).prop('checked'));
         });
+        $('input[type="checkbox"]').iCheck({
+            checkboxClass: 'icheckbox_square-green',
+            radioClass: 'iradio_square-green',
+        });
     });
+
 
     $('#Enviar').click(function () {
         $('.progress').toggle("slow");
