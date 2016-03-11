@@ -5,10 +5,14 @@
 }
 
 <h2>Contas</h2>
+<br />
 
 <p>
-    @Html.ActionLink("Adicionar", "Create")
+    <a href="@Url.Action("Create")" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i><span> Incluir</span></a>
 </p>
+
+<br />
+
 <table class="table" id="sorted">
     <thead>
         <tr>
@@ -38,8 +42,8 @@
                     @Html.DisplayFor(modelItem => item.DataSaldoInicial.GetDateTimeFormats()[0])
                 </td>
                 <td>
-                    @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "btn btn-primary dim fa fa-edit" })
-                    @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "btn btn-primary dim fa fa-trash-o" })
+                    @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "btn btn-primary btn-circle dim fa fa-edit" })
+                    @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "btn btn-warning btn-circle dim fa fa-trash-o" })
                 </td>
             </tr>
         }

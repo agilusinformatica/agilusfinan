@@ -3,9 +3,6 @@
 <link href="~/Content/bootstrap-treefy.css" rel="stylesheet" />
 <link href="~/fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
 <script src="~/Scripts/bootstrap-treefy.js"></script>
-@{
-    ViewBag.Title = "Index";
-}
 
 <table class="table" id="table">
     <tr>
@@ -13,28 +10,21 @@
             Categoria
         </th>
         <th>
-            
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Valor)
         </th>
-        <th></th>
     </tr>
 
     @foreach (var item in Model)
     {
         <tr data-node="treetable-@item.CategoriaId" data-pnode="treetable-parent-@item.CategoriaPaiId" >
             <td>
-                @Html.DisplayFor(modelItem => item.Nome)
+                @{
+                    string corContrastante = AgilusFinan.Web.Bases.Util.CorContrastante(System.Drawing.Color.FromArgb(item.Cor)).ToArgb().ToString("X").Substring(2, 6);
+                }
+                <div class="label" style="background-color: #@item.Cor.ToString("X").PadLeft(6,'0'); color: #@corContrastante"> @Html.DisplayFor(modelItem => item.Nome)</div>
             </td>
             <td>
-                <div style="background-color: #@item.Cor.ToString("X").PadLeft(6,'0'); width: 20px; height: 20px;"></div>
-            </td>
-            <td align="right">
                 @item.Valor.GetValueOrDefault((decimal)0.0).ToString("#,##0.00")
-            </td>
-            <td>
-                @Html.ActionLink("Detalhes", "Details")
             </td>
         </tr>
     }

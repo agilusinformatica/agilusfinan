@@ -4,14 +4,13 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
+<h2>Incluir Feriado Regional</h2>
 
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>FeriadoRegional</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -32,13 +31,11 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-                <input type="submit" value="Gravar e Incluir um novo" class="btn btn-default" onclick="Utils.manterTela($('form'))" />
+                <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Gravar</button>
+                <input type="submit" value="Gravar e Incluir um novo" class="btn btn-primary" onclick="Utils.manterTela($('form'))" />
+                @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-warning" })
             </div>
         </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>

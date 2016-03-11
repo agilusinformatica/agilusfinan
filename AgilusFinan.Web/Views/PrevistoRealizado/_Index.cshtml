@@ -1,27 +1,6 @@
 ﻿@using AgilusFinan.Domain.Entities;
 @model List<PrevistoRealizado>
 
-@*<div style="margin: 10px;">
-    <div class="row">
-        <div class="col-md-6">@Model[0].Tipo</div>
-        <div class="col-md-6" align="right">Previsto: @Model[0].Previsto.ToString("C")</div>
-    </div>
-    <div class="progress">
-        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="@Model[0].Realizado" aria-valuemin="0" aria-valuemax="@Model[0].Previsto" style="width: @Convert.ToInt32(Model[0].Porcentagem)%">
-            <span>@Model[0].Realizado.ToString("C")</span>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-6">@Model[1].Tipo</div>
-        <div class="col-md-6" align="right">Previsto: @Model[1].Previsto.ToString("C")</div>
-    </div>
-    <div class="progress">
-        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="@Model[1].Realizado" aria-valuemin="0" aria-valuemax="@Model[1].Previsto" style="width: @Convert.ToInt32(Model[1].Porcentagem)%">
-            <span>@Model[1].Realizado.ToString("C")</span>
-        </div>
-    </div>
-</div>*@
 
 <canvas style="padding-top: 20px" id="canvasPagamento" width="578" height="250"></canvas>
 

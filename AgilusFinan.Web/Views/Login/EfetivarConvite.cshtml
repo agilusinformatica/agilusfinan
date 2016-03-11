@@ -4,14 +4,6 @@
     Layout = "~/Views/Shared/_LayoutOff.cshtml";
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>EfetivarConvite</title>
-</head>
-<body>
     @using (Html.BeginForm()) 
     {
         @Html.AntiForgeryToken()
@@ -54,11 +46,9 @@
     
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Salvar" class="btn btn-default" />
+                    <input type="submit" value="Salvar" class="btn btn-primary" />
                 </div>
             </div>
         </div>
     }
     
-</body>
-</html>

@@ -4,14 +4,13 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
+<h2>Enviar Convite</h2>
 
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Convite</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -32,13 +31,10 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Convidar usuário e sair" class="btn btn-default" />
-                <input type="submit" value="Convidar e criar um novo convite" class="btn btn-default" onclick="Utils.manterTela($('form'))" />
+                <input type="submit" value="Convidar usuário e sair" class="btn btn-primary" />
+                <input type="submit" value="Convidar e criar um novo convite" class="btn btn-primary" onclick="Utils.manterTela($('form'))" />
+                @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-warning" })
             </div>
         </div>
     </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index", "Usuario")
-</div>

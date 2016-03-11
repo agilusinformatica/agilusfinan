@@ -6,9 +6,13 @@
 
 <h2>Pessoas</h2>
 
+<br />
+
 <p>
-    @Html.ActionLink("Adicionar", "Create")
+    <a href="@Url.Action("Create")" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i><span> Incluir</span></a>
 </p>
+
+<br />
 <table class="table" id="sorted">
     <thead>
         <tr>
@@ -67,8 +71,8 @@
                     @Html.DisplayFor(modelItem => item.DataNascimento.GetDateTimeFormats()[0])
                 </td>
                 <td>
-                    @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "glyphicon glyphicon-pencil" }) |
-                    @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "glyphicon glyphicon-trash" })
+                    @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "btn btn-primary btn-circle dim fa fa-edit", @title = "Alterar" })
+                    @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "btn btn-warning btn-circle dim fa fa-trash-o", @title = "Excluir" })
                 </td>
             </tr>
         }

@@ -1,14 +1,18 @@
 ﻿@model IEnumerable<AgilusFinan.Domain.Entities.ModeloBoleto>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Modelo de Boleto";
 }
 
-<h2>Index</h2>
+<h2>Modelos de Boleto</h2>
+
+<br />
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <a href="@Url.Action("Create")" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i><span> Incluir</span></a>
 </p>
+
+<br />
 <table class="table">
     <tr>
         <th>Nome do Modelo</th>
@@ -31,9 +35,8 @@
             @Html.DisplayFor(modelItem => item.Carteira)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "btn btn-primary btn-circle dim fa fa-edit", @title = "Alterar" })
+            @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "btn btn-warning btn-circle dim fa fa-trash-o", @title = "Excluir" })
         </td>
     </tr>
 }

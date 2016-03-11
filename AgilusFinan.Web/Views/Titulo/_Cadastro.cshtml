@@ -9,7 +9,6 @@
     @Html.HiddenFor(model => model.TituloRecorrenteId)
     
     <div class="form-horizontal">
-        <h4>Titulo</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         
@@ -28,13 +27,16 @@
                 @Html.Partial("~/Views/Titulo/_Liquidacao.cshtml", Model.Liquidacoes)
             </div>
         </div>
-
+        <br />
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Gravar</button>
+                <input type="submit" value="Gravar e Incluir um novo" class="btn btn-primary" onclick="Utils.manterTela($('form'))" />
+                @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-warning" })
+            </div>
+        </div>
     </div>
     
-    <div>
-        @Html.ActionLink("Voltar sem gravar", "Index")
-    </div>
-
 }
 
 
@@ -68,5 +70,3 @@
 <script>
 </script>
 
-<button class="btn btn-default" type="submit" onclick="UpdateTitulo();">Gravar</button>
-<button class="btn btn-default" type="submit" onclick="UpdateTitulo(true);">Gravar e incluir um novo</button>

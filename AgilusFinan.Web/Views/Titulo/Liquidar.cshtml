@@ -34,6 +34,7 @@
 </div>
 <div class="col-md-2">
     <button class="btn btn-default" onclick="UpdateTitulo();">Gravar</button>
+    @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-warning" })
 </div>
 <script>
     var titulo = JSON.parse('@Html.Raw(Json.Encode(Model))');
