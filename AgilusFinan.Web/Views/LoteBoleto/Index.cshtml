@@ -34,8 +34,7 @@
                 <td style ="display:none;">@item.TituloRecorrenteId</td>
                 <td style="display:none;">@item.ModeloBoletoId</td>
                 <td class="clear"></td>
-
-</tr>
+            </tr>
         }
     </tbody>
 </table>
@@ -56,7 +55,7 @@
 
 
 <div class="progress">
-    <div id="progressbar" class="progress-bar progress-bar-success" role="progressbar">
+    <div id="progressbar" class="progress-bar progress-bar-default" role="progressbar">
         <img src="~/Content/Images/ellipsis.gif" height="20" />
     </div>
 </div>
@@ -82,14 +81,14 @@
 
     $('#Enviar').click(function () {
         $('.progress').toggle("slow");
-        $('.label-success').toggle();
+        $('.label').toggle("slow");
         GerarBoletos();
     });
 
     function GerarBoletos() {
         var boletos = GetData();
         var contador = 0;
-        var tabletr = $("table input[id='item_Boleto']:checked").parent().parent();
+        var tabletr = $("table input[id='item_Boleto']:checked").parent().parent().parent();
         $.each(boletos, function (indice, boleto) {
             $.ajax({
                 type: "POST",
@@ -100,7 +99,7 @@
                     $('#progressbar').attr("style", "width:" + pos + "%");
                     $('#progressbar').html(pos + "%");
                     if(msg == 'Enviado'){
-                        $(tabletr[indice]).children()[8].innerHTML = '<label class="label label-success">'+msg+'</label>';
+                        $(tabletr[indice]).children()[8].innerHTML = '<label class="label label-primary">'+msg+'</label>';
                     }
                     else{
                         $(tabletr[indice]).children()[8].innerHTML = '<label class="label label-danger">'+msg+'</label>';
@@ -127,7 +126,7 @@
     }
 
     function GetData() {
-        var tabletr = $("table input[id='item_Boleto']:checked").parent().parent();
+        var tabletr = $("table input[id='item_Boleto']:checked").parent().parent().parent();
         titulos = [];
         tabletr.each(function (i) {
             var titulo = {};
