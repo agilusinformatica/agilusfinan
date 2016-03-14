@@ -4,11 +4,15 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Usuários</h2>
+<br />
 
 <p>
-    @Html.ActionLink("Convidar usuário", "../Convite/Create")
+    <a href="@Url.Action("Create", "Convite")" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i><span> Convidar usuário</span></a>
 </p>
+
+<br />
+
 <table class="table" id="sorted">
     <thead>
         <tr>
