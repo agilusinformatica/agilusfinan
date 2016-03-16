@@ -178,7 +178,7 @@
 		return joined;
 	}
 
-	export function verifyBrowserInputDate() {
+	/*export function verifyBrowserInputDate() {
 		var inputTest = document.createElement("input");
 		inputTest.setAttribute("type", "date");
 
@@ -205,7 +205,7 @@
 				};
 			}
 		}
-	}
+	}*/
 
 	export function convertFormatDate(date: string) {
 		var dash = new RegExp(/^[0-3][0-9]\/[0-1][0-9]\/[1-2][0-9]{3}$/).exec(date);
