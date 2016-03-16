@@ -24,26 +24,14 @@ namespace AgilusFinan.Web
             ViewEngines.Engines.Add(new RazorViewEngine());
         }
 
-        protected void Application_PreRequestHandlerExecute(object sender, EventArgs e)
+        public override string GetVaryByCustomString(HttpContext context, string custom)
         {
-            //Check if user is authenticated
-            HttpCookie authCookie = Request.Cookies[FormsAuthentication.FormsCookieName];
-            if (authCookie != null)
+            if (custom == "empresa")
             {
-                FormsAuthenticationTicket authTicket = FormsAuthentication.Decrypt(authCookie.Value);
-                if (!authTicket.Expired)
-                {
-                    if (HttpContext.Current.Session != null)
-                    {
-                        if (UsuarioLogado.EmpresaId == 0)
-                        {
-                            FormsAuthentication.SignOut();
-                            Response.Redirect(FormsAuthentication.LoginUrl, true);
-                            return;
-                        }
-                    }
-                }
+                return UsuarioLogado.EmpresaId.ToString();
             }
+            return base.GetVaryByCustomString(context, custom);
         }
+
     }
 }

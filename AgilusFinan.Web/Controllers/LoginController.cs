@@ -47,6 +47,7 @@ namespace AgilusFinan.Web.Controllers
         public ActionResult Logoff()
         {
             FormsAuthentication.SignOut();
+            Response.Cookies.Add(new HttpCookie("ASP.NET_SessionId", ""));
             UsuarioLogado.EmpresaId = 0;
             return RedirectToAction("Index", "Home");
         }
