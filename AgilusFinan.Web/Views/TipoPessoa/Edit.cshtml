@@ -1,10 +1,10 @@
 ﻿@model AgilusFinan.Domain.Entities.TipoPessoa
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Tipo de Pessoa";
 }
 
-<h2>Edit</h2>
+<h2>Alterar</h2>
 
 
 @using (Html.BeginForm())
@@ -12,7 +12,6 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>TipoPessoa</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
@@ -27,15 +26,12 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Gravar</button>
+                @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-warning" })
             </div>
         </div>
     </div>
 }
-
-<div>
-    @Html.ActionLink("Voltar sem gravar", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

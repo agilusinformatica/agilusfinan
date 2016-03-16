@@ -8,11 +8,33 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Pessoa</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
         @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Tipo de Pessoa </label>
+            <table id="tabTiposPessoa">
+                <tr>
+                    @foreach (var tipo in Model.TiposPorPessoa)
+                    {
+                        <td>
+                            @Html.LabelFor(model => model.TiposPorPessoa, tipo.Nome, htmlAttributes: new { @class = "control-label col-md-1" })
+                        </td>
+                    }
+                </tr>
+                <tr>
+                    @foreach (var tipo in Model.TiposPorPessoa)
+                    {
+                        <td style="text-align: center">
+                            <input type="hidden" value="@(tipo.Id)" />
+                            <input type="checkbox" @(tipo.Marcado ? "checked" : "") />
+                        </td>
+                    }
+                </tr>
+            </table>
+        </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -78,53 +100,37 @@
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.Endereco, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-12">
                 @Html.EditorFor(model => model.Endereco, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Endereco, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ContaBancaria, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-12">
                 @Html.EditorFor(model => model.ContaBancaria, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.ContaBancaria, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.TiposPorPessoa, htmlAttributes: new { @class = "control-label col-md-2" })
-            <table id="tabTiposPessoa">
-                <tr>
-                    @foreach (var tipo in Model.TiposPorPessoa)
-                    {
-                        <td>
-                            @Html.LabelFor(model => model.TiposPorPessoa, tipo.Nome, htmlAttributes: new { @class = "control-label col-md-1" })
-                        </td>
-                    }
-                </tr>
-                <tr>
-                    @foreach (var tipo in Model.TiposPorPessoa)
-                    {
-                        <td style="text-align: center">
-                            <input type="hidden" value="@(tipo.Id)" />
-                            <input type="checkbox" @(tipo.Marcado ? "checked" : "")/>
-                        </td>
-                    }
-                </tr>
-            </table>
+            <label class="control-label col-md-2">Telefones</label>
+            <div id="divTable" class="col-md-10">
+                <button class="btn btn-primary" id="AdicionarTelefone" type="button" ><i class="fa fa-plus"></i> Adicionar</button>
+                <table class="" id="tabTelefones"></table>
+            </div>
+
         </div>
 
-        <div id="divTable">
-            <input class="btn btn-default" id="AdicionarTelefone" type="button" value="Adiciona Telefone" />
-            <table class="" id="tabTelefones"></table>
-            <span class="btn btn-default" onclick="UpdatePessoa();">Gravar</span>
-            <span class="btn btn-default" onclick="UpdatePessoa(true);">Gravar e incluir uma nova</span>
-            @Html.ActionLink("Voltar sem gravar", "Index")
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <span class="btn btn-primary" onclick="UpdatePessoa();"><i class="fa fa-check"></i> Gravar</span>
+                <span class="btn btn-primary" onclick="UpdatePessoa(true);">Gravar e incluir uma nova</span>
+                @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-warning" })
+            </div>
         </div>
 
-    </div>
+    c</div>
 }
 
 

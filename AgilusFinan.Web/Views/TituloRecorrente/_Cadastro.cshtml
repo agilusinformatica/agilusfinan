@@ -102,16 +102,14 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Gravar" class="btn btn-default" />
-                <input type="submit" value="Gravar e Incluir um novo" class="btn btn-default" onclick="Utils.manterTela($('form'))" />
+                <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Gravar</button>
+                <input type="submit" value="Gravar e Incluir um novo" class="btn btn-primary" onclick="Utils.manterTela($('form'))" />
+                @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-warning" })
             </div>
         </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Voltar sem gravar", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

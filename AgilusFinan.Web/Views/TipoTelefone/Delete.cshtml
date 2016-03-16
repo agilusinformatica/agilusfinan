@@ -1,12 +1,12 @@
 ﻿@model AgilusFinan.Domain.Entities.TipoTelefone
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Tipo de Telefone";
 }
 
-<h2>Delete</h2>
+<h2>Excluir</h2>
 
-<h3>Tem certeza que deseja excluir isto?</h3>
+<h3>Tem certeza que deseja excluir esse tipo de telefone?</h3>
 <div>
     <h4>TipoTelefone</h4>
     <hr />
@@ -25,8 +25,8 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Excluir" class="btn btn-default" /> |
-            @Html.ActionLink("Voltar sem gravar", "Index")
+            <input type="submit" value="Delete" class="btn btn-danger" />
+            @Html.ActionLink("Voltar", "Index", null, new { @class = "btn btn-white" })
         </div>
     }
 </div>
