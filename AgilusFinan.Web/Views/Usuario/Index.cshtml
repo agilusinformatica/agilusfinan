@@ -52,8 +52,8 @@
                     }
                 </td>
                 <td>
-                    @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "btn btn-primary dim fa fa-edit" })
-                    @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "btn btn-primary dim fa fa-trash-o" })
+                    @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "btn btn-primary btn-circle dim fa fa-edit", @title = "Alterar" })
+                    @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "btn btn-warning btn-circle dim fa fa-trash-o", @title = "Excluir" })
                     
                 </td>
             </tr>

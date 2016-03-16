@@ -20,6 +20,7 @@ namespace AgilusFinan.Domain.Entities
         [Display(Name="Conta Bancária")]
         public ContaBancaria ContaBancaria { get; set; }
         public virtual IList<TelefonePessoa> Telefones { get; set; }
+        [Display(Name = "Tipo da Pessoa")]
         public virtual IList<TipoPessoaPorPessoa> TiposPessoa { get; set; }
         public string EmailContato { get; set; }
         public string EmailFinanceiro { get; set; }
