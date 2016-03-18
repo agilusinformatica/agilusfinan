@@ -311,6 +311,8 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="Scripts\prInvalidaCachePagamento.sql" />
+    <Content Include="Scripts\prInvalidaCacheExtrato.sql" />
     <Compile Include="Services\AcessosUsuario.cs" />
     <Compile Include="Services\ConsultaCache.cs" />
     <Compile Include="Services\GeradorExtrato.cs" />
@@ -562,6 +564,7 @@
     <Content Include="Scripts\fn_saldo.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Scripts\prInvalidaCacheRecebimento.sql" />
     <Content Include="Scripts\prInvalidaCacheSaldo.sql" />
     <Content Include="Scripts\prInvalidaCacheTituloPendente.sql" />
     <Content Include="Scripts\pr_conciliar_titulos.sql" />
