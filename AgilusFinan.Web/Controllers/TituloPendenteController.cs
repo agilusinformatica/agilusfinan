@@ -14,7 +14,6 @@ namespace AgilusFinan.Web.Controllers
     public class TituloPendenteController : Controller
     {
         // GET: TitulosPendentes
-        [OutputCache(Duration=10000, VaryByParam = "dataInicial;dataFinal", VaryByCustom = "empresa")]
         public PartialViewResult Index(DateTime dataInicial, DateTime dataFinal)
         {
             return PartialView("~/Views/TituloPendente/_Index.cshtml", GeradorTitulosPendentes.ChamarProcedimento(dataInicial, dataFinal, null));
