@@ -28,10 +28,9 @@ namespace AgilusFinan.Web
         {
             if (custom == "empresa")
             {
-                return UsuarioLogado.EmpresaId.ToString();
+                return "empresa=" + UsuarioLogado.EmpresaId.ToString();
             }
             return base.GetVaryByCustomString(context, custom);
         }
-
     }
 }

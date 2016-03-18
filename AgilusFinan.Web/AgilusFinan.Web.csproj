@@ -144,6 +144,7 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Bases\Alerta.cs" />
+    <Compile Include="Bases\Cache.cs" />
     <Compile Include="Bases\ControllerConsultaPadrao.cs" />
     <Compile Include="Bases\ControllerViewModelPadrao.cs" />
     <Compile Include="Bases\ControllerPadrao.cs" />
