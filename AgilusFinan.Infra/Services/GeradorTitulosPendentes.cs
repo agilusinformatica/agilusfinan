@@ -25,12 +25,6 @@ namespace AgilusFinan.Infra.Services
                 );
 
                 Lista = context.Database.SqlQuery<TituloPendente>(query).ToList();
-
-                /*Lista = context.Database.SqlQuery<TituloPendente>("exec pr_titulos_pendentes @id_empresa, @data_inicial, @data_final, @tipo_pessoa",
-                            new SqlParameter("@id_empresa", context.EmpresaId),
-                            new SqlParameter("@data_inicial", dataInicial),
-                            new SqlParameter("@data_final", dataFinal),
-                            new SqlParameter("@tipo_pessoa", tipoPessoa)).ToList();*/
             }
             return Lista;
         }

@@ -14,20 +14,21 @@ namespace AgilusFinan.Web.Controllers
     public class TituloPendenteController : Controller
     {
         // GET: TitulosPendentes
-        //[OutputCache(CacheProfile = "Dashboard")]
         public PartialViewResult Index(DateTime dataInicial, DateTime dataFinal)
         {
-            var pagina = (PartialViewResult)HttpContext.Cache["titulospendentes"+UsuarioLogado.EmpresaId.ToString()];
+            var parametros = new Dictionary<string, string>();
+            parametros.Add("empresaId", UsuarioLogado.EmpresaId.ToString());
+            parametros.Add("dataInicial", dataInicial.ToString());
+            parametros.Add("dataFinal", dataFinal.ToString());
+            var pagina = (PartialViewResult)Cache.Busca("titulospendentes", parametros);
             
             if (pagina == null)
 	        {
                 pagina = PartialView("~/Views/TituloPendente/_Index.cshtml", GeradorTitulosPendentes.ChamarProcedimento(dataInicial, dataFinal, null));
-                HttpContext.Cache.Insert("titulospendentes" + UsuarioLogado.EmpresaId.ToString(), pagina);
+                Cache.Insere("titulospendentes", parametros, pagina);
 	        }
 
             return pagina;
-
-            //return PartialView("~/Views/TituloPendente/_Index.cshtml", GeradorTitulosPendentes.ChamarProcedimento(dataInicial, dataFinal, null));
         }
 
         [HttpGet]
