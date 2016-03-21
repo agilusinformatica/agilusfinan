@@ -26,7 +26,10 @@ begin
 	fetch cur into @empresaId, @DataVencimento, @Direcao
 	while @@FETCH_STATUS = 0
 	begin
+		exec prInvalidaCacheFluxoCaixa @empresaId, @DataVencimento
+		exec prInvalidaCachePrevistoRealizado @empresaId, @DataVencimento
 		exec prInvalidaCacheTituloPendente @empresaId, @DataVencimento
+		exec prInvalidaCacheResumoTitulo @empresaId, @DataVencimento
 		if @Direcao = 0
 			exec prInvalidaCacheRecebimento @empresaId, @DataVencimento
 		else
@@ -45,7 +48,10 @@ begin
 	fetch cur into @empresaId, @DataVencimento, @Direcao
 	while @@FETCH_STATUS = 0
 	begin
+		exec prInvalidaCacheFluxoCaixa @empresaId, @DataVencimento
+		exec prInvalidaCachePrevistoRealizado @empresaId, @DataVencimento
 		exec prInvalidaCacheTituloPendente @empresaId, @DataVencimento
+		exec prInvalidaCacheResumoTitulo @empresaId, @DataVencimento
 		if @Direcao = 0
 			exec prInvalidaCacheRecebimento @empresaId, @DataVencimento
 		else

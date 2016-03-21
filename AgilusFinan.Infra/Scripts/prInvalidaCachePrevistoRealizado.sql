@@ -1,23 +1,23 @@
-if object_id('prInvalidaCacheResumoTitulo') > 0
+if object_id('prInvalidaCachePrevistoRealizado') > 0
 begin
-   drop procedure prInvalidaCacheResumoTitulo
-   print '<< DROP prInvalidaCacheResumoTitulo >>'
+   drop procedure prInvalidaCachePrevistoRealizado
+   print '<< DROP prInvalidaCachePrevistoRealizado >>'
 end
 
 GO
 
-create procedure prInvalidaCacheResumoTitulo(@empresaId int, @data datetime) as
+create procedure prInvalidaCachePrevistoRealizado(@empresaId int, @data datetime) as
 /*----------------------------------------------------------------------------------------------------------------------
-NOME: prInvalidaCacheResumoTitulo
-OBJETIVO: Apagar referencia de resumoTitulo da tabela Cache 
-DATA: 18/03/2016
+NOME: prInvalidaCachePrevistoRealizado
+OBJETIVO: Apagar referencia de Previsto x Realizado da tabela Cache 
+DATA: 21/03/2016
 ----------------------------------------------------------------------------------------------------------------------*/
 begin
 	set nocount on 
 	
 	delete cache
 	from cache as c
-	where nome = 'resumotitulo'
+	where nome = 'previstorealizado'
 	and exists( select 1
 				  from parametrocache
 				  where CacheId = c.Id
@@ -38,10 +38,12 @@ end
 
 GO
 
-if object_id('prInvalidaCacheResumoTitulo') > 0
+if object_id('prInvalidaCachePrevistoRealizado') > 0
 begin
-   print '<< CREATE prInvalidaCacheResumoTitulo >>'
+   print '<< CREATE prInvalidaCachePrevistoRealizado >>'
 end
 GO
+
+
 
 

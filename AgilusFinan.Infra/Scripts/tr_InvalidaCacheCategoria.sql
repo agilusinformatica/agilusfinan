@@ -6,7 +6,7 @@ end
 
 GO
 
-CREATE trigger tr_InvalidaCacheCategoria on Liquidacao for INSERT, UPDATE, DELETE as
+CREATE trigger tr_InvalidaCacheCategoria on Categoria for INSERT, UPDATE, DELETE as
 /*----------------------------------------------------------------------------------------------------------------------
 NOME: tr_InvalidaCacheCategoria
 OBJETIVO: Invalidar cache de categoria
@@ -43,7 +43,6 @@ begin
 	while @@FETCH_STATUS = 0
 	begin
 		exec prInvalidaCacheTituloPendente @empresaId, @DataVencimento
-		exec prInvalidaCacheSaldo @empresaId, @DataVencimento
 		fetch cur into @empresaId, @DataVencimento
 	end
 	close cur

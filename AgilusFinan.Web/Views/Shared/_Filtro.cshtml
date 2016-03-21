@@ -10,20 +10,20 @@
                 <label> @item.Label </label>
                 @switch (item.Tipo)
                 {
-                    case AgilusFinan.Domain.Entities.TipoFiltro.texto:
-                        <input type="text" data-grupo="filtro" data-filtro="@item.Nome" value="@item.Valor" class="form-control" />
+                    case TipoFiltro.texto:
+                        <input type="text" data-grupo="filtro" data-filtro="@item.Nome" data-tipo="@item.Tipo" value="@item.Valor" class="form-control" />
                         break;
-                    case AgilusFinan.Domain.Entities.TipoFiltro.valor:
-                        <input type="text" data-grupo="filtro" data-filtro="@item.Nome" value="@item.Valor" class="form-control" />
+                    case TipoFiltro.valor:
+                        <input type="text" data-grupo="filtro" data-filtro="@item.Nome" data-tipo="@item.Tipo" value="@item.Valor" class="form-control" />
                         break;
-                    case AgilusFinan.Domain.Entities.TipoFiltro.monetario:
-                        <input type="text" data-grupo="filtro" data-filtro="@item.Nome" value="@item.Valor" class="form-control" />
+                    case TipoFiltro.monetario:
+                        <input type="text" data-grupo="filtro" data-filtro="@item.Nome" data-tipo="@item.Tipo" value="@item.Valor" class="form-control" />
                         break;
-                    case AgilusFinan.Domain.Entities.TipoFiltro.data:
-                        <input type="text" data-grupo="filtro" data-filtro="@item.Nome" value="@item.Valor.ToString("dd/MM/yyyy")" class="form-control inputdate" />
+                    case TipoFiltro.data:
+                        <input type="text" data-grupo="filtro" data-filtro="@item.Nome" data-tipo="@item.Tipo" value="@item.Valor.ToString("dd/MM/yyyy")" class="form-control inputdate" />
                         break;
-                    case AgilusFinan.Domain.Entities.TipoFiltro.conta:
-                        <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome">
+                    case TipoFiltro.conta:
+                        <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome" data-tipo="@item.Tipo">
                             <option> </option>
                             @foreach (var conta in new SelectLista(UsuarioLogado.UsuarioId, TipoLista.Conta).Listar())
                             {
@@ -31,8 +31,8 @@
                             }
                         </select>
                         break;
-                    case AgilusFinan.Domain.Entities.TipoFiltro.banco:
-                        <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome">
+                    case TipoFiltro.banco:
+                        <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome" data-tipo="@item.Tipo">
                             <option> </option>
                             @foreach (var banco in new SelectLista(UsuarioLogado.UsuarioId, TipoLista.Banco).Listar())
                             {
@@ -40,8 +40,8 @@
                             }
                         </select>
                         break;
-                    case AgilusFinan.Domain.Entities.TipoFiltro.categoria:
-                        <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome">
+                    case TipoFiltro.categoria:
+                        <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome" data-tipo="@item.Tipo">
                             <option> </option>
                             @foreach (var categoria in new SelectLista(UsuarioLogado.UsuarioId, TipoLista.Categoria).Listar())
                             {
@@ -49,8 +49,8 @@
                             }
                         </select>
                         break;
-                    case AgilusFinan.Domain.Entities.TipoFiltro.centrocusto:
-                            <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome">
+                    case TipoFiltro.centrocusto:
+                            <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome" data-tipo="@item.Tipo">
                                 <option> </option>
                                 @foreach (var centrocusto in new SelectLista(UsuarioLogado.UsuarioId, TipoLista.CentroCusto).Listar())
                                 {
@@ -58,8 +58,8 @@
                                 }
                             </select>
                             break;
-                    case AgilusFinan.Domain.Entities.TipoFiltro.perfil:
-                        <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome">
+                    case TipoFiltro.perfil:
+                        <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome" data-tipo="@item.Tipo">
                             <option> </option>
                             @foreach (var perfil in new SelectLista(UsuarioLogado.UsuarioId, TipoLista.Perfil).Listar())
                             {
@@ -67,8 +67,8 @@
                             }
                         </select>
                         break;
-                    case AgilusFinan.Domain.Entities.TipoFiltro.pessoa:
-                        <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome">
+                    case TipoFiltro.pessoa:
+                        <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome" data-tipo="@item.Tipo">
                             <option> </option>
                             @foreach (var pessoa in new SelectLista(UsuarioLogado.UsuarioId, TipoLista.Pessoa).Listar())
                             {
@@ -76,8 +76,8 @@
                             }
                         </select>
                         break;
-                    case AgilusFinan.Domain.Entities.TipoFiltro.tipopessoa:
-                        <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome">
+                    case TipoFiltro.tipopessoa:
+                        <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome" data-tipo="@item.Tipo">
                             <option> </option>
                             @foreach (var tipopessoa in new SelectLista(UsuarioLogado.UsuarioId, TipoLista.TipoPessoa).Listar())
                             {
@@ -85,8 +85,8 @@
                             }
                         </select>
                         break;
-                    case AgilusFinan.Domain.Entities.TipoFiltro.tipotelefone:
-                        <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome">
+                    case TipoFiltro.tipotelefone:
+                        <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome" data-tipo="@item.Tipo">
                             <option> </option>
                             @foreach (var tipotelefone in new SelectLista(UsuarioLogado.UsuarioId, TipoLista.TipoTelefone).Listar())
                             {
@@ -94,8 +94,8 @@
                             }
                         </select>
                         break;
-                    case AgilusFinan.Domain.Entities.TipoFiltro.usuario:
-                        <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome">
+                    case TipoFiltro.usuario:
+                        <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome" data-tipo="@item.Tipo">
                             <option> </option>
                             @foreach (var usuario in new SelectLista(UsuarioLogado.UsuarioId, TipoLista.Usuario).Listar())
                             {
@@ -103,8 +103,8 @@
                             }
                         </select>
                         break;
-                    case AgilusFinan.Domain.Entities.TipoFiltro.modeloboleto:
-                        <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome">
+                    case TipoFiltro.modeloboleto:
+                        <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome" data-tipo="@item.Tipo">
                             <option> </option>
                             @foreach (var modeloboleto in new SelectLista(UsuarioLogado.UsuarioId, TipoLista.ModeloBoleto).Listar())
                             {
@@ -112,8 +112,8 @@
                             }
                         </select>
                             break;
-                    case AgilusFinan.Domain.Entities.TipoFiltro.periodicidade:
-                        <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome">
+                    case TipoFiltro.periodicidade:
+                        <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome" data-tipo="@item.Tipo">
                             <option> </option>
                             @foreach (var tipoPeriodo in Enum.GetNames(typeof(AgilusFinan.Domain.Entities.Periodicidade)))
                             {
@@ -151,7 +151,8 @@
         $('[data-grupo="filtro"]').each(function () {
             parametros.push({
                 Nome: $(this).attr('data-filtro'),
-                Valor: Utils.convertFormatDate($(this).val())
+                Valor: Utils.convertFormatDate($(this).val()),
+                Tipo: $(this).attr('data-tipo')
             });
         });
 

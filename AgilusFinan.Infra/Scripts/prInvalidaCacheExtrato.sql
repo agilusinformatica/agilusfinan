@@ -27,7 +27,7 @@ begin
 				  from parametrocache
 				  where CacheId = c.Id
 				  and nome = 'data_final'
-				  and @data <= convert(datetime,valor,111) )
+				  and @data <= convert(datetime,valor,103) )
 
 end
 

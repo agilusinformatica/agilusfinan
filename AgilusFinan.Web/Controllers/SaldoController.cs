@@ -15,11 +15,13 @@ namespace AgilusFinan.Web.Controllers
         // GET: Saldo
         public ActionResult Index(DateTime data, int? contaId)
         {
+            //parametros do cache
             var parametros = new Dictionary<string, string>();
             parametros.Add("empresaId", UsuarioLogado.EmpresaId.ToString());
             parametros.Add("data", data.ToString());
             var pagina = (ViewResult)Cache.Busca("saldo", parametros);
 
+            //se o cache não existir ou foi expirado anteriormente, cria um novo
             if (pagina == null)
             {
                 var saldos = new List<SaldoViewModel>();

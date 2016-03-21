@@ -125,7 +125,10 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <span class="btn btn-primary" onclick="UpdatePessoa();"><i class="fa fa-check"></i> Gravar</span>
-                <span class="btn btn-primary" onclick="UpdatePessoa(true);">Gravar e incluir uma nova</span>
+                @if (ViewBag.TipoOperacao == "Incluindo")
+                {
+                    <span class="btn btn-primary" onclick="UpdatePessoa(true);">Gravar e incluir uma nova</span>
+                }
                 @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-warning" })
             </div>
         </div>

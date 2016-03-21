@@ -32,10 +32,20 @@ namespace AgilusFinan.Web.Bases
             if (NomeCache() != null)
             {
                 var parametros = new Dictionary<string, string>();
+
+                parametros.Add("empresaId", UsuarioLogado.EmpresaId.ToString());
+
                 foreach (var item in filtro.Parametros)
                 {
-                    parametros.Add(item.Nome, item.Valor);
+                    if (item.Tipo == TipoFiltro.data)
+                    {
+                        var dataFiltro = Convert.ToDateTime(item.Valor);
+                        parametros.Add(item.Nome, dataFiltro.ToString("dd/MM/yyyy"));
+                    }
+                    else
+                        parametros.Add(item.Nome, item.Valor);
                 }
+
 
                 pagina = (ViewResult)Cache.Busca(NomeCache(), parametros);
 
