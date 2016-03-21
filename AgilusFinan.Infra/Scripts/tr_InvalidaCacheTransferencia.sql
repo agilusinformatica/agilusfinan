@@ -16,31 +16,35 @@ O arquivo de criação está localizado na pasta Scripts (Projeto Infra).
 ----------------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------*/
 begin
-	declare @EmpresaId int, @DataVencimento datetime
+	declare @EmpresaId int, @Data datetime, @ContaOrigemId int, @ContaDestinoId int
 	declare cur cursor for
-	select EmpresaId, Data
+	select EmpresaId, Data, ContaOrigemId, ContaDestinoId
 	from inserted
 
 	open cur
-	fetch cur into @empresaId, @DataVencimento
+	fetch cur into @empresaId, @Data, @ContaOrigemId, @ContaDestinoId
 	while @@FETCH_STATUS = 0
 	begin
-		exec prInvalidaCacheSaldo @empresaId, @DataVencimento
-		fetch cur into @empresaId, @DataVencimento
+		exec prInvalidaCacheSaldo @empresaId, @Data
+		exec prInvalidaCacheExtrato @ContaOrigemId, @Data
+		exec prInvalidaCacheExtrato @ContaDestinoId, @Data
+		fetch cur into @empresaId, @Data, @ContaOrigemId, @ContaDestinoId
 	end
 	close cur
 	deallocate cur
 	---------------------------------------
 	declare cur cursor for
-	select EmpresaId, Data
+	select EmpresaId, Data, ContaOrigemId, ContaDestinoId
 	from deleted
 
 	open cur
-	fetch cur into @empresaId, @DataVencimento
+	fetch cur into @empresaId, @Data, @ContaOrigemId, @ContaDestinoId
 	while @@FETCH_STATUS = 0
 	begin
-		exec prInvalidaCacheSaldo @empresaId, @DataVencimento
-		fetch cur into @empresaId, @DataVencimento
+		exec prInvalidaCacheSaldo @empresaId, @Data
+		exec prInvalidaCacheExtrato @ContaOrigemId, @Data
+		exec prInvalidaCacheExtrato @ContaDestinoId, @Data
+		fetch cur into @empresaId, @Data, @ContaOrigemId, @ContaDestinoId
 	end
 	close cur
 	deallocate cur
