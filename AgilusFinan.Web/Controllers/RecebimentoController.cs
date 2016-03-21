@@ -30,20 +30,31 @@ namespace AgilusFinan.Web.Controllers
 
         public ActionResult IndexData(string dataInicial, string dataFinal)
         {
-            DateTime dI, dF;
-            if (String.IsNullOrEmpty(dataInicial) && String.IsNullOrEmpty(dataFinal))
+            var parametros = new Dictionary<string, string>();
+            parametros.Add("empresaId", UsuarioLogado.EmpresaId.ToString());
+            parametros.Add("dataInicial", dataInicial.ToString());
+            parametros.Add("dataFinal", dataFinal.ToString());
+            var pagina = (PartialViewResult)Cache.Busca("recebimento", parametros);
+
             {
-                dI = Util.PrimeiroDiaMes(DateTime.Today);
-                dF = Util.UltimoDiaMes(DateTime.Today);
+                DateTime dI, dF;
+                if (String.IsNullOrEmpty(dataInicial) && String.IsNullOrEmpty(dataFinal))
+                {
+                    dI = Util.PrimeiroDiaMes(DateTime.Today);
+                    dF = Util.UltimoDiaMes(DateTime.Today);
+                }
+                else
+                {
+                    dI = DateTime.ParseExact(dataInicial, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                    dF = DateTime.ParseExact(dataFinal, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                }
+                ViewBag.ModelosBoleto = new RepositorioModeloBoleto().Listar().ToList();
+                GerarLista();
+                pagina = PartialView("~/Views/Titulo/IndexData.cshtml", repo.Listar(t => t.DataVencimento >= dI && t.DataVencimento <= dF));
+                Cache.Insere("recebimento", parametros, pagina);
             }
-            else
-            {
-                dI = DateTime.ParseExact(dataInicial, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-                dF = DateTime.ParseExact(dataFinal, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-            }
-            ViewBag.ModelosBoleto = new RepositorioModeloBoleto().Listar().ToList();
-            GerarLista();
-            return PartialView("~/Views/Titulo/IndexData.cshtml", repo.Listar(t => t.DataVencimento >= dI && t.DataVencimento <= dF));
+
+            return pagina;
         }
 
 

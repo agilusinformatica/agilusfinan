@@ -1,23 +1,23 @@
-if object_id('prInvalidaCacheSaldo') > 0
+﻿if object_id('prInvalidaCacheFluxoCaixa') > 0
 begin
-   drop procedure prInvalidaCacheSaldo
-   print '<< DROP prInvalidaCacheSaldo >>'
+   drop procedure prInvalidaCacheFluxoCaixa
+   print '<< DROP prInvalidaCacheFluxoCaixa >>'
 end
 
 GO
 
-create procedure prInvalidaCacheSaldo(@empresaId int, @data datetime) as
+create procedure prInvalidaCacheFluxoCaixa(@empresaId int, @data datetime) as
 /*----------------------------------------------------------------------------------------------------------------------
-NOME: prInvalidaCacheSaldo
-OBJETIVO: Apagar referencia de saldo da tabela Cache 
+NOME: prInvalidaCacheFluxoCaixa
+OBJETIVO: Apagar referência Cache Fluxo Caixa
 DATA: 18/03/2016
 ----------------------------------------------------------------------------------------------------------------------*/
 begin
 	set nocount on 
-	
+
 	delete cache
 	from cache as c
-	where nome = 'saldo'
+	where nome = 'fluxocaixa'
 	and exists( select 1
 				  from parametrocache
 				  where CacheId = c.Id
@@ -26,16 +26,16 @@ begin
 	and exists( select 1
 				  from parametrocache
 				  where CacheId = c.Id
-				  and nome = 'data'
+				  and nome = 'dataFinal'
 				  and @data <= convert(datetime,valor,103))
 
 end
 
 GO
 
-if object_id('prInvalidaCacheSaldo') > 0
+if object_id('prInvalidaCacheFluxoCaixa') > 0
 begin
-   print '<< CREATE prInvalidaCacheSaldo >>'
+   print '<< CREATE prInvalidaCacheFluxoCaixa >>'
 end
 GO
 

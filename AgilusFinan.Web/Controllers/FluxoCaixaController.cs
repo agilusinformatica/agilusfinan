@@ -15,5 +15,9 @@ namespace AgilusFinan.Web.Controllers
         {
             return "FluxoCaixa";
         }
+        public override string NomeCache()
+        {
+            return "fluxocaixa";
+        }
     }
 }

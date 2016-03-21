@@ -16,5 +16,10 @@ namespace AgilusFinan.Web.Controllers
             return "Extrato";
         }
 
+        public override string NomeCache()
+        {
+            return "extrato";
+        }
+
     }
 }

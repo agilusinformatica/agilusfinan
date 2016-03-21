@@ -1,4 +1,6 @@
-﻿using AgilusFinan.Infra.Services;
+﻿using AgilusFinan.Domain.Entities;
+using AgilusFinan.Infra.Services;
+using AgilusFinan.Web.Bases;
 using AgilusFinan.Web.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -13,12 +15,25 @@ namespace AgilusFinan.Web.Controllers
         // GET: Saldo
         public ActionResult Index(DateTime data, int? contaId)
         {
-            var saldos = new List<SaldoViewModel>();
-            foreach (var conta in new RepositorioConta().Listar())
+            //parametros do cache
+            var parametros = new Dictionary<string, string>();
+            parametros.Add("empresaId", UsuarioLogado.EmpresaId.ToString());
+            parametros.Add("data", data.ToString());
+            var pagina = (ViewResult)Cache.Busca("saldo", parametros);
+
+            //se o cache não existir ou foi expirado anteriormente, cria um novo
+            if (pagina == null)
             {
-                saldos.Add(new SaldoViewModel() {Conta = conta, Saldo = GeradorSaldo.ChamarProcedimentoSaldo(data, conta.Id)});
+                var saldos = new List<SaldoViewModel>();
+                foreach (var conta in new RepositorioConta().Listar())
+                {
+                    saldos.Add(new SaldoViewModel() { Conta = conta, Saldo = GeradorSaldo.ChamarProcedimentoSaldo(data, conta.Id) });
+                }
+                pagina = View(saldos);
+                Cache.Insere("saldo", parametros, pagina);
             }
-            return View(saldos);
+
+            return pagina;
         }
     }
 }

@@ -24,6 +24,11 @@ namespace AgilusFinan.Web.Controllers
             return "LoteBoleto";
         }
 
+        public override string NomeCache()
+        {
+            return "loteboleto";
+        }
+
         [HttpPost]
         public string GerarBoleto(string postedData)
         {

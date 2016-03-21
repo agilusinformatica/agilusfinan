@@ -27,6 +27,37 @@ namespace AgilusFinan.Web.Bases
         {
             Filtro filtro = new System.Web.Script.Serialization.JavaScriptSerializer().Deserialize<Filtro>(jsonFiltros);
             List<C> dados = gerador.ChamarProcedimento(filtro);
+            ViewResult pagina;
+
+            if (NomeCache() != null)
+            {
+                var parametros = new Dictionary<string, string>();
+
+                parametros.Add("empresaId", UsuarioLogado.EmpresaId.ToString());
+
+                foreach (var item in filtro.Parametros)
+                {
+                    if (item.Tipo == TipoFiltro.data)
+                    {
+                        var dataFiltro = Convert.ToDateTime(item.Valor);
+                        parametros.Add(item.Nome, dataFiltro.ToString("dd/MM/yyyy"));
+                    }
+                    else
+                        parametros.Add(item.Nome, item.Valor);
+                }
+
+
+                pagina = (ViewResult)Cache.Busca(NomeCache(), parametros);
+
+                if (pagina == null)
+                {
+                    pagina = View("~/Views/" + FolderViewName() + "/Index.cshtml", dados);
+                    Cache.Insere(NomeCache(), parametros, pagina);
+                }
+                else
+                    return pagina;
+            }
+           
             return View("~/Views/" + FolderViewName() + "/Index.cshtml", dados);
         }
 
@@ -38,6 +69,11 @@ namespace AgilusFinan.Web.Bases
         public virtual void PreFiltro()
         {
 
+        }
+
+        public virtual string NomeCache()
+        {
+            return null;
         }
     }
 }

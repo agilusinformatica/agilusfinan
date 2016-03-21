@@ -14,22 +14,38 @@ namespace AgilusFinan.Web.Controllers
         // GET: ResumoTituloCategoria
         public PartialViewResult Index(DateTime dataInicial, DateTime dataFinal)
         {
-            var identadas = from c in Util.CategoriasIdentadas(null, 0)
-                            join g in GeradorResumoTituloCategoria.ChamarProcedimentoResumoCategoria(dataInicial, dataFinal) on c.Key equals g.CategoriaId
-                            select new { g.CategoriaId, c.Value, g.Cor, g.CategoriaPaiId, g.Valor };
+            //Parametros do cache
+            var parametros = new Dictionary<string, string>();
+            parametros.Add("empresaId", UsuarioLogado.EmpresaId.ToString());
+            parametros.Add("dataInicial", dataInicial.ToString());
+            parametros.Add("dataFinal", dataFinal.ToString());
+            var pagina = (PartialViewResult)Cache.Busca("resumotitulo", parametros);
 
-            var lista = new List<ResumoTituloCategoria>();
-
-            foreach (var c in identadas)
+            if (pagina == null)
             {
-                lista.Add(new ResumoTituloCategoria() { CategoriaId = c.CategoriaId, 
-                                                        CategoriaPaiId = c.CategoriaPaiId, 
-                                                        Cor = c.Cor, 
-                                                        Nome = c.Value, 
-                                                        Valor = c.Valor });
+                var identadas = from c in Util.CategoriasIdentadas(null, 0)
+                                join g in GeradorResumoTituloCategoria.ChamarProcedimentoResumoCategoria(dataInicial, dataFinal) on c.Key equals g.CategoriaId
+                                select new { g.CategoriaId, c.Value, g.Cor, g.CategoriaPaiId, g.Valor };
+
+                var lista = new List<ResumoTituloCategoria>();
+
+                foreach (var c in identadas)
+                {
+                    lista.Add(new ResumoTituloCategoria()
+                    {
+                        CategoriaId = c.CategoriaId,
+                        CategoriaPaiId = c.CategoriaPaiId,
+                        Cor = c.Cor,
+                        Nome = c.Value,
+                        Valor = c.Valor
+                    });
+                }
+
+                pagina = PartialView("~/Views/ResumoTituloCategoria/_Index.cshtml", lista);
+                Cache.Insere("resumotitulo", parametros, pagina);
             }
 
-            return PartialView("~/Views/ResumoTituloCategoria/_Index.cshtml", lista);
+            return pagina;
         }
     }
 }
