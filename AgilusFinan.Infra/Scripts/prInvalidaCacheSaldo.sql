@@ -26,13 +26,8 @@ begin
 	and exists( select 1
 				  from parametrocache
 				  where CacheId = c.Id
-				  and nome = 'dataInicial'
-				  and @data >= convert(datetime,valor,103) )
-	and exists( select 1
-				  from parametrocache
-				  where CacheId = c.Id
-				  and nome = 'dataFinal'
-				  and @data <= convert(datetime,valor,103) )
+				  and nome = 'data'
+				  and @data <= convert(datetime,valor,103))
 
 end
 
