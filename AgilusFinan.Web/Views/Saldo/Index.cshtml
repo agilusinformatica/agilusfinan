@@ -4,10 +4,11 @@
     Layout = null;
 }
     
-
 @foreach (var saldo in Model)
 {
-   @(saldo.Conta.Nome+": "+saldo.Saldo.ToString("C")) <br />
+    <li class="list-group-item">
+        <h2>@(saldo.Conta.Nome + ": " + saldo.Saldo.ToString("C"))</h2>
+    </li>
 }
 
 

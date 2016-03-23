@@ -2,6 +2,7 @@
 @{
     Layout = null;
 }
+<link href="~/Content/style.css" rel="stylesheet" />
 
 <table class="table table-hover table-bordered">
     <thead>
@@ -56,7 +57,11 @@
 
 <div class="progress">
     <div id="progressbar" class="progress-bar progress-bar-default" role="progressbar">
-        <img src="~/Content/Images/ellipsis.gif" height="20" />
+        <div class="sk-spinner sk-spinner-three-bounce">
+            <div class="sk-bounce1"></div>
+            <div class="sk-bounce2"></div>
+            <div class="sk-bounce3"></div>
+        </div>
     </div>
 </div>
 
@@ -81,8 +86,15 @@
 
     $('#Enviar').click(function () {
         $('.progress').toggle("slow");
-        $('.label').toggle("slow");
-        GerarBoletos();
+        if(GetData().length != 0){
+            $('.label').toggle("slow");
+            GerarBoletos();
+        }
+        else{
+            $('.progress').hide("slow");
+            $('.label').hide("slow");
+            alert("Selecione pelo menos um boleto");
+        }
     });
 
     function GerarBoletos() {
@@ -105,7 +117,7 @@
                         $(tabletr[indice]).children()[8].innerHTML = '<label class="label label-danger">'+msg+'</label>';
                     }
                     if (contador == boletos.length) {
-                        $('.progress').delay(1000).fadeToggle(500, () => $('#progressbar').attr("style", "width: 0%").html('<img src="../Content/Images/ellipsis.gif" height="20"/>'));
+                        $('.progress').delay(1000).fadeToggle(500, () => $('#progressbar').attr("style", "width: 0%").html('<div class="sk-spinner sk-spinner-three-bounce text-center"><div class="sk-bounce1"></div><div class="sk-bounce2"></div><div class="sk-bounce3"></div></div>'));
                     }
                 },
                 complete: Utils.verificaSessaoAjax

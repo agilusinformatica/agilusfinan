@@ -33,7 +33,7 @@ namespace AgilusFinan.Web.Controllers
 
         [HttpGet]
         [Permissao]
-        public ActionResult Liquidar(DateTime dataVencimento, int tituloRecorrenteId)
+        public ActionResult Liquidar(DateTime dataVencimento, int tituloRecorrenteId, bool homeIndex)
         {
             RepositorioTituloRecorrente repo = new RepositorioTituloRecorrente();
             TituloRecorrente tituloR = repo.BuscarPorId(tituloRecorrenteId);
@@ -67,7 +67,7 @@ namespace AgilusFinan.Web.Controllers
                 repo.Incluir(novoTitulo);
                 TempData["Alerta"] = new Alerta() { Mensagem = "Título liquidado com sucesso", Tipo = "success" };
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Home");
         }
         [Permissao]
         public ActionResult LiquidarDiretamente(DateTime dataVencimento, int tituloRecorrenteId)

@@ -19,13 +19,9 @@
                     <a href="@Url.Action("Index", "Extrato")" class="btn btn-primary btn-xs pull-right">Extrato  <i class="fa fa-arrow-circle-o-right"></i></a>
                 </div>
             </div>
-            <div class="ibox-content" style="display: none;"> 
-                <div>
-                    <div class="pull-right text-right">
-                        <span id="bar"></span>
-                    </div>
-                    <h2 id="Saldo" class="no-margins"></h2>
-                </div>
+            <div class="ibox-content no-padding" style="display: none;"> 
+                <ul class="list-group" id="Saldo">
+                </ul>
             </div>
         </div>
 
@@ -108,7 +104,7 @@
                 dataFinal: dataFinal
             },
             beforeSend: function () {
-                $("#resumoTitulos").html('<img src="/Content/Images/loading.gif">');
+                $("#resumoTitulos").html('<div class="sk-spinner sk-spinner-three-bounce"><div class="sk-bounce1"></div><div class="sk-bounce2"></div><div class="sk-bounce3"></div></div>');
             },
             success: function (conteudo) {
                 $("#resumoTitulos>img").remove();
@@ -129,7 +125,7 @@
                 dataFinal: dataFinal
             },
             beforeSend: function () {
-                $("#TitulosPendentes").html('<img src="/Content/Images/loading.gif">');
+                $("#TitulosPendentes").html('<div class="sk-spinner sk-spinner-three-bounce"><div class="sk-bounce1"></div><div class="sk-bounce2"></div><div class="sk-bounce3"></div></div>');
             },
             success: function (conteudo) {
                 $("#TitulosPendentes>img").remove();
@@ -149,7 +145,7 @@
                 dataFinal: dataFinal
             },
             beforeSend: function () {
-                $("#PrevistosRealizados").html('<img src="/Content/Images/loading.gif">');
+                $("#PrevistosRealizados").html('<div class="sk-spinner sk-spinner-three-bounce"><div class="sk-bounce1"></div><div class="sk-bounce2"></div><div class="sk-bounce3"></div></div>');
             },
             success: function (conteudo) {
                 $("#PrevistosRealizados>img").remove();
@@ -169,7 +165,7 @@
                 contaId: null
             },
             beforeSend: function () {
-                $("#Saldo").html('<img src="/Content/Images/loading.gif">');
+                $("#Saldo").html('<div class="sk-spinner sk-spinner-three-bounce"><div class="sk-bounce1"></div><div class="sk-bounce2"></div><div class="sk-bounce3"></div></div>');
             },
             success: function (conteudo) {
                 $("#Saldo>img").remove();

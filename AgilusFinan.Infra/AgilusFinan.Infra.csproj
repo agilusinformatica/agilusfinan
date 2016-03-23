@@ -600,7 +600,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Scripts\tr_InvalidaCacheTituloRecorrente.sql" />
-    <Content Include="Scripts\tr_InvalidaCacheCategoria.sql" />
     <Content Include="Scripts\tr_InvalidaCacheLiquidacao.sql" />
     <Content Include="Scripts\tr_InvalidaCacheTitulo.sql" />
     <Content Include="Scripts\tr_InvalidaCacheTransferencia.sql" />

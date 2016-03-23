@@ -7,7 +7,7 @@
         @foreach (var item in Model.Parametros)
         {
             <div class="form-group">
-                <label> @item.Label </label>
+                <label class="col-lg-12"> @item.Label </label>
                 @switch (item.Tipo)
                 {
                     case TipoFiltro.texto:
@@ -127,15 +127,13 @@
             </div>
         }
         <div class="form-group">
-            <br />
             <button type="submit" formmethod="post" id="consulta" class="btn btn-default">Consultar</button>
             <div style="float: right" id="loading"></div>
         </div>
-</form>
+    </form>
 </div>
 <br />
 <div id="conteudo">
-
 </div>
 
 <script src="~/Scripts/jsapi.js"></script>

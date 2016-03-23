@@ -4,70 +4,56 @@
 }
 <title>Boleto</title>
 @Scripts.Render("~/bundles/jquery")
-@Scripts.Render("~/bundles/jqueryui")
 @Scripts.Render("~/bundles/bootstrap")
 @Styles.Render("~/Content/css")
 <script src="~/Scripts/tinymce/tinymce.min.js"></script>
 
 
 @Html.Raw(ViewBag.BoletoBancario)
-<form method="post" action="~/Recebimento/EnviarBoletoPorEmail">
-    <input type="hidden" value="@ViewBag.TituloId" id="tituloId" name="tituloId" />
-    <input type="hidden" id="emailDestinatario" name="emailDestinatario" />
-    <input type="hidden" id="modeloBoletoId" name="modeloBoletoId" value="@Model.Id" />
-    <input type="hidden" id="AssuntoEmail" name="AssuntoEmail" />
-    <input type="hidden" id="TextoEmail" name="TextoEmail" />
-</form>
-<button class="btn btn-default" id="enviar">Enviar por Email</button>
+
+<button class="btn btn-primary" data-toggle="modal" data-target="#EnviarEmail" id="enviar"><i class="fa fa-envelope"></i> Enviar por Email</button>
 
 
-<div id="EnviarEmail" class="dialog" title="Enviar E-Mail">
-    <div class="form-group">
-        <label for="email">E-mail Destinatário:</label>
-        <input class="form-control" type="email" id="email" value="@ViewBag.Email" />
+<div id="EnviarEmail" class="modal inmodal"  tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content animated bounceInDown">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"></span></button>
+                <i class="fa fa-laptop modal-icon"></i>
+                <h4 class="modal-title">Enviar Boleto por E-mail</h4>
+                <small class="font-bold">Informe o destinatário, assunto e texto do E-mail.</small>
+            </div>
+            <form method="post" action="~/Recebimento/EnviarBoletoPorEmail">
+                <div class="modal-body">
+                    <input type="hidden" value="@ViewBag.TituloId" id="tituloId" name="tituloId" />
+                    <input type="hidden" id="modeloBoletoId" name="modeloBoletoId" value="@Model.Id" />
+
+                    <div class="form-group">
+                        <label for="email">E-mail Destinatário:</label>
+                        <input class="form-control" type="email" id="emailDestinatario" name="emailDestinatario" value="@ViewBag.Email"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Assunto: </label>
+                        <input class="form-control" type="text" id="AssuntoEmail" name="AssuntoEmail" value="@Model.AssuntoEmail" />
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Mensagem: </label>
+                        <textarea class="form-control" id="TextoEmail" name="TextoEmail">@Model.TextoEmail</textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Fechar</button>
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+                </div>
+            </form>
+        </div>
     </div>
-    <div class="form-group">
-        <label for="email">Assunto: </label>
-        <input class="form-control" type="text" id="assuntoemail" value="@Model.AssuntoEmail" />
-    </div>
-    <div class="form-group">
-        <label for="email">Mensagem: </label>
-        <textarea class="form-control" id="textoemail">@Model.TextoEmail</textarea>
-    </div>
+
 </div>
 <script>
 
-    var dialog = $("#EnviarEmail").dialog({
-            autoOpen: false,
-            height: 450,
-            width: 400,
-            modal: true,
-            buttons: {
-                Ok: {
-                    text: "Enviar",
-                    click: function () {
-                        $('#emailDestinatario').val($('#email').val());
-                        $('#AssuntoEmail').val($('#assuntoemail').val());
-                        $('#TextoEmail').val(tinyMCE.get('textoemail').getContent());
-                        $('form').submit();
-                        dialog.dialog("close");
-                    }
-                },
-                Cancel: {
-                    text: "Cancelar",
-                    click: function () {
-                        dialog.dialog("close");
-                    }
-                }
-            }
-    });
-
-    $('#enviar').click(function () {
-        dialog.dialog("open");
-    });
-
     tinymce.init({
-        selector: '#textoemail',
+        selector: '#TextoEmail',
         language: 'pt_BR'
     });
 </script>

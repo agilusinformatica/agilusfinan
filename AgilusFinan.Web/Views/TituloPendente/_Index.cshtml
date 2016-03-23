@@ -56,8 +56,8 @@ else
                         }
                         else
                         {
-                            @Html.ActionLink("Liquidar", "LiquidarDiretamente", new { dataVencimento = item.DataVencimento, tituloRecorrenteId = item.TituloRecorrenteId })<span>|</span>
-                            @Html.ActionLink("Liquidar Detalhe", "Liquidar", new { dataVencimento = item.DataVencimento, tituloRecorrenteId = item.TituloRecorrenteId })
+                            @Html.ActionLink("Liquidar", "LiquidarDiretamente", new { dataVencimento = item.DataVencimento, tituloRecorrenteId = item.TituloRecorrenteId, homeIndex = true })<span>|</span>
+                            @Html.ActionLink("Liquidar Detalhe", "Liquidar", new { dataVencimento = item.DataVencimento, tituloRecorrenteId = item.TituloRecorrenteId, homeIndex = true })
                         }
 
                     </td>
