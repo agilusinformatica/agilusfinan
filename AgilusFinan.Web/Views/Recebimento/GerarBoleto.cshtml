@@ -2,58 +2,75 @@
 @{
     Layout = null;
 }
-<title>Boleto</title>
-@Scripts.Render("~/bundles/jquery")
-@Scripts.Render("~/bundles/bootstrap")
-@Styles.Render("~/Content/css")
-<script src="~/Scripts/tinymce/tinymce.min.js"></script>
 
+<head>
+    <title>Boleto</title>
 
-@Html.Raw(ViewBag.BoletoBancario)
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/font-awesome/css")
+    @Styles.Render("~/plugins/summernoteStyles")
+    @Scripts.Render("~/plugins/summernote")
+</head>
+<body>
+    @Html.Raw(ViewBag.BoletoBancario)
 
-<button class="btn btn-primary" data-toggle="modal" data-target="#EnviarEmail" id="enviar"><i class="fa fa-envelope"></i> Enviar por Email</button>
+    <button class="btn btn-primary" role="menuitem" tabindex="-1" data-toggle="modal" data-target="#EnviarEmail" id="enviar"><i class="fa fa-envelope"></i> Enviar por E-mail</button>
+    <div id="teste"></div>
 
+    <div id="EnviarEmail" class="modal inmodal" tabindex="-1" data-backdrop="static" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated bounceInDown">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"></span></button>
+                    <i class="fa fa-barcode modal-icon"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <i class="fa fa-arrow-right modal-icon"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <i class="fa fa-envelope-o modal-icon"></i>
+                    <h4 class="modal-title">Enviar Boleto por E-mail</h4>
+                    <small class="font-bold">Informe o destinatário, assunto e texto do E-mail.</small>
+                </div>
+                <form method="post" action="~/Recebimento/EnviarBoletoPorEmail">
+                    <div class="modal-body">
+                        <input type="hidden" value="@ViewBag.TituloId" id="tituloId" name="tituloId" />
+                        <input type="hidden" id="modeloBoletoId" name="modeloBoletoId" value="@Model.Id" />
 
-<div id="EnviarEmail" class="modal inmodal"  tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content animated bounceInDown">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"></span></button>
-                <i class="fa fa-laptop modal-icon"></i>
-                <h4 class="modal-title">Enviar Boleto por E-mail</h4>
-                <small class="font-bold">Informe o destinatário, assunto e texto do E-mail.</small>
+                        <div class="form-group">
+                            <label for="email">E-mail Destinatário:</label>
+                            <input class="form-control" type="email" id="emailDestinatario" name="emailDestinatario" value="@ViewBag.Email" />
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Assunto: </label>
+                            <input class="form-control" type="text" id="AssuntoEmail" name="AssuntoEmail" value="@Model.AssuntoEmail" />
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Mensagem: </label>
+                            <textarea class="form-control" id="TextoEmail" name="TextoEmail">@Model.TextoEmail</textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-white" data-dismiss="modal">Fechar</button>
+                        <button type="submit" class="btn btn-primary">Enviar</button>
+                    </div>
+                </form>
             </div>
-            <form method="post" action="~/Recebimento/EnviarBoletoPorEmail">
-                <div class="modal-body">
-                    <input type="hidden" value="@ViewBag.TituloId" id="tituloId" name="tituloId" />
-                    <input type="hidden" id="modeloBoletoId" name="modeloBoletoId" value="@Model.Id" />
-
-                    <div class="form-group">
-                        <label for="email">E-mail Destinatário:</label>
-                        <input class="form-control" type="email" id="emailDestinatario" name="emailDestinatario" value="@ViewBag.Email"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Assunto: </label>
-                        <input class="form-control" type="text" id="AssuntoEmail" name="AssuntoEmail" value="@Model.AssuntoEmail" />
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Mensagem: </label>
-                        <textarea class="form-control" id="TextoEmail" name="TextoEmail">@Model.TextoEmail</textarea>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-white" data-dismiss="modal">Fechar</button>
-                    <button type="submit" class="btn btn-primary">Enviar</button>
-                </div>
-            </form>
         </div>
     </div>
-
-</div>
-<script>
-
-    tinymce.init({
-        selector: '#TextoEmail',
-        language: 'pt_BR'
+</body>
+<script type="text/javascript">
+    $('#TextoEmail').summernote({
+        height: "203px",
+        lang: 'pt-BR',
+        toolbar: [
+            ['style', ['bold', 'italic', 'underline', 'strikethrough', 'clear', ]],
+            ['font', ['fontsize', 'fontname']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['height', ['height']],
+            ['insert', ['link', 'table', 'hr', 'video']],
+            ['misc', ['codeview', 'fullscreen', 'undo', 'redo', 'help']]
+        ]
     });
+
+
 </script>

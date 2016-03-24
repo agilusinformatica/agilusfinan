@@ -440,6 +440,9 @@
     <Content Include="CodeTemplates\MvcView\Imports.include.t4" />
     <Content Include="CodeTemplates\MvcView\List.cs.t4" />
     <Content Include="CodeTemplates\MvcView\ModelMetadataFunctions.cs.include.t4" />
+    <Content Include="Content\plugins\summernote\font\summernote.eot" />
+    <Content Include="Content\plugins\summernote\font\summernote.ttf" />
+    <Content Include="Content\plugins\summernote\font\summernote.woff" />
     <None Include="Properties\PublishProfiles\agilusfinan - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\agilusfinan - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -877,6 +880,7 @@
     <Content Include="Scripts\plugins\slimscroll\jquery.slimscroll.min.js" />
     <Content Include="Scripts\plugins\sparkline\jquery.sparkline.min.js" />
     <Content Include="Scripts\plugins\staps\jquery.steps.min.js" />
+    <Content Include="Scripts\plugins\summernote\summernote-pt-BR.js" />
     <Content Include="Scripts\plugins\summernote\summernote.min.js" />
     <Content Include="Scripts\plugins\sweetalert\sweetalert.min.js" />
     <Content Include="Scripts\plugins\switchery\switchery.js" />

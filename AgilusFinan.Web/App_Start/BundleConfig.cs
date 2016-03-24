@@ -256,7 +256,8 @@ namespace AgilusFinan.Web
 
             // summernote 
             bundles.Add(new ScriptBundle("~/plugins/summernote").Include(
-                      "~/Scripts/plugins/summernote/summernote.min.js"));
+                      "~/Scripts/plugins/summernote/summernote.min.js",
+                      "~/Scripts/plugins/summernote/summernote-pt-BR.js"));
 
             // toastr notification 
             bundles.Add(new ScriptBundle("~/plugins/toastr").Include(

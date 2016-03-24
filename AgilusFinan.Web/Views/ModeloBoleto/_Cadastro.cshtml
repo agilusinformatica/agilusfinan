@@ -1,6 +1,6 @@
 ﻿@model AgilusFinan.Domain.Entities.ModeloBoleto
-<script src="~/Scripts/tinymce/tinymce.min.js"></script>
-
+@Scripts.Render("~/plugins/summernote")
+@Styles.Render("~/plugins/summernoteStyles")
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -126,10 +126,22 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval") 
+
 }
 <script>
-    tinymce.init({
-        selector: '#TextoEmail',
-        language: 'pt_BR'
+    $(document).ready(function () {
+        $('#TextoEmail').summernote({
+            height: "203px",
+            lang: 'pt-BR',
+            toolbar: [
+                ['style', ['bold', 'italic', 'underline', 'strikethrough', 'clear', ]],
+                ['font', ['fontsize', 'fontname']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']],
+                ['insert', ['link', 'table', 'hr', 'video']],
+                ['misc', ['codeview', 'fullscreen', 'undo', 'redo', 'help']]
+            ]
+        });
     });
 </script>
