@@ -63,10 +63,36 @@ namespace AgilusFinan.Domain.Utils
                 //Define título do e-mail.
                 objEmail.Subject = assunto;
 
-                objEmail.AlternateViews.Add(new AlternateView() {}
+                List<LinkedResource> linkedImagens = new List<LinkedResource>();
+
+                //Encontrar imagens na mensagem
+                while (true)
+                {
+                    int posicaoImagem = mensagem.IndexOf("<img src=\"data");
+
+                    if (posicaoImagem == -1) 
+                        break;
+
+                    int ultimaPosicao = mensagem.IndexOf(">", posicaoImagem + 1);
+                    string imagem = mensagem.Substring(posicaoImagem, ultimaPosicao - posicaoImagem + 1);
+                    string contentId = Guid.NewGuid().ToString();
+
+                    var streamimagem = base64ToStream(imagem);
+                    var linkedImagem = geraLinkImagem(streamimagem, contentId);
+                    mensagem = mensagem.Replace(imagem, @"<img src='cid:" + linkedImagem.ContentId + @"'/>");
+                    linkedImagens.Add(linkedImagem);
+                }
+                AlternateView alternateView = AlternateView.CreateAlternateViewFromString(mensagem, null, MediaTypeNames.Text.Html);
+
+                foreach (var item in linkedImagens)
+                {
+                    alternateView.LinkedResources.Add(item);
+                }
+
+                objEmail.AlternateViews.Add(alternateView);
 
                 //Define o corpo do e-mail.
-                objEmail.Body = mensagem;
+                //objEmail.Body = mensagem;
 
                 //Para evitar problemas de caracteres "estranhos", configuramos o charset para "ISO-8859-1"
                 objEmail.SubjectEncoding = System.Text.Encoding.GetEncoding("ISO-8859-1");
@@ -110,18 +136,19 @@ namespace AgilusFinan.Domain.Utils
         private Stream base64ToStream(string base64String)
         {
             // Convert Base64 String to byte[]
-            byte[] imageBytes = Convert.FromBase64String(base64String);
+            var posicaoInicial = base64String.IndexOf(',');
+            var posicaoFinal = base64String.IndexOf('"', posicaoInicial + 1);
+            var x = base64String.Substring(posicaoInicial + 1, posicaoFinal - posicaoInicial - 1);
+            byte[] imageBytes = Convert.FromBase64String(x);
             return new MemoryStream(imageBytes, 0, imageBytes.Length);
         }
 
-        private AlternateView geraLinkImagem(Stream image) 
+        private LinkedResource geraLinkImagem(Stream image, string contentId) 
         {
             LinkedResource inline = new LinkedResource(image);
-            inline.ContentId = Guid.NewGuid().ToString();
-            string htmlBody = @"<img src='cid:" + inline.ContentId + @"'/>";
-            AlternateView alternateView = AlternateView.CreateAlternateViewFromString(htmlBody, null, MediaTypeNames.Text.Html);
-            alternateView.LinkedResources.Add(inline);
-            return alternateView;
+            inline.ContentId = contentId;
+
+            return inline;
         }
     }
 }
