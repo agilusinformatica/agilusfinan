@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Net.Mail;
 using System.IO;
+using System.Net.Mime;
 
 namespace AgilusFinan.Domain.Utils
 {
@@ -43,6 +44,7 @@ namespace AgilusFinan.Domain.Utils
 
         public void DispararMensagem()
         {
+            
             //Cria objeto com dados do e-mail.
             using (MailMessage objEmail = new MailMessage())
             {
@@ -60,6 +62,8 @@ namespace AgilusFinan.Domain.Utils
 
                 //Define título do e-mail.
                 objEmail.Subject = assunto;
+
+                objEmail.AlternateViews.Add(new AlternateView() {}
 
                 //Define o corpo do e-mail.
                 objEmail.Body = mensagem;
@@ -103,6 +107,22 @@ namespace AgilusFinan.Domain.Utils
             }
         }
 
+        private Stream base64ToStream(string base64String)
+        {
+            // Convert Base64 String to byte[]
+            byte[] imageBytes = Convert.FromBase64String(base64String);
+            return new MemoryStream(imageBytes, 0, imageBytes.Length);
+        }
+
+        private AlternateView geraLinkImagem(Stream image) 
+        {
+            LinkedResource inline = new LinkedResource(image);
+            inline.ContentId = Guid.NewGuid().ToString();
+            string htmlBody = @"<img src='cid:" + inline.ContentId + @"'/>";
+            AlternateView alternateView = AlternateView.CreateAlternateViewFromString(htmlBody, null, MediaTypeNames.Text.Html);
+            alternateView.LinkedResources.Add(inline);
+            return alternateView;
+        }
     }
 }
 
