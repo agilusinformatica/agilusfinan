@@ -12,6 +12,7 @@ namespace AgilusFinan.Infra.Context
         public Contexto()
             : base("dbAgilusFinan")
         {
+            
         }
 
         public DbSet<Banco> Bancos { get; set; }
@@ -54,7 +55,7 @@ namespace AgilusFinan.Infra.Context
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
             modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
-
+            
             modelBuilder.Properties<string>().Configure(p => p.HasColumnType("varchar"));
             modelBuilder.Properties<string>().Configure(p => p.HasMaxLength(100));
             modelBuilder.Entity<Categoria>().Property(p => p.CategoriaPaiId).IsOptional();
@@ -65,9 +66,8 @@ namespace AgilusFinan.Infra.Context
             modelBuilder.Entity<Usuario>().Property(u => u.Email).IsRequired();
             modelBuilder.Entity<Usuario>().Property(u => u.Senha).IsRequired();
             modelBuilder.Entity<Titulo>().Property(p => p.Observacao).HasMaxLength(500);
-            modelBuilder.Entity<ModeloBoleto>().Property(p => p.TextoEmail).IsMaxLength();
-
-
+            modelBuilder.Entity<ModeloBoleto>().Property(p => p.TextoEmail).HasColumnType("varchar(max)"); //É necessário colocar senão o entity não entende que a coluna sofreu alteração.
+            modelBuilder.Entity<ModeloBoleto>().Property(p => p.TextoEmail).IsMaxLength(); //Passa o tamanho máximo ao provider, se usar o maxLength vc é obrigado a passar um tamanho int, se passa null ele assume o valor configurado por default, que nesse caso é 100
         }
     }
 }

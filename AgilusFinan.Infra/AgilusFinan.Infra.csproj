@@ -309,6 +309,10 @@
     <Compile Include="Migrations\201603181538569_CriacaoParametroCacheECache.Designer.cs">
       <DependentUpon>201603181538569_CriacaoParametroCacheECache.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201603290045119_AlteracaoTamanhoTextoEmail.cs" />
+    <Compile Include="Migrations\201603290045119_AlteracaoTamanhoTextoEmail.Designer.cs">
+      <DependentUpon>201603290045119_AlteracaoTamanhoTextoEmail.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Scripts\prInvalidaCacheFluxoCaixa.sql" />
@@ -551,6 +555,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201603181538569_CriacaoParametroCacheECache.resx">
       <DependentUpon>201603181538569_CriacaoParametroCacheECache.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603290045119_AlteracaoTamanhoTextoEmail.resx">
+      <DependentUpon>201603290045119_AlteracaoTamanhoTextoEmail.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -18,16 +18,59 @@ namespace AgilusFinan.Infra.Services
         {
             PreInclusao(obj);
             db.Set<T>().Add(obj);
-            obj.EmpresaId = db.EmpresaId; 
-            db.SaveChanges();
+            obj.EmpresaId = db.EmpresaId;
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (System.Data.Entity.Validation.DbEntityValidationException dbEx)
+            {
+                Exception raise = dbEx;
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        string message = string.Format("{0}:{1}",
+                            validationErrors.Entry.Entity.ToString(), validationError.ErrorMessage);
+                        // Capturando uma nova exception, na transação do banco de dados
+                        // Alterando a mensagem original da exception, pela mensagem mais descritiva
+                        raise = new InvalidOperationException(message, raise);
+                    }
+                }
+                throw raise;
+            }  
+            
         }
 
         public void Alterar(T obj)
         {
             PreAlteracao(obj);
             db.Entry<T>(obj).State = EntityState.Modified;
-            obj.EmpresaId = db.EmpresaId; 
-            db.SaveChanges();
+            obj.EmpresaId = db.EmpresaId;
+
+            try
+            {
+                db.SaveChanges();
+
+            }
+            catch (System.Data.Entity.Validation.DbEntityValidationException dbEx)
+            {
+                Exception raise = dbEx;
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        string message = string.Format("{0}:{1}",
+                            validationErrors.Entry.Entity.ToString(),
+                            validationError.ErrorMessage);
+                        // Capturando uma nova exception, na transação do banco de dados
+                        // Alterando a mensagem original da exception, pela mensagem mais descritiva
+                        raise = new InvalidOperationException(message, raise);
+                    }
+                }
+                throw raise;
+            }  
         }
 
         public virtual void PreInclusao(T obj)
