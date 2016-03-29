@@ -73,13 +73,14 @@ namespace AgilusFinan.Domain.Utils
                     if (posicaoImagem == -1) 
                         break;
 
-                    int ultimaPosicao = mensagem.IndexOf(">", posicaoImagem + 1);
-                    string imagem = mensagem.Substring(posicaoImagem, ultimaPosicao - posicaoImagem + 1);
+                    posicaoImagem += 10;
+                    int ultimaPosicao = mensagem.IndexOf("\"", posicaoImagem);
+                    string imagem = mensagem.Substring(posicaoImagem, ultimaPosicao - posicaoImagem);
                     string contentId = Guid.NewGuid().ToString();
 
                     var streamimagem = base64ToStream(imagem);
                     var linkedImagem = geraLinkImagem(streamimagem, contentId);
-                    mensagem = mensagem.Replace(imagem, @"<img src='cid:" + linkedImagem.ContentId + @"'/>");
+                    mensagem = mensagem.Replace(imagem, "cid:" + linkedImagem.ContentId);
                     linkedImagens.Add(linkedImagem);
                 }
                 AlternateView alternateView = AlternateView.CreateAlternateViewFromString(mensagem, null, MediaTypeNames.Text.Html);
@@ -137,8 +138,7 @@ namespace AgilusFinan.Domain.Utils
         {
             // Convert Base64 String to byte[]
             var posicaoInicial = base64String.IndexOf(',');
-            var posicaoFinal = base64String.IndexOf('"', posicaoInicial + 1);
-            var x = base64String.Substring(posicaoInicial + 1, posicaoFinal - posicaoInicial - 1);
+            var x = base64String.Substring(posicaoInicial + 1);
             byte[] imageBytes = Convert.FromBase64String(x);
             return new MemoryStream(imageBytes, 0, imageBytes.Length);
         }
