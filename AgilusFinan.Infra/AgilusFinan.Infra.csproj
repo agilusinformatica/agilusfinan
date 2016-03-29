@@ -315,6 +315,9 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="Scripts\pr_soma_categoria.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Scripts\prInvalidaCacheFluxoCaixa.sql" />
     <Content Include="Scripts\prInvalidaCachePagamento.sql" />
     <Content Include="Scripts\prInvalidaCacheExtrato.sql" />
