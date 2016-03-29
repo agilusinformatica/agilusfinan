@@ -14,33 +14,34 @@ namespace AgilusFinan.Infra.Services
 
         protected Contexto db = new Contexto();
 
-        public void Incluir(T obj)
+        private void Salvar()
         {
-            PreInclusao(obj);
-            db.Set<T>().Add(obj);
-            obj.EmpresaId = db.EmpresaId;
-
             try
             {
                 db.SaveChanges();
             }
             catch (System.Data.Entity.Validation.DbEntityValidationException dbEx)
             {
-                Exception raise = dbEx;
+                string message = String.Empty;
                 foreach (var validationErrors in dbEx.EntityValidationErrors)
                 {
                     foreach (var validationError in validationErrors.ValidationErrors)
                     {
-                        string message = string.Format("{0}:{1}",
-                            validationErrors.Entry.Entity.ToString(), validationError.ErrorMessage);
                         // Capturando uma nova exception, na transação do banco de dados
                         // Alterando a mensagem original da exception, pela mensagem mais descritiva
-                        raise = new InvalidOperationException(message, raise);
+                        message += string.Format("{0}: {1}\n", validationErrors.Entry.Entity.ToString(), validationError.ErrorMessage);
                     }
                 }
-                throw raise;
+                throw new InvalidOperationException(message, dbEx);
             }  
-            
+        }
+
+        public void Incluir(T obj)
+        {
+            PreInclusao(obj);
+            db.Set<T>().Add(obj);
+            obj.EmpresaId = db.EmpresaId;
+            Salvar();
         }
 
         public void Alterar(T obj)
@@ -48,29 +49,7 @@ namespace AgilusFinan.Infra.Services
             PreAlteracao(obj);
             db.Entry<T>(obj).State = EntityState.Modified;
             obj.EmpresaId = db.EmpresaId;
-
-            try
-            {
-                db.SaveChanges();
-
-            }
-            catch (System.Data.Entity.Validation.DbEntityValidationException dbEx)
-            {
-                Exception raise = dbEx;
-                foreach (var validationErrors in dbEx.EntityValidationErrors)
-                {
-                    foreach (var validationError in validationErrors.ValidationErrors)
-                    {
-                        string message = string.Format("{0}:{1}",
-                            validationErrors.Entry.Entity.ToString(),
-                            validationError.ErrorMessage);
-                        // Capturando uma nova exception, na transação do banco de dados
-                        // Alterando a mensagem original da exception, pela mensagem mais descritiva
-                        raise = new InvalidOperationException(message, raise);
-                    }
-                }
-                throw raise;
-            }  
+            Salvar();
         }
 
         public virtual void PreInclusao(T obj)
@@ -86,7 +65,7 @@ namespace AgilusFinan.Infra.Services
         public void Excluir(T obj)
         {
             db.Entry<T>(obj).State = EntityState.Deleted;
-            db.SaveChanges();
+            Salvar();
         }
 
         public void ExcluirPorId(int id)

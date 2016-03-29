@@ -32,8 +32,8 @@ Begin
 	from #temp t
 	join Categoria c on t.CategoriaId = c.Id
 
-	select @recebimento_realizado = SUM(case when c.Direcao = 0 then l.Valor else 0 end), 
-	@pagamento_realizado = SUM(case when c.Direcao = 1 then l.Valor else 0 end)
+	select @recebimento_realizado = SUM(case when c.Direcao = 0 then l.Valor+isnull(l.JurosMulta,0.0) - isnull(l.Desconto,0.0) else 0 end), 
+	@pagamento_realizado = SUM(case when c.Direcao = 1 then l.Valor+isnull(l.JurosMulta,0.0) - isnull(l.Desconto,0.0) else 0 end)
 	from #temp t
 	join Categoria c on t.CategoriaId = c.Id
 	join Liquidacao l on l.TituloId = t.TituloId
