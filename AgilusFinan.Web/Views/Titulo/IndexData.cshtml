@@ -69,41 +69,71 @@
                 </td>
                 <td style="width: auto">
                     <div class="btn-group" role="group">
-
-                        @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "btn btn-primary btn-circle fa fa-edit", @title = "Alterar" })
-                        @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "btn btn-warning btn-circle fa fa-trash-o", @title = "Excluir" })
+                        @if (item.Id != 0)
+                        {
+                            @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "btn btn-primary btn-circle fa fa-edit", @title = "Alterar" })
+                            @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "btn btn-warning btn-circle fa fa-trash-o", @title = "Excluir" })
+                        }
 
                         @if (item.Liquidado != "Pago" && item.Liquidado != "Parcialmente")
                         {
-                            @Html.ActionLink(" ", "LiquidarDiretamente", new { id = item.Id, homeIndex = false }, new { @class = "btn btn-primary btn-circle fa fa-money", @title = "Liquidar Diretamente" })
+                            if (item.Id != 0)
+                            {
+                                @Html.ActionLink(" ", "LiquidarDiretamente", new { id = item.Id, homeIndex = false }, new { @class = "btn btn-primary btn-circle fa fa-money", @title = "Liquidar Diretamente" })
+                            }
+                            else
+                            {
+                                @Html.ActionLink(" ", "../TituloPendente/LiquidarDiretamente", new { dataVencimento = item.DataVencimento, tituloRecorrenteId = item.TituloRecorrenteId, homeIndex = false }, new { @class = "btn btn-primary btn-circle fa fa-money", @title = "Liquidar Diretamente" })
+                            }
                         }
+                        
                         @if (item.Liquidado != "Pago")
                         {
-                            @Html.ActionLink(" ", "Liquidar", new { id = item.Id, homeIndex = false }, new { @class = "btn btn-success btn-circle fa fa-money", @title = "Liquidar Detalhado" })
-
-                            if (ViewBag.TipoTitulo == "Recebimento")
+                            if (item.Id != 0)
                             {
-                                <div class="btn-group">
-                                    @{ var modelos = ((List<AgilusFinan.Domain.Entities.ModeloBoleto>)ViewBag.ModelosBoleto).Where(c => c.ContaId == item.ContaId); }
-                                    @if (modelos.Count() == 1)
+                                @Html.ActionLink(" ", "Liquidar", new { id = item.Id, homeIndex = false }, new { @class = "btn btn-success btn-circle fa fa-money", @title = "Liquidar Detalhado" })
+                            }
+                            else
+                            {
+                                @Html.ActionLink(" ", "../TituloPendente/Liquidar", new { dataVencimento = item.DataVencimento, tituloRecorrenteId = item.TituloRecorrenteId, homeIndex = false }, new { @class = "btn btn-success btn-circle fa fa-money", @title = "Liquidar Detalhado" })
+                            }
+                        }
+                        @if (ViewBag.TipoTitulo == "Recebimento")
+                        {
+                            <div class="btn-group">
+                                @{ var modelos = ((List<AgilusFinan.Domain.Entities.ModeloBoleto>)ViewBag.ModelosBoleto).Where(c => c.ContaId == item.ContaId); }
+                                @if (modelos.Count() == 1)
+                                {
+                                    if (item.Id != 0)
                                     {
                                         @Html.ActionLink(" ", "GerarBoleto", new { tituloId = item.Id, ModeloBoletoId = modelos.First().Id }, new { @class = "btn btn-primary btn-circle fa fa-barcode" })
                                     }
                                     else
                                     {
-                                        <a href="#" class="dropdown-toggle btn btn-primary btn-circle fa fa-barcode" data-toggle="dropdown"></a>
-                                        <ul class="dropdown-menu">
-                                            @foreach (var modelo in modelos)
+                                        @Html.ActionLink(" ", "../TituloPendente/GerarBoleto", new { TituloRecorrenteId = item.TituloRecorrenteId, valor = item.Valor, dataVencimento = item.DataVencimento, modeloBoletoId = modelos.First().Id }, new { @class = "btn btn-primary btn-circle fa fa-barcode" })
+                                    }
+                                }
+                                else
+                                {
+                                    <a href="#" class="dropdown-toggle btn btn-primary btn-circle fa fa-barcode" data-toggle="dropdown"></a>
+                                    <ul class="dropdown-menu">
+                                        @foreach (var modelo in modelos)
+                                        {
+                                            if (item.Id != 0)
                                             {
                                                 <li>@Html.ActionLink((string)modelo.Nome, "GerarBoleto", new { tituloId = item.Id, ModeloBoletoId = modelo.Id })</li>
                                             }
-                                        </ul>
-                                    }
-                                </div>
-                            }
+                                            else
+                                            {
+                                                <li>@Html.ActionLink((string)modelo.Nome, "../TituloPendente/GerarBoleto", new { TituloRecorrenteId = item.TituloRecorrenteId, valor = item.Valor, dataVencimento = item.DataVencimento, modeloBoletoId = modelos.First().Id })</li>
+                                            }
+                                        }
+                                    </ul>
+                                }
+                            </div>
                         }
                     </div>
-                    
+
                 </td>
             </tr>
         }

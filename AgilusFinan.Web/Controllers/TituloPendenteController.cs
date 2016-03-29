@@ -50,6 +50,7 @@ namespace AgilusFinan.Web.Controllers
                     PessoaId = tituloR.PessoaId,
                     Valor = tituloR.Valor
                 };
+
             return View("~/Views/Titulo/Liquidar.cshtml", tituloVm);
         }
 
@@ -70,7 +71,7 @@ namespace AgilusFinan.Web.Controllers
             return RedirectToAction("Index", "Home");
         }
         [Permissao]
-        public ActionResult LiquidarDiretamente(DateTime dataVencimento, int tituloRecorrenteId)
+        public ActionResult LiquidarDiretamente(DateTime dataVencimento, int tituloRecorrenteId, bool homeIndex)
         {
             var repo = new RepositorioTituloRecorrente();
             var tituloR = repo.BuscarPorId(tituloRecorrenteId);
@@ -107,8 +108,27 @@ namespace AgilusFinan.Web.Controllers
             titulo.Liquidacoes.Add(liquidacao);
             new RepositorioPadrao<Titulo>().Incluir(titulo);
             TempData["Alerta"] = new Alerta() { Mensagem = "Título liquidado com sucesso", Tipo = "success" };
-            return RedirectToAction("Index", "Home");
+
+            if (homeIndex)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return RedirectToAction("Index", HttpContext.Request.UrlReferrer.ToString().Split('/')[3]);
+            }
         }
+
+        [Permissao]
+        public ActionResult GerarBoleto(int tituloRecorrenteId, decimal valor, DateTime dataVencimento, int modeloBoletoId)
+        {
+            var boletobancario = Util.GerarBoletoBancario(tituloRecorrenteId, valor, dataVencimento, modeloBoletoId);
+            ViewBag.BoletoBancario = boletobancario.MontaHtmlEmbedded();
+            var modeloBoleto = new RepositorioModeloBoleto().BuscarPorId(modeloBoletoId);
+            ViewBag.Email = new RepositorioTituloRecorrente().BuscarPorId(tituloRecorrenteId).Pessoa.EmailFinanceiro;
+            return View("~/Views/Recebimento/GerarBoleto.cshtml", modeloBoleto);
+        }
+
         private void ViewModelToModel(TituloViewModel viewModel, Titulo model)
         {
             model.Id = 0;
