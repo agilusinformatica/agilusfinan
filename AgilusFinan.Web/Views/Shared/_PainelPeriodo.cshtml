@@ -12,12 +12,21 @@
                     <input type="button" class="btn btn-default botaomes" value="@DateTime.Now.AddMonths(0).ToString("MMM")" data-inicial-mes="@DateTime.Now.AddMonths(0).ToString("01/MM/yyyy")" data-final-mes="@DateTime.Now.AddDays(-DateTime.Now.Day).AddDays(1).Date.AddMonths(1).AddDays(-1).Date.ToString("dd/MM/yyyy")" />
                     <input type="button" class="btn btn-default botaomes" value="@DateTime.Now.AddMonths(1).ToString("MMM")" data-inicial-mes="@DateTime.Now.AddMonths(1).ToString("01/MM/yyyy")" data-final-mes="@DateTime.Now.AddDays(-DateTime.Now.Day).AddDays(1).AddMonths(2).AddDays(-1).ToString("dd/MM/yyyy")" />
                 </div>
+                @{
+                    string dataInicial = (string)Session["dataInicial"];
+                    string dataFinal = (string)Session["dataFinal"];
 
+                    if (String.IsNullOrEmpty(dataInicial))
+                    {
+                        dataInicial = DateTime.Now.ToString("01/MM/yyyy");
+                        dataFinal = DateTime.Now.AddDays(-DateTime.Now.Day).AddDays(1).Date.AddMonths(1).AddDays(-1).Date.ToString("dd/MM/yyyy");
+                    }
+                }
                 <div class="col-md-3" >
                     <div class="input-daterange input-group" id="datepicker">
-                        <input type="text" class="form-control inputdate" name="start" id="dataInicial" value="@DateTime.Now.ToString("01/MM/yyyy")" />
+                        <input type="text" class="form-control inputdate" name="start" id="dataInicial" value="@dataInicial" />
                         <span class="input-group-addon">a</span>
-                        <input type="text" class="form-control inputdate" name="end" id="dataFinal" value="@DateTime.Now.AddDays(-DateTime.Now.Day).AddDays(1).Date.AddMonths(1).AddDays(-1).Date.ToString("dd/MM/yyyy")" />
+                        <input type="text" class="form-control inputdate" name="end" id="dataFinal" value="@dataFinal" />
                     </div>
                 </div>
                 <div class="col-md-5">

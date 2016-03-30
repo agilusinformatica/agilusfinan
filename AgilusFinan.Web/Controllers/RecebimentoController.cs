@@ -30,6 +30,9 @@ namespace AgilusFinan.Web.Controllers
 
         public ActionResult IndexData(string dataInicial, string dataFinal)
         {
+            Session.Add("dataInicial", dataInicial);
+            Session.Add("dataFinal", dataFinal);
+
             var parametros = new Dictionary<string, string>();
             parametros.Add("empresaId", UsuarioLogado.EmpresaId.ToString());
             parametros.Add("dataInicial", dataInicial.ToString());

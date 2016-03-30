@@ -16,6 +16,9 @@ namespace AgilusFinan.Web.Controllers
         // GET: TitulosPendentes
         public PartialViewResult Index(DateTime dataInicial, DateTime dataFinal)
         {
+            Session.Add("dataInicial", dataInicial.ToString("dd/MM/yyyy"));
+            Session.Add("dataFinal", dataFinal.ToString("dd/MM/yyyy"));
+
             var parametros = new Dictionary<string, string>();
             parametros.Add("empresaId", UsuarioLogado.EmpresaId.ToString());
             parametros.Add("dataInicial", dataInicial.ToString());

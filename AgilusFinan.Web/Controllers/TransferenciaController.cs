@@ -34,6 +34,9 @@ namespace AgilusFinan.Web.Controllers
 
         public ActionResult IndexData(string dataInicial, string dataFinal)
         {
+            Session.Add("dataInicial", dataInicial);
+            Session.Add("dataFinal", dataFinal);
+
             DateTime dI, dF;
             if (String.IsNullOrEmpty(dataInicial) && String.IsNullOrEmpty(dataFinal))
             {
