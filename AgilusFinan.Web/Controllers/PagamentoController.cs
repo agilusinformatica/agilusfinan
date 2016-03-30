@@ -47,9 +47,34 @@ namespace AgilusFinan.Web.Controllers
                 }
                 GerarLista();
 
+                List<Titulo> titulosPagamento = new List<Titulo>();
+                titulosPagamento = repo.Listar(t => t.DataVencimento >= dI && t.DataVencimento <= dF);
 
+                //Trazendo também os títulos virtuais
+                var titulosPendentes = GeradorTitulosPendentes.ChamarProcedimento(dI, dF, null);
+                foreach (var tp in titulosPendentes)
+                {
+                    if (tp.Direcao == DirecaoCategoria.Pagamento && tp.TituloId == null)
+                    {
+                        titulosPagamento.Add(
+                           new Titulo()
+                           {
+                               Id = 0,
+                               Descricao = tp.Descricao,
+                               CategoriaId = tp.CategoriaId,
+                               CentroCustoId = tp.CentroCustoId,
+                               ContaId = tp.ContaId,
+                               DataVencimento = tp.DataVencimento,
+                               EmpresaId = UsuarioLogado.EmpresaId,
+                               PessoaId = tp.PessoaId,
+                               TituloRecorrenteId = tp.TituloRecorrenteId,
+                               Valor = tp.Valor == null ? 0 : (decimal)tp.Valor
+                           }
+                       );
+                    }
+                }
 
-                pagina = PartialView("~/Views/Titulo/IndexData.cshtml", repo.Listar(t => t.DataVencimento >= dI && t.DataVencimento <= dF));
+                pagina = PartialView("~/Views/Titulo/IndexData.cshtml", titulosPagamento);
                 Cache.Insere("pagamento", parametros, pagina);
             }
 

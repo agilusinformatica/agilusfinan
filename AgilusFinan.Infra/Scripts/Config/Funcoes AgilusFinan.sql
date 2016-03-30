@@ -77,6 +77,8 @@ INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) V
 INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (76, N'Alterar', N'BoletoGerado/Edit', 75)
 INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (77, N'Excluir', N'BoletoGerado/Delete', 75)
 INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (78, N'Conciliação de Extrato', N'Conciliacao/Index', 1)
+SET IDENTITY_INSERT [dbo].[Funcao] ON
+INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (79, N'Gerar Boleto', 'TituloPendente/GerarBoleto', NULL)
 
 
 

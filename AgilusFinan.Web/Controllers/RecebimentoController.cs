@@ -50,7 +50,34 @@ namespace AgilusFinan.Web.Controllers
                 }
                 ViewBag.ModelosBoleto = new RepositorioModeloBoleto().Listar().ToList();
                 GerarLista();
-                pagina = PartialView("~/Views/Titulo/IndexData.cshtml", repo.Listar(t => t.DataVencimento >= dI && t.DataVencimento <= dF));
+
+                List<Titulo> titulosRecebimento = new List<Titulo>();
+                titulosRecebimento = repo.Listar(t => t.DataVencimento >= dI && t.DataVencimento <= dF);
+
+                //Trazendo também os títulos virtuais
+                var titulosPendentes = GeradorTitulosPendentes.ChamarProcedimento(dI, dF, null);
+                foreach (var tp in titulosPendentes)
+                {
+                    if (tp.Direcao == DirecaoCategoria.Recebimento && tp.TituloId == null)
+                    {
+                        titulosRecebimento.Add(
+                           new Titulo()
+                           {
+                               Id = 0,
+                               Descricao = tp.Descricao,
+                               CategoriaId = tp.CategoriaId,
+                               CentroCustoId = tp.CentroCustoId,
+                               ContaId = tp.ContaId,
+                               DataVencimento = tp.DataVencimento,
+                               EmpresaId = UsuarioLogado.EmpresaId,
+                               PessoaId = tp.PessoaId,
+                               TituloRecorrenteId = tp.TituloRecorrenteId,
+                               Valor = tp.Valor == null ? 0 : (decimal)tp.Valor
+                           }
+                       );
+                    }
+                }
+                pagina = PartialView("~/Views/Titulo/IndexData.cshtml", titulosRecebimento);
                 Cache.Insere("recebimento", parametros, pagina);
             }
 
@@ -130,7 +157,7 @@ namespace AgilusFinan.Web.Controllers
             model.ContaId = viewModel.ContaId;
             model.DataVencimento = viewModel.DataVencimento;
             model.Descricao = viewModel.Descricao;
-            model.Valor = viewModel.Valor > 0 ? (decimal)viewModel.Valor : 0 ;
+            model.Valor = viewModel.Valor > 0 ? (decimal)viewModel.Valor : 0;
             model.Observacao = viewModel.Observacao;
             model.TituloRecorrenteId = viewModel.TituloRecorrenteId;
 
@@ -157,7 +184,7 @@ namespace AgilusFinan.Web.Controllers
             ViewBag.ContaId = new SelectList(new RepositorioConta().Listar(), "Id", "Nome", titulo.ContaId);
             ModelToViewModel(titulo, tituloVm);
             ViewBag.TipoTitulo = "Recebimento";
-            
+
             return View("~/Views/" + FolderViewName() + "/Liquidar.cshtml", tituloVm);
         }
 
