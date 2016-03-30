@@ -11,6 +11,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace AgilusFinan.Web.Bases
 {
@@ -33,6 +34,10 @@ namespace AgilusFinan.Web.Bases
             }
         }
 
+        public static string NomeControllerAnterior()
+        {
+            return HttpContext.Current.Request.UrlReferrer.ToString().Split('/')[3];
+        }
         public static Dictionary<int, string> CategoriasIdentadas(DirecaoCategoria? direcao, int tamanhoIdentacao = 3)
         {
             var repo = new RepositorioCategoria();

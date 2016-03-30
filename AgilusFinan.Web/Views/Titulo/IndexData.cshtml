@@ -3,6 +3,7 @@
 <table class="table" id="sorted">
     <thead>
         <tr>
+            <th></th>
             <th>
                 @Html.DisplayNameFor(model => model.DataVencimento)
             </th>
@@ -31,6 +32,13 @@
         @foreach (var item in Model)
         {
             <tr>
+                
+                <td>
+                    @if(item.Id == 0)
+                    {
+                        <span class="label label-danger">R</span>
+                    }
+                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.DataVencimento.GetDateTimeFormats()[0])
                 </td>
@@ -79,11 +87,11 @@
                         {
                             if (item.Id != 0)
                             {
-                                @Html.ActionLink(" ", "LiquidarDiretamente", new { id = item.Id, homeIndex = false }, new { @class = "btn btn-primary btn-circle fa fa-money", @title = "Liquidar Diretamente" })
+                                @Html.ActionLink(" ", "LiquidarDiretamente", new { id = item.Id}, new { @class = "btn btn-primary btn-circle fa fa-money", @title = "Liquidar Diretamente" })
                             }
                             else
                             {
-                                @Html.ActionLink(" ", "../TituloPendente/LiquidarDiretamente", new { dataVencimento = item.DataVencimento, tituloRecorrenteId = item.TituloRecorrenteId, homeIndex = false }, new { @class = "btn btn-primary btn-circle fa fa-money", @title = "Liquidar Diretamente" })
+                                @Html.ActionLink(" ", "../TituloPendente/LiquidarDiretamente", new { dataVencimento = item.DataVencimento, tituloRecorrenteId = item.TituloRecorrenteId}, new { @class = "btn btn-primary btn-circle fa fa-money", @title = "Liquidar Diretamente" })
                             }
                         }
                         
@@ -91,11 +99,11 @@
                         {
                             if (item.Id != 0)
                             {
-                                @Html.ActionLink(" ", "Liquidar", new { id = item.Id, homeIndex = false }, new { @class = "btn btn-success btn-circle fa fa-money", @title = "Liquidar Detalhado" })
+                                @Html.ActionLink(" ", "Liquidar", new { id = item.Id}, new { @class = "btn btn-success btn-circle fa fa-money", @title = "Liquidar Detalhado" })
                             }
                             else
                             {
-                                @Html.ActionLink(" ", "../TituloPendente/Liquidar", new { dataVencimento = item.DataVencimento, tituloRecorrenteId = item.TituloRecorrenteId, homeIndex = false }, new { @class = "btn btn-success btn-circle fa fa-money", @title = "Liquidar Detalhado" })
+                                @Html.ActionLink(" ", "../TituloPendente/Liquidar", new { dataVencimento = item.DataVencimento, tituloRecorrenteId = item.TituloRecorrenteId}, new { @class = "btn btn-success btn-circle fa fa-money", @title = "Liquidar Detalhado" })
                             }
                         }
                         @if (ViewBag.TipoTitulo == "Recebimento")
