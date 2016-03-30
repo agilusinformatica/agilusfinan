@@ -313,6 +313,10 @@
     <Compile Include="Migrations\201603290045119_AlteracaoTamanhoTextoEmail.Designer.cs">
       <DependentUpon>201603290045119_AlteracaoTamanhoTextoEmail.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201603301404175_DeleteCascadeConvite.cs" />
+    <Compile Include="Migrations\201603301404175_DeleteCascadeConvite.Designer.cs">
+      <DependentUpon>201603301404175_DeleteCascadeConvite.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Scripts\pr_soma_categoria.sql">
@@ -561,6 +565,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201603290045119_AlteracaoTamanhoTextoEmail.resx">
       <DependentUpon>201603290045119_AlteracaoTamanhoTextoEmail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603301404175_DeleteCascadeConvite.resx">
+      <DependentUpon>201603301404175_DeleteCascadeConvite.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

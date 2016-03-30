@@ -9,8 +9,11 @@
         <th>
             Categoria
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Valor)
+        <th style="text-align: right">
+            Previsto
+        </th>
+        <th style="text-align: right">
+            Realizado
         </th>
     </tr>
 
@@ -23,8 +26,11 @@
                 }
                 <div class="label" style="background-color: #@item.Cor.ToString("X").PadLeft(6,'0'); color: #@corContrastante"> @Html.DisplayFor(modelItem => item.Nome)</div>
             </td>
-            <td>
-                @item.Valor.GetValueOrDefault((decimal)0.0).ToString("#,##0.00")
+            <td style="text-align: right">
+                @item.ValorPrevisto.GetValueOrDefault((decimal)0.0).ToString("#,##0.00")
+            </td>
+            <td style="text-align: right">
+                @item.ValorRealizado.GetValueOrDefault((decimal)0.0).ToString("#,##0.00")
             </td>
         </tr>
     }

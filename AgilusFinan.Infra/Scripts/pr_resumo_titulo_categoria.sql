@@ -16,15 +16,16 @@ EXEMPLO: exec pr_resumo_titulo_categoria 1, '2016-03-01', '2016-03-31'
 ----------------------------------------------------------------------------------------------------------------------*/
 as 
 Begin
-	create table #temp (Id int not null primary key, Nome varchar(100), CategoriaPaiId int, Cor int, Valor decimal(18,2))
+	create table #temp (Id int not null primary key, Nome varchar(100), CategoriaPaiId int, Cor int, ValorPrevisto decimal(18,2), ValorRealizado decimal(18,2) )
 	
 	insert into #temp 
-	select Id as CategoriaId, Nome, CategoriaPaiId, Cor, 0.0
+	select Id as CategoriaId, Nome, CategoriaPaiId, Cor, 0.0, 0.0
 	from Categoria 
 	where EmpresaId = @id_empresa
 	order by Direcao, CategoriaPaiId
 
-	declare @valor decimal(18,2)
+	declare @valor_previsto decimal(18,2)
+	declare @valor_realizado decimal(18,2)
 	declare @Id int
 	declare cur cursor local for
 	select Id
@@ -35,9 +36,10 @@ Begin
 
 	While @@FETCH_STATUS = 0
 	begin
-		exec pr_soma_categoria @Id, @data_inicial, @data_final, @valor output
+		exec pr_soma_categoria @Id, @data_inicial, @data_final, @valor_previsto output, @valor_realizado output
 		update #temp
-		set valor = isnull(@valor, 0)
+		set ValorPrevisto = isnull(@valor_previsto, 0),
+		ValorRealizado = isnull(@valor_realizado, 0)
 		where id = @Id
 
 		fetch cur into @id
@@ -46,7 +48,7 @@ Begin
 	close cur
 	deallocate cur
 
-	select Id as CategoriaId, Nome, CategoriaPaiId, Cor, Valor 
+	select Id as CategoriaId, Nome, CategoriaPaiId, Cor, ValorPrevisto, ValorRealizado
 	from #temp
 end
 GO
