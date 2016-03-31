@@ -1020,6 +1020,7 @@
     <Content Include="Views\Empresa\Create.cshtml" />
     <Content Include="Views\Shared\_LayoutOff.cshtml" />
     <Content Include="Views\Login\LockScreen.cshtml" />
+    <Content Include="Views\Empresa\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Movimentacoes\" />

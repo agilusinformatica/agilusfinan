@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AgilusFinan.Domain.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,7 +16,7 @@ namespace AgilusFinan.Domain.Entities
                 string retorno;
                 if (HttpContext.Current.Request.Cookies["NomeUsuarioLogado"] != null)
                 {
-                    retorno = HttpContext.Current.Request.Cookies["NomeUsuarioLogado"].Value;
+                    retorno = Criptografia.Decriptar(HttpContext.Current.Request.Cookies["NomeUsuarioLogado"].Value);
                 }
                 else
                 {
@@ -25,7 +26,7 @@ namespace AgilusFinan.Domain.Entities
             }
             set 
             {
-                HttpCookie cookie = new HttpCookie("NomeUsuarioLogado", value);
+                HttpCookie cookie = new HttpCookie("NomeUsuarioLogado", Criptografia.Encriptar(value));
                 HttpContext.Current.Response.Cookies.Add(cookie);
             }
         }
@@ -37,7 +38,7 @@ namespace AgilusFinan.Domain.Entities
                 string retorno;
                 if (HttpContext.Current.Request.Cookies["NomePerfilLogado"] != null)
                 {
-                    retorno = HttpContext.Current.Request.Cookies["NomePerfilLogado"].Value;
+                    retorno = Criptografia.Decriptar(HttpContext.Current.Request.Cookies["NomePerfilLogado"].Value);
                 }
                 else
                 {
@@ -46,8 +47,8 @@ namespace AgilusFinan.Domain.Entities
                 return retorno;
             }
             set 
-            { 
-                HttpCookie cookie = new HttpCookie("NomePerfilLogado", value);
+            {
+                HttpCookie cookie = new HttpCookie("NomePerfilLogado", Criptografia.Encriptar(value));
                 HttpContext.Current.Response.Cookies.Add(cookie);
             }
         }
@@ -59,7 +60,7 @@ namespace AgilusFinan.Domain.Entities
                 int retorno;
                 if (HttpContext.Current.Request.Cookies["IdUsuarioLogado"] != null)
                 {
-                    retorno = Convert.ToInt32(HttpContext.Current.Request.Cookies["IdUsuarioLogado"].Value);
+                    retorno = Convert.ToInt32(Criptografia.Decriptar(HttpContext.Current.Request.Cookies["IdUsuarioLogado"].Value));
                 }
                 else
                 {
@@ -69,7 +70,7 @@ namespace AgilusFinan.Domain.Entities
             }
             set 
             { 
-                HttpCookie cookie = new HttpCookie("IdUsuarioLogado", value.ToString());
+                HttpCookie cookie = new HttpCookie("IdUsuarioLogado", Criptografia.Encriptar(value.ToString()));
                 HttpContext.Current.Response.Cookies.Add(cookie);
             }
         }
@@ -77,12 +78,12 @@ namespace AgilusFinan.Domain.Entities
         public static int PerfilId 
         { 
             get 
-            { 
-                return Convert.ToInt32(HttpContext.Current.Request.Cookies["IdPerfilLogado"].Value);
+            {
+                return Convert.ToInt32(Criptografia.Decriptar(HttpContext.Current.Request.Cookies["IdPerfilLogado"].Value));
             } 
             set 
             { 
-                HttpCookie cookie = new HttpCookie("IdPerfilLogado", value.ToString());
+                HttpCookie cookie = new HttpCookie("IdPerfilLogado", Criptografia.Encriptar(value.ToString()));
                 HttpContext.Current.Response.Cookies.Add(cookie);
             } 
         }
@@ -94,7 +95,7 @@ namespace AgilusFinan.Domain.Entities
                 var cookie = HttpContext.Current.Request.Cookies["IdEmpresaLogada"];
                 int? empresaId = null;
                 if (cookie != null && cookie.Value != String.Empty)
-                    empresaId = Convert.ToInt32(HttpContext.Current.Request.Cookies["IdEmpresaLogada"].Value);
+                    empresaId = Convert.ToInt32(Criptografia.Decriptar(HttpContext.Current.Request.Cookies["IdEmpresaLogada"].Value));
 
                 if (empresaId != null)
                     return (int)empresaId;
@@ -104,7 +105,7 @@ namespace AgilusFinan.Domain.Entities
             } 
             set 
             {
-                HttpCookie cookie = new HttpCookie("IdEmpresaLogada", value.ToString());
+                HttpCookie cookie = new HttpCookie("IdEmpresaLogada", Criptografia.Encriptar(value.ToString()));
                 cookie.Expires = DateTime.Today.AddYears(1);
                 HttpContext.Current.Response.Cookies.Set(cookie);
             } 

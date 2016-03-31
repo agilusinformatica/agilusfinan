@@ -8,7 +8,7 @@ GO
 
 create procedure pr_previsto_realizado(@id_empresa int, @data_inicial smalldatetime, @data_final smalldatetime)
 /*----------------------------------------------------------------------------------------------------------------------
-NOME: pr_cria_titulo_virtual
+NOME: pr_previsto_realizado
 OBJETIVO: Consulta de valores dos títulos por categoria
 DATA: 07/08/2015
 ----------------------------------------------------------------------------------------------------------------------

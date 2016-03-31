@@ -25,7 +25,7 @@ namespace AgilusFinan.Web.Controllers
             {
                 var identadas = from c in Util.CategoriasIdentadas(null, 0)
                                 join g in GeradorResumoTituloCategoria.ChamarProcedimentoResumoCategoria(dataInicial, dataFinal) on c.Key equals g.CategoriaId
-                                select new { g.CategoriaId, c.Value, g.Cor, g.CategoriaPaiId, g.Valor };
+                                select new { g.CategoriaId, c.Value, g.Cor, g.CategoriaPaiId, g.ValorPrevisto, g.ValorRealizado };
 
                 var lista = new List<ResumoTituloCategoria>();
 
@@ -37,7 +37,8 @@ namespace AgilusFinan.Web.Controllers
                         CategoriaPaiId = c.CategoriaPaiId,
                         Cor = c.Cor,
                         Nome = c.Value,
-                        Valor = c.Valor
+                        ValorPrevisto = c.ValorPrevisto,
+                        ValorRealizado = c.ValorRealizado
                     });
                 }
 
