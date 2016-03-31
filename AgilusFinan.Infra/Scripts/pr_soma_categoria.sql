@@ -29,7 +29,7 @@ begin
 	create table #titulo (TituloRecorrenteId int, nome varchar(100), dataVencimento smalldatetime, valor money, CategoriaId int, ContaId int, PessoaId int, CentroCustoId int, TituloId int)
 
 	insert into #titulo
-	exec pr_cria_titulo_virtual @EmpresaId, @data_inicial, @data_final
+	exec pr_cria_titulo_virtual @EmpresaId, @data_inicial, @data_final, @id
 
 	select @soma_prevista = sum(valor)
 	from #titulo
