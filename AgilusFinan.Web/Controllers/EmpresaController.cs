@@ -73,7 +73,12 @@ namespace AgilusFinan.Web.Controllers
             return RedirectToAction("Index", "Login");
         }
 
-
-
+        [Permissao]
+        [HttpGet]
+        public ActionResult Edit()
+        {
+            Contexto db = new Contexto();
+            return View(db.Empresas.FirstOrDefault(e => e.Id == UsuarioLogado.EmpresaId));
+        }
     }
 }
