@@ -51,13 +51,13 @@ else
                     <td class="col-md-3">
                         @if (!String.IsNullOrEmpty(item.TituloId.ToString()))
                         {
-                            @Html.ActionLink("Liquidar", "../" + item.Direcao.ToString() + "/LiquidarDiretamente", new { id = item.TituloId, homeIndex = true })<span>|</span>
-                            @Html.ActionLink("Liquidar Detalhe", "../" + item.Direcao.ToString() + "/Liquidar", new { id = item.TituloId, homeIndex = true })
+                            @Html.ActionLink("Liquidar", "../" + item.Direcao.ToString() + "/LiquidarDiretamente", new { id = item.TituloId })<span>|</span>
+                            @Html.ActionLink("Liquidar Detalhe", "../" + item.Direcao.ToString() + "/Liquidar", new { id = item.TituloId })
                         }
                         else
                         {
-                            @Html.ActionLink("Liquidar", "LiquidarDiretamente", new { dataVencimento = item.DataVencimento, tituloRecorrenteId = item.TituloRecorrenteId, homeIndex = true })<span>|</span>
-                            @Html.ActionLink("Liquidar Detalhe", "Liquidar", new { dataVencimento = item.DataVencimento, tituloRecorrenteId = item.TituloRecorrenteId, homeIndex = true })
+                            @Html.ActionLink("Liquidar", "LiquidarDiretamente", new { dataVencimento = item.DataVencimento, tituloRecorrenteId = item.TituloRecorrenteId })<span>|</span>
+                            @Html.ActionLink("Liquidar Detalhe", "Liquidar", new { dataVencimento = item.DataVencimento, tituloRecorrenteId = item.TituloRecorrenteId})
                         }
 
                     </td>

@@ -16,45 +16,64 @@ Os arquivos de criação estão localizados na pasta Scripts (Projeto Infra).
 ----------------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------*/
 begin
-	declare @EmpresaId int
+	declare 
+		@EmpresaId int,
+		@DataCadastro datetime
+
 	declare cur cursor for
-	select distinct EmpresaId
+	select EmpresaId, DataCadastro
 	from inserted i
 
 	open cur
-	fetch cur into @empresaId
+
+	fetch cur into @empresaId, @DataCadastro
+
 	while @@FETCH_STATUS = 0
 	begin
 		delete cache
 		from cache c
-		where Nome in ('resumotitulo', 'previstorealizado', 'titulopendente')
+		where Nome in ('resumotitulo', 'previstorealizado', 'titulopendente', 'pagamento', 'recebimento')
 		and exists (select 1
 					from parametrocache
-					 where CacheId = c.Id
+					where CacheId = c.Id
 					and nome = 'empresaId'
 					and valor = @empresaId )
-		fetch cur into @empresaId
+		and exists (select 1
+		            from parametroCache
+					where CacheId = c.Id
+					and nome = 'dataInicial'
+					and @DataCadastro >= convert(datetime,valor,103)  )
+
+		fetch cur into @empresaId, @DataCadastro
 	end
 	close cur
 	deallocate cur
 	---------------------------------------
 	declare cur cursor for
-	select distinct EmpresaId
+	select distinct EmpresaId, DataCadastro
 	from deleted i
 
 	open cur
-	fetch cur into @empresaId
+
+	fetch cur into @empresaId, @DataCadastro
+
 	while @@FETCH_STATUS = 0
 	begin
 		delete cache
 		from cache c
-		where Nome in ('resumotitulo', 'previstorealizado', 'titulopendente')
+		where Nome in ('resumotitulo', 'previstorealizado', 'titulopendente', 'pagamento', 'recebimento')
 		and exists (select 1
 					from parametrocache
-					 where CacheId = c.Id
+					where CacheId = c.Id
 					and nome = 'empresaId'
 					and valor = @empresaId )
-		fetch cur into @empresaId
+		and exists (select 1
+		            from parametroCache
+					where CacheId = c.Id
+					and nome = 'dataInicial'
+					and @DataCadastro >= convert(datetime,valor,103)  )
+
+		fetch cur into @empresaId, @DataCadastro
 	end
 	close cur
 	deallocate cur

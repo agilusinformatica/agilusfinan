@@ -26,6 +26,9 @@ namespace AgilusFinan.Web.Controllers
 
         public ActionResult IndexData(string dataInicial, string dataFinal)
         {
+            Session.Add("dataInicial", dataInicial);
+            Session.Add("dataFinal", dataFinal);
+
             var parametros = new Dictionary<string, string>();
             parametros.Add("empresaId", UsuarioLogado.EmpresaId.ToString());
             parametros.Add("dataInicial", dataInicial.ToString());
@@ -62,11 +65,15 @@ namespace AgilusFinan.Web.Controllers
                                Id = 0,
                                Descricao = tp.Descricao,
                                CategoriaId = tp.CategoriaId,
+                               Categoria = new Categoria() { Nome = tp.NomeCategoria },
                                CentroCustoId = tp.CentroCustoId,
+                               CentroCusto = new CentroCusto() { Nome = tp.NomeCentroCusto },
                                ContaId = tp.ContaId,
+                               Conta = new Conta(){Nome = tp.NomeConta},
                                DataVencimento = tp.DataVencimento,
                                EmpresaId = UsuarioLogado.EmpresaId,
                                PessoaId = tp.PessoaId,
+                               Pessoa = new Pessoa(){ Nome = tp.NomePessoa},
                                TituloRecorrenteId = tp.TituloRecorrenteId,
                                Valor = tp.Valor == null ? 0 : (decimal)tp.Valor
                            }
@@ -171,19 +178,20 @@ namespace AgilusFinan.Web.Controllers
 
         [HttpGet]
         [Permissao]
-        public ActionResult Liquidar(int id, bool homeIndex)
+        public ActionResult Liquidar(int id)
         {
             var titulo = repo.BuscarPorId(id);
             var tituloVm = new TituloViewModel();
             ViewBag.ContaId = new SelectList(new RepositorioConta().Listar(), "Id", "Nome", titulo.ContaId);
             ModelToViewModel(titulo, tituloVm);
-            ViewBag.TipoTitulo = "Pagamento";
+            ViewBag.TipoTitulo = "Pagamento"; 
+            ViewBag.ControllerRetorno = Util.NomeControllerAnterior();
             
             return View("~/Views/" + FolderViewName() + "/Liquidar.cshtml", tituloVm);
         }
 
         [Permissao]
-        public ActionResult LiquidarDiretamente(int id, bool homeIndex)
+        public ActionResult LiquidarDiretamente(int id)
         {
             var titulo = repo.BuscarPorId(id);
             if (titulo.Liquidacoes.Count == 0)
@@ -202,12 +210,7 @@ namespace AgilusFinan.Web.Controllers
                 repo.Alterar(titulo);
                 TempData["Alerta"] = new Alerta() { Mensagem = "Título liquidado com sucesso", Tipo = "success" };
 
-                if (homeIndex)
-                {
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                    return RedirectToAction("Index");
+                return RedirectToAction("Index", Util.NomeControllerAnterior());
             }
             else
             {

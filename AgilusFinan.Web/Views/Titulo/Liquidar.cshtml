@@ -33,7 +33,10 @@
 </div>
 <div class="col-md-2">
     <button class="btn btn-default" onclick="UpdateTitulo();">Gravar</button>
-    @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-warning" })
+    @{
+        string controllerRetorno = "../" + ViewBag.ControllerRetorno;
+        @Html.ActionLink("Cancelar", controllerRetorno, null, new { @class = "btn btn-warning" });
+    }
 </div>
 <script>
     var titulo = JSON.parse('@Html.Raw(Json.Encode(Model))');
@@ -44,10 +47,7 @@
             url: '/@(ViewBag.TipoTitulo)/Liquidar',
             data: { "postedData": tituloJson },
             success: function () {
-                if(@Request.Params["homeIndex"].ToLower())
-                    window.location = '@Url.Action("Index", "Home")';
-                else
-                    window.location = '@Url.Action("Index", ViewBag.TipoTitulo)';
+                window.location = '@Url.Action("Index", ViewBag.ControllerRetorno)';
             }
         });
     }

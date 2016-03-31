@@ -16,28 +16,31 @@ namespace AgilusFinan.Web.Controllers
         // GET: TitulosPendentes
         public PartialViewResult Index(DateTime dataInicial, DateTime dataFinal)
         {
+            Session.Add("dataInicial", dataInicial.ToString("dd/MM/yyyy"));
+            Session.Add("dataFinal", dataFinal.ToString("dd/MM/yyyy"));
+
             var parametros = new Dictionary<string, string>();
             parametros.Add("empresaId", UsuarioLogado.EmpresaId.ToString());
             parametros.Add("dataInicial", dataInicial.ToString());
             parametros.Add("dataFinal", dataFinal.ToString());
-            var pagina = (PartialViewResult)Cache.Busca("titulospendentes", parametros);
+            var pagina = (PartialViewResult)Cache.Busca("titulopendente", parametros);
             
             if (pagina == null)
 	        {
                 pagina = PartialView("~/Views/TituloPendente/_Index.cshtml", GeradorTitulosPendentes.ChamarProcedimento(dataInicial, dataFinal, null));
-                Cache.Insere("titulospendentes", parametros, pagina);
+                Cache.Insere("titulopendente", parametros, pagina);
 	        }
-
             return pagina;
         }
 
         [HttpGet]
         [Permissao]
-        public ActionResult Liquidar(DateTime dataVencimento, int tituloRecorrenteId, bool homeIndex)
+        public ActionResult Liquidar(DateTime dataVencimento, int tituloRecorrenteId)
         {
             RepositorioTituloRecorrente repo = new RepositorioTituloRecorrente();
             TituloRecorrente tituloR = repo.BuscarPorId(tituloRecorrenteId);
             ViewBag.TipoTitulo = "TituloPendente";
+            ViewBag.ControllerRetorno = Util.NomeControllerAnterior();
             ViewBag.ContaId = new SelectList(new RepositorioConta().Listar(), "Id", "Nome", tituloR.ContaId);
             TituloViewModel tituloVm =
                 new TituloViewModel()
@@ -56,7 +59,7 @@ namespace AgilusFinan.Web.Controllers
 
         [HttpPost]
         [Permissao]
-        public ActionResult Liquidar(string postedData)
+        public void Liquidar(string postedData)
         {
             RepositorioPadrao<Titulo> repo = new RepositorioPadrao<Titulo>();
             TituloViewModel viewModel = new System.Web.Script.Serialization.JavaScriptSerializer().Deserialize<TituloViewModel>(postedData);
@@ -68,10 +71,9 @@ namespace AgilusFinan.Web.Controllers
                 repo.Incluir(novoTitulo);
                 TempData["Alerta"] = new Alerta() { Mensagem = "Título liquidado com sucesso", Tipo = "success" };
             }
-            return RedirectToAction("Index", "Home");
         }
         [Permissao]
-        public ActionResult LiquidarDiretamente(DateTime dataVencimento, int tituloRecorrenteId, bool homeIndex)
+        public ActionResult LiquidarDiretamente(DateTime dataVencimento, int tituloRecorrenteId)
         {
             var repo = new RepositorioTituloRecorrente();
             var tituloR = repo.BuscarPorId(tituloRecorrenteId);
@@ -109,14 +111,8 @@ namespace AgilusFinan.Web.Controllers
             new RepositorioPadrao<Titulo>().Incluir(titulo);
             TempData["Alerta"] = new Alerta() { Mensagem = "Título liquidado com sucesso", Tipo = "success" };
 
-            if (homeIndex)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            else
-            {
-                return RedirectToAction("Index", HttpContext.Request.UrlReferrer.ToString().Split('/')[3]);
-            }
+
+            return RedirectToAction("Index", Util.NomeControllerAnterior());
         }
 
         [Permissao]
