@@ -23,12 +23,12 @@ namespace AgilusFinan.Web.Controllers
             parametros.Add("empresaId", UsuarioLogado.EmpresaId.ToString());
             parametros.Add("dataInicial", dataInicial.ToString());
             parametros.Add("dataFinal", dataFinal.ToString());
-            var pagina = (PartialViewResult)Cache.Busca("titulospendentes", parametros);
+            var pagina = (PartialViewResult)Cache.Busca("titulopendente", parametros);
             
             if (pagina == null)
 	        {
                 pagina = PartialView("~/Views/TituloPendente/_Index.cshtml", GeradorTitulosPendentes.ChamarProcedimento(dataInicial, dataFinal, null));
-                Cache.Insere("titulospendentes", parametros, pagina);
+                Cache.Insere("titulopendente", parametros, pagina);
 	        }
             return pagina;
         }
