@@ -404,6 +404,20 @@ namespace AgilusFinan.Web.Bases
             var email = new Email(emailDestinatario, TextoEmail, AssuntoEmail, emailRemetente, anexos, new List<string>() { Path.GetFileName(nomeArquivo) });
             email.DispararMensagem();
         }
+
+        public static void EnviarBoletoPorEmail(int tituloRecorrenteId, string nomeArquivo, int modeloBoletoId, decimal valor, DateTime dataVencimento, string emailDestinatario, string AssuntoEmail, string TextoEmail)
+        {
+            var titulo = new RepositorioTituloRecorrente().BuscarPorId(tituloRecorrenteId);
+            var emailRemetente = titulo.Empresa.EmailFinanceiro;
+
+            var boleto = Util.GerarBoletoBancario(tituloRecorrenteId, valor, dataVencimento, modeloBoletoId);
+            var html = StringToStream(boleto.MontaHtmlEmbedded());
+            var anexos = new List<Stream>();
+            anexos.Add(html);
+            var email = new Email(emailDestinatario, TextoEmail, AssuntoEmail, emailRemetente, anexos, new List<string>() { Path.GetFileName(nomeArquivo) });
+            email.DispararMensagem();
+        }
+
           
         public static void EnviarBoletoPorEmail(LoteBoleto loteBoleto, string nomeArquivo)
         {
@@ -430,7 +444,7 @@ namespace AgilusFinan.Web.Bases
             var html = StringToStream(boleto.MontaHtmlEmbedded());
             var anexos = new List<Stream>();
             anexos.Add(html);
-            var email = new Email(emailDestinatario, modeloBoleto.TextoEmail, "Teste Boleto", emailRemetente, anexos, new List<string>() { Path.GetFileName(nomeArquivo) });
+            var email = new Email(emailDestinatario, modeloBoleto.TextoEmail, modeloBoleto.AssuntoEmail, emailRemetente, anexos, new List<string>() { Path.GetFileName(nomeArquivo) });
             email.DispararMensagem();
 
         }

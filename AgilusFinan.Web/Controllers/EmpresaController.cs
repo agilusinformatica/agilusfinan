@@ -80,5 +80,23 @@ namespace AgilusFinan.Web.Controllers
             Contexto db = new Contexto();
             return View(db.Empresas.FirstOrDefault(e => e.Id == UsuarioLogado.EmpresaId));
         }
+
+        [Permissao]
+        [HttpPost]
+        public ActionResult Edit(Empresa empresa, HttpPostedFileBase file)
+        {
+            if (file != null)
+            {
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    file.InputStream.CopyTo(ms);
+                    empresa.Logotipo = ms.ToArray();
+                }
+            }
+
+            new RepositorioEmpresa().Edit(empresa);
+
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

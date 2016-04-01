@@ -6,7 +6,7 @@ end
 
 GO
 
-create procedure pr_cria_titulo_virtual(@id_empresa int, @data_inicial_analise smalldatetime, @data_final_analise smalldatetime)
+create procedure pr_cria_titulo_virtual(@id_empresa int, @data_inicial_analise smalldatetime, @data_final_analise smalldatetime, @id_categoria int = null)
 /*----------------------------------------------------------------------------------------------------------------------
 NOME: pr_cria_titulo_virtual
 OBJETIVO: Criação de títulos virtuais
@@ -46,6 +46,7 @@ Begin
 	join Categoria as c on t.CategoriaId = c.Id
 	where t.EmpresaId = @id_empresa
 	and ativo = 1
+	and (@id_categoria is null or c.Id = @id_categoria)
 
 	open cur
 	Fetch cur into @id, @nome, @dia_vencimento, @valor, @recorrencia, @qtde_parcelas, @categoria_id, @pessoa_id, @centro_custo_id, @data_cadastro, @direcao_vencimento, @conta_id
@@ -68,11 +69,13 @@ Begin
 					and convert(date,tv.DataVencimento) = convert(date,T.DataVencimento))
 	union
 
-	select TituloRecorrenteId, Descricao, DataVencimento, Valor, CategoriaId, ContaId, PessoaId, CentroCustoId, Id
+	select t.TituloRecorrenteId, t.Descricao, t.DataVencimento, t.Valor, t.CategoriaId, t.ContaId, t.PessoaId, t.CentroCustoId, t.Id
 	from Titulo as T
+	join Categoria as C on T.CategoriaId = C.Id
 	where DataVencimento >= @data_inicial_analise
 	and DataVencimento < @data_final_analise+1
-	and empresaId = @id_empresa
+	and t.empresaId = @id_empresa
+	and (@id_categoria is null or c.Id = @id_categoria)
 	order by DataVencimento
 end
 

@@ -121,6 +121,9 @@ namespace AgilusFinan.Web.Controllers
             var boletobancario = Util.GerarBoletoBancario(tituloRecorrenteId, valor, dataVencimento, modeloBoletoId);
             ViewBag.BoletoBancario = boletobancario.MontaHtmlEmbedded();
             var modeloBoleto = new RepositorioModeloBoleto().BuscarPorId(modeloBoletoId);
+            ViewBag.TituloRecorrenteId = tituloRecorrenteId;
+            ViewBag.Valor = valor;
+            ViewBag.DataVencimento = dataVencimento;
             ViewBag.Email = new RepositorioTituloRecorrente().BuscarPorId(tituloRecorrenteId).Pessoa.EmailFinanceiro;
             return View("~/Views/Recebimento/GerarBoleto.cshtml", modeloBoleto);
         }

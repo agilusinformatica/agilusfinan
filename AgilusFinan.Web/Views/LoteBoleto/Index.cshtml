@@ -74,12 +74,16 @@
     }
 
     $(document).ready(function () {
-        $('#check').change(function () {
-            $('.checkbox').prop('checked', $(this).prop('checked'));
-        });
         $('input[type="checkbox"]').iCheck({
             checkboxClass: 'icheckbox_square-green',
             radioClass: 'iradio_square-green',
+        });
+        $('#check').on("ifChanged", function () {
+            var checado = $('#check').parent().hasClass("checked");
+            if(checado)
+                $('input[type="checkbox"]').parent().removeClass("checked");
+            else
+                $('input[type="checkbox"]').parent().addClass("checked");
         });
     });
 
