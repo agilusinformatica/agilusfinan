@@ -430,7 +430,7 @@ namespace AgilusFinan.Web.Bases
             var html = StringToStream(boleto.MontaHtmlEmbedded());
             var anexos = new List<Stream>();
             anexos.Add(html);
-            var email = new Email(emailDestinatario, modeloBoleto.TextoEmail, "Teste Boleto", emailRemetente, anexos, new List<string>() { Path.GetFileName(nomeArquivo) });
+            var email = new Email(emailDestinatario, modeloBoleto.TextoEmail, modeloBoleto.AssuntoEmail, emailRemetente, anexos, new List<string>() { Path.GetFileName(nomeArquivo) });
             email.DispararMensagem();
 
         }
