@@ -118,7 +118,7 @@
                                     }
                                     else
                                     {
-                                        @Html.ActionLink(" ", "../TituloPendente/GerarBoleto", new { TituloRecorrenteId = item.TituloRecorrenteId, valor = item.Valor, dataVencimento = item.DataVencimento, modeloBoletoId = modelos.First().Id }, new { @class = "btn btn-primary btn-circle fa fa-barcode" })
+                                        @Html.ActionLink(" ", "../TituloPendente/GerarBoleto", new { TituloRecorrenteId = item.TituloRecorrenteId, Valor = item.Valor.ToString("#,##0.00"), dataVencimento = item.DataVencimento, modeloBoletoId = modelos.First().Id }, new { @class = "btn btn-primary btn-circle fa fa-barcode" })
                                     }
                                 }
                                 else
@@ -133,7 +133,7 @@
                                             }
                                             else
                                             {
-                                                <li>@Html.ActionLink((string)modelo.Nome, "../TituloPendente/GerarBoleto", new { TituloRecorrenteId = item.TituloRecorrenteId, valor = item.Valor, dataVencimento = item.DataVencimento, modeloBoletoId = modelos.First().Id })</li>
+                                                <li>@Html.ActionLink((string)modelo.Nome, "../TituloPendente/GerarBoleto", new { TituloRecorrenteId = item.TituloRecorrenteId, valor = item.Valor.ToString("#,##0.00"), dataVencimento = item.DataVencimento, modeloBoletoId = modelos.First().Id })</li>
                                             }
                                         }
                                     </ul>
