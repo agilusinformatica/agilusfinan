@@ -49,7 +49,7 @@ namespace AgilusFinan.Domain.Utils
             using (MailMessage objEmail = new MailMessage())
             {
                 //Define o Campo From e ReplyTo do e-mail.
-                objEmail.From = new System.Net.Mail.MailAddress("AGILUS FINAN " + "<" + emailRemetente + ">");
+                objEmail.From = new System.Net.Mail.MailAddress(emailRemetente);
 
                 //Define os destinatários do e-mail.
                 objEmail.To.Add(emailDestinatario);
