@@ -85,9 +85,10 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.DataCadastro, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-10" id="divDataCadastro">
                 @Html.EditorFor(model => model.DataCadastro, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.DataCadastro, "", new { @class = "text-danger" })
+                @*Html.ValidationMessageFor(model => model.DataCadastro, "", new { @class = "text-danger" })*@
+                <span id="msgErroDataCadastro" class="text-danger field-validation-valid" data-valmsg-for="FieldDataCadastro" data-valmsg-replace="true">Para prosseguir é necessário atualizar a data de ínicio a partir de hoje</span>
             </div>
         </div>
 
@@ -113,25 +114,31 @@
     </div>
 }
 
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
 
 <script>
-    Utils.createMask(document.getElementById("Valor"), "moeda");
+    var dataCorrente = '@DateTime.Now.ToShortDateString()';
+    var dataInicioCarregamento = '@Model.DataCadastro.Date.ToShortDateString()';
+    var PeriodicidadeCarregamento = '@Convert.ToInt16(Model.Recorrencia)';
+    var DiaVencimentoCarregamento = '@Model.DiaVencimento.ToString()';
 
+    document.getElementsByTagName('form')[1].addEventListener('submit', ValidarAlteracaoDataInicioPost);
+    $("#Recorrencia").change(EscondeMostraMsgErro);
     $("#Recorrencia").change(CarregarDiasSemana);
+    $("#DataCadastro").change(EscondeMostraMsgErro);
+    $('#msgErroDataCadastro').hide();
+    Utils.createMask(document.getElementById("Valor"), "moeda");
     CarregarDiasSemana();
 
-    function CarregarDiasSemana()
-    {
-        var value = $("#DiaVencimento").val();
 
+
+    function CarregarDiasSemana() {
+        var value = $("#DiaVencimento").val();
         $("#SelecaoDiaVencimento").html("");
         var tiposRecorrencia = $("#Recorrencia");
-        if (tiposRecorrencia.val() == 0 || tiposRecorrencia.val() == 1)
-        {
+        if (tiposRecorrencia.val() == 0 || tiposRecorrencia.val() == 1) {
             document.getElementById("SelecaoDiaVencimento").innerHTML =
                    '<select id="DiaVencimento" name="DiaVencimento" class="form-control">' +
                    '<option></option>' +
@@ -143,14 +150,42 @@
                    '<option value="6">Sexta-feira</option>' +
                    '<option value="7">Sábado</option></select>';
         }
-        else
-        {
+        else {
             document.getElementById("SelecaoDiaVencimento").innerHTML =
                    '<input type="number" id="DiaVencimento" name="DiaVencimento" class="form-control"/>';
         }
-
         $("#DiaVencimento").val(value);
+        $("#DiaVencimento").change(EscondeMostraMsgErro);
     }
 
-</script>
+    function EscondeMostraMsgErro() {
+        if (verificaAlteracoes()) {
+            $('#msgErroDataCadastro').show();
+        }
+        else {
+            $('#msgErroDataCadastro').hide();
+        }
+    }
 
+    function ValidarAlteracaoDataInicioPost() {
+
+        if ('@ViewBag.TipoOperacao' === "Alterando") {
+            if (verificaAlteracoes()) {
+                event.preventDefault();
+            }
+        }
+    }
+
+    function verificaAlteracoes()
+    {
+        if ('@ViewBag.TipoOperacao' === "Alterando")
+            return (
+                    (PeriodicidadeCarregamento != document.getElementById('Recorrencia').value) ||
+                    (DiaVencimentoCarregamento != document.getElementById('DiaVencimento').value) ||
+                    (dataInicioCarregamento != document.getElementById('DataCadastro').value)
+                   ) &&
+                   (
+                     Utils.convertFormatDate(document.getElementById('DataCadastro').value) < Utils.convertFormatDate(dataCorrente)
+                   );
+    }
+</script>
