@@ -234,11 +234,19 @@ namespace AgilusFinan.Web.Controllers
 
         [ValidateInput(false)]
         [HttpPost]
-        public ActionResult EnviarBoletoPorEmail(int tituloId, int modeloBoletoId, string emailDestinatario, string AssuntoEmail, string TextoEmail)
+        public ActionResult EnviarBoletoPorEmail(int? tituloId, int modeloBoletoId, int? TituloRecorrenteId, decimal? Valor, DateTime? DataVencimento, string emailDestinatario, string AssuntoEmail, string TextoEmail)
         {
-            Util.EnviarBoletoPorEmail(tituloId, "boleto.html", modeloBoletoId, emailDestinatario, AssuntoEmail, TextoEmail);
+            if (tituloId != null)
+            {
+                Util.EnviarBoletoPorEmail((int)tituloId, "boleto.html", modeloBoletoId, emailDestinatario, AssuntoEmail, TextoEmail);
+            }
+            else
+            {
+                Util.EnviarBoletoPorEmail((int)TituloRecorrenteId, "boleto.html", modeloBoletoId, (decimal)Valor, (DateTime)DataVencimento, emailDestinatario, AssuntoEmail, TextoEmail);
+            }
             return RedirectToAction("Index", "Recebimento");
         }
+
 
         public Stream GenerateStreamFromString(string s)
         {
