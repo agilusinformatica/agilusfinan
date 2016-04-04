@@ -157,10 +157,11 @@ class RowTable {
         }
 
         var cellButton = document.createElement("td");
-        var text = document.createTextNode("Apagar");
+        var text = document.createTextNode("X");
         //var image = document.createElement("img");
         //image.src = "/Content/Images/close.png";
         var deleteButton = document.createElement("button");
+        deleteButton.className = "btn btn-danger btn-circle";
         deleteButton.onclick = e => {
             e.preventDefault();
             this.Row.classList.add("fadeout");

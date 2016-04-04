@@ -32,7 +32,7 @@ namespace AgilusFinan.Domain.Entities
             {
                 decimal soma = Liquidacoes.Sum(d => d.Valor);
 
-                if (soma >= Valor) 
+                if (soma >= Valor && Valor > 0) 
                     return "Pago";
                 else if (soma > 0)
                     return "Parcialmente";
