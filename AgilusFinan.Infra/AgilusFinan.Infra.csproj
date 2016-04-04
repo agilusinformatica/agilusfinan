@@ -317,6 +317,10 @@
     <Compile Include="Migrations\201603301404175_DeleteCascadeConvite.Designer.cs">
       <DependentUpon>201603301404175_DeleteCascadeConvite.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201604042009105_AceitarNuloJUrosMultaeDescontoEmLiquidacao.cs" />
+    <Compile Include="Migrations\201604042009105_AceitarNuloJUrosMultaeDescontoEmLiquidacao.Designer.cs">
+      <DependentUpon>201604042009105_AceitarNuloJUrosMultaeDescontoEmLiquidacao.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Scripts\pr_soma_categoria.sql">
@@ -568,6 +572,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201603301404175_DeleteCascadeConvite.resx">
       <DependentUpon>201603301404175_DeleteCascadeConvite.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604042009105_AceitarNuloJUrosMultaeDescontoEmLiquidacao.resx">
+      <DependentUpon>201604042009105_AceitarNuloJUrosMultaeDescontoEmLiquidacao.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
