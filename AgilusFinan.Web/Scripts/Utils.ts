@@ -50,7 +50,7 @@
                     }
 				}
 
-				$(input).mask("000.000.000,00", {
+				$(input).mask("000.000.000.000,00", {
                     onChange: function (e) {
 
                         if (input.value == '') {

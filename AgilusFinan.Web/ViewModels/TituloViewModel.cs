@@ -38,7 +38,6 @@ namespace AgilusFinan.Web.ViewModels
             Pessoa = new Pessoa();
             CentroCusto = new CentroCusto();
             Liquidacoes = new List<LiquidacaoViewModel>(); 
-
         }
     }
 
@@ -47,8 +46,8 @@ namespace AgilusFinan.Web.ViewModels
         public int Id { get; set; }
         public DateTime Data { get; set; }
         public decimal Valor { get; set; }
-        public decimal JurosMulta { get; set; }
-        public decimal Desconto { get; set; }
+        public decimal? JurosMulta { get; set; }
+        public decimal? Desconto { get; set; }
         [JsonConverter(typeof(StringEnumConverter))]
         public FormaLiquidacao? FormaLiquidacao { get; set; }
     }

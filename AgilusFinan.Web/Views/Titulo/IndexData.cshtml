@@ -55,7 +55,10 @@
                     @Html.DisplayFor(modelItem => item.Pessoa.Nome)
                 </td>
                 <td align="right">
-                    @item.Valor.ToString("#,##0.00")
+                    @if (item.Valor != 0)
+                    {
+                        @item.Valor.ToString("#,##0.00")
+                    }
                 </td>
                 <td>
                     @if (item.Liquidado == "Pago")
@@ -106,7 +109,7 @@
                                 @Html.ActionLink(" ", "../TituloPendente/Liquidar", new { dataVencimento = item.DataVencimento, tituloRecorrenteId = item.TituloRecorrenteId}, new { @class = "btn btn-success btn-circle fa fa-money", @title = "Liquidar Detalhado" })
                             }
                         }
-                        @if (ViewBag.TipoTitulo == "Recebimento")
+                        @if (ViewBag.TipoTitulo == "Recebimento" && item.Liquidado != "Pago")
                         {
                             <div class="btn-group">
                                 @{ var modelos = ((List<AgilusFinan.Domain.Entities.ModeloBoleto>)ViewBag.ModelosBoleto).Where(c => c.ContaId == item.ContaId); }
