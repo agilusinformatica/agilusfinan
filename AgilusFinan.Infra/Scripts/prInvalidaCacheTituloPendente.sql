@@ -17,7 +17,7 @@ begin
 	
 	delete cache
 	from cache as c
-	where nome = 'titulospendentes'
+	where nome = 'titulopendente'
 	and exists( select 1
 				  from parametrocache
 				  where CacheId = c.Id
