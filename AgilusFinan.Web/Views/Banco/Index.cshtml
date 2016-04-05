@@ -3,46 +3,52 @@
 @{
     ViewBag.Title = "Bancos";
 }
+<div class="ibox">
+    <div class="ibox-title">
+        <h2>Bancos</h2>
+    </div>
+    <div class="ibox-content">
+        <p>
+            <a href="@Url.Action("Create")" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i><span> Incluir</span></a>
+        </p>
 
-<h2>Bancos</h2>
+        <br />
+
+        <table class="table" id="sorted">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Codigo)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Nome)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Codigo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nome)
+                        </td>
+                        <td>
+                            @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "btn btn-primary btn-circle dim fa fa-edit", @title = "Alterar" })
+                            @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "btn btn-warning btn-circle dim fa fa-trash-o", @title = "Excluir" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
 <br />
 
-<p>
-    <a href="@Url.Action("Create")" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i><span> Incluir</span></a>
-</p>
 
-<br />
-
-<table class="table" id="sorted">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Codigo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Nome)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Codigo)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Nome)
-                </td>
-                <td>
-                    @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "btn btn-primary btn-circle dim fa fa-edit", @title = "Alterar" })
-                    @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "btn btn-warning btn-circle dim fa fa-trash-o", @title = "Excluir" })
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
 
 <script>
     Utils.initializeDataTables('#sorted');
