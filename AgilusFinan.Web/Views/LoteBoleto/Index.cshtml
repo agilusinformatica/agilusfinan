@@ -3,69 +3,72 @@
     Layout = null;
 }
 <link href="~/Content/style.css" rel="stylesheet" />
+<div class="ibox">
+    <div class="ibox-content">
 
-<table class="table table-hover table-bordered">
-    <thead>
-        <tr>
-            <th><input type="checkbox" id="check" checked /></th>
-            <th>Pessoa</th>
-            <th>Valor</th>
-            <th>Data de Vencimento</th>
-            <th>E-mail Destinatário</th>
-            <th>Status</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td><input class="checkbox" id="item_Boleto" name="item.Boleto" type="checkbox" @(item.Boleto ? "checked" : "")/></td>
-                <td>@item.NomePessoa</td>
-                @if (item.Valor == 0)
+        <table class="table table-hover table-bordered table-responsive">
+            <thead>
+                <tr>
+                    <th><input type="checkbox" id="check" checked /></th>
+                    <th>Pessoa</th>
+                    <th>Valor</th>
+                    <th>Data de Vencimento</th>
+                    <th>E-mail Destinatário</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
                 {
-                    <td> @Html.EditorFor(m => item.Valor, new { htmlAttributes = new { @class = "form-control", @style = "width: 40%" } }) </td>
+                    <tr>
+                        <td><input class="checkbox" id="item_Boleto" name="item.Boleto" type="checkbox" @(item.Boleto ? "checked" : "") /></td>
+                        <td>@item.NomePessoa</td>
+                        @if (item.Valor == 0)
+                        {
+                            <td> @Html.EditorFor(m => item.Valor, new { htmlAttributes = new { @class = "form-control", @style = "width: 40%" } }) </td>
+                        }
+                        else
+                        {
+                            <td>@item.Valor.ToString("C")</td>
+                        }
+                        <td>@item.DataVencimento.GetDateTimeFormats()[0]</td>
+                        <td>@Html.EditorFor(m => item.EmailDestinatario, new { htmlAttributes = new { @class = "form-control" } }) </td>
+                        <td style="display:none;">@item.TituloId</td>
+                        <td style="display:none;">@item.TituloRecorrenteId</td>
+                        <td style="display:none;">@item.ModeloBoletoId</td>
+                        <td class="clear"></td>
+                    </tr>
                 }
-                else
-                {
-                    <td>@item.Valor.ToString("C")</td>
-                }
-                <td>@item.DataVencimento.GetDateTimeFormats()[0]</td>
-                <td>@Html.EditorFor(m => item.EmailDestinatario, new { htmlAttributes = new { @class = "form-control" }}) </td>
-                <td style="display:none;">@item.TituloId</td>
-                <td style ="display:none;">@item.TituloRecorrenteId</td>
-                <td style="display:none;">@item.ModeloBoletoId</td>
-                <td class="clear"></td>
-            </tr>
-        }
-    </tbody>
-</table>
+            </tbody>
+        </table>
 
-<form action="/LoteBoleto/BaixarBoletos" method="post" id="FormBaixarBoletos">
-    <input type="hidden" name="postedData" id="dadosBaixarBoletos" />
-</form>
+        <form action="/LoteBoleto/BaixarBoletos" method="post" id="FormBaixarBoletos">
+            <input type="hidden" name="postedData" id="dadosBaixarBoletos" />
+        </form>
 
-<form action="/LoteBoleto/GerarRemessa" method="post" id="FormGerarRemessa">
-    <input type="hidden" name="postedData" id="dadosGerarRemessa" />
-</form>
+        <form action="/LoteBoleto/GerarRemessa" method="post" id="FormGerarRemessa">
+            <input type="hidden" name="postedData" id="dadosGerarRemessa" />
+        </form>
 
-<button class="btn btn-default" id="Enviar"><span class="glyphicon glyphicon-envelope" aria-hiddden="true"></span> Enviar</button>
+        <button class="btn btn-default" id="Enviar"><span class="glyphicon glyphicon-envelope" aria-hiddden="true"></span> Enviar</button>
 
-<button class="btn btn-default" id="Baixar" onclick="BaixarBoletos()"><span class="glyphicon glyphicon-save" aria-hiddden="true"></span> Baixar</button>
+        <button class="btn btn-default" id="Baixar" onclick="BaixarBoletos()"><span class="glyphicon glyphicon-save" aria-hiddden="true"></span> Baixar</button>
 
-<button class="btn btn-default" id="Remessa" onclick="GerarRemessa()"><span class="glyphicon glyphicon-save" aria-hiddden="true"></span> Gerar Remessa</button>
+        <button class="btn btn-default" id="Remessa" onclick="GerarRemessa()"><span class="glyphicon glyphicon-save" aria-hiddden="true"></span> Gerar Remessa</button>
 
 
-<div class="progress">
-    <div id="progressbar" class="progress-bar progress-bar-default" role="progressbar">
-        <div class="sk-spinner sk-spinner-three-bounce">
-            <div class="sk-bounce1"></div>
-            <div class="sk-bounce2"></div>
-            <div class="sk-bounce3"></div>
+        <div class="progress">
+            <div id="progressbar" class="progress-bar progress-bar-default" role="progressbar">
+                <div class="sk-spinner sk-spinner-three-bounce">
+                    <div class="sk-bounce1"></div>
+                    <div class="sk-bounce2"></div>
+                    <div class="sk-bounce3"></div>
+                </div>
+            </div>
         </div>
     </div>
+
 </div>
-
-
 
 <script>
     var inputValor = document.getElementById("item_Valor");
@@ -104,7 +107,7 @@
     function GerarBoletos() {
         var boletos = GetData();
         var contador = 0;
-        var tabletr = $("table input[id='item_Boleto']:checked").parent().parent().parent();
+        var tabletr = $("table input[id='item_Boleto']").parent(".checked").parent().parent();
         $.each(boletos, function (indice, boleto) {
             $.ajax({
                 type: "POST",
@@ -142,7 +145,7 @@
     }
 
     function GetData() {
-        var tabletr = $("table input[id='item_Boleto']:checked").parent().parent().parent();
+        var tabletr = $("table input[id='item_Boleto']").parent(".checked").parent().parent();
         titulos = [];
         tabletr.each(function (i) {
             var titulo = {};
