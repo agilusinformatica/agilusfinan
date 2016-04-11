@@ -83,7 +83,7 @@
                         @if (item.Id != 0)
                         {
                             @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "btn btn-primary btn-circle fa fa-edit", @title = "Alterar" })
-                            @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "btn btn-warning btn-circle fa fa-trash-o", @title = "Excluir" })
+                            <button class="btn btn-warning btn-circle" title="Excluir" onclick="Excluir((@item.Id), this)"><i class="dim fa fa-trash-o"></i></button>
                         }
 
                         @if (item.Liquidado != "Pago" && item.Liquidado != "Parcialmente")
@@ -153,4 +153,41 @@
 
 <script>
     Utils.initializeDataTables('#sorted');
+
+    function Excluir(id, element) {
+        var controller = "@((string)Html.ViewContext.RouteData.Values["controller"])";
+        swal({
+            title: "Excluir ",
+            text: "Tem certeza que deseja excluir?",
+            type: "warning",
+            showCancelButton: true,
+            showLoaderOnConfirm: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Sim, excluir!",
+            cancelButtonText: "Não, cancelar!",
+            closeOnConfirm: false,
+            closeOnCancel: false
+        },
+            function (isConfirm) {
+                if (isConfirm) {
+                    $.ajax({
+                        method: "POST",
+                        url: '/' + controller + '/Delete',
+                        data: { "Id": id },
+                        success: function () {
+                            swal("Excluido!", "O registro foi excluido com sucesso.", "success");
+                            var tr = $(element).parent().parent().parent();
+                            tr.fadeOut("2000", function () {
+                                tr.remove();
+                            });
+                        },
+                        error: function () {
+                            swal("Erro", "Este registro possui dependências", "error");
+                        }
+                    });
+                } else {
+                    swal("Cancelado", "O registro não foi excluido :)", "error");
+                }
+            });
+    };
 </script>

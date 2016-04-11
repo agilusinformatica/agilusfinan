@@ -31,6 +31,9 @@
         @Scripts.Render("~/plugins/iCheck")
         @Styles.Render("~/plugins/dataPickerStyles")
         @Scripts.Render("~/plugins/dataPicker")
+        @Styles.Render("~/plugins/sweetAlertStyles")
+        @Scripts.Render("~/plugins/sweetAlert")
+
 
         <style>
             .select2-selection {
@@ -103,8 +106,47 @@
             clearBtn: true
         });
 
+
+
         Utils.createMaskClass(document.getElementsByClassName('inputdate'), "data");
     });
+
+    function Excluir(id, element) {
+        var controller = "@((string)Html.ViewContext.RouteData.Values["controller"])";
+        swal({
+            title: "Excluir ",
+            text: "Tem certeza que deseja excluir?",
+            type: "warning",
+            showCancelButton: true,
+            showLoaderOnConfirm: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Sim, excluir!",
+            cancelButtonText: "Não, cancelar!",
+            closeOnConfirm: false,
+            closeOnCancel: false
+        },
+            function (isConfirm) {
+                if (isConfirm) {
+                    $.ajax({
+                        method: "POST",
+                        url: '/' + controller + '/Delete',
+                        data: { "Id": id },
+                        success: function () {
+                            swal("Excluido!", "O registro foi excluido com sucesso.", "success");
+                            var tr = $(element).parent().parent();
+                            tr.fadeOut("2000", function () {
+                                tr.remove();
+                            });
+                        },
+                        error: function () {
+                            swal("Erro", "Este registro possui dependências", "error");
+                        }
+                    });
+                } else {
+                    swal("Cancelado", "O registro não foi excluido :)", "error");
+                }
+            });
+    };
 </script>
 @if (TempData["Alerta"] != null)
 {

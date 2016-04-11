@@ -38,7 +38,7 @@
         </td>
         <td>
             @Html.ActionLink(" ", "Edit", new { id = item.Key }, new { @class = "btn btn-primary btn-circle dim fa fa-pencil", @title = "Alterar" })
-            @Html.ActionLink(" ", "Delete", new { id = item.Key }, new { @class = "btn btn-warning btn-circle dim fa fa-trash-o", @title = "Excluir" })
+            <button class="btn btn-warning btn-circle" title="Excluir" onclick="Excluir((@item.Key), this)"><i class="dim fa fa-trash-o"></i></button>
             @Html.ActionLink(" ", "CreateFilha", new { CategoriaPaiId = item.Key, direcao = Model.Where(x => x.Id == item.Key).First().Direcao }, new { @class = "btn btn-primary btn-circle dim fa fa-level-down", @title = "Incluir Filha" }) 
 
         </td>

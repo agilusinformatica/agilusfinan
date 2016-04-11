@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Bancos";
 }
-<div class="ibox">
+<div class="ibox animated fadeInRight">
     <div class="ibox-title">
         <h2>Bancos</h2>
     </div>
@@ -38,7 +38,7 @@
                         </td>
                         <td>
                             @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "btn btn-primary btn-circle dim fa fa-edit", @title = "Alterar" })
-                            @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "btn btn-warning btn-circle dim fa fa-trash-o", @title = "Excluir" })
+                            <button class="btn btn-warning btn-circle" title="Excluir" onclick="Excluir((@item.Id), this)"><i class="dim fa fa-trash-o"></i></button>
                         </td>
                     </tr>
                 }
@@ -48,8 +48,14 @@
 </div>
 <br />
 
+@section Styles {
+    @Styles.Render("~/plugins/sweetAlertStyles")
+}
+@section Scripts {
+    @Scripts.Render("~/plugins/sweetAlert")
 
 
 <script>
     Utils.initializeDataTables('#sorted');
 </script>
+}
