@@ -84,3 +84,5 @@ SET IDENTITY_INSERT [dbo].[Funcao] OFF
 
 
 
+select *
+from funcao
