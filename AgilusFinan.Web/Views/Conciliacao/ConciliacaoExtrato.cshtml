@@ -10,7 +10,8 @@
     var extratoId = 0;
 }
 
-<div id="vinculoBuscaDialog" class="dialog" style="display:none" title="Vincular títulos">
+
+<div id="vinculoBuscaDialog" class="dialog" title="Vincular títulos">
     <div id="painel-periodo">
         @Html.Partial("_PainelPeriodo")
         <hr />
@@ -18,9 +19,16 @@
     </div>
 </div>
 
-<div id="cadastroTituloDialog" class="dialog" style="display: none" title="Cadastrar título">
-    <div class="form-horizontal">
-        @*@Html.Partial("_CadastroTitulo", new TituloViewModel() { TipoTitulo = "Recebimento" })*@
+@*<div id="cadastroTituloDialog" class="dialog" style="display: none" title="Cadastrar título">
+    <div class="form-horizontal">*@
+@*@Html.Partial("_CadastroTitulo", new TituloViewModel() { TipoTitulo = "Recebimento" })*@
+@*</div>
+    </div>*@
+
+
+<div id="cadastroTituloDialog">
+    <div>
+
     </div>
 </div>
 
@@ -41,44 +49,47 @@
                                     <th>Tipo de lançamento</th>
                                 </tr>
                             </thead>
-
                             <tbody>
                                 <tr>
                                     <td style="display: none">@vinculo.Id</td>
                                     <td>@vinculo.DataLancamento.Date.ToShortDateString()</td>
                                     <td>@vinculo.Descricao</td>
                                     <td>@vinculo.Valor</td>
-                                    <td>@vinculo.TipoLancamento</td>
+                                    @{
+        if (vinculo.TipoLancamento == TipoLancamento.Credito)
+        {
+            <td style="color:#77b04f">
+                @vinculo.TipoLancamento
+            </td>
+        }
+        else
+        {
+            <td style="color:#F20606">
+                @vinculo.TipoLancamento
+            </td>
+        }
+                                    }
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
-
             <br />
-
-            <div class="row item-display">
-                <div class="col-sm-offset-1 col-md-10">
+                <div class="col-sm-offset-0 col-md-10">
                     <p>Total:<span id="valorSomatoria">0.00</span></p>
                 </div>
-            </div>
 
-
-            <div class="row">
-                <div class="col-sm-offset-1 col-sm-10">
+                <div class="col-sm-offset-0 col-sm-10">
                     <div class="btn-group btn-group-sm" role="toolbar" aria-label="...">
                         <button class="btn btn-primary vincularTitulos marg_direita_button" data-botaoid=@extratoId>Buscar</button>
-                        <button class="btn btn-primary adicionarTitulo" data-botaoid=@extratoId>Adicionar</button>
-
+                        <button class="btn btn-primary adicionarTitulo borda_inferior_button" data-botaoid=@extratoId>Adicionar</button>
                     </div>
                 </div>
-            </div>
-
             <br />
-
+           
             <div class="row body-vinculo">
-                <div class="col-lg-offset-1 col-lg-10">
+                <div class="body-vinculo col-sm-offset-0 col-sm-10 ">
                     <div class="table-responsive">
                         <table class="table table-hover" id="titulosVinculados" style="display: none">
                             <thead>
@@ -102,9 +113,7 @@
                     </div>
                 </div>
             </div>
-
-            <h4 id="alerta">Nenhum título está vinculado a este item.</h4>
-
+                <h4 id="alerta">Nenhum título está vinculado a este item.</h4>
             @{
         extratoId = extratoId + 1;
             }
@@ -177,7 +186,7 @@
                         '<td><input type="text" class="form-control" name="Acrescimo" value=' + titulo.Acrescimo.toFixed(2) + ' "></td>' +
                         '<td><input type="text" class="form-control" name="Desconto" value=' + titulo.Desconto.toFixed(2) + ' "></td>' +
                         '<td style="vertical-align:middle"><button class="btn btn-danger btn-circle" name="Excluir"><i class="fa fa-trash-o"></button></td>';
-                        
+
                     tableVinculo.append(tr);
                     Utils.createMask($(tr).find('input[name="Acrescimo"]').get(0), 'moeda');
                     Utils.createMask($(tr).find('input[name="Desconto"]').get(0), 'moeda');
@@ -366,14 +375,14 @@
                 that.element.find('#valorSomatoria').html(total.toFixed(2));
 
                 if (Math.abs(total) != Math.abs(that.itemExtrato.Valor)) {
-                    that.element.css('background-color', '#FFBABA');
+                    that.element.css('box-shadow', 'rgb(212, 6, 6) 1px 1px 15px 1px');
 
                 } else {
-                    that.element.css('background-color', '#67F097');
+                    that.element.css('box-shadow', 'rgb(14, 122, 37) 1px 1px 15px 4px');
                 }
 
                 if (total == 0) {
-                    that.element.css('background-color', '');
+                    that.element.css('box-shadow', '');
                 }
 
                 titulosSomaIncompativel();
@@ -464,9 +473,9 @@
 
         var vinculoBuscaDialog = $("#vinculoBuscaDialog").dialog({
             autoOpen: false,
-            height: 700,
-            width: 1000,
             modal: true,
+            width: '70%',
+            position: { my: "center", at: "top", of:$('#page-wrapper') },
             buttons: {
                 Ok: {
                     text: "Vincular",
@@ -486,6 +495,7 @@
                 }
             },
             open: function () {
+                
             },
             close: function () {
                 $('#lista').html('');
@@ -494,12 +504,14 @@
         });
 
         var cadastroTituloDialog = $("#cadastroTituloDialog").dialog({
+            dialogClass: 'table-responsive form-horizontal',
+            position: { my: "center", at: "top", of:$('#page-wrapper') },
             autoOpen: false,
-            height: 700,
-            width: 1000,
+            width: '65%',
             modal: true,
             buttons: {
                 Ok: {
+                    class: 'btn btn-primary ',
                     text: "Gravar",
                     id: "gravar",
                     click: function() {
@@ -519,6 +531,7 @@
                     }
                 },
                 Cancel: {
+                    class:'btn btn-warning',
                     text: "Cancelar",
                     id: "Cancelar",
                     click: function() {
@@ -756,7 +769,10 @@
     .body-vinculo {
         font-size: 14px;
         margin: 0 auto;
-        width:100%;
+        width: 100%;
+    }
+    .table{
+
     }
 
     .item-vinculo {
@@ -770,8 +786,7 @@
         .item-vinculo table {
             box-shadow: 5px 5px 10px grey;
             font-size: 10px;
-            background-color:white;
-            
+            background-color: white;
         }
 
             .item-vinculo table > thead {
@@ -789,12 +804,16 @@
             border-bottom: 1px solid lightgrey;
             border-left: 1px solid lightgrey;
             border-right: 1px solid lightgrey;
-            box-shadow: 5px 5px 30px grey;
+            /*box-shadow: 5px 5px 30px grey;*/
         }
 
 
     .marg_direita_button {
-        margin-right:5px;
+        margin-right: 5px;
+    }
+
+     .borda_inferior_button{
+        margin-bottom: 15px;
     }
 
     .item-display {
@@ -823,4 +842,17 @@
     #item-nao-validados a {
         cursor: pointer;
     }
+
+    .ui-dialog {
+        z-index: 1000 !important;
+    }
+
+    .fa {
+    }
+
+    .fa-conciliacao {
+        font-size: 20px;
+        display: block;
+    }
+
 </style>
