@@ -2,93 +2,85 @@
 @using AgilusFinan.Web.ViewModels
 @model TituloViewModel
 
-<div class="_CadastroTitulo table-responsive>
-    <div class="form-group">
-        <div class="col-md-10">
-                @Html.LabelFor(model => model.ContaId, "Conta", htmlAttributes: new { @class = "control-label col-md-2" })
-
-                @Html.DropDownList("ContaId", null, String.Empty, htmlAttributes: new { @class = "form-control " })
+<div class="_CadastroTitulo">
+    <div class="form-horizontal">
+        <div class="form-group">
+            @Html.LabelFor(model => model.ContaId, "ContaId", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("ContaId", null, String.Empty, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.ContaId, "", new { @class = "text-danger" })
-                </div>
             </div>
-   
-    <div class="form-group">
-        <div class="col-md-10">
-            @Html.LabelFor(model => model.DataVencimento,"Vencimento", htmlAttributes: new { @class = "control-label col-md-2 " })
-
-            @Html.EditorFor(model => model.DataVencimento, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.DataVencimento, "", new { @class = "text-danger" })
         </div>
-    </div>
 
-    <div class="form-group">
-        <div class="col-md-10">
-            @Html.LabelFor(model => model.Descricao, "Descrição", htmlAttributes: new { @class = "control-label col-md-2" })
-
-            @Html.EditorFor(model => model.Descricao, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Descricao, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.DataVencimento,"Vencimento", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DataVencimento, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DataVencimento, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        <div class="col-md-10">
-            @Html.LabelFor(model => model.Valor,htmlAttributes: new { @class = "control-label col-md-2" })
-
-            @Html.EditorFor(model => model.Valor, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Valor, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Descricao, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Descricao, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Descricao, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        <div class="col-md-10">
-            @Html.LabelFor(model => model.CategoriaId, "Categoria", htmlAttributes: new { @class = "control-label col-md-2" })
-
-            <select name="CategoriaId" id="CategoriaId" class="form-control">
-                @{var ListaCategorias = AgilusFinan.Web.Bases.Util.CategoriasIdentadas(Model.TipoTitulo == "Pagamento" ? DirecaoCategoria.Pagamento : DirecaoCategoria.Recebimento);}
-                @Html.Partial("~/Views/Categoria/_ItensCategoria.cshtml", new ItensCategoria() { Id = Model.CategoriaId, Lista = ListaCategorias })
-            </select>
-            @Html.ValidationMessageFor(model => model.CategoriaId, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Valor, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Valor, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Valor, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        <div class="col-md-10">
-            @Html.LabelFor(model => model.PessoaId, "Pessoa", htmlAttributes: new { @class = "control-label col-md-2" })
-
-            @Html.DropDownList("PessoaId", null, String.Empty, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.PessoaId, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.CategoriaId, "CategoriaId", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select name="CategoriaId" id="CategoriaId" class="form-control">
+                    @{var ListaCategorias = AgilusFinan.Web.Bases.Util.CategoriasIdentadas(Model.TipoTitulo == "Pagamento" ? DirecaoCategoria.Pagamento : DirecaoCategoria.Recebimento);}
+                    @Html.Partial("~/Views/Categoria/_ItensCategoria.cshtml", new ItensCategoria() { Id = Model.CategoriaId, Lista = ListaCategorias })
+                </select>
+                @Html.ValidationMessageFor(model => model.CategoriaId, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        <div class="col-md-10">
-            @Html.LabelFor(model => model.CentroCustoId, "Centro de Custo", htmlAttributes: new { @class = "control-label col-md-2" })
-
-            @Html.DropDownList("CentroCustoId", null, String.Empty, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.CentroCustoId, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.PessoaId, "PessoaId", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("PessoaId", null, String.Empty, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.PessoaId, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        <div class="col-md-10">
-            @Html.LabelFor(model => model.Competencia, "Competência", htmlAttributes: new { @class = "control-label col-md-2" })
-
-            @Html.EditorFor(model => model.Competencia, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Competencia, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.CentroCustoId, "CentroCustoId", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("CentroCustoId", null, String.Empty, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CentroCustoId, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        <div class="col-md-10">
-            @Html.LabelFor(model => model.Observacao, "Observação", htmlAttributes: new { @class = "control-label col-md-2" })
-
-            @Html.EditorFor(model => model.Observacao, null, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Observacao, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Competencia, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Competencia, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Competencia, "", new { @class = "text-danger" })
+            </div>
         </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Observacao, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Observacao, null, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Observacao, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
     </div>
-</div>
-
-
+</div> 
 <script>
 
     $('#Competencia').val($('#Competencia').val().substring(3, 10));
@@ -173,26 +165,10 @@
 
 </script>
 
-
 <style>
-    input, select{
-        margin:0.2% 0 0 0;
-    }
+ 
     span{
-        /*Input 2 dos combos, z-index precisa ser maior que o da modal, caso contário ele não aparece*/
         z-index:2105
     }
-    .select2
-    {
-        margin: 0.2% 0 0 0;
-    }
-    
-    label {
-        font-family:  "open sans", "Helvetica Neue", "Helvetica", "Arial", "sans-serif";
-        margin-top: 0.75%;
-        margin-bottom:3.5%;
-        color:#5b5a5a;
-        margin-right:10%;
-    }
 
-</style>
+ </style>
