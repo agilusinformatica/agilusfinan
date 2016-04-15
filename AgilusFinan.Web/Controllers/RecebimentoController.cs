@@ -13,6 +13,7 @@ using System.Net.Mime;
 using System.IO;
 using AgilusFinan.Domain.Utils;
 using System.Globalization;
+using System.Web.Script.Serialization;
 
 namespace AgilusFinan.Web.Controllers
 {
@@ -264,6 +265,12 @@ namespace AgilusFinan.Web.Controllers
         {
             Edit(postedData);
         }
+        [HttpGet]
+        public ActionResult Duplicar(int id)
+        {
+            return Edit(id);
+        }
+
 
     }
 

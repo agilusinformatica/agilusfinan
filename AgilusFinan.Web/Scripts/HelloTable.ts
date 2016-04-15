@@ -46,8 +46,8 @@ class CellTable {
 
         if (this.column.Type === ColumnType.text || this.column.Type === ColumnType.date || this.column.Type === ColumnType.number || this.column.Type === ColumnType.hidden) {
             if (this.control.value.match(/\d+,\d+/g)) {
-                var valor = this.control.value.replace(".", "");                                           
-                return valor.replace(",", ".");
+                var valor = this.control.value.replace(/\./g, "").replace(",", ".");                                           
+                return valor;
             } else {
                 return this.control.value;    
             }
