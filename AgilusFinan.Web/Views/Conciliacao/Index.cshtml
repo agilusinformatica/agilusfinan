@@ -8,9 +8,19 @@
 @using (Html.BeginForm("ConciliacaoExtrato", "Conciliacao", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
+    <label class="alert alert-warning">Selecione o extrato (arquivo com formato ofx), para iniciar o processo de conciliação...</label>
+
     <div class="form-group form-inline">
-        <input type="file" name="file" class="btn btn-default"/>
+        <input type="file" name="file" />
         <hr />
-        <input type="submit" class="btn btn-default" />
+        <input type="submit" class="btn btn-primary" />
     </div>
+    
 }
+
+
+<style>
+    input{
+        max-width:none;
+    }
+</style>
