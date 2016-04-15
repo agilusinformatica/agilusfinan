@@ -11,7 +11,7 @@
 }
 
 
-<div id="vinculoBuscaDialog" class="dialog" title="Vincular títulos">
+<div id="vinculoBuscaDialog" class="modal-dialog" title="Vincular título">
     <div id="painel-periodo">
         @Html.Partial("_PainelPeriodo")
         <hr />
@@ -19,14 +19,7 @@
     </div>
 </div>
 
-@*<div id="cadastroTituloDialog" class="dialog" style="display: none" title="Cadastrar título">
-    <div class="form-horizontal">*@
-@*@Html.Partial("_CadastroTitulo", new TituloViewModel() { TipoTitulo = "Recebimento" })*@
-@*</div>
-    </div>*@
-
-
-<div id="cadastroTituloDialog">
+<div id="cadastroTituloDialog" class="modal-dialog" title="Adicionar título">
     <div>
 
     </div>
@@ -56,18 +49,18 @@
                                     <td>@vinculo.Descricao</td>
                                     <td>@vinculo.Valor</td>
                                     @{
-        if (vinculo.TipoLancamento == TipoLancamento.Credito)
-        {
-            <td style="color:#77b04f">
-                @vinculo.TipoLancamento
-            </td>
-        }
-        else
-        {
-            <td style="color:#F20606">
-                @vinculo.TipoLancamento
-            </td>
-        }
+                                        if (vinculo.TipoLancamento == TipoLancamento.Credito)
+                                        {
+                                            <td style="color:#0E7A25; font-weight:bold">
+                                              @vinculo.TipoLancamento
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td style="color:#F20606; font-weight:bold">
+                                              @vinculo.TipoLancamento
+                                            </td>
+                                        }
                                     }
                                 </tr>
                             </tbody>
@@ -76,18 +69,18 @@
                 </div>
             </div>
             <br />
-                <div class="col-sm-offset-0 col-md-10">
-                    <p>Total:<span id="valorSomatoria">0.00</span></p>
-                </div>
+            <div class="col-sm-offset-0 col-md-10">
+                <p>Total:<span id="valorSomatoria">0.00</span></p>
+            </div>
 
-                <div class="col-sm-offset-0 col-sm-10">
-                    <div class="btn-group btn-group-sm" role="toolbar" aria-label="...">
-                        <button class="btn btn-primary vincularTitulos marg_direita_button" data-botaoid=@extratoId>Buscar</button>
-                        <button class="btn btn-primary adicionarTitulo borda_inferior_button" data-botaoid=@extratoId>Adicionar</button>
-                    </div>
+            <div class="col-sm-offset-0 col-sm-10">
+                <div class="btn-group btn-group-sm" role="toolbar" aria-label="...">
+                    <button class="btn btn-primary vincularTitulos marg_direita_button" data-botaoid=@extratoId>Buscar</button>
+                    <button class="btn btn-primary adicionarTitulo borda_inferior_button" data-botaoid=@extratoId>Adicionar</button>
                 </div>
+            </div>
             <br />
-           
+
             <div class="row body-vinculo">
                 <div class="body-vinculo col-sm-offset-0 col-sm-10 ">
                     <div class="table-responsive">
@@ -113,7 +106,7 @@
                     </div>
                 </div>
             </div>
-                <h4 id="alerta">Nenhum título está vinculado a este item.</h4>
+            <h4 id="alerta">Nenhum título está vinculado a este item.</h4>
             @{
         extratoId = extratoId + 1;
             }
@@ -468,16 +461,17 @@
 
                 });
             });
-
         }
 
         var vinculoBuscaDialog = $("#vinculoBuscaDialog").dialog({
             autoOpen: false,
+            dialogClass:'animated fadeInDown',
+            width: '80%',
+            position: { at: "top", of:$('#page-wrapper') },
             modal: true,
-            width: '70%',
-            position: { my: "center", at: "top", of:$('#page-wrapper') },
             buttons: {
                 Ok: {
+                    class: 'btn btn-primary ',
                     text: "Vincular",
                     id: "vincular",
                     click: function() {
@@ -487,6 +481,7 @@
                     }
                 },
                 Cancel: {
+                    class:'btn btn-warning',
                     text: "Cancelar",
                     id: "Cancelar",
                     click: function(){
@@ -495,7 +490,7 @@
                 }
             },
             open: function () {
-                
+
             },
             close: function () {
                 $('#lista').html('');
@@ -504,10 +499,10 @@
         });
 
         var cadastroTituloDialog = $("#cadastroTituloDialog").dialog({
-            dialogClass: 'table-responsive form-horizontal',
-            position: { my: "center", at: "top", of:$('#page-wrapper') },
+            dialogClass:'animated fadeInDown',
+            position: { at: "top", of:$('#page-wrapper') },
             autoOpen: false,
-            width: '65%',
+            width: '80%',
             modal: true,
             buttons: {
                 Ok: {
@@ -771,8 +766,8 @@
         margin: 0 auto;
         width: 100%;
     }
-    .table{
 
+    .table {
     }
 
     .item-vinculo {
@@ -812,7 +807,7 @@
         margin-right: 5px;
     }
 
-     .borda_inferior_button{
+    .borda_inferior_button {
         margin-bottom: 15px;
     }
 
@@ -844,7 +839,7 @@
     }
 
     .ui-dialog {
-        z-index: 1000 !important;
+        z-index: 2100;
     }
 
     .fa {
@@ -855,4 +850,28 @@
         display: block;
     }
 
+    .ui-dialog-titlebar-close {
+        visibility: hidden;
+    }
+
+
+    .ui-dialog-titlebar {
+        border: 0;
+        padding: 0;
+        background-color: white;
+        text-align: center;
+    }
+
+    .ui-dialog-title {
+        font-family: "open sans", "Helvetica Neue", "Helvetica", "Arial", "sans-serif";
+        font-size: 1.6em;
+        font-weight: normal;
+        text-transform: none;
+        background-color: white;
+        color: rgb(156, 152, 152);
+    }
+
+    ui-dialog-title {
+        text-align: center;
+    }
 </style>
