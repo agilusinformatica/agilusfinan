@@ -54,6 +54,9 @@ namespace AgilusFinan.Domain.Utils
                 //Define os destinatários do e-mail.
                 objEmail.To.Add(emailDestinatario);
 
+                //Define a cópia para o remetente
+                objEmail.CC.Add(emailRemetente);
+
                 //Define a prioridade do e-mail.
                 objEmail.Priority = System.Net.Mail.MailPriority.Normal;
 
