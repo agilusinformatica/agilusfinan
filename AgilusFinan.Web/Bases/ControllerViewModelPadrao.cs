@@ -69,6 +69,16 @@ namespace AgilusFinan.Web.Bases
             return FolderViewName() == String.Empty ? View(viewModel) : View("~/Views/" + FolderViewName() + "/Edit.cshtml", viewModel);
         }
 
+        [HttpGet]
+        public virtual ActionResult Duplicar(int id)
+        {
+            T model = repo.BuscarPorId(id);
+            ViewBag.TipoOperacao = "Incluindo";
+            V viewModel = new V();
+            ModelToViewModel(model, viewModel);
+            PreAlteracao(viewModel);
+            return FolderViewName() == String.Empty ? View(viewModel) : View("~/Views/" + FolderViewName() + "/Duplicar.cshtml", viewModel);
+        }
         [HttpPost]
         [Permissao]
         public virtual ActionResult Edit(string postedData)

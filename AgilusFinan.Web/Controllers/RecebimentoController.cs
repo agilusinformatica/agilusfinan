@@ -265,12 +265,6 @@ namespace AgilusFinan.Web.Controllers
         {
             Edit(postedData);
         }
-        [HttpGet]
-        public ActionResult Duplicar(int id)
-        {
-            return Edit(id);
-        }
-
 
     }
 
