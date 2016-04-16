@@ -14,7 +14,7 @@ namespace AgilusFinan.Web.ViewModels
         public string Cpf { get; set; }
         public string Rg { get; set; }
         [Display(Name = "Data de Nascimento")]
-        public DateTime DataNascimento { get; set; }
+        public DateTime? DataNascimento { get; set; }
         public Endereco Endereco { get; set; }
         public string EmailContato { get; set; }
         public string EmailFinanceiro { get; set; }
