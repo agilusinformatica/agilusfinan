@@ -1007,6 +1007,7 @@
     <Content Include="Views\Shared\_LayoutOff.cshtml" />
     <Content Include="Views\Login\LockScreen.cshtml" />
     <Content Include="Views\Empresa\Edit.cshtml" />
+    <Content Include="Views\Titulo\Duplicar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Movimentacoes\" />

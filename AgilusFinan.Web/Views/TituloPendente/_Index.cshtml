@@ -48,16 +48,16 @@ else
                     <td>
                         @Html.DisplayFor(modelItem => item.NomePessoa)
                     </td>
-                    <td class="col-md-3">
+                    <td>
                         @if (!String.IsNullOrEmpty(item.TituloId.ToString()))
                         {
-                            @Html.ActionLink("Liquidar", "../" + item.Direcao.ToString() + "/LiquidarDiretamente", new { id = item.TituloId })<span>|</span>
-                            @Html.ActionLink("Liquidar Detalhe", "../" + item.Direcao.ToString() + "/Liquidar", new { id = item.TituloId })
+                            @Html.ActionLink("Liquidar", "../" + item.Direcao.ToString() + "/LiquidarDiretamente", new { id = item.TituloId }, new { @class = "btn btn-default btn-xs" })
+                            @Html.ActionLink("Liquidar Detalhe", "../" + item.Direcao.ToString() + "/Liquidar", new { id = item.TituloId }, new { @class = "btn btn-default btn-xs" })
                         }
                         else
                         {
-                            @Html.ActionLink("Liquidar", "LiquidarDiretamente", new { dataVencimento = item.DataVencimento, tituloRecorrenteId = item.TituloRecorrenteId })<span>|</span>
-                            @Html.ActionLink("Liquidar Detalhe", "Liquidar", new { dataVencimento = item.DataVencimento, tituloRecorrenteId = item.TituloRecorrenteId})
+                            @Html.ActionLink(" Liquidar", "LiquidarDiretamente", new { dataVencimento = item.DataVencimento, tituloRecorrenteId = item.TituloRecorrenteId }, new { @class = "btn btn-default btn-xs" })
+                            @Html.ActionLink("Liquidar Detalhe", "Liquidar", new { dataVencimento = item.DataVencimento, tituloRecorrenteId = item.TituloRecorrenteId }, new { @class = "btn btn-default btn-xs" })
                         }
 
                     </td>

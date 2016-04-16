@@ -84,8 +84,10 @@
                         {
                             @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "btn btn-primary btn-circle fa fa-edit", @title = "Alterar" })
                             <button class="btn btn-warning btn-circle" title="Excluir" onclick="Excluir((@item.Id), this)"><i class="dim fa fa-trash-o"></i></button>
+                            @Html.ActionLink(" ", "Duplicar", new { id = item.Id }, new { @class = "btn btn-primary btn-circle fa fa-share-alt", @title = "Duplicar"})
                         }
 
+                        
                         @if (item.Liquidado != "Pago" && item.Liquidado != "Parcialmente")
                         {
                             if (item.Id != 0)
@@ -150,6 +152,7 @@
         }
     </tbody>
 </table>
+
 
 <script>
     Utils.initializeDataTables('#sorted');

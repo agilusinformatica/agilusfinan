@@ -100,7 +100,7 @@
         else{
             $('.progress').hide("slow");
             $('.label').hide("slow");
-            alert("Selecione pelo menos um boleto");
+            sweetAlert("Erro","Selecione pelo menos um boleto", "error");
         }
     });
 
@@ -134,14 +134,25 @@
 
     function BaixarBoletos() {
         var boletosJson = JSON.stringify(GetData());
-        $('#dadosBaixarBoletos').val(boletosJson);
-        $('#FormBaixarBoletos').submit();
+        if(boletosJson.length > 2){
+            $('#dadosBaixarBoletos').val(boletosJson);
+            $('#FormBaixarBoletos').submit();
+        }
+        else{
+            sweetAlert("Erro","Selecione pelo menos um boleto", "error");
+        }
+
     }
     
     function GerarRemessa() {
         var boletosJson = JSON.stringify(GetData());
-        $('#dadosGerarRemessa').val(boletosJson);
-        $('#FormGerarRemessa').submit();
+        if(boletosJson.length > 2){
+            $('#dadosGerarRemessa').val(boletosJson);
+            $('#FormGerarRemessa').submit();
+        }
+        else{
+            sweetAlert("Erro","Selecione pelo menos um boleto", "error");
+        }
     }
 
     function GetData() {
