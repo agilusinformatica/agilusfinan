@@ -15,6 +15,7 @@
         for (var element in inputs) {
             if (inputs.hasOwnProperty(element)) {
                 $(inputs[element]).datepicker({
+                    zIndexOffset: 2106,
                     forceParse: true,
                     autoclose: true,
                     language: 'pt-BR',

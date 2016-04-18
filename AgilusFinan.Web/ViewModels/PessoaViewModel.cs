@@ -12,14 +12,16 @@ namespace AgilusFinan.Web.ViewModels
         public string Nome { get; set; }
         [Display(Name = "CPF/CNPJ")]
         public string Cpf { get; set; }
+        [Display(Name = "RG")]
         public string Rg { get; set; }
         [Display(Name = "Data de Nascimento")]
         public DateTime DataNascimento { get; set; }
         public Endereco Endereco { get; set; }
+        [Display(Name = "E-mail de Contato")]
         public string EmailContato { get; set; }
+        [Display(Name = "E-mail Financeiro")]
         public string EmailFinanceiro { get; set; }
         public ContaBancaria ContaBancaria { get; set; }
-
         public List<TipoPorPessoa> TiposPorPessoa { get; set; }
         public List<TelefonePessoaViewModel> Telefones { get; set; }
 
