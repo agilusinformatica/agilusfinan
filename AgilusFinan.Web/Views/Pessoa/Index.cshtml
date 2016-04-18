@@ -68,7 +68,12 @@
                     @Html.DisplayFor(modelItem => item.Rg)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.DataNascimento.GetDateTimeFormats()[0])
+                    @{
+                        if (!String.IsNullOrEmpty(item.DataNascimento.ToString()))
+                        {
+                            DateTime dataNasc = (DateTime)item.DataNascimento;
+                            @Html.DisplayFor(modelItem => dataNasc.GetDateTimeFormats()[0])}
+                        }
                 </td>
                 <td>
                     @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "btn btn-primary btn-circle dim fa fa-edit", @title = "Alterar" })
