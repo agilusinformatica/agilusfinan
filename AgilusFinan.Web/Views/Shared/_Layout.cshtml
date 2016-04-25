@@ -91,11 +91,16 @@
 
 <script>
     $(document).ready(function () {
+
+        //inicialização do Select2 para todos os Select's do sistema
         $('select').select2();
+
+        //inicialização do iCheck para todos os checkbox's do sistema
         $('input[type="checkbox"]').iCheck({
             checkboxClass: 'icheckbox_square-green',
             radioClass: 'iradio_square-green',
         });
+
         Utils.defineInputDatePicker(document.getElementsByClassName('inputdate'));
 
         $('.input-daterange').datepicker({
@@ -107,8 +112,6 @@
             todayBtn: "linked",
             clearBtn: true
         });
-
-
 
         Utils.createMaskClass(document.getElementsByClassName('inputdate'), "data");
     });

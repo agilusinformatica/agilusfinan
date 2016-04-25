@@ -9,6 +9,7 @@ namespace AgilusFinan.Web.ViewModels
     public class PessoaViewModel
     {
         public int Id { get; set; }
+        [Required(ErrorMessage = "Informe o nome")]
         public string Nome { get; set; }
         [Display(Name = "CPF/CNPJ")]
         public string Cpf { get; set; }
