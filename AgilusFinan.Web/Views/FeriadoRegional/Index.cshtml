@@ -39,7 +39,7 @@
                     @Html.DisplayFor(modelItem => item.Descricao)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Data)
+                    @Html.DisplayFor(modelItem => item.Data.GetDateTimeFormats()[0])
                 </td>
                 <td>
                     @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "btn btn-primary btn-circle dim fa fa-edit", @title = "Alterar" })

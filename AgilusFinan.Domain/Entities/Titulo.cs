@@ -13,15 +13,20 @@ namespace AgilusFinan.Domain.Entities
         public virtual Conta Conta { get; set; }
         [Display(Name = "Data de Vencimento")]
         public DateTime DataVencimento { get; set; }
+        [Display(Name = "Descrição")]
         public String Descricao { get; set; }
         public decimal Valor { get; set; }
+        [Display(Name = "Categoria")]
         public int CategoriaId { get; set; }
+        [Display(Name = "Categoria")]
         public virtual Categoria Categoria { get; set; }
         public int PessoaId { get; set; }
         public virtual Pessoa Pessoa { get; set; }
         public int? CentroCustoId { get; set; }
         public virtual CentroCusto CentroCusto { get; set; }
+        [Display(Name = "Competência")]
         public DateTime? Competencia { get; set; }
+        [Display(Name = "Observação")]
         public string Observacao { get; set; }
         public int? TituloRecorrenteId { get; set; }
         public virtual TituloRecorrente TituloRecorrente { get; set; }

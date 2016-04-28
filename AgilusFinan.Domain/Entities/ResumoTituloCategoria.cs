@@ -13,7 +13,9 @@ namespace AgilusFinan.Domain.Entities
         public int? CategoriaPaiId { get; set; }
         public int Cor { get; set; }
         [DisplayFormat(DataFormatString = "{0:c}")]
+        [Display(Name = "Valor Previsto")]
         public decimal? ValorPrevisto { get; set; }
+        [Display(Name = "Valor Ralizado")]
         public decimal? ValorRealizado { get; set; }
 
 

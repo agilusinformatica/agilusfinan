@@ -3,44 +3,46 @@
 
 @model AgilusFinan.Web.ViewModels.PessoaViewModel
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Create", "Pessoa", FormMethod.Post, new { id = "formPessoa"}))
 {
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
         <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
         @Html.HiddenFor(model => model.Id)
 
         <div class="form-group">
             <label class="control-label col-md-2">Tipo de Pessoa </label>
-            <table id="tabTiposPessoa">
-                <tr>
-                    @foreach (var tipo in Model.TiposPorPessoa)
-                    {
-                        <td>
-                            @Html.LabelFor(model => model.TiposPorPessoa, tipo.Nome, htmlAttributes: new { @class = "control-label col-md-1" })
-                        </td>
-                    }
-                </tr>
-                <tr>
-                    @foreach (var tipo in Model.TiposPorPessoa)
-                    {
-                        <td style="text-align: center">
-                            <input type="hidden" value="@(tipo.Id)" />
-                            <input type="checkbox" @(tipo.Marcado ? "checked" : "") />
-                        </td>
-                    }
-                </tr>
-            </table>
-            @Html.ValidationMessageFor(model => model.TiposPorPessoa, "", new { @class = "text-danger" })
+            <div class="col-md-10">
+                <table id="tabTiposPessoa">
+                    <tr>
+                        @foreach (var tipo in Model.TiposPorPessoa)
+                        {
+                            <td>
+                                @Html.LabelFor(model => model.TiposPorPessoa, tipo.Nome, htmlAttributes: new { @class = "control-label col-md-1" })
+                            </td>
+                        }
+                    </tr>
+                    <tr>
+                        @foreach (var tipo in Model.TiposPorPessoa)
+                        {
+                            <td style="text-align: center">
+                                <input type="hidden" value="@(tipo.Id)" />
+                                <input type="checkbox" @(tipo.Marcado ? "checked" : "") />
+                            </td>
+                        }
+                    </tr>
+                </table>
+                @Html.ValidationMessageFor(model => model.TiposPorPessoa, "", new { @class = "text-danger" })
+            </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" }})
+                @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -48,7 +50,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Cpf, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Cpf, new { htmlAttributes = new { @class = "form-control" }})
+                @Html.EditorFor(model => model.Cpf, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Cpf, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -56,7 +58,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Rg, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Rg, new { htmlAttributes = new { @class = "form-control" }})
+                @Html.EditorFor(model => model.Rg, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Rg, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -127,49 +129,34 @@
 
 <script>
     //// Validação
+    $(document).ready(function () {
+        var form = $('#formPessoa')
+            , formData = $.data(form[0])
+            , settings = formData.validator.settings
+            // Store existing event handlers in local variables
+            , oldErrorPlacement = settings.errorPlacement
+            , oldSuccess = settings.success;
 
-    //$(document).ready(function () {
+        settings.errorPlacement = function (label, element) {
 
-    //    var settings = $.data($('form')[0], 'validator').settings;
+            // Call old handler so it can update the HTML
+            oldErrorPlacement(label, element);
 
-    //    $("form").bind("invalid-form.validate", function (form, validator) {
-    //        var errors = validator.numberOfInvalids();
-    //        var message = "Please fix" + errors + " errors.";
+            // Add Bootstrap classes to newly added elements
+            label.parents('.form-group').addClass('has-error');
+            label.addClass('text-danger');
+        };
 
-    //        for (var x = 0; x < validator.errorList.length; x++) {
-    //            message += "<br/>\u25CF " + validator.errorList[x].message;
-    //        }
-    //        $("#errorList").html(message);
-    //        $("#errorList").slideDown('fast');
+        settings.success = function (label) {
+            // Remove error class from <div class="form-group">, but don't worry about
+            // validation error messages as the plugin is going to remove it anyway
+            label.parents('.form-group').removeClass('has-error');
 
-    //    });
+            // Call old handler to do rest of the work
+            oldSuccess(label);
+        };
+    });
 
-    //    settings.rules = {
-    //        Cpf: {
-    //            required: true
-    //        },
-    //        Nome: {
-    //            required: true,
-    //            minlength: 10
-    //        },
-    //        DataNascimento: {
-    //            required: true
-    //        }
-    //    }
-
-    //    settings.messages = {
-    //        CPf: "Campo CPF é obrigatório",
-    //        Nome: {
-    //            required: "Campo nome é obrigatório.",
-    //            minlength: "Campo deve conter ao menos 10 caracteres."
-    //        }
-    //    }
-
-    //    settings.submitHandler = function (form) {
-    //        UpdatePessoa();
-    //    };
-
-    //});
 
 
     // montagem da tabela de telefones
@@ -188,28 +175,31 @@
 
     function UpdatePessoa(manterTela) {
         var pessoaJson = GetData();
-        $.ajax({
-            type: "POST",
-            url: '/Pessoa/@(ViewBag.TipoOperacao == "Incluindo" ? "Create" : "Edit")',
-            data: { "postedData": pessoaJson },
-            success: function () {
-                if (manterTela) {
-                    window.location = '@Url.Action("Create", "Pessoa")';
+        if ($('#formPessoa').valid()) {
+            $.ajax({
+                type: "POST",
+                url: '/Pessoa/@(ViewBag.TipoOperacao == "Incluindo" ? "Create" : "Edit")',
+                data: { "postedData": pessoaJson },
+                success: function () {
+                    if (manterTela) {
+                        window.location = '@Url.Action("Create", "Pessoa")';
+                    }
+                    else {
+                        window.location = '@Url.Action("Index", "Pessoa")';
+                    }
+                },
+                error: function (object) {
+
+                    //Capturando erro no objeto htmlResponse
+                    var htmlResponse = document.createElement('html');
+                    htmlResponse.innerHTML = object.responseText;
+                    var erro = htmlResponse.querySelector('h4').textContent;
+
+                    location.href = '@Url.Action("Erro", "Pessoa")?erro=' + erro
                 }
-                else {
-                    window.location = '@Url.Action("Index", "Pessoa")';
-            }
-            },
-            error: function (object) {
-
-                //Capturando erro no objeto htmlResponse
-                var htmlResponse = document.createElement('html');
-                htmlResponse.innerHTML = object.responseText;
-                var erro = htmlResponse.querySelector('h4').textContent;
-
-                location.href = '@Url.Action("Erro", "Pessoa")?erro=' + erro
-            }
-        });
+            });
+        }
+        
     }
 
     function GetData() {
