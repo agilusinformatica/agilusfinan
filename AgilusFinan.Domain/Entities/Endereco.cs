@@ -3,7 +3,6 @@ namespace AgilusFinan.Domain.Entities
 {
     public class Endereco
     {
-        [Display(Name="")]
         public string Logradouro { get; set; }
         [Display(Name = "Número")]
         public string Numero { get; set; }

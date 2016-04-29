@@ -44,7 +44,6 @@ namespace AgilusFinan.Infra.Context
         {
             get
             {
-                //return this.Database.SqlQuery<int>("select top 1 Id from Empresa order by Id").First<int>();
                 return UsuarioLogado.EmpresaId;
             }
         }
