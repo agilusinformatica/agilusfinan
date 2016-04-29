@@ -14,6 +14,7 @@ namespace AgilusFinan.Web.Controllers
             base.PreInclusao();
             ViewBag.ListaBancos = new RepositorioBanco().Listar();
             ViewBag.ListaTiposTelefone = new RepositorioTipoTelefone().Listar();
+            ViewBag.ListaTiposPessoa = new SelectList(new RepositorioTipoPessoa().Listar(), "Id", "Nome");
         }
 
         protected override void PreAlteracao(PessoaViewModel viewModel)
@@ -21,6 +22,7 @@ namespace AgilusFinan.Web.Controllers
             base.PreAlteracao(viewModel);
             ViewBag.ListaBancos = new RepositorioBanco().Listar();
             ViewBag.ListaTiposTelefone = new RepositorioTipoTelefone().Listar();
+            ViewBag.ListaTiposPessoa = new MultiSelectList(new RepositorioTipoPessoa().Listar(), "Id", "Nome", viewModel.TiposPorPessoa);
         }
 
         protected override void ModelToViewModel(Pessoa model, PessoaViewModel viewModel)
@@ -44,10 +46,10 @@ namespace AgilusFinan.Web.Controllers
             foreach (var tp in model.TiposPessoa)
             {
                 var tipo = viewModel.TiposPorPessoa.Find(t => t.Id == tp.TipoPessoaId);
-                if (tipo != null)
-                {
-                    tipo.Marcado = true;
-                }
+                //if (tipo != null)
+                //{
+                //    tipo.Marcado = true
+                //}
             }
         }
 
@@ -81,10 +83,7 @@ namespace AgilusFinan.Web.Controllers
 
             foreach (var tp in viewModel.TiposPorPessoa)
             {
-                if (tp.Marcado)
-                {
-                    model.TiposPessoa.Add(new TipoPessoaPorPessoa() { TipoPessoaId = tp.Id, PessoaId = viewModel.Id });
-                }
+                model.TiposPessoa.Add(new TipoPessoaPorPessoa() { TipoPessoaId = tp.Id, PessoaId = viewModel.Id });
             }
         }
     }

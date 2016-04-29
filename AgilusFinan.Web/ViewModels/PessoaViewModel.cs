@@ -39,9 +39,7 @@ namespace AgilusFinan.Web.ViewModels
                 TiposPorPessoa.Add(new TipoPorPessoa()
                 {
                     Id = tipo.Id,
-                    Nome = tipo.Nome,
-                    Marcado = false
-
+                    Nome = tipo.Nome
                 });
             }
         }
@@ -51,13 +49,11 @@ namespace AgilusFinan.Web.ViewModels
     {
         public int Id { get; set; }
         public string Nome { get; set; }
-        public bool Marcado { get; set; }
     }
 
     public class TelefonePessoaViewModel
     {
         public int Id { get; set; }
-        //public Telefone Telefone { get; set; }
 
         public string Numero { get; set; }
 

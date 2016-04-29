@@ -13,7 +13,7 @@
 
         @Html.HiddenFor(model => model.Id)
 
-        <div class="form-group">
+        @*<div class="form-group">
             <label class="control-label col-md-2">Tipo de Pessoa </label>
             <div class="col-md-10">
                 <table id="tabTiposPessoa">
@@ -35,6 +35,14 @@
                         }
                     </tr>
                 </table>
+                @Html.ValidationMessageFor(model => model.TiposPorPessoa, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TiposPorPessoa, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("ListaTiposPessoa", null, htmlAttributes: new { @class = "form-control", @multiple = "multiple", @id = "listaTiposPessoa" })
                 @Html.ValidationMessageFor(model => model.TiposPorPessoa, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -233,11 +241,11 @@
 
         pessoa.TiposPorPessoa = [{}];
 
-        var tab = document.getElementById('tabTiposPessoa');
-        for (var i = 0, cell; cell = tab.rows[1].cells[i]; i++) {
+        var selectTiposPessoa = $('#listaTiposPessoa').val();
+
+        for (var i = 0; i < selectTiposPessoa.length; i++) {
             var TipoPorPessoa = {};
-            TipoPorPessoa.Id = cell.getElementsByTagName('input')[0].value;
-            TipoPorPessoa.Marcado = cell.getElementsByTagName('input')[1].checked;
+            TipoPorPessoa.Id = selectTiposPessoa[i];
             pessoa.TiposPorPessoa[i] = TipoPorPessoa;
         }
 
