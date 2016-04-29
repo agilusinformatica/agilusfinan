@@ -51,7 +51,6 @@
             <div class="ibox-title">
                 <h5>Títulos Pendentes</h5>
                 <div class="ibox-tools">
-                    <button class="btn btn-default btn-xs" onclick="titulosPendentesPeriodo()">Vencimento(s) Hoje</button>
                     <a class="collapse-link">
                         <i class="fa fa-chevron-up"></i>
                     </a>
@@ -80,6 +79,17 @@
 </div>
 
 <script>
+
+    ////implementação do plungin peity.js
+    //$("#bar").sparkline([19.115, 19.103, 19.000, 18.950, 20.000, 21.350, 21.000, 21.045, 19.550, 19.850, 20.123, 20.345, 21.450, 19.365, 19.999, 18.999], {
+    //    type: 'bar',
+    //    barWidth: 10,
+    //    height: 25,
+    //    barColor: '#1ab394',
+    //    negBarColor: '#dbdbdb'
+    //});
+
+
 
     var consultaDashboard = function () {
 
@@ -167,28 +177,6 @@
             }
         })
     };
-
-    function titulosPendentesPeriodo() {
-        $.ajax({
-            url: "../TituloPendente",
-            method: "GET",
-            data: {
-                dataInicial: $.datepicker.formatDate('yy-mm-dd', new Date()),
-                dataFinal: $.datepicker.formatDate('yy-mm-dd', new Date())
-            },
-            beforeSend: function () {
-                $("#TitulosPendentes").html('<div class="sk-spinner sk-spinner-three-bounce"><div class="sk-bounce1"></div><div class="sk-bounce2"></div><div class="sk-bounce3"></div></div>');
-            },
-            success: function (conteudo) {
-                $("#TitulosPendentes>img").remove();
-                $("#TitulosPendentes").html(conteudo);
-            },
-            error: function (e) {
-                $("#TitulosPendentes>img").remove();
-                $("#TitulosPendentes").html(e.message);
-            }
-        });
-    }
 
     consultarPeriodo(consultaDashboard);
 

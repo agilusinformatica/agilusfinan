@@ -15,13 +15,16 @@
         @Html.Partial("~/Views/Shared/_CadastroTitulo.cshtml", Model)
 
         <div class="form-group">
+            <input type="checkbox" id="estapago" @(Model.Liquidacoes.Count > 0 ? "checked" : "")>
             <label class="control-label col-md-2">Pago?</label>
-            <div class="col-md-10">
-                <input type="checkbox" id="estapago" @(Model.Liquidacoes.Count > 0 ? "checked" : "")>
-                <div id="divLiquidacoes"
-                     @{ if (Model.Liquidacoes.Count == 0) { <text> style="display: none;" </text>  } }>
-                    @Html.Partial("~/Views/Titulo/_Liquidacao.cshtml", Model.Liquidacoes)
-                </div>
+            <div class="col-md-10" id="divLiquidacoes"
+                @{
+                    if (Model.Liquidacoes.Count == 0)
+                    {
+                        <text>style="display: none;"</text>
+                    }
+                }>
+                @Html.Partial("~/Views/Titulo/_Liquidacao.cshtml", Model.Liquidacoes)
             </div>
         </div>
         <br />
