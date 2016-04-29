@@ -10,7 +10,6 @@ namespace AgilusFinan.Web.ViewModels
     {
         public int Id { get; set; }
         public string Nome { get; set; }
-        [Required(ErrorMessage = "Informe o CPF/CNPJ")]
         [Display(Name = "CPF/CNPJ")]
         public string Cpf { get; set; }
         [Display(Name = "RG")]

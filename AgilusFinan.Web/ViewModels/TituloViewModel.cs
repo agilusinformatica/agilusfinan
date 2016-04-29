@@ -10,28 +10,21 @@ namespace AgilusFinan.Web.ViewModels
     public class TituloViewModel
     {
         public int Id { get; set; }
-        [Display(Name = "Conta")]
         public int ContaId { get; set; }
         public Conta Conta { get; set; }
         [Display(Name = "Data de Vencimento")]
         public DateTime DataVencimento { get; set; }
-        [Display(Name = "Descrição")]
         public String Descricao { get; set; }
         [DisplayFormat(DataFormatString = "{0:c}")]
         public decimal? Valor { get; set; }
-        [Display(Name = "Categoria")]
         public int CategoriaId { get; set; }
         public Categoria Categoria { get; set; }
-        [Display(Name = "Pessoa")]
         public int PessoaId { get; set; }
         public Pessoa Pessoa { get; set; }
-        [Display(Name = "Centro de Custo")]
         public int? CentroCustoId { get; set; }
         public CentroCusto CentroCusto { get; set; }
         [DisplayFormat(NullDisplayText = "", DataFormatString = "{0:yyyy-MM-dd}")]
-        [Display(Name = "Competência")]
         public DateTime? Competencia { get; set; }
-        [Display(Name = "Observação")]
         public string Observacao { get; set; }
         public int? TituloRecorrenteId { get; set; }
         public string TipoTitulo { get; set; }

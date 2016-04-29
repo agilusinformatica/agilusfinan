@@ -17,7 +17,6 @@ namespace AgilusFinan.Domain.Entities
         public int? CategoriaPaiId { get; set; }
         public virtual Categoria CategoriaPai { get; set; }
         public virtual IEnumerable<Categoria> CategoriasFilhas { get; set; }
-        [Display(Name = "Vencimento em dias não úteis")]
         public DirecaoVencimento DirecaoVencimentoDiaNaoUtil { get; set; }
 
     }

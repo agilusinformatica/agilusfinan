@@ -205,8 +205,7 @@ namespace AgilusFinan.Web.Bases
                 if (titulo.DataVencimento < DateTime.Today)
                 {
                     boleto.DataVencimento = DateTime.Today;
-                    int diasTotais = (int)(DateTime.Today - titulo.DataVencimento).TotalDays;
-                    boleto.JurosMora = Math.Round(juros, 2) * diasTotais;
+                    boleto.JurosMora = juros * (int)(DateTime.Today - titulo.DataVencimento).TotalDays;
                 }
             }
             #endregion
@@ -301,14 +300,12 @@ namespace AgilusFinan.Web.Bases
                 if (dataVencimento < DateTime.Today && titulo.Categoria.DirecaoVencimentoDiaNaoUtil == DirecaoVencimento.Antecipado)
                 {
                     boleto.DataVencimento = DateTime.Today;
-                    int diasTotais = (int)(DateTime.Today - dataVencimento).TotalDays;
-                    boleto.JurosMora = Math.Round(juros, 2) * diasTotais;
+
+                    boleto.JurosMora = juros * (int)(DateTime.Today - dataVencimento).TotalDays;
                 }
                 else if (dataVencimento < DateTime.Today && titulo.Categoria.DirecaoVencimentoDiaNaoUtil == DirecaoVencimento.Prorrogado)
                 {
-                    boleto.DataVencimento = DateTime.Today;
-                    int diasTotais = (int)(DateTime.Today - dataVencimento).TotalDays;
-                    boleto.JurosMora = Math.Round(juros, 2) * diasTotais;
+
                 }
             }
             #endregion
