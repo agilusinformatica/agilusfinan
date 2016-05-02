@@ -1,6 +1,5 @@
 ﻿<link rel="stylesheet" type="text/css" href="../../Content/HelloTable.css" />
 
-
 @model AgilusFinan.Web.ViewModels.PessoaViewModel
 
 @using (Html.BeginForm("Create", "Pessoa", FormMethod.Post, new { id = "formPessoa"}))
@@ -16,7 +15,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.TiposPorPessoa, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("ListaTiposPessoa", null, htmlAttributes: new { @class = "form-control", @multiple = "multiple", @id = "listaTiposPessoa" })
+                @Html.DropDownList("ListaTiposPessoa", null, htmlAttributes: new { @class = "form-control select2-responsive", @multiple = "multiple", @id = "listaTiposPessoa" })
                 @Html.ValidationMessageFor(model => model.TiposPorPessoa, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -105,7 +104,11 @@
     </div>
 }
 
-
+<style>
+    .select2-selection {
+        height: 100% !important;
+    }
+</style>
 
 <script src="~/Scripts/HelloTable.js"></script>
 
@@ -139,7 +142,7 @@
         };
     });
 
-
+    $('#listaTiposPessoa').select2({ width: '100%' });
 
     // montagem da tabela de telefones
     var tabTelefones = new HelloTable('tabTelefones', 'AdicionarTelefone');
