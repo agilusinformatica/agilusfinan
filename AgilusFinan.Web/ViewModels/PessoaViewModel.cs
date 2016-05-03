@@ -14,6 +14,7 @@ namespace AgilusFinan.Web.ViewModels
         [Required(ErrorMessage = "Informe o CPF/CNPJ")]
         [Display(Name = "CPF/CNPJ")]
         public string Cpf { get; set; }
+        [Required]
         [Display(Name = "RG")]
         public string Rg { get; set; }
         [Display(Name = "Data de Nascimento")]
@@ -24,6 +25,8 @@ namespace AgilusFinan.Web.ViewModels
         [Display(Name = "E-mail Financeiro")]
         public string EmailFinanceiro { get; set; }
         public ContaBancaria ContaBancaria { get; set; }
+        [Required]
+        [Display(Name = "Tipo da Pessoa")]
         public List<int> TiposPorPessoa { get; set; }
         public List<TelefonePessoaViewModel> Telefones { get; set; }
 

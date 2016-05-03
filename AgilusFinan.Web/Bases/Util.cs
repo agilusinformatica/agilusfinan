@@ -121,6 +121,7 @@ namespace AgilusFinan.Web.Bases
             var empresa = titulo.Empresa;
             int numeroBanco = conta.Banco.Codigo;
             var repoModeloBoleto = new RepositorioModeloBoleto();
+            var dataVencimentoOriginal = titulo.DataVencimento;
 
             var modeloBoleto = repoModeloBoleto.BuscarPorId(modeloBoletoId);
 
@@ -180,21 +181,6 @@ namespace AgilusFinan.Web.Bases
             boleto.Instrucoes.Add(item1);
             #endregion
 
-            #region Desconto
-            if (modeloBoleto.PercentualDesconto > 0)
-            {
-                boleto.DataDesconto = boleto.DataVencimento.AddDays(-modeloBoleto.DiasDesconto);
-                if (DateTime.Today <= boleto.DataDesconto)
-                {
-                    boleto.ValorDesconto = boleto.ValorBoleto * (modeloBoleto.PercentualDesconto / 100);
-                    Instrucao instrucaoDesconto = new Instrucao(numeroBanco);
-                    instrucaoDesconto.Descricao = "Até " + boleto.DataDesconto.GetDateTimeFormats()[0] + " conceder desconto de R$ " + Math.Round(boleto.ValorDesconto, 2);
-                    boleto.Instrucoes.Add(instrucaoDesconto);
-                }
-            }
-
-            #endregion
-
             #region Juros
             if (modeloBoleto.Juros > 0)
             {
@@ -235,6 +221,21 @@ namespace AgilusFinan.Web.Bases
             boleto.PercJurosMora = modeloBoleto.Juros;
             #endregion
 
+            #region Desconto
+            if (modeloBoleto.PercentualDesconto > 0)
+            {
+                boleto.DataDesconto = dataVencimentoOriginal.AddDays(-modeloBoleto.DiasDesconto);
+                if (DateTime.Today <= boleto.DataDesconto)
+                {
+                    boleto.ValorDesconto = boleto.ValorBoleto * (modeloBoleto.PercentualDesconto / 100);
+                    Instrucao instrucaoDesconto = new Instrucao(numeroBanco);
+                    instrucaoDesconto.Descricao = "Até " + boleto.DataDesconto.GetDateTimeFormats()[0] + " conceder desconto de R$ " + Math.Round(boleto.ValorDesconto, 2);
+                    boleto.Instrucoes.Add(instrucaoDesconto);
+                }
+            }
+
+            #endregion
+
             return boleto;
         }
 
@@ -248,6 +249,7 @@ namespace AgilusFinan.Web.Bases
             int numeroBanco = conta.Banco.Codigo;
             var repoModeloBoleto = new RepositorioModeloBoleto();
             var modeloBoleto = repoModeloBoleto.BuscarPorId(modeloBoletoId);
+            var dataVencimentoOriginal = dataVencimento;
 
             if (modeloBoleto == null)
             {
@@ -340,7 +342,7 @@ namespace AgilusFinan.Web.Bases
             #region Desconto
             if (modeloBoleto.PercentualDesconto > 0)
             {
-                boleto.DataDesconto = boleto.DataVencimento.AddDays(-modeloBoleto.DiasDesconto);
+                boleto.DataDesconto = dataVencimentoOriginal.AddDays(-modeloBoleto.DiasDesconto);
                 if (DateTime.Today <= boleto.DataDesconto)
                 {
                     boleto.ValorDesconto = boleto.ValorBoleto * (modeloBoleto.PercentualDesconto / 100);
