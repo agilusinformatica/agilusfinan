@@ -9,7 +9,7 @@
     @Html.HiddenFor(model => model.TituloRecorrenteId)
     
     <div class="form-horizontal">
-        <hr />
+        <br />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         
         @Html.Partial("~/Views/Shared/_CadastroTitulo.cshtml", Model)

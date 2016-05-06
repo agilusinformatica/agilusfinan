@@ -8,44 +8,49 @@
 @{
     ViewBag.Title = "Categoria";
 }
+<div class="ibox animated fadeInRight">
+    <div class="ibox-title">
+        <h2>Categorias</h2>
+    </div>
+    <div class="ibox-content">
+        <br />
+        <p>
+            <a href="@Url.Action("Create")" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i><span> Incluir</span></a>
+        </p>
+        <br />
 
-<h2>Categorias</h2>
-<br />
-<p>
-    <a href="@Url.Action("Create")" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i><span> Incluir</span></a>
-</p>
-<br />
+        <table class="table" id="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Nome)
+                </th>
+                <th></th>
+            </tr>
 
-<table class="table" id="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Nome)
-        </th>
-        <th></th>
-    </tr>
+            @foreach (var item in ViewBag.ListaIdentada)
+            {
+                int? PaiId = Model.Where(x => x.Id == item.Key).First().CategoriaPaiId;
 
-@foreach (var item in ViewBag.ListaIdentada)
-{
-    int? PaiId = Model.Where(x => x.Id == item.Key).First().CategoriaPaiId;
-    
-    <tr data-node="treetable-@item.Key" data-pnode="treetable-parent-@PaiId">
-        <td>
-            @{
+                <tr data-node="treetable-@item.Key" data-pnode="treetable-parent-@PaiId">
+                    <td>
+                        @{
                 int cor = Model.Where(x => x.Id == item.Key).First().Cor;
-                string corContrastante = Util.CorContrastante(System.Drawing.Color.FromArgb(cor)).ToArgb().ToString("X").Substring(2,6);
+                string corContrastante = Util.CorContrastante(System.Drawing.Color.FromArgb(cor)).ToArgb().ToString("X").Substring(2, 6);
+                        }
+                        <div id="selectedcolor" class="label" style="background-color: #@cor.ToString("X").PadLeft(6,'0'); color: #@corContrastante; ">@item.Value</div>
+                    </td>
+                    <td>
+                        @Html.ActionLink(" ", "Edit", new { id = item.Key }, new { @class = "btn btn-primary btn-circle dim fa fa-pencil", @title = "Alterar" })
+                        <button class="btn btn-warning btn-circle" title="Excluir" onclick="Excluir((@item.Key), this)"><i class="dim fa fa-trash-o"></i></button>
+                        @Html.ActionLink(" ", "CreateFilha", new { CategoriaPaiId = item.Key, direcao = Model.Where(x => x.Id == item.Key).First().Direcao }, new { @class = "btn btn-primary btn-circle dim fa fa-level-down", @title = "Incluir Filha" })
+
+                    </td>
+                </tr>
             }
-            <div id="selectedcolor" class="label" style="background-color: #@cor.ToString("X").PadLeft(6,'0'); color: #@corContrastante; ">@item.Value</div>
-        </td>
-        <td>
-            @Html.ActionLink(" ", "Edit", new { id = item.Key }, new { @class = "btn btn-primary btn-circle dim fa fa-pencil", @title = "Alterar" })
-            <button class="btn btn-warning btn-circle" title="Excluir" onclick="Excluir((@item.Key), this)"><i class="dim fa fa-trash-o"></i></button>
-            @Html.ActionLink(" ", "CreateFilha", new { CategoriaPaiId = item.Key, direcao = Model.Where(x => x.Id == item.Key).First().Direcao }, new { @class = "btn btn-primary btn-circle dim fa fa-level-down", @title = "Incluir Filha" }) 
 
-        </td>
-    </tr>
-}
-
-</table>
+        </table>
+    </div>
+</div>
 
 <script>
     $(function () {

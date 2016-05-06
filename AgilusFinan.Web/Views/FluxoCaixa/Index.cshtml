@@ -30,87 +30,91 @@
         font-weight: bold;
     }
 </style>
+<div class="ibox animated fadeInRight">
+    <div class="ibox-content">
 
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th></th>
-            @foreach (var item in Model)
-            {
-                <th>@item.Periodo</th>
-            }
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td class="cabecalho">Saldo Inicial</td>
-            @foreach (var item in Model)
-            {
-                <td>@item.SaldoInicial.ToString("#,##0.00")</td>
-            }
-        </tr>
-        <tr>
-            <td class="cabecalho">Receitas</td>
-            @foreach (var item in Model)
-            {
-                <td>@item.Receitas.ToString("#,##0.00")</td>
-            }
-        </tr>
-        <tr>
-            <td class="cabecalho">Despesas</td>
-            @foreach (var item in Model)
-            {
-                <td>@item.Despesas.ToString("#,##0.00")</td>
-            }
-        </tr>
-        <tr>
-            <td class="cabecalho">Lucro / Prejuízo</td>
-            @foreach (var item in Model)
-            {
-                if (item.LucroPrejuizo > 0)
-                {
-                    <td class="item_positivo">@item.LucroPrejuizo.ToString("#,##0.00")</td>
-                }
-                else
-                {
-                    <td class="item_negativo">@item.LucroPrejuizo.ToString("#,##0.00")</td>
-                }
-            }
-        </tr>
-        <tr>
-            <td class="cabecalho">Acumulado</td>
-            @foreach (var item in Model)
-            {
-                if (item.Acumulado > 0)
-                {
-                    <td class="item_positivo">@item.Acumulado.ToString("#,##0.00")</td>
-                }
-                else
-                {
-                    <td class="item_negativo">@item.Acumulado.ToString("#,##0.00")</td>
-                }
-            }
-        </tr>
-        <tr>
-            <td class="cabecalho">Lucratividade</td>
-            @foreach (var item in Model)
-            {
-                if (item.Lucratividade > 0d)
-                {
-                    <td class="item_positivo">@item.Lucratividade%</td>
-                }
-                else
-                {
-                    <td class="item_negativo">@item.Lucratividade%</td>
-                }
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th></th>
+                    @foreach (var item in Model)
+                    {
+                        <th>@item.Periodo</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="cabecalho">Saldo Inicial</td>
+                    @foreach (var item in Model)
+                    {
+                        <td>@item.SaldoInicial.ToString("#,##0.00")</td>
+                    }
+                </tr>
+                <tr>
+                    <td class="cabecalho">Receitas</td>
+                    @foreach (var item in Model)
+                    {
+                        <td>@item.Receitas.ToString("#,##0.00")</td>
+                    }
+                </tr>
+                <tr>
+                    <td class="cabecalho">Despesas</td>
+                    @foreach (var item in Model)
+                    {
+                        <td>@item.Despesas.ToString("#,##0.00")</td>
+                    }
+                </tr>
+                <tr>
+                    <td class="cabecalho">Lucro / Prejuízo</td>
+                    @foreach (var item in Model)
+                    {
+                        if (item.LucroPrejuizo > 0)
+                        {
+                            <td class="item_positivo">@item.LucroPrejuizo.ToString("#,##0.00")</td>
+                        }
+                        else
+                        {
+                            <td class="item_negativo">@item.LucroPrejuizo.ToString("#,##0.00")</td>
+                        }
+                    }
+                </tr>
+                <tr>
+                    <td class="cabecalho">Acumulado</td>
+                    @foreach (var item in Model)
+                    {
+                        if (item.Acumulado > 0)
+                        {
+                            <td class="item_positivo">@item.Acumulado.ToString("#,##0.00")</td>
+                        }
+                        else
+                        {
+                            <td class="item_negativo">@item.Acumulado.ToString("#,##0.00")</td>
+                        }
+                    }
+                </tr>
+                <tr>
+                    <td class="cabecalho">Lucratividade</td>
+                    @foreach (var item in Model)
+                    {
+                        if (item.Lucratividade > 0d)
+                        {
+                            <td class="item_positivo">@item.Lucratividade%</td>
+                        }
+                        else
+                        {
+                            <td class="item_negativo">@item.Lucratividade%</td>
+                        }
 
 
-            }
-        </tr>
-    </tbody>
+                    }
+                </tr>
+            </tbody>
 
-</table>
+        </table>
+    </div>
 
+</div>
 <hr />
 
 <div class="container">
@@ -123,7 +127,7 @@
         </div>
     </div>
 
-<hr/>
+    <hr />
 
     @*Div que contem o gráfico*@
     <div class="row">
@@ -136,7 +140,7 @@
 
 
 <script>
-    //Inicialização de eventos para os botões e quando terminar o carregamento do Google Charts. 
+    //Inicialização de eventos para os botões e quando terminar o carregamento do Google Charts.
     google.setOnLoadCallback(drawBar);
 
     document.getElementById('bar').addEventListener('click', function(e) {
@@ -144,11 +148,11 @@
     });
 
     document.getElementById('line').addEventListener('click', function(e) {
-         drawLine();
+        drawLine();
     });
-    
+
     //Conversão do Model para um objeto Javascript
-    var fluxoDeCaixaModel = @Html.Raw(JsonConvert.SerializeObject(Model));    
+    var fluxoDeCaixaModel = @Html.Raw(JsonConvert.SerializeObject(Model));
 
     //Inicializando a lista que define colunas. Cada coluna tem um tipo (type), rótulo (label), id e seu papel (role)
     //na tabela. Por exemplo: role: "style", siginifica que a coluna tem o papel de definir estilo (css).
@@ -160,7 +164,7 @@
         { role: "style", type: "string" }
     ]];
 
-    //Define as opções de gráficos, como tamanho e se suportará animaçoes. 
+    //Define as opções de gráficos, como tamanho e se suportará animaçoes.
     //animation: { "startup": true } , já inicia com uma animação que vai do zero até altura do valor da tabela.
     var options = {
         title: "Lucro/Prejuizo, em R$",
@@ -200,9 +204,9 @@
     function drawLine() {
         var data = columnHeader.slice();
         fluxoDeCaixaModel.forEach(function(f) {
-                data.push([f.Periodo, parseFloat(f.LucroPrejuizo), "#93D4E7"]);
-            
-            });
+            data.push([f.Periodo, parseFloat(f.LucroPrejuizo), "#93D4E7"]);
+
+        });
 
         var dataTable = google.visualization.arrayToDataTable(data);
         var chartLine = new google.visualization.LineChart(document.getElementById('chart'));

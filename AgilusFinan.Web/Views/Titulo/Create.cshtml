@@ -1,9 +1,15 @@
 ﻿@model AgilusFinan.Web.ViewModels.TituloViewModel
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Incluir";
 }
 
-<h2>Incluir @Model.TipoTitulo</h2>
+<div class="ibox animated fadeInRight">
+    <div class="ibox-title">
+        <h2>Incluir @Model.TipoTitulo</h2>
+    </div>
+    <div class="ibox-content">
+        @Html.Partial("~/Views/Titulo/_Cadastro.cshtml")
+    </div>
+</div>
 
-@Html.Partial("~/Views/Titulo/_Cadastro.cshtml")

@@ -3,42 +3,48 @@
 @{
     ViewBag.Title = "Modelo de Boleto";
 }
+<div class="ibox animated fadeInRight">
+    <div class="ibox-title">
+        <h2>Modelos de Boleto</h2>
+    </div>
+    <div class="ibox-content">
 
-<h2>Modelos de Boleto</h2>
+        <br />
 
-<br />
+        <p>
+            <a href="@Url.Action("Create")" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i><span> Incluir</span></a>
+        </p>
 
-<p>
-    <a href="@Url.Action("Create")" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i><span> Incluir</span></a>
-</p>
+        <br />
+        <table class="table">
+            <tr>
+                <th>Nome do Modelo</th>
+                <th>Conta</th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Carteira)
+                </th>
+                <th></th>
+            </tr>
 
-<br />
-<table class="table">
-    <tr>
-        <th>Nome do Modelo</th>
-        <th>Conta</th>
-        <th>
-            @Html.DisplayNameFor(model => model.Carteira)
-        </th>
-        <th></th>
-    </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nome)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Conta.Nome)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Carteira)
+                    </td>
+                    <td>
+                        @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "btn btn-primary btn-circle dim fa fa-edit", @title = "Alterar" })
+                        <button class="btn btn-warning btn-circle" title="Excluir" onclick="Excluir((@item.Id), this)"><i class="dim fa fa-trash-o"></i></button>
+                    </td>
+                </tr>
+            }
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Conta.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Carteira)
-        </td>
-        <td>
-            @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "btn btn-primary btn-circle dim fa fa-edit", @title = "Alterar" })
-            <button class="btn btn-warning btn-circle" title="Excluir" onclick="Excluir((@item.Id), this)"><i class="dim fa fa-trash-o"></i></button>
-        </td>
-    </tr>
-}
-
-</table>
+        </table>
+    </div>
+</div>
