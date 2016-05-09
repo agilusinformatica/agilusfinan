@@ -3,92 +3,97 @@
 @{
     ViewBag.Title = "Títulos Recorrentes";
 }
+<div class="ibox animated fadeInRight">
+    <div class="ibox-title">
+        <h2>Títulos Recorrentes</h2>
+    </div>
+    <div class="ibox-content">
 
-<h2>Títulos Recorrentes</h2>
+        <br />
 
-<br />
+        <p>
+            <a href="@Url.Action("Create")" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i><span> Incluir</span></a>
+        </p>
 
-<p>
-    <a href="@Url.Action("Create")" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i><span> Incluir</span></a>
-</p>
+        <br />
+        <table class="table" id="sorted">
+            <thead>
+                <tr>
+                    <th>
+                        Categoria
+                    </th>
+                    <th>
+                        Pessoa
+                    </th>
+                    <th>
+                        Conta
+                    </th>
+                    <th>
+                        Nome
+                    </th>
+                    <th>
+                        Valor
+                    </th>
+                    <th>
+                        Direção
+                    </th>
+                    <th>
+                        Recorrência
+                    </th>
+                    <th>
+                        Parcelas
+                    </th>
+                    <th>
+                        Ativo
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Categoria.Nome)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Pessoa.Nome)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Conta.Nome)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nome)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Valor)
+                        </td>
 
-<br />
-<table class="table" id="sorted">
-    <thead>
-        <tr>
-            <th>
-                Categoria
-            </th>
-            <th>
-                Pessoa
-            </th>
-            <th>
-                Conta
-            </th>
-            <th>
-                Nome
-            </th>
-            <th>
-                Valor
-            </th>
-            <th>
-                Direção
-            </th>
-            <th>
-                Recorrência
-            </th>
-            <th>
-                Parcelas
-            </th>
-            <th>
-                Ativo
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Categoria.Nome)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Pessoa.Nome)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Conta.Nome)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Nome)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Valor)
-                </td>
-
-                <td>
-                    @item.Categoria.Direcao.ToString()
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Recorrencia)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.QtdeParcelas)
-                </td>
-                <td>
-                    @if (item.Ativo)
-                    {
-                        <i class="fa fa-check text-navy"></i>
-                    }
-                </td>
-                <td>
-                    @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "btn btn-primary btn-circle dim fa fa-edit", @title = "Alterar" })
-                    <button class="btn btn-warning btn-circle" title="Excluir" onclick="Excluir((@item.Id), this)"><i class="dim fa fa-trash-o"></i></button>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                        <td>
+                            @item.Categoria.Direcao.ToString()
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Recorrencia)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.QtdeParcelas)
+                        </td>
+                        <td>
+                            @if (item.Ativo)
+                            {
+                                <i class="fa fa-check text-navy"></i>
+                            }
+                        </td>
+                        <td>
+                            @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "btn btn-primary btn-circle dim fa fa-edit", @title = "Alterar" })
+                            <button class="btn btn-warning btn-circle" title="Excluir" onclick="Excluir((@item.Id), this)"><i class="dim fa fa-trash-o"></i></button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
 <script>
     Utils.initializeDataTables('#sorted');
 </script>
