@@ -225,5 +225,18 @@ namespace AgilusFinan.Web.Controllers
             Edit(postedData);
             TempData["Alerta"] = new Alerta() { Mensagem = "Título liquidado com sucesso", Tipo = "success" };
         }
+
+        [HttpGet]
+        [Permissao]
+        public virtual ActionResult Duplicar(int id)
+        {
+            Titulo model = repo.BuscarPorId(id);
+            ViewBag.TipoOperacao = "Incluindo";
+            var viewModel = new TituloViewModel();
+            ModelToViewModel(model, viewModel);
+            PreAlteracao(viewModel);
+            viewModel.TituloRecorrenteId = null;
+            return FolderViewName() == String.Empty ? View(viewModel) : View("~/Views/" + FolderViewName() + "/Duplicar.cshtml", viewModel);
+        }
     }
 }
