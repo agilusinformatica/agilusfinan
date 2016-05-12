@@ -121,7 +121,8 @@ namespace AgilusFinan.Web.Bases
             var empresa = titulo.Empresa;
             int numeroBanco = conta.Banco.Codigo;
             var repoModeloBoleto = new RepositorioModeloBoleto();
-
+            var dataVencimentoOriginal = titulo.DataVencimento;
+            Decimal jurosTotais = 0;
             var modeloBoleto = repoModeloBoleto.BuscarPorId(modeloBoletoId);
 
             if (modeloBoleto == null)
@@ -180,33 +181,18 @@ namespace AgilusFinan.Web.Bases
             boleto.Instrucoes.Add(item1);
             #endregion
 
-            #region Desconto
-            if (modeloBoleto.PercentualDesconto > 0)
-            {
-                boleto.DataDesconto = boleto.DataVencimento.AddDays(-modeloBoleto.DiasDesconto);
-                if (DateTime.Today <= boleto.DataDesconto)
-                {
-                    boleto.ValorDesconto = boleto.ValorBoleto * (modeloBoleto.PercentualDesconto / 100);
-                    Instrucao instrucaoDesconto = new Instrucao(numeroBanco);
-                    instrucaoDesconto.Descricao = "Até " + boleto.DataDesconto.GetDateTimeFormats()[0] + " conceder desconto de R$ " + Math.Round(boleto.ValorDesconto, 2);
-                    boleto.Instrucoes.Add(instrucaoDesconto);
-                }
-            }
-
-            #endregion
-
             #region Juros
             if (modeloBoleto.Juros > 0)
             {
                 Instrucao item2 = new Instrucao(numeroBanco);
-                decimal juros = boleto.ValorBoleto * modeloBoleto.Juros / 100 / 30;
-                item2.Descricao = "Após o vencimento cobrar juros de R$ " + Math.Round(juros, 2) + " ao dia";
+                boleto.JurosMora = Math.Round(boleto.ValorBoleto * modeloBoleto.Juros / 100 / 30, 2);
+                item2.Descricao = "Após o vencimento cobrar juros de R$ " + boleto.JurosMora + " ao dia";
                 boleto.Instrucoes.Add(item2);
                 if (titulo.DataVencimento < DateTime.Today)
                 {
                     boleto.DataVencimento = DateTime.Today;
                     int diasTotais = (int)(DateTime.Today - titulo.DataVencimento).TotalDays;
-                    boleto.JurosMora = Math.Round(juros, 2) * diasTotais;
+                    jurosTotais = boleto.JurosMora * diasTotais;
                 }
             }
             #endregion
@@ -228,11 +214,26 @@ namespace AgilusFinan.Web.Bases
                 }
             }
 
-            boleto.ValorBoleto += boleto.JurosMora + boleto.ValorMulta;
+            boleto.ValorBoleto += jurosTotais + boleto.ValorMulta;
             boleto.DataJurosMora = titulo.DataVencimento;
             boleto.DataMulta = titulo.DataVencimento;
             boleto.PercMulta = modeloBoleto.Multa;
             boleto.PercJurosMora = modeloBoleto.Juros;
+            #endregion
+
+            #region Desconto
+            if (modeloBoleto.PercentualDesconto > 0)
+            {
+                boleto.DataDesconto = dataVencimentoOriginal.AddDays(-modeloBoleto.DiasDesconto);
+                if (DateTime.Today <= boleto.DataDesconto)
+                {
+                    boleto.ValorDesconto = boleto.ValorBoleto * (modeloBoleto.PercentualDesconto / 100);
+                    Instrucao instrucaoDesconto = new Instrucao(numeroBanco);
+                    instrucaoDesconto.Descricao = "Até " + boleto.DataDesconto.GetDateTimeFormats()[0] + " conceder desconto de R$ " + Math.Round(boleto.ValorDesconto, 2);
+                    boleto.Instrucoes.Add(instrucaoDesconto);
+                }
+            }
+
             #endregion
 
             return boleto;
@@ -248,7 +249,8 @@ namespace AgilusFinan.Web.Bases
             int numeroBanco = conta.Banco.Codigo;
             var repoModeloBoleto = new RepositorioModeloBoleto();
             var modeloBoleto = repoModeloBoleto.BuscarPorId(modeloBoletoId);
-
+            var dataVencimentoOriginal = dataVencimento;
+            Decimal JurosTotais = 0;
             if (modeloBoleto == null)
             {
                 throw new Exception("Modelo de Boleto não definido");
@@ -295,20 +297,20 @@ namespace AgilusFinan.Web.Bases
             if (modeloBoleto.Juros > 0)
             {
                 Instrucao item2 = new Instrucao(conta.Banco.Codigo);
-                decimal juros = boleto.ValorBoleto * modeloBoleto.Juros / 100 / 30;
-                item2.Descricao = "Após o vencimento cobrar juros de R$ " + Math.Round(juros, 2) + " ao dia";
+                boleto.JurosMora = Math.Round(boleto.ValorBoleto * modeloBoleto.Juros / 100 / 30, 2);
+                item2.Descricao = "Após o vencimento cobrar juros de R$ " + boleto.JurosMora + " ao dia";
                 boleto.Instrucoes.Add(item2);
                 if (dataVencimento < DateTime.Today && titulo.Categoria.DirecaoVencimentoDiaNaoUtil == DirecaoVencimento.Antecipado)
                 {
                     boleto.DataVencimento = DateTime.Today;
                     int diasTotais = (int)(DateTime.Today - dataVencimento).TotalDays;
-                    boleto.JurosMora = Math.Round(juros, 2) * diasTotais;
+                    JurosTotais = boleto.JurosMora * diasTotais;
                 }
                 else if (dataVencimento < DateTime.Today && titulo.Categoria.DirecaoVencimentoDiaNaoUtil == DirecaoVencimento.Prorrogado)
                 {
                     boleto.DataVencimento = DateTime.Today;
                     int diasTotais = (int)(DateTime.Today - dataVencimento).TotalDays;
-                    boleto.JurosMora = Math.Round(juros, 2) * diasTotais;
+                    JurosTotais = boleto.JurosMora * diasTotais;
                 }
             }
             #endregion
@@ -330,7 +332,7 @@ namespace AgilusFinan.Web.Bases
                 }
             }
 
-            boleto.ValorBoleto += boleto.JurosMora + boleto.ValorMulta;
+            boleto.ValorBoleto += JurosTotais + boleto.ValorMulta;
             boleto.DataJurosMora = dataVencimento;
             boleto.DataMulta = dataVencimento;
             boleto.PercMulta = modeloBoleto.Multa;
@@ -340,7 +342,7 @@ namespace AgilusFinan.Web.Bases
             #region Desconto
             if (modeloBoleto.PercentualDesconto > 0)
             {
-                boleto.DataDesconto = boleto.DataVencimento.AddDays(-modeloBoleto.DiasDesconto);
+                boleto.DataDesconto = dataVencimentoOriginal.AddDays(-modeloBoleto.DiasDesconto);
                 if (DateTime.Today <= boleto.DataDesconto)
                 {
                     boleto.ValorDesconto = boleto.ValorBoleto * (modeloBoleto.PercentualDesconto / 100);

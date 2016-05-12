@@ -1,26 +1,28 @@
-﻿
-@{
-    ViewBag.Title = "Index";
+﻿@{
+    ViewBag.Title = "Conciliação";
 }
-
-<h2>Importação extrato</h2>
-
-@using (Html.BeginForm("ConciliacaoExtrato", "Conciliacao", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
-    @Html.AntiForgeryToken()
-    <label class="alert alert-warning">Selecione o extrato (arquivo com formato ofx), para iniciar o processo de conciliação...</label>
-
-    <div class="form-group form-inline">
-        <input type="file" name="file" />
-        <hr />
-        <input type="submit" class="btn btn-primary" />
+<div class="ibox animated fadeInRight">
+    <div class="ibox-title">
+        <h2>Importação extrato</h2>
     </div>
-    
-}
+    <div class="ibox-content">
+        @using (Html.BeginForm("ConciliacaoExtrato", "Conciliacao", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            <label class="alert alert-warning">Selecione o extrato (arquivo com formato ofx), para iniciar o processo de conciliação...</label>
 
+            <div class="form-group form-inline">
+                <input type="file" name="file" />
+                <hr />
+                <input type="submit" class="btn btn-primary" />
+            </div>
 
+        }
+    </div>
+</div>
 <style>
-    input{
-        max-width:none;
+    input {
+        max-width: none;
     }
+
 </style>

@@ -2,27 +2,31 @@
 @{
     Layout = null;
 }
-<table class="table table-hover table-bordered">
-    <thead>
-        <tr>
-            <th>Data</th>
-            <th>Descrição</th>
-            <th>Valor</th>
-            <th>Saldo</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+<div class="ibox animated fadeInRight">
+    <div class="ibox-content">
+        <table class="table table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Descrição</th>
+                    <th>Valor</th>
+                    <th>Saldo</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
 
-            <tr>
-                <td>@item.Data.GetDateTimeFormats()[0]</td>
-                <td>@item.Descricao</td>
-                <td>@item.Valor</td>
-                <td>@item.Saldo.ToString("C")</td>
-            </tr>
+                    <tr>
+                        <td>@item.Data.GetDateTimeFormats()[0]</td>
+                        <td>@item.Descricao</td>
+                        <td>@item.Valor</td>
+                        <td>@item.Saldo.ToString("C")</td>
+                    </tr>
 
-        }
-    </tbody>
+                }
+            </tbody>
 
-</table>
+        </table>
+    </div>
+</div>

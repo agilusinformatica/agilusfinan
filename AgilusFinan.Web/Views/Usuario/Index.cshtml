@@ -3,63 +3,69 @@
 @{
     ViewBag.Title = "Index";
 }
+<div class="ibox animated fadeInRight">
+    <div class="ibox-title">
+        <h2>Usuários</h2>
+    </div>
+    <div class="ibox-content">
 
-<h2>Usuários</h2>
-<br />
+        <br />
 
-<p>
-    <a href="@Url.Action("Create", "Convite")" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i><span> Convidar usuário</span></a>
-</p>
+        <p>
+            <a href="@Url.Action("Create", "Convite")" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i><span> Convidar usuário</span></a>
+        </p>
 
-<br />
+        <br />
 
-<table class="table" id="sorted">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayName("Perfil")
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Nome)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
+        <table class="table" id="sorted">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayName("Perfil")
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Nome)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Email)
+                    </th>
 
-            <th>
-                @Html.DisplayNameFor(model => model.Ativo)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Perfil.Descricao)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Nome)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Email)
-                </td>
-                <td>
-                    @if (item.Ativo)
-                    {
-                        <i class="fa fa-check text-navy"></i>
-                    }
-                </td>
-                <td>
-                    @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "btn btn-primary btn-circle dim fa fa-edit", @title = "Alterar" })
-                    <button class="btn btn-warning btn-circle" title="Excluir" onclick="Excluir((@item.Id), this)"><i class="dim fa fa-trash-o"></i></button>
-                    
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Ativo)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Perfil.Descricao)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nome)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
+                            @if (item.Ativo)
+                            {
+                                <i class="fa fa-check text-navy"></i>
+                            }
+                        </td>
+                        <td>
+                            @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "btn btn-primary btn-circle dim fa fa-edit", @title = "Alterar" })
+                            <button class="btn btn-warning btn-circle" title="Excluir" onclick="Excluir((@item.Id), this)"><i class="dim fa fa-trash-o"></i></button>
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
 <script>
     Utils.initializeDataTables('#sorted');
 </script>

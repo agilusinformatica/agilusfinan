@@ -1,10 +1,15 @@
 ﻿@model AgilusFinan.Domain.Entities.ModeloBoleto
 
 @{
-    ViewBag.Title = "Cadastro";
+    ViewBag.Title = "Incluir";
 }
 
-<h2>Incluir Modelo de Boleto</h2>
-
-@Html.Partial("_Cadastro")
+<div class="ibox animated fadeInRight">
+    <div class="ibox-title">
+        <h2>Incluir Modelo de Boleto</h2>
+    </div>
+    <div class="ibox-content">
+        @Html.Partial("_Cadastro")
+    </div>
+</div>
 

@@ -1,6 +1,5 @@
 ﻿<link rel="stylesheet" type="text/css" href="../../Content/HelloTable.css" />
 
-
 @model AgilusFinan.Web.ViewModels.PessoaViewModel
 
 @using (Html.BeginForm("Create", "Pessoa", FormMethod.Post, new { id = "formPessoa"}))
@@ -9,43 +8,11 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <hr />
+        <br />
 
         @Html.HiddenFor(model => model.Id)
 
-        @*<div class="form-group">
-            <label class="control-label col-md-2">Tipo de Pessoa </label>
-            <div class="col-md-10">
-                <table id="tabTiposPessoa">
-                    <tr>
-                        @foreach (var tipo in Model.TiposPorPessoa)
-                        {
-                            <td>
-                                @Html.LabelFor(model => model.TiposPorPessoa, tipo.Nome, htmlAttributes: new { @class = "control-label col-md-1" })
-                            </td>
-                        }
-                    </tr>
-                    <tr>
-                        @foreach (var tipo in Model.TiposPorPessoa)
-                        {
-                            <td style="text-align: center">
-                                <input type="hidden" value="@(tipo.Id)" />
-                                <input type="checkbox" @(tipo.Marcado ? "checked" : "") />
-                            </td>
-                        }
-                    </tr>
-                </table>
-                @Html.ValidationMessageFor(model => model.TiposPorPessoa, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.TiposPorPessoa, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("ListaTiposPessoa", null, htmlAttributes: new { @class = "form-control", @multiple = "multiple", @id = "listaTiposPessoa" })
-                @Html.ValidationMessageFor(model => model.TiposPorPessoa, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -94,6 +61,15 @@
                 @Html.ValidationMessageFor(model => model.DataNascimento, "", new { @class = "text-danger" })
             </div>
         </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TiposPorPessoa, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("ListaTiposPessoa", null, htmlAttributes: new { @class = "form-control required", @multiple = "multiple", @id = "listaTiposPessoa" })
+                @Html.ValidationMessageFor(model => model.TiposPorPessoa, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
         <div class="form-group">
             <div class="col-md-12">
                 @Html.EditorFor(model => model.Endereco, new { htmlAttributes = new { @class = "form-control" } })
@@ -131,8 +107,6 @@
     </div>
 }
 
-
-
 <script src="~/Scripts/HelloTable.js"></script>
 
 <script>
@@ -165,7 +139,7 @@
         };
     });
 
-
+    $('#listaTiposPessoa').select2({ width: '100%' });
 
     // montagem da tabela de telefones
     var tabTelefones = new HelloTable('tabTelefones', 'AdicionarTelefone');
@@ -239,15 +213,7 @@
         pessoa.ContaBancaria.NomeTitular = $('#ContaBancaria_NomeTitular').val();
         pessoa.ContaBancaria.CpfTitular = $('#ContaBancaria_CpfTitular').cleanVal();
 
-        pessoa.TiposPorPessoa = [{}];
-
-        var selectTiposPessoa = $('#listaTiposPessoa').val();
-
-        for (var i = 0; i < selectTiposPessoa.length; i++) {
-            var TipoPorPessoa = {};
-            TipoPorPessoa.Id = selectTiposPessoa[i];
-            pessoa.TiposPorPessoa[i] = TipoPorPessoa;
-        }
+        pessoa.TiposPorPessoa = $('#listaTiposPessoa').val();
 
         var telefones = [];
 

@@ -1,37 +1,14 @@
 ﻿@model AgilusFinan.Domain.Entities.CentroCusto
 
 @{
-    ViewBag.Title = "Centro de Custo";
+    ViewBag.Title = "Incluir";
 }
 
-<h2>Incluir</h2> 
-
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    <div class="form-horizontal">
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Gravar</button>
-                <input type="submit" value="Gravar e Incluir um novo" class="btn btn-primary" onclick="Utils.manterTela($('form'))" />
-                @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-warning" })
-            </div>
-        </div>
+<div class="ibox animated fadeInRight">
+    <div class="ibox-title">
+        <h2>Incluir Centro de Custo</h2>
     </div>
-}
-
-
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+    <div class="ibox-content">
+        @Html.Partial("_Cadastro")
+    </div>
+</div>

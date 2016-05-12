@@ -1,9 +1,14 @@
 ﻿@model AgilusFinan.Web.ViewModels.PessoaViewModel
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Alterar";
 }
 
-<h2>Alterar</h2>
-
-@Html.Partial("_Cadastro")
+<div class="ibox animated fadeInRight">
+    <div class="ibox-title">
+        <h2>Alterar Pessoa</h2>
+    </div>
+    <div class="ibox-content">
+        @Html.Partial("_Cadastro")
+    </div>
+</div>

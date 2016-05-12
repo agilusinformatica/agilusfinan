@@ -3,53 +3,57 @@
 @{
     ViewBag.Title = "Contas";
 }
+<div class="ibox animated fadeInRight">
+    <div class="ibox-title float-e-margins">
+        <h2>Contas</h2>
+    </div>
+    <div class="ibox-content">
+        <br />
 
-<h2>Contas</h2>
-<br />
+        <p>
+            <a href="@Url.Action("Create")" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i><span> Incluir</span></a>
+        </p>
 
-<p>
-    <a href="@Url.Action("Create")" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i><span> Incluir</span></a>
-</p>
+        <br />
 
-<br />
-
-<table class="table" id="sorted">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Nome)
-            </th>
-            <th>
-                Saldo Inicial
-            </th>
-            <th>
-                Data do Saldo Inicial
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Nome)
-                </td>
-                <td>
-                    @item.SaldoInicial.ToString("#,##0.00")
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DataSaldoInicial.GetDateTimeFormats()[0])
-                </td>
-                <td>
-                    @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "btn btn-primary btn-circle dim fa fa-edit" })
-                    <button class="btn btn-warning btn-circle" title="Excluir" onclick="Excluir((@item.Id), this)"><i class="dim fa fa-trash-o"></i></button>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-
+        <table class="table" id="sorted">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Nome)
+                    </th>
+                    <th>
+                        Saldo Inicial
+                    </th>
+                    <th>
+                        Data do Saldo Inicial
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nome)
+                        </td>
+                        <td>
+                            @item.SaldoInicial.ToString("#,##0.00")
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DataSaldoInicial.GetDateTimeFormats()[0])
+                        </td>
+                        <td>
+                            @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "btn btn-primary btn-circle dim fa fa-edit" })
+                            <button class="btn btn-warning btn-circle" title="Excluir" onclick="Excluir((@item.Id), this)"><i class="dim fa fa-trash-o"></i></button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
 <script>
     Utils.initializeDataTables('#sorted');
 </script>

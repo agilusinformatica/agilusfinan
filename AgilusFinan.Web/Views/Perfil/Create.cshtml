@@ -1,9 +1,14 @@
 ﻿@model AgilusFinan.Web.ViewModels.PerfilViewModel
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Incluir";
 }
 
-<h2>Incluir</h2>
-
-@Html.Partial("_Cadastro")
+<div class="ibox animated fadeInRight">
+    <div class="ibox-title">
+        <h2>Incluir Perfil</h2>
+    </div>
+    <div class="ibox-content">
+        @Html.Partial("_Cadastro")
+    </div>
+</div>

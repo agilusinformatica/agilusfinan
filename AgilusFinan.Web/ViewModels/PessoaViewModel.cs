@@ -1,6 +1,7 @@
 ﻿using AgilusFinan.Domain.Entities;
 using AgilusFinan.Infra.Services;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -20,11 +21,15 @@ namespace AgilusFinan.Web.ViewModels
         public DateTime? DataNascimento { get; set; }
         public Endereco Endereco { get; set; }
         [Display(Name = "E-mail de Contato")]
+        [DataType(DataType.EmailAddress, ErrorMessage = "Digite um endereço de e-mail válido")]
         public string EmailContato { get; set; }
         [Display(Name = "E-mail Financeiro")]
+        [DataType(DataType.EmailAddress, ErrorMessage = "Digite um endereço de e-mail válido")]
         public string EmailFinanceiro { get; set; }
         public ContaBancaria ContaBancaria { get; set; }
-        public List<TipoPorPessoa> TiposPorPessoa { get; set; }
+        [Display(Name = "Tipo da Pessoa")]
+        [Required]
+        public List<int> TiposPorPessoa { get; set; }
         public List<TelefonePessoaViewModel> Telefones { get; set; }
 
         public PessoaViewModel()
@@ -32,33 +37,29 @@ namespace AgilusFinan.Web.ViewModels
             Endereco = new Endereco();
             ContaBancaria = new ContaBancaria();
             Telefones = new List<TelefonePessoaViewModel>();
-            TiposPorPessoa = new List<TipoPorPessoa>();
-
-            foreach (var tipo in new RepositorioTipoPessoa().Listar())
-            {
-                TiposPorPessoa.Add(new TipoPorPessoa()
-                {
-                    Id = tipo.Id,
-                    Nome = tipo.Nome
-                });
-            }
+            TiposPorPessoa = new List<int>();
         }
     }
 
-    public class TipoPorPessoa
-    {
-        public int Id { get; set; }
-        public string Nome { get; set; }
-    }
 
     public class TelefonePessoaViewModel
     {
         public int Id { get; set; }
-
         public string Numero { get; set; }
-
         public string Ddd { get; set; }
-
         public int TipoTelefoneId { get; set; }
+    }
+
+    public class EnsureOneElementAttribute : ValidationAttribute
+    {
+        public override bool IsValid(object value)
+        {
+            var list = value as IList;
+            if (list != null)
+            {
+                return list.Count > 0;
+            }
+            return false;
+        }
     }
 }
