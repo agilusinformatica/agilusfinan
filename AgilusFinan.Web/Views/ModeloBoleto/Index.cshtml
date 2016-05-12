@@ -16,35 +16,40 @@
         </p>
 
         <br />
-        <table class="table">
-            <tr>
-                <th>Nome do Modelo</th>
-                <th>Conta</th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Carteira)
-                </th>
-                <th></th>
-            </tr>
-
-            @foreach (var item in Model)
-            {
+        <table class="table" id="modelos">
+            <thead>
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Nome)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Conta.Nome)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Carteira)
-                    </td>
-                    <td>
-                        @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "btn btn-primary btn-circle dim fa fa-edit", @title = "Alterar" })
-                        <button class="btn btn-warning btn-circle" title="Excluir" onclick="Excluir((@item.Id), this)"><i class="dim fa fa-trash-o"></i></button>
-                    </td>
+                    <th>Nome do Modelo</th>
+                    <th>Conta</th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Carteira)
+                    </th>
+                    <th></th>
                 </tr>
-            }
-
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nome)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Conta.Nome)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Carteira)
+                        </td>
+                        <td>
+                            @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "btn btn-primary btn-circle dim fa fa-edit", @title = "Alterar" })
+                            <button class="btn btn-warning btn-circle" title="Excluir" onclick="Excluir((@item.Id), this)"><i class="dim fa fa-trash-o"></i></button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
         </table>
     </div>
 </div>
+<script>
+    Utils.initializeDataTables('#modelos');
+</script>
