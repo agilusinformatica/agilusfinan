@@ -325,6 +325,10 @@
     <Compile Include="Migrations\201604152105501_DataNascimentoToNull.Designer.cs">
       <DependentUpon>201604152105501_DataNascimentoToNull.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201605131906132_AdicionaAnexoEmPessoa.cs" />
+    <Compile Include="Migrations\201605131906132_AdicionaAnexoEmPessoa.Designer.cs">
+      <DependentUpon>201605131906132_AdicionaAnexoEmPessoa.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Scripts\pr_soma_categoria.sql">
@@ -582,6 +586,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201604152105501_DataNascimentoToNull.resx">
       <DependentUpon>201604152105501_DataNascimentoToNull.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605131906132_AdicionaAnexoEmPessoa.resx">
+      <DependentUpon>201605131906132_AdicionaAnexoEmPessoa.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
