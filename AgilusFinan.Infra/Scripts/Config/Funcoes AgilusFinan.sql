@@ -80,7 +80,7 @@ INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) V
 INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (79, N'Gerar Boleto', 'TituloPendente/GerarBoleto', NULL)
 INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (80, N'Empresa', 'Empresa/Edit', NULL)
 INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (81, N'Duplicar', N'Pagamento/Duplicar', 2)
-INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (82, N'Duplicar', N'Recebimento/Duplicar', 2)
+INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (82, N'Duplicar', N'Recebimento/Duplicar', 3)
 
 
 SET IDENTITY_INSERT [dbo].[Funcao] ON
