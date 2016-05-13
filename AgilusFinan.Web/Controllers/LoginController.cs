@@ -111,6 +111,7 @@ namespace AgilusFinan.Web.Controllers
                 var link = Util.EnderecoHost() + @"/Login/RedefinirSenha?token=" + token;
                 var emailSenha = new Email(email, "Clique aqui para redefinir sua senha: <br>" + link, "Recuperação de Senha AgilusFinan", "rafael@agilus.com.br");
                 emailSenha.DispararMensagem();
+                TempData["Alerta"] = new Alerta() { Mensagem = "Redefinição de senha enviada com sucesso! Verifique seu email.", Tipo = "success" };
             }
             else
             {
