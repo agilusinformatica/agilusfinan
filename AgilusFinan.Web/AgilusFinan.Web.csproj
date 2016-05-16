@@ -465,10 +465,10 @@
     <Content Include="Scripts\datatables.min.js" />
     <Content Include="Scripts\dataTables.responsive.min.js" />
     <Content Include="Scripts\date-eu.js" />
-    <Content Include="Scripts\fileinput.js" />
-    <Content Include="Scripts\fileinput.min.js" />
-    <Content Include="Scripts\fileinput_locale_LANG.js" />
-    <Content Include="Scripts\fileinput_locale_pt-BR.js" />
+    <Content Include="Scripts\plugins\fileinput\fileinput.js" />
+    <Content Include="Scripts\plugins\fileinput\fileinput.min.js" />
+    <Content Include="Scripts\plugins\fileinput\fileinput_locale_LANG.js" />
+    <Content Include="Scripts\plugins\fileinput\fileinput_locale_pt-BR.js" />
     <Content Include="Scripts\jquery-2.1.1.min.map" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />

@@ -12,8 +12,8 @@ namespace AgilusFinan.Web
             
             //Versão do jQuery de 1.x.x para  2.x.x
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-2.1.1.min.js",
-                        "~/Scripts/jquery.mask.js"));
+                        "~/Scripts/jquery-2.2.3.min.js",
+                        "~/Scripts/jquery.mask.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.unobtrusive*",
@@ -50,6 +50,16 @@ namespace AgilusFinan.Web
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
                     "~/Scripts/jquery-ui.js"));
+
+            //file-input Style http://plugins.krajee.com/file-input/demo
+            bundles.Add(new StyleBundle("~/plugins/bootstrap-fileinputStyle").Include(
+                    "~/Content/plugins/bootstrap-fileinput/css/fileinput.min.css"));
+
+            //file-input Script http://plugins.krajee.com/file-input/demo
+            bundles.Add(new ScriptBundle("~/plugins/bootstrap-fileinput").Include(
+                    "~/Scripts/plugins/fileinput/fileinput.min.js",
+                    "~/Scripts/plugins/fileinput/fileinput_locale_pt-BR.js"));
+
 
             //Bundles do Inspinia. Avaliar quais plugins serão úteis.
             // Inspinia script
