@@ -149,6 +149,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Api\ApiAreaRegistration.cs" />
+    <Compile Include="Areas\Api\Controllers\BancoController.cs" />
+    <Compile Include="Areas\Bases\CustomResolver.cs" />
     <Compile Include="Bases\Alerta.cs" />
     <Compile Include="Bases\Cache.cs" />
     <Compile Include="Bases\ControllerConsultaPadrao.cs" />
