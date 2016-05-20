@@ -110,5 +110,15 @@ namespace AgilusFinan.Domain.Entities
                 HttpContext.Current.Response.Cookies.Set(cookie);
             } 
         }
+        public static void ExpiraCookie()
+        {
+            if (HttpContext.Current.Request.Cookies["IdEmpresaLogada"] != null)
+            {
+                var c = new HttpCookie("IdEmpresaLogada");
+                c.Expires = DateTime.Now.AddDays(-1);
+                HttpContext.Current.Response.Cookies.Add(c);
+            }
+        }
+
     }
 }

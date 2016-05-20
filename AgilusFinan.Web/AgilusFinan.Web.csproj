@@ -150,8 +150,13 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Api\ApiAreaRegistration.cs" />
+    <Compile Include="Areas\Api\Bases\ControllerViewModelApiPadrao.cs" />
     <Compile Include="Areas\Api\Controllers\BancoController.cs" />
-    <Compile Include="Areas\Bases\CustomResolver.cs" />
+    <Compile Include="Areas\Api\Bases\ControllerApiPadrao.cs" />
+    <Compile Include="Areas\Api\Controllers\TokenController.cs" />
+    <Compile Include="Areas\Api\Controllers\PessoaController.cs" />
+    <Compile Include="Areas\Api\Controllers\RecebimentoController.cs" />
+    <Compile Include="Areas\Api\Bases\CustomResolver.cs" />
     <Compile Include="Bases\Alerta.cs" />
     <Compile Include="Bases\Cache.cs" />
     <Compile Include="Bases\ControllerConsultaPadrao.cs" />

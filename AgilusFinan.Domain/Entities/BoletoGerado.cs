@@ -8,7 +8,6 @@ namespace AgilusFinan.Domain.Entities
 {
     public class BoletoGerado : Padrao
     {
-        public int Id { get; set; }
         [Display(Name = "Titulo")]
         public int? TituloId { get; set; }
         [Display(Name = "Titulo Recorrente")]

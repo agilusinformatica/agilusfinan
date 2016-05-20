@@ -8,7 +8,6 @@ namespace AgilusFinan.Domain.Entities
 {
     public class ModeloBoleto : Padrao
     {
-        public int Id { get; set; }
         public string Nome { get; set; }
         [Display(Name = "Conta")]
         public int ContaId { get; set; }

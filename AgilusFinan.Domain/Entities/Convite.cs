@@ -8,7 +8,6 @@ namespace AgilusFinan.Domain.Entities
 {
     public class Convite : Padrao
     {
-        public int Id { get; set; }
         [Display(Name = "E-mail")]
         public string Email { get; set; }
         [Display(Name = "Perfil")]

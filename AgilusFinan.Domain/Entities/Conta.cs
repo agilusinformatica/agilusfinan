@@ -8,7 +8,6 @@ namespace AgilusFinan.Domain.Entities
 {
     public class Conta : Padrao
     {
-        public int Id { get; set; }
         public string Nome { get; set; }
         [Display(Name="Saldo Inicial")]
         public decimal SaldoInicial { get; set; }

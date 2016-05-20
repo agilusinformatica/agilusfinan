@@ -5,7 +5,6 @@ namespace AgilusFinan.Domain.Entities
 {
     public class Transferencia : Padrao
     {
-        public int Id { get; set; }
         [Display(Name = "Conta Origem")]
         public int ContaOrigemId { get; set; }
         public virtual Conta ContaOrigem { get; set; }

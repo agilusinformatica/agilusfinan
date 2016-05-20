@@ -8,7 +8,6 @@ namespace AgilusFinan.Domain.Entities
 {
     public class TituloRecorrente : Padrao
     {
-        public int Id { get; set; }
         public string Nome { get; set; }
         [Display(Name = "Dia de Vencimento")]
         public int DiaVencimento { get; set; }

@@ -10,7 +10,6 @@ namespace AgilusFinan.Domain.Interfaces
     {
         void Incluir(T obj);
         void Alterar(T obj);
-        void Excluir(T obj);
         void ExcluirPorId(int id);
         IEnumerable<T> Listar();
         List<T> Listar(Expression<Func<T, bool>> predicate);

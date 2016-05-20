@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 
 namespace AgilusFinan.Domain.Entities
 {
     public class Pessoa : Padrao
     {
-        public int Id { get; set; }
         public string Nome { get; set; }
         public string Cpf { get; set; }
         public string Rg { get; set; }

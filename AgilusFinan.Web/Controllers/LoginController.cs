@@ -26,11 +26,11 @@ namespace AgilusFinan.Web.Controllers
         public ActionResult Index(string usuario, string senha)
         {
             Usuario usu = Login.ValidaLogin(usuario, senha);
-            Perfil prf = new RepositorioPerfil().BuscarPorId(usu.PerfilId);
             FormsAuthentication.SetAuthCookie(usuario, false);
 
             UsuarioLogado.EmpresaId = usu.EmpresaId;
             UsuarioLogado.PerfilId = usu.PerfilId;
+            Perfil prf = new RepositorioPerfil().BuscarPorId(usu.PerfilId);
             UsuarioLogado.UsuarioId = usu.Id;
             UsuarioLogado.Nome = usu.Nome;
             UsuarioLogado.NomePerfil = prf.Descricao;
@@ -40,8 +40,6 @@ namespace AgilusFinan.Web.Controllers
                 return Redirect(returnUrl);
             else
                 return RedirectToAction("Index", "Home");
-
-            //return View();
         }
 
         public ActionResult Logoff()
@@ -49,6 +47,7 @@ namespace AgilusFinan.Web.Controllers
             FormsAuthentication.SignOut();
             Response.Cookies.Add(new HttpCookie("ASP.NET_SessionId", ""));
             UsuarioLogado.EmpresaId = 0;
+            UsuarioLogado.ExpiraCookie();
             return RedirectToAction("Index", "Home");
         }
 

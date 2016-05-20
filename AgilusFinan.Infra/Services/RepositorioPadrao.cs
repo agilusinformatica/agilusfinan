@@ -46,6 +46,10 @@ namespace AgilusFinan.Infra.Services
 
         public void Alterar(T obj)
         {
+            if (BuscarPorId(obj.Id) == null)
+            {
+                throw new Exception("Objeto não encontrado");
+            }
             PreAlteracao(obj);
             db.Entry<T>(obj).State = EntityState.Modified;
             obj.EmpresaId = db.EmpresaId;
@@ -62,16 +66,11 @@ namespace AgilusFinan.Infra.Services
             
         }
 
-        public void Excluir(T obj)
-        {
-            db.Entry<T>(obj).State = EntityState.Deleted;
-            Salvar();
-        }
-
         public void ExcluirPorId(int id)
         {
             T obj = BuscarPorId(id);
-            Excluir(obj);
+            db.Entry<T>(obj).State = EntityState.Deleted;
+            Salvar();
         }
 
         public virtual IEnumerable<T> Listar()
@@ -81,7 +80,7 @@ namespace AgilusFinan.Infra.Services
 
         public T BuscarPorId(int id)
         {
-            return db.Set<T>().Find(id);
+            return Listar(x => x.Id == id).FirstOrDefault();
         }
 
         public virtual List<T> Listar(Expression<Func<T, bool>> predicate)

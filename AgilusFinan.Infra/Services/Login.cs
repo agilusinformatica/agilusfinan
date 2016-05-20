@@ -1,4 +1,5 @@
 ﻿using AgilusFinan.Domain.Entities;
+using AgilusFinan.Domain.Utils;
 using AgilusFinan.Infra.Context;
 using System;
 using System.Collections.Generic;
@@ -31,12 +32,6 @@ namespace AgilusFinan.Infra.Services
             
         }
 
-        public static string Encode(string value)
-        {
-            var hash = System.Security.Cryptography.SHA256.Create();
-            var encoder = new System.Text.ASCIIEncoding();
-            var combined = encoder.GetBytes(value ?? "");
-            return BitConverter.ToString(hash.ComputeHash(combined)).ToLower().Replace("-", "");
-        }
+
     }
 }

@@ -17,7 +17,7 @@ namespace AgilusFinan.Web.Areas.Api
             context.MapRoute(
                 "Api_default",
                 "Api/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional }
+                new { action = "Listar", id = UrlParameter.Optional }
                
             );
         }
