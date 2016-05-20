@@ -46,13 +46,13 @@ namespace AgilusFinan.Infra.Services
 
         public void Alterar(T obj)
         {
+            PreAlteracao(obj);
+            db.Entry<T>(obj).State = EntityState.Modified;
+            obj.EmpresaId = db.EmpresaId;
             if (BuscarPorId(obj.Id) == null)
             {
                 throw new Exception("Objeto não encontrado");
             }
-            PreAlteracao(obj);
-            db.Entry<T>(obj).State = EntityState.Modified;
-            obj.EmpresaId = db.EmpresaId;
             Salvar();
         }
 
