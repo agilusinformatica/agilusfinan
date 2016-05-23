@@ -10,7 +10,7 @@ using System.Web.Mvc;
 
 namespace AgilusFinan.Web.Areas.Api.Controllers
 {
-    public class RecebimentoController : ControllerViewModelApiPadrao<Titulo, RepositorioRecebimento, TituloViewModel>
+    public class PagamentoController : ControllerViewModelApiPadrao<Titulo, RepositorioPagamento, TituloViewModel>
     {
         protected override void ModelToViewModel(Titulo model, TituloViewModel viewModel)
         {
@@ -26,7 +26,7 @@ namespace AgilusFinan.Web.Areas.Api.Controllers
             viewModel.Valor = model.Valor;
             viewModel.Observacao = model.Observacao;
             viewModel.TituloRecorrenteId = model.TituloRecorrenteId;
-            viewModel.TipoTitulo = "Recebimento";
+            viewModel.TipoTitulo = "Pagamento";
 
             foreach (var l in model.Liquidacoes)
             {

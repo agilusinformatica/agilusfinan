@@ -12,6 +12,7 @@ namespace AgilusFinan.Web.ViewModels
         public int Id { get; set; }
         [Display(Name = "Conta")]
         public int ContaId { get; set; }
+        [JsonIgnore]
         public Conta Conta { get; set; }
         [Display(Name = "Data de Vencimento")]
         public DateTime DataVencimento { get; set; }
@@ -21,12 +22,15 @@ namespace AgilusFinan.Web.ViewModels
         public decimal? Valor { get; set; }
         [Display(Name = "Categoria")]
         public int CategoriaId { get; set; }
+        [JsonIgnore]
         public Categoria Categoria { get; set; }
         [Display(Name = "Pessoa")]
         public int PessoaId { get; set; }
+        [JsonIgnore]
         public Pessoa Pessoa { get; set; }
         [Display(Name = "Centro de Custo")]
         public int? CentroCustoId { get; set; }
+        [JsonIgnore]
         public CentroCusto CentroCusto { get; set; }
         [DisplayFormat(NullDisplayText = "", DataFormatString = "{0:yyyy-MM-dd}")]
         [Display(Name = "Competência")]
@@ -35,7 +39,6 @@ namespace AgilusFinan.Web.ViewModels
         public string Observacao { get; set; }
         public int? TituloRecorrenteId { get; set; }
         public string TipoTitulo { get; set; }
-        
         public List<LiquidacaoViewModel> Liquidacoes { get; set; }
 
         public TituloViewModel()
