@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace AgilusFinan.Domain.Entities
         public decimal? Valor { get; set; }
         [Display(Name = "Conta")]
         public int ContaId { get; set; }
+        [JsonIgnore]
         public virtual Conta Conta { get; set; }
         [Display(Name = "Recorrência")]
         public PeriodoRecorrencia Recorrencia { get; set; }
@@ -21,8 +23,11 @@ namespace AgilusFinan.Domain.Entities
         public int? QtdeParcelas { get; set; }
         [Display(Name = "Ativo?")]
         public bool Ativo { get; set; }
+        [JsonIgnore]
         public virtual Pessoa Pessoa { get; set; }
+        [JsonIgnore]
         public virtual Categoria Categoria { set; get; }
+        [JsonIgnore]
         public virtual CentroCusto CentroCusto { get; set; }
         [Display(Name = "Pessoa")]
         public int PessoaId { get; set; }
@@ -32,6 +37,7 @@ namespace AgilusFinan.Domain.Entities
         public int? CentroCustoId { get; set; }
         [Display(Name="A partir de")]
         public DateTime DataCadastro { get; set; }
+        [JsonIgnore]
         public virtual IList<Titulo> Titulos { get; set; }
     }
 

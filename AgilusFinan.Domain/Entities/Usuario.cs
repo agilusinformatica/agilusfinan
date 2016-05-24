@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -17,6 +18,7 @@ namespace AgilusFinan.Domain.Entities
         public bool Ativo { get; set; }
         [Display(Name = "Endereço")]
         public Endereco Endereco { get; set; }
+        [JsonIgnore]
         public virtual Perfil Perfil { get; set; }
 
         public Usuario()

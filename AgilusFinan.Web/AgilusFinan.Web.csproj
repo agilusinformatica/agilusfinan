@@ -153,11 +153,17 @@
     <Compile Include="Areas\Api\Bases\ControllerViewModelApiPadrao.cs" />
     <Compile Include="Areas\Api\Controllers\BancoController.cs" />
     <Compile Include="Areas\Api\Bases\ControllerApiPadrao.cs" />
+    <Compile Include="Areas\Api\Controllers\CategoriaController.cs" />
+    <Compile Include="Areas\Api\Controllers\ContaController.cs" />
     <Compile Include="Areas\Api\Controllers\PagamentoController.cs" />
+    <Compile Include="Areas\Api\Controllers\PerfilController.cs" />
+    <Compile Include="Areas\Api\Controllers\TituloRecorrenteController.cs" />
     <Compile Include="Areas\Api\Controllers\TokenController.cs" />
     <Compile Include="Areas\Api\Controllers\PessoaController.cs" />
     <Compile Include="Areas\Api\Controllers\RecebimentoController.cs" />
     <Compile Include="Areas\Api\Bases\CustomResolver.cs" />
+    <Compile Include="Areas\Api\Controllers\TransferenciaController.cs" />
+    <Compile Include="Areas\Api\Controllers\UsuarioController.cs" />
     <Compile Include="Bases\Alerta.cs" />
     <Compile Include="Bases\Cache.cs" />
     <Compile Include="Bases\ControllerConsultaPadrao.cs" />
@@ -1044,6 +1050,12 @@
     <Content Include="Views\TipoTelefone\_Cadastro.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Areas\Api\Views\Categoria\" />
+    <Folder Include="Areas\Api\Views\Conta\" />
+    <Folder Include="Areas\Api\Views\Perfil\" />
+    <Folder Include="Areas\Api\Views\TituloRecorrente\" />
+    <Folder Include="Areas\Api\Views\Transferencia\" />
+    <Folder Include="Areas\Api\Views\Usuario\" />
     <Folder Include="Views\Movimentacoes\" />
   </ItemGroup>
   <ItemGroup>

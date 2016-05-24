@@ -25,6 +25,7 @@ namespace AgilusFinan.Web.Areas.Api.Controllers
         public ControllerApiPadrao()
         {
             settings.Formatting = Formatting.Indented;
+            settings.DateFormatString = "dd/MM/yyyy";
         }
         [AllowAnonymous]
         // GET: Api/ControllerPadrao

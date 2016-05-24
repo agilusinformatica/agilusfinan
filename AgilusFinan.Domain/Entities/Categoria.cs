@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace AgilusFinan.Domain.Entities
@@ -11,10 +12,11 @@ namespace AgilusFinan.Domain.Entities
         public DirecaoCategoria Direcao { get; set; }
         [DataType("Color")]
         public int Cor { get; set; }
-
         [Display(Name = "Categoria Pai")]
         public int? CategoriaPaiId { get; set; }
+        [JsonIgnore]
         public virtual Categoria CategoriaPai { get; set; }
+        [JsonIgnore]
         public virtual IEnumerable<Categoria> CategoriasFilhas { get; set; }
         [Display(Name = "Vencimento em dias não úteis")]
         public DirecaoVencimento DirecaoVencimentoDiaNaoUtil { get; set; }

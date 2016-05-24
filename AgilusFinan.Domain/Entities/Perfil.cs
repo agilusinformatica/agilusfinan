@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -10,7 +11,9 @@ namespace AgilusFinan.Domain.Entities
     {
         [Display(Name = "Descrição")]
         public string Descricao { get; set; }
+        [JsonIgnore]
         public virtual List<Acesso> Acessos { get; set; }
+        [JsonIgnore]
         public virtual List<Convite> Convites { get; set; }
 
         public Perfil()

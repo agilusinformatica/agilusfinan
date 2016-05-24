@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace AgilusFinan.Domain.Entities
@@ -7,9 +8,11 @@ namespace AgilusFinan.Domain.Entities
     {
         [Display(Name = "Conta Origem")]
         public int ContaOrigemId { get; set; }
+        [JsonIgnore]
         public virtual Conta ContaOrigem { get; set; }
         [Display(Name = "Conta Destino")]
         public int ContaDestinoId { get; set; }
+        [JsonIgnore]
         public virtual Conta ContaDestino { get; set; }
         public decimal Valor { get; set; }
         public DateTime Data { get; set; }

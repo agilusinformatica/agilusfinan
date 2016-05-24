@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -19,9 +20,11 @@ namespace AgilusFinan.Domain.Entities
         public string Agencia { get; set; }
         [Display(Name = "Conta Corrente")]
         public string ContaCorrente { get; set; }
+        [JsonIgnore]
         public virtual Banco Banco { get; set; }
         [Display(Name = "Principal?")]
         public Boolean Padrao { get; set; }
+        [JsonIgnore]
         public virtual IList<ModeloBoleto> ModelosBoleto { get; set; }
     }
 }

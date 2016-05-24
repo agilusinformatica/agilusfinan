@@ -25,6 +25,7 @@ namespace AgilusFinan.Web.Controllers
         [AllowAnonymous]
         public ActionResult Index(string usuario, string senha)
         {
+            UsuarioLogado.ExpiraCookie();
             Usuario usu = Login.ValidaLogin(usuario, senha);
             FormsAuthentication.SetAuthCookie(usuario, false);
 
