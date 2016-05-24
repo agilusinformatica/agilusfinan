@@ -5,13 +5,14 @@ using System.Web.Script.Serialization;
 using System;
 using System.Linq.Expressions;
 using System.Collections.Generic;
+using AgilusFinan.Web.Bases.Interfaces;
 
 namespace AgilusFinan.Web.Bases
 {
     public class ControllerViewModelPadrao<T, R, V> : Controller
         where T : Padrao, new()
         where R : IRepositorioPadrao<T>, new()
-        where V : class, new()
+        where V : ViewModel<T>, new()
     {
         protected R repo = new R();
 
@@ -35,7 +36,7 @@ namespace AgilusFinan.Web.Bases
             PreInclusao();
             ViewBag.TipoOperacao = "Incluindo";
             V viewModel = new V();
-            ModelToViewModel(model, viewModel);
+            viewModel.FromModel(model);
             return FolderViewName() == String.Empty ? View(viewModel) : View("~/Views/" + FolderViewName() + "/Create.cshtml", viewModel);
         }
 
@@ -46,7 +47,7 @@ namespace AgilusFinan.Web.Bases
             var js = new JavaScriptSerializer();
             V viewModel = js.Deserialize<V>(postedData);
             var _model = new T();
-            ViewModelToModel(viewModel, _model);
+            _model = viewModel.ToModel();
             repo.Incluir(_model);
           
             TempData["Alerta"] = new Alerta() { Mensagem = "Registro gravado com sucesso", Tipo = "success" };
@@ -64,7 +65,7 @@ namespace AgilusFinan.Web.Bases
             T model = repo.BuscarPorId(id);
             ViewBag.TipoOperacao = "Alterando";
             V viewModel = new V();
-            ModelToViewModel(model, viewModel);
+            viewModel.FromModel(model);
             PreAlteracao(viewModel);
             return FolderViewName() == String.Empty ? View(viewModel) : View("~/Views/" + FolderViewName() + "/Edit.cshtml", viewModel);
         }
@@ -76,7 +77,7 @@ namespace AgilusFinan.Web.Bases
             var js = new JavaScriptSerializer();
             V viewModel = js.Deserialize<V>(postedData);
             var _model = new T();
-            ViewModelToModel(viewModel, _model);
+            _model = viewModel.ToModel();
             if (ModelState.IsValid)
             {
                 repo.Alterar(_model);

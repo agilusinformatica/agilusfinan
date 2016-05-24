@@ -169,6 +169,7 @@
     <Compile Include="Bases\ControllerConsultaPadrao.cs" />
     <Compile Include="Bases\ControllerViewModelPadrao.cs" />
     <Compile Include="Bases\ControllerPadrao.cs" />
+    <Compile Include="Bases\Interfaces\ViewModel.cs" />
     <Compile Include="Bases\Permissao.cs" />
     <Compile Include="Bases\Util.cs" />
     <Compile Include="Controllers\BancoController.cs" />
@@ -1050,12 +1051,6 @@
     <Content Include="Views\TipoTelefone\_Cadastro.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\Api\Views\Categoria\" />
-    <Folder Include="Areas\Api\Views\Conta\" />
-    <Folder Include="Areas\Api\Views\Perfil\" />
-    <Folder Include="Areas\Api\Views\TituloRecorrente\" />
-    <Folder Include="Areas\Api\Views\Transferencia\" />
-    <Folder Include="Areas\Api\Views\Usuario\" />
     <Folder Include="Views\Movimentacoes\" />
   </ItemGroup>
   <ItemGroup>

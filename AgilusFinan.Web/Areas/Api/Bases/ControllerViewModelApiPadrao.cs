@@ -4,6 +4,7 @@ using AgilusFinan.Domain.Utils;
 using AgilusFinan.Infra.Services;
 using AgilusFinan.Web.Areas.Api.Controllers;
 using AgilusFinan.Web.Areas.Bases;
+using AgilusFinan.Web.Bases.Interfaces;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace AgilusFinan.Web.Areas.Api.Bases
     public class ControllerViewModelApiPadrao<T, R, V> : Controller
         where T : Padrao, new() 
         where R : IRepositorioPadrao<T>, new()
-        where V : class, new()
+        where V : ViewModel<T>, new()
     {
 
         protected R repo = new R();
@@ -39,7 +40,8 @@ namespace AgilusFinan.Web.Areas.Api.Bases
                 foreach (var item in repo.Listar())
                 {
                     V viewModel = new V();
-                    ModelToViewModel(item, viewModel);
+                    //ModelToViewModel(item, viewModel);
+                    viewModel.FromModel(item);
                     lista.Add(viewModel);
                 }
 
@@ -64,7 +66,8 @@ namespace AgilusFinan.Web.Areas.Api.Bases
 
                 T model = repo.BuscarPorId(id);
                 V viewModel = new V();
-                ModelToViewModel(model, viewModel);
+                //ModelToViewModel(model, viewModel);
+                viewModel.FromModel(model);
 
                 string json = JsonConvert.SerializeObject(viewModel, settings);
                 return json;
@@ -91,7 +94,8 @@ namespace AgilusFinan.Web.Areas.Api.Bases
                 var js = new JavaScriptSerializer();
                 V viewModel = js.Deserialize<V>(postedData);
                 T model = new T();
-                ViewModelToModel(viewModel, model);
+                //ViewModelToModel(viewModel, model);
+                model = viewModel.ToModel();
                 repo.Incluir(model);
 
                 return "Inclusão efetuada com sucesso!";
@@ -119,7 +123,8 @@ namespace AgilusFinan.Web.Areas.Api.Bases
                 V viewModel = js.Deserialize<V>(postedData);
 
                 T model = new T();
-                ViewModelToModel(viewModel, model);
+                //ViewModelToModel(viewModel, model);
+                model = viewModel.ToModel();
                 repo.Alterar(model);
                 return "Alteração efetuada com sucesso!";
             }
@@ -155,15 +160,5 @@ namespace AgilusFinan.Web.Areas.Api.Bases
             }
 
         }
-
-        protected virtual void ViewModelToModel(V viewModel, T model)
-        {
-
-        }
-
-        protected virtual void ModelToViewModel(T model, V viewModel)
-        {
-        }
-
     }
 }

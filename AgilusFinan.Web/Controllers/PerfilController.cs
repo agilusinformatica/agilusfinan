@@ -26,45 +26,5 @@ namespace AgilusFinan.Web.Controllers
             ViewBag.Funcoes = new Contexto().Funcoes.ToList();
 
         }
-
-        protected override void ModelToViewModel(Perfil model, PerfilViewModel viewModel)
-        {
-            base.ModelToViewModel(model, viewModel);
-
-            viewModel.Id = model.Id;
-            viewModel.Descricao = model.Descricao;
-
-            var funcoes = new Contexto().Funcoes.ToList();
-            foreach (var funcao in funcoes )
-            {
-                viewModel.Acessos.Add(new ItemAcesso() 
-                { 
-                    FuncaoId = funcao.Id, 
-                    Descricao = funcao.Descricao, 
-                    FuncaoSuperiorId = funcao.FuncaoSuperiorId, 
-                    Selecionado = model.Acessos.Exists(f => f.FuncaoId == funcao.Id)
-                });
-            }
-        }
-
-        protected override void ViewModelToModel(PerfilViewModel viewModel, Perfil model)
-        {
-            base.ViewModelToModel(viewModel, model);
-
-            model.Id = viewModel.Id;
-            model.Descricao = viewModel.Descricao;
-
-            foreach (var acesso in viewModel.Acessos)
-            {
-                if (acesso.Selecionado)
-                {
-                    model.Acessos.Add(new Acesso()
-                    {
-                        FuncaoId = acesso.FuncaoId,
-                        PerfilId = viewModel.Id
-                    });
-                }
-            }
-        }
     }
 }
