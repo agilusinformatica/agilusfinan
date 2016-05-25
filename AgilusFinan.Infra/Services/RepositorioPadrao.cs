@@ -11,7 +11,6 @@ namespace AgilusFinan.Infra.Services
 {
     public class RepositorioPadrao<T> : IRepositorioPadrao<T> where T : Padrao
     {
-
         protected Contexto db = new Contexto();
 
         private void Salvar()

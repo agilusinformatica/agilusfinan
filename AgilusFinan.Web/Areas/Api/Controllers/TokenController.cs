@@ -28,7 +28,6 @@ namespace AgilusFinan.Web.Areas.Api.Controllers
             return Criptografia.Encriptar(email + "|" + senha);
         }
 
-
         public static void ValidarToken(string token)
         {
             var tokenD = Criptografia.Decriptar(token);
