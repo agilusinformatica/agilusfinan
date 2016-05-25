@@ -3,7 +3,6 @@ using AgilusFinan.Domain.Interfaces;
 using AgilusFinan.Domain.Utils;
 using AgilusFinan.Infra.Services;
 using AgilusFinan.Web.Areas.Api.Controllers;
-using AgilusFinan.Web.Areas.Bases;
 using AgilusFinan.Web.Bases.Interfaces;
 using Newtonsoft.Json;
 using System;
@@ -22,7 +21,7 @@ namespace AgilusFinan.Web.Areas.Api.Bases
     {
 
         protected R repo = new R();
-        JsonSerializerSettings settings = new JsonSerializerSettings();
+        protected JsonSerializerSettings settings = new JsonSerializerSettings();
 
         public ControllerViewModelApiPadrao()
         {
@@ -31,16 +30,16 @@ namespace AgilusFinan.Web.Areas.Api.Bases
         }
 
         [AllowAnonymous]
-        public string Listar(string token)
+        public virtual string Listar(string token)
         {
-            try{
+            try
+            {
                 TokenController.ValidarToken(token);
                 List<V> lista = new List<V>();
 
                 foreach (var item in repo.Listar())
                 {
                     V viewModel = new V();
-                    //ModelToViewModel(item, viewModel);
                     viewModel.FromModel(item);
                     lista.Add(viewModel);
                 }
@@ -55,8 +54,8 @@ namespace AgilusFinan.Web.Areas.Api.Bases
             {
                 UsuarioLogado.ExpiraCookie();
             }
-
         }
+
         [AllowAnonymous]
         public string Consultar(int id, string token)
         {
@@ -66,7 +65,6 @@ namespace AgilusFinan.Web.Areas.Api.Bases
 
                 T model = repo.BuscarPorId(id);
                 V viewModel = new V();
-                //ModelToViewModel(model, viewModel);
                 viewModel.FromModel(model);
 
                 string json = JsonConvert.SerializeObject(viewModel, settings);
@@ -94,7 +92,6 @@ namespace AgilusFinan.Web.Areas.Api.Bases
                 var js = new JavaScriptSerializer();
                 V viewModel = js.Deserialize<V>(postedData);
                 T model = new T();
-                //ViewModelToModel(viewModel, model);
                 model = viewModel.ToModel();
                 repo.Incluir(model);
 
@@ -123,7 +120,6 @@ namespace AgilusFinan.Web.Areas.Api.Bases
                 V viewModel = js.Deserialize<V>(postedData);
 
                 T model = new T();
-                //ViewModelToModel(viewModel, model);
                 model = viewModel.ToModel();
                 repo.Alterar(model);
                 return "Alteração efetuada com sucesso!";
