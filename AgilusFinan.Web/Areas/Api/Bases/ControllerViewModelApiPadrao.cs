@@ -3,7 +3,6 @@ using AgilusFinan.Domain.Interfaces;
 using AgilusFinan.Domain.Utils;
 using AgilusFinan.Infra.Services;
 using AgilusFinan.Web.Areas.Api.Controllers;
-using AgilusFinan.Web.Areas.Bases;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;

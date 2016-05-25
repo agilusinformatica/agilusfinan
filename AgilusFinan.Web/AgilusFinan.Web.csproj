@@ -161,7 +161,6 @@
     <Compile Include="Areas\Api\Controllers\TokenController.cs" />
     <Compile Include="Areas\Api\Controllers\PessoaController.cs" />
     <Compile Include="Areas\Api\Controllers\RecebimentoController.cs" />
-    <Compile Include="Areas\Api\Bases\CustomResolver.cs" />
     <Compile Include="Areas\Api\Controllers\TransferenciaController.cs" />
     <Compile Include="Areas\Api\Controllers\UsuarioController.cs" />
     <Compile Include="Bases\Alerta.cs" />

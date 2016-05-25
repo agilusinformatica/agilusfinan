@@ -2,7 +2,6 @@
 using AgilusFinan.Domain.Interfaces;
 using AgilusFinan.Domain.Utils;
 using AgilusFinan.Infra.Services;
-using AgilusFinan.Web.Areas.Bases;
 using AgilusFinan.Web.Controllers;
 using Newtonsoft.Json;
 using System;

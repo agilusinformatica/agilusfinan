@@ -1,6 +1,5 @@
 ﻿using AgilusFinan.Domain.Entities;
 using AgilusFinan.Infra.Services;
-using AgilusFinan.Web.Areas.Bases;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
