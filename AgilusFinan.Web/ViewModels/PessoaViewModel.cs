@@ -22,14 +22,11 @@ namespace AgilusFinan.Web.ViewModels
         public DateTime? DataNascimento { get; set; }
         public Endereco Endereco { get; set; }
         [Display(Name = "E-mail de Contato")]
-        [DataType(DataType.EmailAddress, ErrorMessage = "Digite um endereço de e-mail válido")]
         public string EmailContato { get; set; }
         [Display(Name = "E-mail Financeiro")]
-        [DataType(DataType.EmailAddress, ErrorMessage = "Digite um endereço de e-mail válido")]
         public string EmailFinanceiro { get; set; }
         public ContaBancaria ContaBancaria { get; set; }
         [Display(Name = "Tipo da Pessoa")]
-        [Required]
         public List<int> TiposPorPessoa { get; set; }
         public List<TelefonePessoaViewModel> Telefones { get; set; }
 
