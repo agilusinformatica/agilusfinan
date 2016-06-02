@@ -95,7 +95,7 @@ namespace AgilusFinan.Web.ViewModels
             titulo.Valor = this.Valor > 0 ? (decimal)this.Valor : 0;
             titulo.Observacao = this.Observacao;
             titulo.TituloRecorrenteId = this.TituloRecorrenteId;
-
+            
             foreach (var l in this.Liquidacoes)
             {
                 titulo.Liquidacoes.Add(new Liquidacao()

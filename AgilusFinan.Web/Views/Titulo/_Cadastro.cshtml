@@ -48,14 +48,14 @@
         var tituloJson = CadastroTitulo.getData();
         $.ajax({
             type: "POST",
-            url: '/@(Model.TipoTitulo)/@(ViewBag.TipoOperacao == "Incluindo" ? "Create" : "Edit")',
+            url: '/@(ViewBag.TipoTitulo)/@(ViewBag.TipoOperacao == "Incluindo" ? "Create" : "Edit")',
             data: { "postedData": tituloJson },
             success: function () {
                 if (manterTela) {
-                    window.location = '@Url.Action("Create", Model.TipoTitulo)';
+                    window.location = '@Url.Action("Create", ViewBag.TipoTitulo)';
                 }
                 else {
-                    window.location = '@Url.Action("Index", Model.TipoTitulo)';
+                    window.location = '@Url.Action("Index", ViewBag.TipoTitulo)';
                 }
             }
         });
