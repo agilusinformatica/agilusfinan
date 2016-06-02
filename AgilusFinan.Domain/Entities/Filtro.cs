@@ -18,6 +18,16 @@ namespace AgilusFinan.Domain.Entities
             var parametro = Parametros.Find(p => p.Nome == nome);
             return parametro.Valor;
         }
+
+        public void AdicionaParametro(string nome, dynamic valor, TipoFiltro tipo)
+        {
+            this.Parametros.Add(new ParametroFiltro()
+                {
+                    Nome = nome,
+                    Tipo = tipo,
+                    Valor = valor
+                });
+        }
     }
 
     public enum TipoFiltro
