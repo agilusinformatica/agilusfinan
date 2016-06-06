@@ -45,7 +45,7 @@ namespace AgilusFinan.Web.Controllers
             TituloViewModel tituloVm =
                 new TituloViewModel()
                 {
-                    Id = tituloRecorrenteId,
+                    TituloRecorrenteId = tituloRecorrenteId,
                     CategoriaId = tituloR.CategoriaId,
                     Descricao = tituloR.Nome,
                     CentroCustoId = tituloR.CentroCustoId,
@@ -53,7 +53,6 @@ namespace AgilusFinan.Web.Controllers
                     PessoaId = tituloR.PessoaId,
                     Valor = tituloR.Valor
                 };
-
             return View("~/Views/Titulo/Liquidar.cshtml", tituloVm);
         }
 
@@ -63,11 +62,14 @@ namespace AgilusFinan.Web.Controllers
         {
             RepositorioPadrao<Titulo> repo = new RepositorioPadrao<Titulo>();
             TituloViewModel viewModel = new System.Web.Script.Serialization.JavaScriptSerializer().Deserialize<TituloViewModel>(postedData);
+            if (viewModel.TituloRecorrenteId != null && (viewModel.Valor  == null ||viewModel.Valor == 0))
+            {
+                viewModel.Valor = viewModel.Liquidacoes.Sum(l => l.Valor);
+            }
 
             if (ModelState.IsValid)
             {
-                var novoTitulo = new Titulo();
-                ViewModelToModel(viewModel, novoTitulo);
+                var novoTitulo = viewModel.ToModel();
                 repo.Incluir(novoTitulo);
                 TempData["Alerta"] = new Alerta() { Mensagem = "Título liquidado com sucesso", Tipo = "success" };
             }
@@ -128,30 +130,30 @@ namespace AgilusFinan.Web.Controllers
             return View("~/Views/Recebimento/GerarBoleto.cshtml", modeloBoleto);
         }
 
-        private void ViewModelToModel(TituloViewModel viewModel, Titulo model)
-        {
-            model.Id = 0;
-            model.CategoriaId = viewModel.CategoriaId;
-            model.CentroCustoId = viewModel.CentroCustoId;
-            model.ContaId = viewModel.ContaId; //Valor não estava vindo, fiz um update no js da view
-            model.DataVencimento = viewModel.DataVencimento;
-            model.Descricao = viewModel.Descricao;
-            model.TituloRecorrenteId = viewModel.Id;
-            model.PessoaId = viewModel.PessoaId;
-            model.Valor = viewModel.Valor != null ? (decimal)viewModel.Valor : viewModel.Liquidacoes.Sum(m => m.Valor);
+        //private void ViewModelToModel(TituloViewModel viewModel, Titulo model)
+        //{
+        //    model.Id = 0;
+        //    model.CategoriaId = viewModel.CategoriaId;
+        //    model.CentroCustoId = viewModel.CentroCustoId;
+        //    model.ContaId = viewModel.ContaId; //Valor não estava vindo, fiz um update no js da view
+        //    model.DataVencimento = viewModel.DataVencimento;
+        //    model.Descricao = viewModel.Descricao;
+        //    model.TituloRecorrenteId = viewModel.Id;
+        //    model.PessoaId = viewModel.PessoaId;
+        //    model.Valor = viewModel.Valor != null ? (decimal)viewModel.Valor : viewModel.Liquidacoes.Sum(m => m.Valor);
 
-            foreach (var l in viewModel.Liquidacoes)
-            {
-                model.Liquidacoes.Add(new Liquidacao()
-                {
-                    Data = l.Data,
-                    Valor = l.Valor,
-                    JurosMulta = l.JurosMulta,
-                    FormaLiquidacao = l.FormaLiquidacao,
-                    TituloId = viewModel.Id,
-                    Desconto = l.Desconto
-                });
-            }
-        }
+        //    foreach (var l in viewModel.Liquidacoes)
+        //    {
+        //        model.Liquidacoes.Add(new Liquidacao()
+        //        {
+        //            Data = l.Data,
+        //            Valor = l.Valor,
+        //            JurosMulta = l.JurosMulta,
+        //            FormaLiquidacao = l.FormaLiquidacao,
+        //            TituloId = viewModel.Id,
+        //            Desconto = l.Desconto
+        //        });
+        //    }
+        //}
     }
 }
