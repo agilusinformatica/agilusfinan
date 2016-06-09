@@ -8,7 +8,7 @@ namespace AgilusFinan.Web
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
-            //BundleTable.EnableOptimizations = true;
+            BundleTable.EnableOptimizations = true;
             
             //Versão do jQuery de 1.x.x para  2.x.x
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
