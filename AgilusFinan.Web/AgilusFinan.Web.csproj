@@ -150,11 +150,14 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Api\ApiAreaRegistration.cs" />
+    <Compile Include="Areas\Api\Bases\ControllerConsultaApiPadrao.cs" />
     <Compile Include="Areas\Api\Bases\ControllerViewModelApiPadrao.cs" />
     <Compile Include="Areas\Api\Controllers\BancoController.cs" />
     <Compile Include="Areas\Api\Bases\ControllerApiPadrao.cs" />
     <Compile Include="Areas\Api\Controllers\CategoriaController.cs" />
     <Compile Include="Areas\Api\Controllers\ContaController.cs" />
+    <Compile Include="Areas\Api\Controllers\ExtratoController.cs" />
+    <Compile Include="Areas\Api\Controllers\FluxoCaixaController.cs" />
     <Compile Include="Areas\Api\Controllers\PagamentoController.cs" />
     <Compile Include="Areas\Api\Controllers\PerfilController.cs" />
     <Compile Include="Areas\Api\Controllers\TituloRecorrenteController.cs" />
@@ -1050,6 +1053,10 @@
     <Content Include="Views\TipoTelefone\_Cadastro.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Areas\Api\Views\ControllerConsultaApiPadrao\" />
+    <Folder Include="Areas\Api\Views\Extrato\" />
+    <Folder Include="Areas\Api\Views\FluxoCaixa\" />
+    <Folder Include="Areas\Api\Views\LoteBoleto\" />
     <Folder Include="Views\Movimentacoes\" />
   </ItemGroup>
   <ItemGroup>

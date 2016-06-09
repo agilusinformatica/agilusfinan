@@ -66,7 +66,7 @@ namespace AgilusFinan.Web.ViewModels
             this.Observacao = model.Observacao;
             this.TituloRecorrenteId = model.TituloRecorrenteId;
             this.TipoTitulo = model.ToString().Split('.')[1]; //Isto foi feito para identificar se o título é pagamento ou um recebimento.
-
+            
             foreach (var l in model.Liquidacoes)
             {
                 this.Liquidacoes.Add(new LiquidacaoViewModel()
