@@ -41,8 +41,8 @@ begin
 		and exists (select 1
 		            from parametroCache
 					where CacheId = c.Id
-					and nome = 'dataInicial'
-					and @DataCadastro >= convert(datetime,valor,103)  )
+					and nome = 'dataFinal'
+					and @DataCadastro <= convert(datetime,valor,103)  )
 
 		fetch cur into @empresaId, @DataCadastro
 	end
@@ -70,8 +70,8 @@ begin
 		and exists (select 1
 		            from parametroCache
 					where CacheId = c.Id
-					and nome = 'dataInicial'
-					and @DataCadastro >= convert(datetime,valor,103)  )
+					and nome = 'dataFinal'
+					and @DataCadastro <= convert(datetime,valor,103)  )
 
 		fetch cur into @empresaId, @DataCadastro
 	end

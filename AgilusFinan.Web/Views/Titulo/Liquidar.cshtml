@@ -32,7 +32,7 @@
     @Html.Partial("~/Views/Titulo/_Liquidacao.cshtml", Model.Liquidacoes)
 </div>
 <div class="col-md-2">
-    <button class="btn btn-default" onclick="UpdateTitulo();">Gravar</button>
+    <button class="btn btn-default" id="gravar" data-loading-text="Salvando..." onclick="UpdateTitulo();">Gravar</button>
     @{
         string controllerRetorno = "../" + ViewBag.ControllerRetorno;
         @Html.ActionLink("Cancelar", controllerRetorno, null, new { @class = "btn btn-warning" });
@@ -51,7 +51,9 @@
             }
         });
     }
-
+    $('#gravar').on('click', function () {
+        var $btn = $(this).button('loading');
+    });
     function getData() {
         delete titulo.Conta;
         delete titulo.Categoria;

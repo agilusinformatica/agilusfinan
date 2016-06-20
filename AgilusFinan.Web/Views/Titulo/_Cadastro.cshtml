@@ -27,7 +27,7 @@
         <br />
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <span class="btn btn-primary" onclick="UpdateTitulo();"><i class="fa fa-check"></i> Gravar</span>
+                <span class="btn btn-primary" onclick="UpdateTitulo();" data-loading-text="Salvando..." id="gravar"><i class="fa fa-check"></i> Gravar</span>
                 @if (ViewBag.TipoOperacao == "Incluindo")
                 {
                     <span class="btn btn-primary" onclick="UpdateTitulo(true)">Gravar e Incluir um novo</span>
@@ -44,6 +44,9 @@
         $('#divLiquidacoes').toggle();
     });
 
+    $('#gravar').on('click', function () {
+        var $btn = $(this).button('loading');
+    });
     function UpdateTitulo(manterTela) {
         var tituloJson = CadastroTitulo.getData();
         $.ajax({

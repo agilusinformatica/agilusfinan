@@ -103,7 +103,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Gravar</button>
+                <button type="submit" class="btn btn-primary" id="gravar" data-loading-text="Salvando..." ><i class="fa fa-check"></i> Gravar</button>
                 @if (ViewBag.TipoOperacao == "Incluindo")
                 {
                     <input type="submit" value="Gravar e Incluir um novo" class="btn btn-primary" onclick="Utils.manterTela($('form'))" />
@@ -119,6 +119,9 @@
 }
 
 <script>
+    $('#gravar').on('click', function () {
+        var $btn = $(this).button('loading');
+    });
     var dataCorrente = '@DateTime.Now.ToShortDateString()';
     var dataInicioCarregamento = '@Model.DataCadastro.Date.ToShortDateString()';
     var PeriodicidadeCarregamento = '@Convert.ToInt16(Model.Recorrencia)';
