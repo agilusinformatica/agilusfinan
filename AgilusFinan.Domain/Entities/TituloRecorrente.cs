@@ -37,6 +37,10 @@ namespace AgilusFinan.Domain.Entities
         public int? CentroCustoId { get; set; }
         [Display(Name="A partir de")]
         public DateTime DataCadastro { get; set; }
+        [Display(Name="Data Final")]
+        public DateTime? DataFinal { get; set; }
+        [Display(Name="Observação")]
+        public string Observacao { get; set; }
         [JsonIgnore]
         public virtual IList<Titulo> Titulos { get; set; }
     }

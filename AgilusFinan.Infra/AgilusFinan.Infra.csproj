@@ -325,6 +325,14 @@
     <Compile Include="Migrations\201604152105501_DataNascimentoToNull.Designer.cs">
       <DependentUpon>201604152105501_DataNascimentoToNull.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201606221430465_AdicionaObservacaoPessoa e DataFinalTituloRecorrente.cs" />
+    <Compile Include="Migrations\201606221430465_AdicionaObservacaoPessoa e DataFinalTituloRecorrente.Designer.cs">
+      <DependentUpon>201606221430465_AdicionaObservacaoPessoa e DataFinalTituloRecorrente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606221922284_AceitaNullDataFinalTituloRecorrente.cs" />
+    <Compile Include="Migrations\201606221922284_AceitaNullDataFinalTituloRecorrente.Designer.cs">
+      <DependentUpon>201606221922284_AceitaNullDataFinalTituloRecorrente.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Scripts\pr_soma_categoria.sql">
@@ -582,6 +590,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201604152105501_DataNascimentoToNull.resx">
       <DependentUpon>201604152105501_DataNascimentoToNull.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606221430465_AdicionaObservacaoPessoa e DataFinalTituloRecorrente.resx">
+      <DependentUpon>201606221430465_AdicionaObservacaoPessoa e DataFinalTituloRecorrente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606221922284_AceitaNullDataFinalTituloRecorrente.resx">
+      <DependentUpon>201606221922284_AceitaNullDataFinalTituloRecorrente.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

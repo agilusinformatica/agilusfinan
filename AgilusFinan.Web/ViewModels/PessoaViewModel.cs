@@ -29,6 +29,8 @@ namespace AgilusFinan.Web.ViewModels
         [Display(Name = "Tipo da Pessoa")]
         public List<int> TiposPorPessoa { get; set; }
         public List<TelefonePessoaViewModel> Telefones { get; set; }
+        [Display(Name = "Observação")]
+        public string Observacao { get; set; }
 
         public PessoaViewModel()
         {
@@ -59,6 +61,7 @@ namespace AgilusFinan.Web.ViewModels
             this.Endereco = model.Endereco;
             this.Nome = model.Nome;
             this.Rg = model.Rg;
+            this.Observacao = model.Observacao;
 
             foreach (var t in model.Telefones)
             {
@@ -83,6 +86,7 @@ namespace AgilusFinan.Web.ViewModels
             pessoa.Endereco = this.Endereco;
             pessoa.Nome = this.Nome;
             pessoa.Rg = this.Rg;
+            pessoa.Observacao = this.Observacao;
 
             foreach (var t in this.Telefones)
             {

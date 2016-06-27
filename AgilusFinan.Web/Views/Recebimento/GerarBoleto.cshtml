@@ -2,7 +2,8 @@
 @{
     Layout = null;
 }
-
+<!DOCTYPE html>
+<html>
 <head>
     <title>Boleto</title>
 
@@ -10,8 +11,9 @@
     @Scripts.Render("~/bundles/bootstrap")
     @Styles.Render("~/Content/css")
     @Styles.Render("~/font-awesome/css")
-    @Styles.Render("~/plugins/summernoteStyles")
     @Scripts.Render("~/plugins/summernote")
+    @Styles.Render("~/plugins/summernoteStyles")
+
 </head>
 <body>
     @Html.Raw(ViewBag.BoletoBancario)
@@ -60,6 +62,7 @@
         </div>
     </div>
 </body>
+</html>
 <script type="text/javascript">
     $('#TextoEmail').summernote({
         height: "203px",

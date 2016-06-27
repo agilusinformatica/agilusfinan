@@ -17,6 +17,7 @@ namespace AgilusFinan.Domain.Entities
         public virtual IList<TipoPessoaPorPessoa> TiposPessoa { get; set; }
         public string EmailContato { get; set; }
         public string EmailFinanceiro { get; set; }
+        public string Observacao { get; set; }
 
 
         public Pessoa()
