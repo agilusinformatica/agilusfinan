@@ -26,6 +26,12 @@ namespace AgilusFinan.Web.Controllers
         {
             Contexto db = new Contexto();
             empresa.Ativo = true;
+
+            if (db.Usuarios.Where(u=> u.Email == empresa.EmailContato).Select(e => e.Email).FirstOrDefault() != null)
+            {
+                throw new Exception("O e-mail " + empresa.EmailContato + " já está sendo usado. Use outro e-mail para se cadastrar.");
+            }
+           
             db.Empresas.Add(empresa);
             db.SaveChanges();
 
@@ -38,7 +44,6 @@ namespace AgilusFinan.Web.Controllers
             db.Perfis.Add(perfil);
             db.SaveChanges();
 
-
             // criação do convite
             Convite convite = new Convite()
             {
@@ -49,11 +54,10 @@ namespace AgilusFinan.Web.Controllers
             };
             db.Convites.Add(convite);
 
-
             // inclusão das permissões no perfil
             foreach (var funcao in db.Funcoes)
             {
-                Acesso acesso = new Acesso() {PerfilId = perfil.Id, FuncaoId = funcao.Id};
+                Acesso acesso = new Acesso() { PerfilId = perfil.Id, FuncaoId = funcao.Id };
                 db.Acessos.Add(acesso);
             }
 
@@ -65,9 +69,16 @@ namespace AgilusFinan.Web.Controllers
                     empresa.Logotipo = ms.ToArray();
                 }
             }
-
-            db.SaveChanges();
-
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.InnerException.InnerException.Message);
+            }
+            
+            TempData["Alerta"] = new Alerta() { Mensagem = "Um email com um link de ativação foi enviado. Verifique sua caixa de entrada para finalizar o cadastro.", Tipo = "success" };
             Util.EnviarConvite(convite, empresa.Id, "henrique@agilus.com.br");
 
             return RedirectToAction("Index", "Login");
