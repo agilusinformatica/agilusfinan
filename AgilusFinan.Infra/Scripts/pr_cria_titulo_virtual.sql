@@ -46,6 +46,7 @@ Begin
 	join Categoria as c on t.CategoriaId = c.Id
 	where t.EmpresaId = @id_empresa
 	and ativo = 1
+	and (DataFinal is null or dataFinal >= @data_inicial_analise)
 	and (@id_categoria is null or c.Id = @id_categoria)
 
 	open cur
