@@ -48,8 +48,15 @@
                             <div class="form-group">
                                 @Html.LabelFor(model => model.Logotipo, new { @class = "control-label col-md-2" })
                                 <div class="col-md-6">
-                                    @{string base64String = Convert.ToBase64String(Model.Logotipo); }
-                                    <img src="@String.Format("data:image/png;base64,{0}", base64String)" id="logo" />
+                                    @{
+                                        string base64String = "";
+                                        if (Model.Logotipo != null)
+                                        {
+                                            base64String = Convert.ToBase64String(Model.Logotipo);
+                                            <img src="@String.Format("data:image/png;base64,{0}", base64String)" id="logo" />
+
+                                        }
+                                    }
                                     <input type="file" name="file" id="file" class="form-control" onchange="readURL(this);" />
                                     @Html.HiddenFor(model => model.Logotipo)
                                     @Html.ValidationMessageFor(model => model.Logotipo)

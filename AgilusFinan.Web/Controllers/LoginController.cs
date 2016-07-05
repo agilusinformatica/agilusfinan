@@ -61,7 +61,7 @@ namespace AgilusFinan.Web.Controllers
             string email = array[0];
             Session["perfilIdConvite"] = Convert.ToInt16(array[1]);
             Session["empresaIdConvite"] = Convert.ToInt16(array[2]);
-
+            
             return View(new Usuario() { Email = email });
         }
 
@@ -78,7 +78,8 @@ namespace AgilusFinan.Web.Controllers
             db.Usuarios.Add(user);
             db.SaveChanges();
 
-            return RedirectToAction("Index", "Home");
+            return Index(user.Email, user.Senha);
+            //return RedirectToAction("Index", "Home");
         }
 
         [AllowAnonymous]
@@ -92,7 +93,6 @@ namespace AgilusFinan.Web.Controllers
         [HttpPost]
         public ActionResult EsqueciSenha(string email)
         {
-            //string email = Request.Form["email"];
             var db = new Contexto();
             var usuario = db.Usuarios.FirstOrDefault(u => u.Email == email);
 
