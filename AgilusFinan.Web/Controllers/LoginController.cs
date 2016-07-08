@@ -79,7 +79,6 @@ namespace AgilusFinan.Web.Controllers
             db.SaveChanges();
 
             return Index(user.Email, user.Senha);
-            //return RedirectToAction("Index", "Home");
         }
 
         [AllowAnonymous]
