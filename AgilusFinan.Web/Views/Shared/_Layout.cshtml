@@ -58,6 +58,9 @@
             .select2-selection--multiple{
                 height: 100% !important;
             }
+            .select2-dropdown {
+                z-index: 9001;
+            }
         </style>
     </head>
 
@@ -88,11 +91,19 @@
             <!-- Right Sidebar -->
             @Html.Partial("_RightSidebar")
 
-        </div>
-    </body>
+            <div id="modal-container" class="modal fade" tabindex="-1" data-backdrop="static" role="dialog" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content animated bounceInDown">
+                    </div>
+                </div>
+            </div>
+</body>
 </html>
 
 <script>
+    var executarAposFecharModal;
+    var linkClicado;
+
     $(document).ready(function () {
 
         //inicialização do Select2 para todos os Select's do sistema
@@ -117,6 +128,19 @@
         });
 
         Utils.createMaskClass(document.getElementsByClassName('inputdate'), "data");
+
+        //Modal de Liquidação
+        $('body').on('click', '.modal-link', function (e) {
+            e.preventDefault();
+            $(this).attr('data-target', '#modal-container');
+            $(this).attr('data-toggle', 'modal');
+            linkClicado = $(this);
+            executarAposFecharModal = $(this).attr('data-executar');
+        });
+
+        $('#modal-container').on('hidden.bs.modal', function () {
+            $(this).removeData('bs.modal');
+        });
     });
 
     function Excluir(id, element) {
@@ -155,7 +179,12 @@
                 }
             });
     };
+
+
+
 </script>
+
+
 @if (TempData["Alerta"] != null)
 {
     <script>

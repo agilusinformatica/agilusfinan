@@ -53,7 +53,7 @@ namespace AgilusFinan.Web.Controllers
                     PessoaId = tituloR.PessoaId,
                     Valor = tituloR.Valor
                 };
-            return View("~/Views/Titulo/Liquidar.cshtml", tituloVm);
+            return PartialView("~/Views/Titulo/_Liquidar.cshtml", tituloVm);
         }
 
         [HttpPost]

@@ -123,65 +123,6 @@ namespace AgilusFinan.Web.Controllers
             GerarLista();
         }
 
-        protected override void ModelToViewModel(Titulo model, TituloViewModel viewModel)
-        {
-            base.ModelToViewModel(model, viewModel);
-            viewModel.Id = model.Id;
-            viewModel.CategoriaId = model.CategoriaId;
-            viewModel.CentroCustoId = model.CentroCustoId;
-            viewModel.PessoaId = model.PessoaId;
-            viewModel.Competencia = model.Competencia;
-            viewModel.ContaId = model.ContaId;
-            viewModel.DataVencimento = model.DataVencimento;
-            viewModel.Descricao = model.Descricao;
-            viewModel.Valor = model.Valor;
-            viewModel.Observacao = model.Observacao;
-            viewModel.TituloRecorrenteId = model.TituloRecorrenteId;
-            viewModel.TipoTitulo = "Recebimento";
-
-            foreach (var l in model.Liquidacoes)
-            {
-                viewModel.Liquidacoes.Add(new LiquidacaoViewModel()
-                {
-                    Id = l.Id,
-                    Data = l.Data,
-                    Valor = l.Valor,
-                    JurosMulta = l.JurosMulta,
-                    FormaLiquidacao = l.FormaLiquidacao,
-                    Desconto = l.Desconto
-                });
-            }
-        }
-
-        protected override void ViewModelToModel(TituloViewModel viewModel, Titulo model)
-        {
-            base.ViewModelToModel(viewModel, model);
-            model.Id = viewModel.Id;
-            model.CategoriaId = viewModel.CategoriaId;
-            model.CentroCustoId = viewModel.CentroCustoId;
-            model.PessoaId = viewModel.PessoaId;
-            model.Competencia = viewModel.Competencia;
-            model.ContaId = viewModel.ContaId;
-            model.DataVencimento = viewModel.DataVencimento;
-            model.Descricao = viewModel.Descricao;
-            model.Valor = viewModel.Valor > 0 ? (decimal)viewModel.Valor : 0;
-            model.Observacao = viewModel.Observacao;
-            model.TituloRecorrenteId = viewModel.TituloRecorrenteId;
-
-            foreach (var l in viewModel.Liquidacoes)
-            {
-                model.Liquidacoes.Add(new Liquidacao()
-                {
-                    Data = l.Data,
-                    Valor = l.Valor,
-                    JurosMulta = l.JurosMulta,
-                    FormaLiquidacao = l.FormaLiquidacao,
-                    TituloId = viewModel.Id,
-                    Desconto = l.Desconto
-                });
-            }
-        }
-
         [HttpGet]
         [Permissao]
         public ActionResult Liquidar(int id)
@@ -189,11 +130,18 @@ namespace AgilusFinan.Web.Controllers
             var titulo = repo.BuscarPorId(id);
             var tituloVm = new TituloViewModel();
             ViewBag.ContaId = new SelectList(new RepositorioConta().Listar(), "Id", "Nome", titulo.ContaId);
-            ModelToViewModel(titulo, tituloVm);
+            tituloVm.FromModel(titulo);
             ViewBag.TipoTitulo = "Recebimento";
             ViewBag.ControllerRetorno = Util.NomeControllerAnterior();
 
-            return View("~/Views/" + FolderViewName() + "/Liquidar.cshtml", tituloVm);
+            return PartialView("~/Views/" + FolderViewName() + "/_Liquidar.cshtml", tituloVm);
+        }
+
+        [HttpPost]
+        [Permissao]
+        public void Liquidar(string postedData)
+        {
+            Edit(postedData);
         }
 
         [Permissao]
@@ -259,12 +207,7 @@ namespace AgilusFinan.Web.Controllers
             return stream;
         }
 
-        [HttpPost]
-        [Permissao]
-        public void Liquidar(string postedData)
-        {
-            Edit(postedData);
-        }
+
 
         [HttpGet]
         [Permissao]
@@ -273,7 +216,9 @@ namespace AgilusFinan.Web.Controllers
             Titulo model = repo.BuscarPorId(id);
             ViewBag.TipoOperacao = "Incluindo";
             var viewModel = new TituloViewModel();
-            ModelToViewModel(model, viewModel);
+            //ModelToViewModel(model, viewModel);
+            viewModel.FromModel(model);
+            ViewBag.TipoTitulo = "Recebimento";
             PreAlteracao(viewModel);
             viewModel.TituloRecorrenteId = null;
             return FolderViewName() == String.Empty ? View(viewModel) : View("~/Views/" + FolderViewName() + "/Duplicar.cshtml", viewModel);

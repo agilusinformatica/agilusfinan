@@ -1,0 +1,93 @@
+﻿@model AgilusFinan.Web.ViewModels.TituloViewModel
+
+<div class="modal-header">
+    <div class="text-center">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"></span></button>
+        <h1 class="modal-title">Liquidar</h1>
+        <small class="font-bold">Informe o valor e a data da liquidação.</small>
+    </div>
+</div>
+<div class="modal-body">
+    <ul class="list-group">
+        <li class="list-group-item"><b>Titulo: </b>@Html.DisplayFor(item => Model.Descricao)</li>
+        <li class="list-group-item"><b>Vencimento: </b>@Html.DisplayFor(item => Model.DataVencimento.GetDateTimeFormats()[0])</li>
+        <li class="list-group-item"><b>Valor: </b>@Html.DisplayFor(item => Model.Valor, new { @class = "form-control" })</li>
+        <li class="list-group-item">@Html.DropDownList("ContaId", null, "Selecione uma conta...", htmlAttributes: new { @class = "form-control" })</li>
+    </ul>
+
+    <div class="form-group">
+        <label for="DataVencimento" class="control-label">Data de Liquidação: </label>
+        @Html.EditorFor(model => model.DataVencimento, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label for="ValorPago" class="control-label">Valor Pago: </label>
+        <input type="text" class="form-control" id="ValorPago" name="ValorPago" value="@Model.Valor" />
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" id="gravar" data-loading-text="Salvando...">Gravar</button>
+    <button type="button" class="btn btn-white" data-dismiss="modal">Fechar</button>
+</div>
+
+<script>
+
+    $(function () {
+        Utils.defineInputDatePicker(document.getElementsByClassName('inputdate'));
+        Utils.createMaskClass(document.getElementsByClassName('inputdate'), "data");
+        Utils.createMask(document.getElementById("ValorPago"), "moeda");
+        $('select').select2();
+
+        $('#gravar').click(function () {
+            var $btn = $(this).button('loading');
+            UpdateTitulo();
+            $('#modal-container').modal('hide');
+        })
+    });
+
+    var titulo = JSON.parse('@Html.Raw(Json.Encode(Model))');
+    function UpdateTitulo() {
+        var tituloJson = getData();
+        $.ajax({
+            type: "POST",
+            url: '/@(ViewBag.TipoTitulo)/Liquidar',
+            data: { "postedData": tituloJson },
+            success: function () {
+                if (executarAposFecharModal) {
+                    eval(executarAposFecharModal);
+                    executarAposFecharModal = null;
+                    toastr['success']('Título liquidado com sucesso');
+                }
+            }
+        });
+    }
+
+    function getData() {
+        delete titulo.Conta;
+        delete titulo.Categoria;
+        delete titulo.Pessoa;
+        delete titulo.CentroCusto;
+        delete titulo.Competencia;
+        var datavencimento = '@Model.DataVencimento.ToString("s", System.Globalization.CultureInfo.InvariantCulture)';
+        var valorTitulo = @(Model.Valor == null ? "0.0" : Model.Valor.ToString().Replace(".","").Replace(',', '.') );
+        titulo.DataVencimento = datavencimento.substring(0, 10);
+        titulo.Liquidacoes = [{}];
+        titulo.Liquidacoes[0].Data = Utils.convertFormatDate($('#DataVencimento').val());
+        titulo.Liquidacoes[0].JurosMulta = 0;
+        titulo.Liquidacoes[0].Desconto = 0;
+        var valorLiquidado = $('#ValorPago').val().replace('.','').replace(',','.');
+        if(valorTitulo == 0){
+            valorTitulo = valorLiquidado;
+        }
+        if (valorLiquidado > valorTitulo) {
+            titulo.Liquidacoes[0].JurosMulta = (valorLiquidado - valorTitulo).toFixed(2);
+        }
+        if (valorLiquidado < valorTitulo ) {
+            titulo.Liquidacoes[0].Desconto = (valorTitulo - valorLiquidado).toFixed(2);
+        }
+
+        titulo.Liquidacoes[0].Valor = valorTitulo;
+
+        titulo.ContaId = document.getElementById("ContaId").value;
+        return JSON.stringify(titulo);
+    }
+</script>

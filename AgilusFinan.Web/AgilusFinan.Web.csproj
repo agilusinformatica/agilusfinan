@@ -1051,6 +1051,7 @@
     <Content Include="Views\FeriadoRegional\_Cadastro.cshtml" />
     <Content Include="Views\TipoPessoa\_Cadastro.cshtml" />
     <Content Include="Views\TipoTelefone\_Cadastro.cshtml" />
+    <Content Include="Views\Titulo\_Liquidar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Api\Views\ControllerConsultaApiPadrao\" />

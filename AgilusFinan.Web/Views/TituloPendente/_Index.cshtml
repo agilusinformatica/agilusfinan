@@ -51,13 +51,13 @@ else
                     <td>
                         @if (!String.IsNullOrEmpty(item.TituloId.ToString()))
                         {
-                            @Html.ActionLink("Liquidar", "../" + item.Direcao.ToString() + "/LiquidarDiretamente", new { id = item.TituloId }, new { @class = "btn btn-default btn-xs" })
-                            @Html.ActionLink("Liquidar Detalhe", "../" + item.Direcao.ToString() + "/Liquidar", new { id = item.TituloId }, new { @class = "btn btn-default btn-xs" })
+                            //@Html.ActionLink("Liquidar", "../" + item.Direcao.ToString() + "/LiquidarDiretamente", new { id = item.TituloId }, new { @class = "btn btn-default btn-xs" })
+                            @Html.ActionLink("Liquidar", "../" + item.Direcao.ToString() + "/Liquidar", new { id = item.TituloId }, new { @class = "btn btn-default btn-xs modal-link", data_executar = "excluirTituloLiquidado()" })
                         }
                         else
                         {
-                            @Html.ActionLink(" Liquidar", "LiquidarDiretamente", new { dataVencimento = item.DataVencimento, tituloRecorrenteId = item.TituloRecorrenteId }, new { @class = "btn btn-default btn-xs" })
-                            @Html.ActionLink("Liquidar Detalhe", "Liquidar", new { dataVencimento = item.DataVencimento, tituloRecorrenteId = item.TituloRecorrenteId }, new { @class = "btn btn-default btn-xs" })
+                            //@Html.ActionLink(" Liquidar", "LiquidarDiretamente", new { dataVencimento = item.DataVencimento, tituloRecorrenteId = item.TituloRecorrenteId }, new { @class = "btn btn-default btn-xs" })
+                            @Html.ActionLink("Liquidar", "Liquidar", new { dataVencimento = item.DataVencimento, tituloRecorrenteId = item.TituloRecorrenteId }, new { @class = "btn btn-default btn-xs modal-link", data_executar = "excluirTituloLiquidado()" })
                         }
 
                     </td>
@@ -70,6 +70,13 @@ else
 
 <script>
     Utils.initializeDataTables('#sorted');
+
+    var excluirTituloLiquidado = function () {
+        var tr = linkClicado.parent().parent();
+        tr.fadeOut("slow", function () {
+            tr.remove();
+        });
+    }
 </script>
 
 

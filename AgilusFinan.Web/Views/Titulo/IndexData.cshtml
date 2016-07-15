@@ -32,9 +32,9 @@
         @foreach (var item in Model)
         {
             <tr>
-                
+
                 <td>
-                    @if(item.Id == 0)
+                    @if (item.Id == 0)
                     {
                         <span class="label label-danger">R</span>
                     }
@@ -84,31 +84,31 @@
                         {
                             @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "btn btn-primary btn-circle fa fa-edit", @title = "Alterar" })
                             <button class="btn btn-warning btn-circle" title="Excluir" onclick="Excluir((@item.Id), this)"><i class="dim fa fa-trash-o"></i></button>
-                            @Html.ActionLink(" ", "Duplicar", new { id = item.Id }, new { @class = "btn btn-primary btn-circle fa fa-share-alt", @title = "Duplicar"})
+                            @Html.ActionLink(" ", "Duplicar", new { id = item.Id }, new { @class = "btn btn-primary btn-circle fa fa-share-alt", @title = "Duplicar" })
                         }
 
-                        
-                        @if (item.Liquidado != "Pago" && item.Liquidado != "Parcialmente")
+
+                        @*@if (item.Liquidado != "Pago" && item.Liquidado != "Parcialmente")
                         {
                             if (item.Id != 0)
                             {
-                                @Html.ActionLink(" ", "LiquidarDiretamente", new { id = item.Id}, new { @class = "btn btn-primary btn-circle fa fa-money", @title = "Liquidar Diretamente" })
+                                @Html.ActionLink(" ", "LiquidarDiretamente", new { id = item.Id }, new { @class = "btn btn-primary btn-circle fa fa-money", @title = "Liquidar Diretamente" })
                             }
                             else
                             {
-                                @Html.ActionLink(" ", "../TituloPendente/LiquidarDiretamente", new { dataVencimento = item.DataVencimento, tituloRecorrenteId = item.TituloRecorrenteId}, new { @class = "btn btn-primary btn-circle fa fa-money", @title = "Liquidar Diretamente" })
+                                @Html.ActionLink(" ", "../TituloPendente/LiquidarDiretamente", new { dataVencimento = item.DataVencimento, tituloRecorrenteId = item.TituloRecorrenteId }, new { @class = "btn btn-primary btn-circle fa fa-money", @title = "Liquidar Diretamente" })
                             }
-                        }
-                        
+                        }*@
+
                         @if (item.Liquidado != "Pago")
                         {
                             if (item.Id != 0)
                             {
-                                @Html.ActionLink(" ", "Liquidar", new { id = item.Id}, new { @class = "btn btn-success btn-circle fa fa-money", @title = "Liquidar Detalhado" })
+                                @Html.ActionLink(" ", "Liquidar", new { id = item.Id }, new { @class = "btn btn-success btn-circle fa fa-money modal-link", @title = "Liquidar", data_executar = "excluirTituloLiquidado()" })
                             }
                             else
                             {
-                                @Html.ActionLink(" ", "../TituloPendente/Liquidar", new { dataVencimento = item.DataVencimento, tituloRecorrenteId = item.TituloRecorrenteId}, new { @class = "btn btn-success btn-circle fa fa-money", @title = "Liquidar Detalhado" })
+                                @Html.ActionLink(" ", "../TituloPendente/Liquidar", new { dataVencimento = item.DataVencimento, tituloRecorrenteId = item.TituloRecorrenteId }, new { @class = "btn btn-success btn-circle fa fa-money modal-link", @title = "Liquidar", data_executar = "excluirTituloLiquidado()" })
                             }
                         }
                         @if (ViewBag.TipoTitulo == "Recebimento" && item.Liquidado != "Pago")
@@ -171,26 +171,32 @@
             closeOnConfirm: false,
             closeOnCancel: false
         },
-            function (isConfirm) {
-                if (isConfirm) {
-                    $.ajax({
-                        method: "POST",
-                        url: '/' + controller + '/Delete',
-                        data: { "Id": id },
-                        success: function () {
-                            swal("Excluido!", "O registro foi excluido com sucesso.", "success");
-                            var tr = $(element).parent().parent().parent();
-                            tr.fadeOut("2000", function () {
-                                tr.remove();
-                            });
-                        },
-                        error: function () {
-                            swal("Erro", "Este registro possui dependências", "error");
-                        }
-                    });
-                } else {
-                    swal("Cancelado", "O registro não foi excluido :)", "error");
-                }
-            });
+        function (isConfirm) {
+            if (isConfirm) {
+                $.ajax({
+                    method: "POST",
+                    url: '/' + controller + '/Delete',
+                    data: { "Id": id },
+                    success: function () {
+                        swal("Excluido!", "O registro foi excluido com sucesso.", "success");
+                        var tr = $(element).parent().parent().parent();
+                        tr.fadeOut("2000", function () {
+                            tr.remove();
+                        });
+                    },
+                    error: function () {
+                        swal("Erro", "Este registro possui dependências", "error");
+                    }
+                });
+            } else {
+                swal("Cancelado", "O registro não foi excluido :)", "error");
+            }
+        });
     };
+
+    var excluirTituloLiquidado = function () {
+        var tr = linkClicado.parent().parent().parent();
+        tr.children()[7].innerHTML = '<label class="label label-success">Pago</label>';
+        tr.children()[0].innerHTML = "";
+    }
 </script>
