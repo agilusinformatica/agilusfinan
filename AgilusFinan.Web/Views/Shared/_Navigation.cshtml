@@ -29,14 +29,13 @@
                 <a href="@Url.Action("Index", "Home")"><i class="fa fa-home"></i> <span class="nav-label">Página Inicial</span> </a>
             </li>
              
-            <li class="@Html.IsSelected(controller: "Recebimento") @Html.IsSelected(controller: "Pagamento") @Html.IsSelected(controller: "Transferencia") @Html.IsSelected(controller: "TituloRecorrente") @Html.IsSelected(controller: "LoteBoleto") @Html.IsSelected(controller: "Conciliacao")">
+            <li class="@Html.IsSelected(controller: "Recebimento") @Html.IsSelected(controller: "Pagamento") @Html.IsSelected(controller: "Transferencia") @Html.IsSelected(controller: "TituloRecorrente") @Html.IsSelected(controller: "Conciliacao")">
                 <a href="#"><i class="fa fa-exchange"></i><span class="nav-label">Movimentações</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
                     <li class="@Html.IsSelected(controller: "Pagamento")">@Html.ActionLink("Pagamento", "Index", "Pagamento")</li>
                     <li class="@Html.IsSelected(controller: "Recebimento")">@Html.ActionLink("Recebimento", "Index", "Recebimento")</li>
                     <li class="@Html.IsSelected(controller: "Transferencia")">@Html.ActionLink("Transferência", "Index", "Transferencia")</li>
                     <li class="@Html.IsSelected(controller: "TituloRecorrente")">@Html.ActionLink("Titulo Recorrente", "Index", "TituloRecorrente")</li>
-                    <li class="@Html.IsSelected(controller: "LoteBoleto")">@Html.ActionLink("Gerador de Boletos", "Index", "LoteBoleto")</li>
                     <li class="@Html.IsSelected(controller: "Conciliacao")">@Html.ActionLink("Conciliaçao de Extrato", "Index", "Conciliacao")</li>
                 </ul>
             </li>
@@ -46,11 +45,9 @@
                 @Html.IsSelected(controller: "Categoria")
                 @Html.IsSelected(controller: "CentroCusto")
                 @Html.IsSelected(controller: "TipoPessoa")
-                @Html.IsSelected(controller: "ModeloBoleto")
                 @Html.IsSelected(controller: "Pessoa")
                 @Html.IsSelected(controller: "TipoTelefone")
                 @Html.IsSelected(controller: "FeriadoRegional")
-                @Html.IsSelected(controller: "BoletoGerado")
             ">
                 <a href=" #">
                 <i class="fa fa-pencil"></i><span class="nav-label">Cadastros</span><span class="fa arrow"></span></a>
@@ -60,10 +57,17 @@
                     <li class="@Html.IsSelected(controller: "Categoria")">@Html.ActionLink("Categoria", "Index", "Categoria")</li>
                     <li class="@Html.IsSelected(controller: "CentroCusto")">@Html.ActionLink("Centro de Custo", "Index", "CentroCusto")</li>
                     <li class="@Html.IsSelected(controller: "TipoPessoa")">@Html.ActionLink("Tipo de Pessoa", "Index", "TipoPessoa")</li>
-                    <li class="@Html.IsSelected(controller: "ModeloBoleto")">@Html.ActionLink("Modelo de Boleto", "Index", "ModeloBoleto")</li>
                     <li class="@Html.IsSelected(controller: "Pessoa")">@Html.ActionLink("Pessoa", "Index", "Pessoa")</li>
                     <li class="@Html.IsSelected(controller: "TipoTelefone")">@Html.ActionLink("Tipo de Telefone", "Index", "TipoTelefone")</li>
                     <li class="@Html.IsSelected(controller: "FeriadoRegional")">@Html.ActionLink("Feriados Regionais", "Index", "FeriadoRegional")</li>
+                </ul>
+            </li>
+
+            <li class="@Html.IsSelected(controller: "ModeloBoleto") @Html.IsSelected(controller: "LoteBoleto") @Html.IsSelected(controller: "BoletoGerado")">
+                <a href="#"><i class="fa fa-barcode"></i><span class="nav-label">Boletos</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse">
+                    <li class="@Html.IsSelected(controller: "LoteBoleto")">@Html.ActionLink("Gerador", "Index", "LoteBoleto")</li>
+                    <li class="@Html.IsSelected(controller: "ModeloBoleto")">@Html.ActionLink("Modelos", "Index", "ModeloBoleto")</li>
                     <li class="@Html.IsSelected(controller: "BoletoGerado")">@Html.ActionLink("Boletos Gerados", "Index", "BoletoGerado")</li>
                 </ul>
             </li>
