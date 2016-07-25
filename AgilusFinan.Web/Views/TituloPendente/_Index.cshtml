@@ -46,7 +46,7 @@ else
                         @Html.DisplayFor(modelItem => item.NomeCategoria)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.NomePessoa)
+                        @Html.ActionLink(item.NomePessoa, "../Pessoa/Edit", new { id = item.PessoaId })
                     </td>
                     <td>
                         @if (!String.IsNullOrEmpty(item.TituloId.ToString()))

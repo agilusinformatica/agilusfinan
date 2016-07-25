@@ -973,7 +973,6 @@
     <Content Include="Views\Pessoa\_Cadastro.cshtml" />
     <Content Include="Views\Pessoa\Edit.cshtml" />
     <Content Include="Views\Banco\_Cadastro.cshtml" />
-    <Content Include="Views\Pessoa\Details.cshtml" />
     <Content Include="Views\TipoPessoa\Index.cshtml" />
     <Content Include="Views\TipoPessoa\Create.cshtml" />
     <Content Include="Views\TipoPessoa\Edit.cshtml" />
@@ -1052,6 +1051,7 @@
     <Content Include="Views\TipoPessoa\_Cadastro.cshtml" />
     <Content Include="Views\TipoTelefone\_Cadastro.cshtml" />
     <Content Include="Views\Titulo\_Liquidar.cshtml" />
+    <Content Include="Views\Pessoa\_Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Api\Views\ControllerConsultaApiPadrao\" />
