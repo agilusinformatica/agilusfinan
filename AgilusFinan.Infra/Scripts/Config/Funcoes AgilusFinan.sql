@@ -63,17 +63,17 @@ INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) V
 INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (62, N'Excluir', N'FeriadoRegional/Delete', 59)
 INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (63, N'Relatórios', NULL, NULL)
 INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (64, N'Extrato', N'Extrato/Index', 63)
-INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (65, N'FluxoCaixa', N'FluxoCaixa/Index', 63)
+INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (65, N'Fluxo de Caixa', N'FluxoCaixa/Index', 63)
 INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (66, N'Liquidar Diretamente', N'Pagamento/LiquidarDiretamente', 2)
 INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (67, N'Liquidar Diretamente', N'Recebimento/LiquidarDiretamente', 3)
 INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (68, N'Liquidar Diretamente Titulo Pendente', 'TituloPendente/LiquidarDiretamente', NULL)
-INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (69, N'Gerar Boleto em Lote', 'LoteBoleto/Index', 1)
-INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (70, N'Modelo de Boleto', 'ModeloBoleto/Index', 20)
+INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (69, N'Gerador', 'LoteBoleto/Index', 83)
+INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (70, N'Modelos', 'ModeloBoleto/Index', 83)
 INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (71, N'Incluir', 'ModeloBoleto/Create', 70)
 INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (72, N'Alterar', 'ModeloBoleto/Edit', 70)
 INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (73, N'Excluir', 'ModeloBoleto/Delete', 70)
 INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (74, N'Gerar Boleto', N'Recebimento/GerarBoleto', 3)
-INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (75, N'Boletos Gerados', N'BoletoGerado/Index', 20)
+INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (75, N'Boletos Gerados', N'BoletoGerado/Index', 83)
 INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (76, N'Alterar', N'BoletoGerado/Edit', 75)
 INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (77, N'Excluir', N'BoletoGerado/Delete', 75)
 INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (78, N'Conciliação de Extrato', N'Conciliacao/Index', 1)
@@ -81,14 +81,31 @@ INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) V
 INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (80, N'Empresa', 'Empresa/Edit', NULL)
 INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (81, N'Duplicar', N'Pagamento/Duplicar', 2)
 INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (82, N'Duplicar', N'Recebimento/Duplicar', 3)
+INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (83, N'Boletos', NULL, NULL)
 
 
 SET IDENTITY_INSERT [dbo].[Funcao] ON
 SET IDENTITY_INSERT [dbo].[Funcao] OFF
 
+update funcao
+set Descricao = 'Fluxo de Caixa'
+where id = 65
 
+update funcao
+set Descricao = 'Feriado Regional'
+where id = 59
 
+UPDATE FUNCAO
+set FuncaoSuperiorId = 83,
+Descricao = 'Gerador'
+where id = 69
 
+UPDATE FUNCAO
+set FuncaoSuperiorId = 83,
+Descricao = 'Modelos'
+where id = 70
 
-select *
-from funcao
+UPDATE FUNCAO
+set FuncaoSuperiorId = 83
+where id = 75
+
