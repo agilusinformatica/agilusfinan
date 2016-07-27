@@ -40,6 +40,7 @@ namespace AgilusFinan.Web.Controllers
             parametros.Add("dataFinal", dataFinal.ToString());
             var pagina = (PartialViewResult)Cache.Busca("recebimento", parametros);
 
+            if (pagina == null)
             {
                 DateTime dI, dF;
                 if (String.IsNullOrEmpty(dataInicial) && String.IsNullOrEmpty(dataFinal))

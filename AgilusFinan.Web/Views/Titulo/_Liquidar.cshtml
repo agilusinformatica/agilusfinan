@@ -57,7 +57,11 @@
                     executarAposFecharModal = null;
                     toastr['success']('Título liquidado com sucesso');
                 }
+            },
+            error: function() {
+                toastr['error']('A liquidação deu erro. Tente novamente');
             }
+            
         });
     }
 
