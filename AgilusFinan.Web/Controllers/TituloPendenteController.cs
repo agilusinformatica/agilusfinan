@@ -71,7 +71,6 @@ namespace AgilusFinan.Web.Controllers
             {
                 var novoTitulo = viewModel.ToModel();
                 repo.Incluir(novoTitulo);
-                TempData["Alerta"] = new Alerta() { Mensagem = "Título liquidado com sucesso", Tipo = "success" };
             }
         }
         [Permissao]

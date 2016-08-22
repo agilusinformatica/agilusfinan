@@ -10,6 +10,13 @@ namespace AgilusFinan.Infra.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
+            //AutomaticMigrationDataLossAllowed = false;
+
+            // Very important! Gives me enough time to wait for Azure
+            // to initialize (Create -> Migrate -> Seed) the database.
+            // Usually Azure needs 1-2 minutes so the default value of
+            // 30 seconds is not big enough!
+            CommandTimeout = 300;
         }
 
         protected override void Seed(AgilusFinan.Infra.Context.Contexto context)

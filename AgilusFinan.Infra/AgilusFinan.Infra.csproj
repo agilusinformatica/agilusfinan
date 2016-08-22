@@ -38,6 +38,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net40\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="InteractivePreGeneratedViews, Version=1.0.0.0, Culture=neutral, PublicKeyToken=46c4868af4307d2c, processorArchitecture=MSIL">
+      <HintPath>..\packages\EFInteractiveViews.1.0.1\lib\net40\InteractivePreGeneratedViews.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.QualityTools.Testing.Fakes, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -333,6 +337,10 @@
     <Compile Include="Migrations\201606221922284_AceitaNullDataFinalTituloRecorrente.Designer.cs">
       <DependentUpon>201606221922284_AceitaNullDataFinalTituloRecorrente.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201608032054015_AdicionaJurosMultaDesconto em BoletoGerado.cs" />
+    <Compile Include="Migrations\201608032054015_AdicionaJurosMultaDesconto em BoletoGerado.Designer.cs">
+      <DependentUpon>201608032054015_AdicionaJurosMultaDesconto em BoletoGerado.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Scripts\pr_soma_categoria.sql">
@@ -596,6 +604,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201606221922284_AceitaNullDataFinalTituloRecorrente.resx">
       <DependentUpon>201606221922284_AceitaNullDataFinalTituloRecorrente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608032054015_AdicionaJurosMultaDesconto em BoletoGerado.resx">
+      <DependentUpon>201608032054015_AdicionaJurosMultaDesconto em BoletoGerado.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
