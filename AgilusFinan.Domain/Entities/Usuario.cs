@@ -12,6 +12,7 @@ namespace AgilusFinan.Domain.Entities
         public string Nome { get; set; }
         [Display(Name = "E-mail")]
         public string Email { get; set; }
+        [Display(Name = "Perfil")]
         public int PerfilId { get; set; }
         [DataType(DataType.Password)]
         public string Senha { get; set; }

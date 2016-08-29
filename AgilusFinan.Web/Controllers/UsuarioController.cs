@@ -20,7 +20,7 @@ namespace AgilusFinan.Web.Controllers
         protected override void PreAlteracao(Usuario model)
         {
             base.PreAlteracao(model);
-            ViewBag.PerfilId = new SelectList(new RepositorioPerfil().Listar(), "Id", "Descricao");
+            ViewBag.PerfilId = new SelectList(new RepositorioPerfil().Listar(), "Id", "Descricao", model.PerfilId);
         }
     }
 }
