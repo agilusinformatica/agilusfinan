@@ -341,6 +341,14 @@
     <Compile Include="Migrations\201608032054015_AdicionaJurosMultaDesconto em BoletoGerado.Designer.cs">
       <DependentUpon>201608032054015_AdicionaJurosMultaDesconto em BoletoGerado.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201609091741282_Adiciona Foreign Key de Titulo e TituloRecorrente.cs" />
+    <Compile Include="Migrations\201609091741282_Adiciona Foreign Key de Titulo e TituloRecorrente.Designer.cs">
+      <DependentUpon>201609091741282_Adiciona Foreign Key de Titulo e TituloRecorrente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609091746551_Add Foreign Key ModeloBoleto em BoletoGerado.cs" />
+    <Compile Include="Migrations\201609091746551_Add Foreign Key ModeloBoleto em BoletoGerado.Designer.cs">
+      <DependentUpon>201609091746551_Add Foreign Key ModeloBoleto em BoletoGerado.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Scripts\pr_soma_categoria.sql">
@@ -607,6 +615,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201608032054015_AdicionaJurosMultaDesconto em BoletoGerado.resx">
       <DependentUpon>201608032054015_AdicionaJurosMultaDesconto em BoletoGerado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609091741282_Adiciona Foreign Key de Titulo e TituloRecorrente.resx">
+      <DependentUpon>201609091741282_Adiciona Foreign Key de Titulo e TituloRecorrente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609091746551_Add Foreign Key ModeloBoleto em BoletoGerado.resx">
+      <DependentUpon>201609091746551_Add Foreign Key ModeloBoleto em BoletoGerado.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -8,57 +8,58 @@
         <h2>Boletos Gerados</h2>
     </div>
     <div class="ibox-content">
-        <table class="table">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Empresa.Nome)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.TituloId)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.TituloRecorrenteId)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ModeloBoletoId)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.NossoNumero)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DataVencimento)
-                </th>
-                <th></th>
-            </tr>
-
-            @foreach (var item in Model)
-            {
+        <table class="table" id="sorted">
+            <thead>
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Empresa.Nome)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.TituloId)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.TituloRecorrenteId)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ModeloBoletoId)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.NossoNumero)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DataVencimento)
-                    </td>
-                    <td>
-                        @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "btn btn-primary btn-circle dim fa fa-edit" })
-                        <button class="btn btn-warning btn-circle" title="Excluir" onclick="Excluir((@item.Id), this)"><i class="dim fa fa-trash-o"></i></button>
-                    </td>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TituloId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TituloRecorrenteId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ModeloBoletoId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.NossoNumero)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DataVencimento)
+                    </th>
+                    <th></th>
                 </tr>
-            }
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Titulo.Descricao)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TituloRecorrente.Nome)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ModeloBoleto.Nome)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NossoNumero)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DataVencimento)
+                        </td>
+                        <td>
+                            @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "btn btn-primary btn-circle dim fa fa-edit" })
+                            <button class="btn btn-warning btn-circle" title="Excluir" onclick="Excluir((@item.Id), this)"><i class="dim fa fa-trash-o"></i></button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
 
         </table>
     </div>
 </div>
+
+<script>
+    Utils.initializeDataTables('#sorted');
+</script>

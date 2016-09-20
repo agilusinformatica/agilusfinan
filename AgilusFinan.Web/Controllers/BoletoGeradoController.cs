@@ -11,6 +11,6 @@ namespace AgilusFinan.Web.Controllers
 {
     public class BoletoGeradoController : ControllerPadrao<BoletoGerado, RepositorioBoletoGerado>
     {
-
+        
     }
 }

@@ -17,6 +17,7 @@ namespace AgilusFinan.Domain.Entities
         [Display(Name = "Nosso Número")]
         public int NossoNumero { get; set; }
         [Display(Name = "Data de Vencimento")]
+        [DisplayFormat(DataFormatString="{0:dd/MM/yyyy}")]
         public DateTime? DataVencimento { get; set; }
 
         public decimal PercentualDesconto { get; set; }
@@ -24,6 +25,10 @@ namespace AgilusFinan.Domain.Entities
         public decimal Multa { get; set; }
         [Display(Name = "Dias de Desconto")]
         public int DiasDesconto { get; set; }
+
+        public virtual TituloRecorrente TituloRecorrente { get; set; }
+        public virtual Titulo Titulo { get; set; }
+        public virtual ModeloBoleto ModeloBoleto { get; set; }
 
     }
 }
