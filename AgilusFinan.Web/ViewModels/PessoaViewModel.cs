@@ -11,10 +11,11 @@ namespace AgilusFinan.Web.ViewModels
     public class PessoaViewModel : ViewModel<Pessoa>
     {
         public int Id { get; set; }
+        [Display(Name = "Nome*")]
         [Required(ErrorMessage = "Informe o nome")]
         public string Nome { get; set; }
         [Required(ErrorMessage = "Informe o CPF/CNPJ")]
-        [Display(Name = "CPF/CNPJ")]
+        [Display(Name = "CPF/CNPJ*")]
         public string Cpf { get; set; }
         [Display(Name = "RG")]
         public string Rg { get; set; }
@@ -26,7 +27,7 @@ namespace AgilusFinan.Web.ViewModels
         [Display(Name = "E-mail Financeiro")]
         public string EmailFinanceiro { get; set; }
         public ContaBancaria ContaBancaria { get; set; }
-        [Display(Name = "Tipo da Pessoa")]
+        [Display(Name = "Tipo da Pessoa*")]
         public List<int> TiposPorPessoa { get; set; }
         public List<TelefonePessoaViewModel> Telefones { get; set; }
         [Display(Name = "Observação")]

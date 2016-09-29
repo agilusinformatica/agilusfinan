@@ -15,7 +15,7 @@
     tabLiquidacoes.Columns.push(new ColumnTable('Valor', 'Valor', ColumnType.text, null, 'moeda', 'form-control'));
     tabLiquidacoes.Columns.push(new ColumnTable('Juros e Multa', 'JurosMulta', ColumnType.text, null, 'moeda', 'form-control'));
     tabLiquidacoes.Columns.push(new ColumnTable('Desconto', 'Desconto', ColumnType.text, null, 'moeda', 'form-control'));
-    tabLiquidacoes.Columns.push(new ColumnTable('Forma Liquidacao', 'FormaLiquidacao', ColumnType.list, elementos, null, 'form-control'));
+    
 
     tabLiquidacoes.jsonData = '@Html.Raw(Json.Encode(Model))';
 

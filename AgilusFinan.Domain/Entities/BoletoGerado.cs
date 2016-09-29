@@ -19,7 +19,6 @@ namespace AgilusFinan.Domain.Entities
         [Display(Name = "Data de Vencimento")]
         [DisplayFormat(DataFormatString="{0:dd/MM/yyyy}")]
         public DateTime? DataVencimento { get; set; }
-
         public decimal PercentualDesconto { get; set; }
         public decimal Juros { get; set; }
         public decimal Multa { get; set; }
