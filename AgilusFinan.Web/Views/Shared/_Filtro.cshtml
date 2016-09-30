@@ -1,140 +1,150 @@
 ﻿@model AgilusFinan.Domain.Entities.Filtro
 @using AgilusFinan.Infra.Services;
 @using AgilusFinan.Domain.Entities;
+<style>
+    @@media (min-width: 1300px){
+        .col-lg-3 {
+            width: 20%;
+        }
+    }
+</style>
 <div class="ibox">
     <div class="ibox-title">
         <h5>Filtro</h5>
     </div>
     <div class="ibox-content">
-        <form class="form-inline" role="form">
+        <div class="row">
+            <form class="form-inline" role="form">
 
-            @foreach (var item in Model.Parametros)
-            {
-                <div class="form-group">
-                    <label> @item.Label </label>
-                    @switch (item.Tipo)
-                    {
-                        case TipoFiltro.texto:
+                @foreach (var item in Model.Parametros)
+                {
+                    <div class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                        <label class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> @item.Label </label>
+                        @switch (item.Tipo)
+                        {
+                            case TipoFiltro.texto:
+                                <input type="text" data-grupo="filtro" data-filtro="@item.Nome" data-tipo="@item.Tipo" value="@item.Valor" class="form-control" />
+                                break;
+                            case TipoFiltro.valor:
                             <input type="text" data-grupo="filtro" data-filtro="@item.Nome" data-tipo="@item.Tipo" value="@item.Valor" class="form-control" />
-                            break;
-                        case TipoFiltro.valor:
-                        <input type="text" data-grupo="filtro" data-filtro="@item.Nome" data-tipo="@item.Tipo" value="@item.Valor" class="form-control" />
-                            break;
-                        case TipoFiltro.monetario:
-                        <input type="text" data-grupo="filtro" data-filtro="@item.Nome" data-tipo="@item.Tipo" value="@item.Valor" class="form-control" />
-                            break;
-                        case TipoFiltro.data:
-                        <input type="text" data-grupo="filtro" data-filtro="@item.Nome" data-tipo="@item.Tipo" value="@item.Valor.ToString("dd/MM/yyyy")" class="form-control inputdate" />
-                            break;
-                        case TipoFiltro.conta:
-                        <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome" data-tipo="@item.Tipo">
-                            <option> </option>
-                            @foreach (var conta in new SelectLista(UsuarioLogado.UsuarioId, TipoLista.Conta).Listar())
-                            {
-                                <option value="@conta.Id" @( conta.Padrao == true ? "selected" : "")>@conta.Nome</option>
-                            }
-                        </select>
-                            break;
-                        case TipoFiltro.banco:
-                        <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome" data-tipo="@item.Tipo">
-                            <option> </option>
-                            @foreach (var banco in new SelectLista(UsuarioLogado.UsuarioId, TipoLista.Banco).Listar())
-                            {
-                                <option value="@banco.Id">@banco.Nome</option>
-                            }
-                        </select>
-                            break;
-                        case TipoFiltro.categoria:
-                        <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome" data-tipo="@item.Tipo">
-                            <option> </option>
-                            @foreach (var categoria in new SelectLista(UsuarioLogado.UsuarioId, TipoLista.Categoria).Listar())
-                            {
-                                <option value="@categoria.Id">@categoria.Nome</option>
-                            }
-                        </select>
-                            break;
-                        case TipoFiltro.centrocusto:
-                        <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome" data-tipo="@item.Tipo">
-                            <option> </option>
-                            @foreach (var centrocusto in new SelectLista(UsuarioLogado.UsuarioId, TipoLista.CentroCusto).Listar())
-                            {
-                                <option value="@centrocusto.Id">@centrocusto.Nome</option>
-                            }
-                        </select>
-                            break;
-                        case TipoFiltro.perfil:
-                        <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome" data-tipo="@item.Tipo">
-                            <option> </option>
-                            @foreach (var perfil in new SelectLista(UsuarioLogado.UsuarioId, TipoLista.Perfil).Listar())
-                            {
-                                <option value="@perfil.Id">@perfil.Nome</option>
-                            }
-                        </select>
-                            break;
-                        case TipoFiltro.pessoa:
-                        <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome" data-tipo="@item.Tipo">
-                            <option> </option>
-                            @foreach (var pessoa in new SelectLista(UsuarioLogado.UsuarioId, TipoLista.Pessoa).Listar())
-                            {
-                                <option value="@pessoa.Id">@pessoa.Nome</option>
-                            }
-                        </select>
-                            break;
-                        case TipoFiltro.tipopessoa:
-                        <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome" data-tipo="@item.Tipo">
-                            <option> </option>
-                            @foreach (var tipopessoa in new SelectLista(UsuarioLogado.UsuarioId, TipoLista.TipoPessoa).Listar())
-                            {
-                                <option value="@tipopessoa.Id">@tipopessoa.Nome</option>
-                            }
-                        </select>
-                            break;
-                        case TipoFiltro.tipotelefone:
-                        <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome" data-tipo="@item.Tipo">
-                            <option> </option>
-                            @foreach (var tipotelefone in new SelectLista(UsuarioLogado.UsuarioId, TipoLista.TipoTelefone).Listar())
-                            {
-                                <option value="@tipotelefone.Id">@tipotelefone.Nome</option>
-                            }
-                        </select>
-                            break;
-                        case TipoFiltro.usuario:
-                        <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome" data-tipo="@item.Tipo">
-                            <option> </option>
-                            @foreach (var usuario in new SelectLista(UsuarioLogado.UsuarioId, TipoLista.Usuario).Listar())
-                            {
-                                <option value="@usuario.Id">@usuario.Nome</option>
-                            }
-                        </select>
-                            break;
-                        case TipoFiltro.modeloboleto:
-                        <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome" data-tipo="@item.Tipo">
-                            <option> </option>
-                            @foreach (var modeloboleto in new SelectLista(UsuarioLogado.UsuarioId, TipoLista.ModeloBoleto).Listar())
-                            {
-                                <option value="@modeloboleto.Id">@modeloboleto.Nome</option>
-                            }
-                        </select>
-                            break;
-                        case TipoFiltro.periodicidade:
-                        <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome" data-tipo="@item.Tipo">
-                            <option> </option>
-                            @foreach (var tipoPeriodo in Enum.GetNames(typeof(AgilusFinan.Domain.Entities.Periodicidade)))
-                            {
-                                <option value="@tipoPeriodo">@tipoPeriodo</option>
-                            }
-                        </select>
-                            break;
-                        default:
-                            break;
-                    }
+                                break;
+                            case TipoFiltro.monetario:
+                            <input type="text" data-grupo="filtro" data-filtro="@item.Nome" data-tipo="@item.Tipo" value="@item.Valor" class="form-control" />
+                                break;
+                            case TipoFiltro.data:
+                            <input type="text" data-grupo="filtro" data-filtro="@item.Nome" data-tipo="@item.Tipo" value="@item.Valor.ToString("dd/MM/yyyy")" class="form-control inputdate" />
+                                break;
+                            case TipoFiltro.conta:
+                            <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome" data-tipo="@item.Tipo">
+                                <option> </option>
+                                @foreach (var conta in new SelectLista(UsuarioLogado.UsuarioId, TipoLista.Conta).Listar())
+                                {
+                                    <option value="@conta.Id" @( conta.Padrao == true ? "selected" : "")>@conta.Nome</option>
+                                }
+                            </select>
+                                break;
+                            case TipoFiltro.banco:
+                            <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome" data-tipo="@item.Tipo">
+                                <option> </option>
+                                @foreach (var banco in new SelectLista(UsuarioLogado.UsuarioId, TipoLista.Banco).Listar())
+                                {
+                                    <option value="@banco.Id">@banco.Nome</option>
+                                }
+                            </select>
+                                break;
+                            case TipoFiltro.categoria:
+                            <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome" data-tipo="@item.Tipo">
+                                <option> </option>
+                                @foreach (var categoria in new SelectLista(UsuarioLogado.UsuarioId, TipoLista.Categoria).Listar())
+                                {
+                                    <option value="@categoria.Id">@categoria.Nome</option>
+                                }
+                            </select>
+                                break;
+                            case TipoFiltro.centrocusto:
+                            <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome" data-tipo="@item.Tipo">
+                                <option> </option>
+                                @foreach (var centrocusto in new SelectLista(UsuarioLogado.UsuarioId, TipoLista.CentroCusto).Listar())
+                                {
+                                    <option value="@centrocusto.Id">@centrocusto.Nome</option>
+                                }
+                            </select>
+                                break;
+                            case TipoFiltro.perfil:
+                            <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome" data-tipo="@item.Tipo">
+                                <option> </option>
+                                @foreach (var perfil in new SelectLista(UsuarioLogado.UsuarioId, TipoLista.Perfil).Listar())
+                                {
+                                    <option value="@perfil.Id">@perfil.Nome</option>
+                                }
+                            </select>
+                                break;
+                            case TipoFiltro.pessoa:
+                            <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome" data-tipo="@item.Tipo">
+                                <option> </option>
+                                @foreach (var pessoa in new SelectLista(UsuarioLogado.UsuarioId, TipoLista.Pessoa).Listar())
+                                {
+                                    <option value="@pessoa.Id">@pessoa.Nome</option>
+                                }
+                            </select>
+                                break;
+                            case TipoFiltro.tipopessoa:
+                            <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome" data-tipo="@item.Tipo">
+                                <option> </option>
+                                @foreach (var tipopessoa in new SelectLista(UsuarioLogado.UsuarioId, TipoLista.TipoPessoa).Listar())
+                                {
+                                    <option value="@tipopessoa.Id">@tipopessoa.Nome</option>
+                                }
+                            </select>
+                                break;
+                            case TipoFiltro.tipotelefone:
+                            <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome" data-tipo="@item.Tipo">
+                                <option> </option>
+                                @foreach (var tipotelefone in new SelectLista(UsuarioLogado.UsuarioId, TipoLista.TipoTelefone).Listar())
+                                {
+                                    <option value="@tipotelefone.Id">@tipotelefone.Nome</option>
+                                }
+                            </select>
+                                break;
+                            case TipoFiltro.usuario:
+                            <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome" data-tipo="@item.Tipo">
+                                <option> </option>
+                                @foreach (var usuario in new SelectLista(UsuarioLogado.UsuarioId, TipoLista.Usuario).Listar())
+                                {
+                                    <option value="@usuario.Id">@usuario.Nome</option>
+                                }
+                            </select>
+                                break;
+                            case TipoFiltro.modeloboleto:
+                            <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome" data-tipo="@item.Tipo">
+                                <option> </option>
+                                @foreach (var modeloboleto in new SelectLista(UsuarioLogado.UsuarioId, TipoLista.ModeloBoleto).Listar())
+                                {
+                                    <option value="@modeloboleto.Id">@modeloboleto.Nome</option>
+                                }
+                            </select>
+                                break;
+                            case TipoFiltro.periodicidade:
+                            <select class="form-control" data-grupo="filtro" data-filtro="@item.Nome" data-tipo="@item.Tipo">
+                                <option> </option>
+                                @foreach (var tipoPeriodo in Enum.GetNames(typeof(AgilusFinan.Domain.Entities.Periodicidade)))
+                                {
+                                    <option value="@tipoPeriodo">@tipoPeriodo</option>
+                                }
+                            </select>
+                                break;
+                            default:
+                                break;
+                        }
+                    </div>
+                }
+                <div class="form-group col-lg-3 col-sm-4 col-xs-12">
+                    <label class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> &nbsp; </label>
+                    <button type="submit" formmethod="post" id="consulta" class="btn btn-primary">Consultar</button>
+                    <div style="float: right" id="loading"></div>
                 </div>
-            }
-            <div class="form-group">
-                <button type="submit" formmethod="post" id="consulta" class="btn btn-default" style="margin-left:10px;">Consultar</button>
-                <div style="float: right" id="loading"></div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 </div>
 <br />
