@@ -31,7 +31,7 @@ namespace AgilusFinan.Web.Controllers
             var boleto = js.Deserialize<LoteBoleto>(postedData);
             try
             {
-                Util.EnviarBoletoPorEmail(boleto, "boleto.html");
+                Util.EnviarBoletoPorEmail(boleto, "boleto.pdf");
                 return "Enviado";
             }
             catch (Exception e)
@@ -53,7 +53,7 @@ namespace AgilusFinan.Web.Controllers
                 int seq = 1;
                 foreach (var boleto in boletos)
                 {
-                    var nomeArquivo = boleto.NomePessoa + seq.ToString() + ".html";
+                    var nomeArquivo = boleto.NomePessoa + seq.ToString() + ".pdf";
                     seq++;
                     Stream html;
                     if (boleto.TituloId != null)

@@ -17,8 +17,26 @@
 </head>
 <body>
     @Html.Raw(ViewBag.BoletoBancario)
-
-    <button class="btn btn-primary hidden-print" role="menuitem" tabindex="-1" data-toggle="modal" data-target="#EnviarEmail" id="enviar"><i class="fa fa-envelope"></i> Enviar por E-mail</button>
+    <div class="row">
+        <button class="btn btn-primary hidden-print" role="menuitem" tabindex="-1" data-toggle="modal" data-target="#EnviarEmail" id="enviar"><i class="fa fa-envelope"></i> Enviar por E-mail</button>
+        @if (ViewBag.TituloRecorrenteId != null)
+        {
+            @Html.ActionLink("Baixar", "BaixarBoletoRecorrente", "Recebimento", new
+        {
+            modeloBoletoId = Model.Id,
+            tituloRecorrenteId = ViewBag.TituloRecorrenteId,
+            valor = ViewBag.Valor.ToString("#,##0.00"),
+            dataVencimento = ViewBag.DataVencimento
+        },
+       new { @class = "btn btn-primary hidden-print" })
+        }
+        else
+        {
+            @Html.ActionLink("Baixar", "BaixarBoleto", "Recebimento", new { tituloId = ViewBag.TituloId, modeloBoletoId = Model.Id }, new { @class = "btn btn-primary hidden-print" })
+        }
+    </div>
+    
+    
     <div id="teste"></div>
 
     <div id="EnviarEmail" class="modal inmodal" tabindex="-1" data-backdrop="static" role="dialog" aria-hidden="true">

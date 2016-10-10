@@ -14,6 +14,8 @@ using System.IO;
 using AgilusFinan.Domain.Utils;
 using System.Globalization;
 using System.Web.Script.Serialization;
+using System.Net;
+using System.Collections.Specialized;
 
 namespace AgilusFinan.Web.Controllers
 {
@@ -181,6 +183,31 @@ namespace AgilusFinan.Web.Controllers
 
             return View(modeloBoleto);
         }
+        [HttpGet]
+        public ActionResult BaixarBoleto(int tituloId, int modeloBoletoId)
+        {
+            var boletobancario = Util.GerarBoletoBancario(tituloId, modeloBoletoId);
+
+            string boletoHtml = boletobancario.MontaHtmlEmbedded(false, true);
+            
+            var ms = Util.StringToPdf(boletoHtml);
+            HttpContext.Response.AddHeader("content-disposition", "attachment; filename=boleto" + tituloId.ToString() + ".pdf");
+            return new FileStreamResult(ms, "application/pdf");
+        }
+        [HttpGet]
+        public ActionResult BaixarBoletoRecorrente(int modeloBoletoId, int tituloRecorrenteId, decimal valor, DateTime dataVencimento)
+        {
+            var boletobancario = Util.GerarBoletoBancario((int)tituloRecorrenteId, (decimal)valor, (DateTime)dataVencimento, modeloBoletoId);
+
+            string boletoHtml = boletobancario.MontaHtmlEmbedded(false, true);
+
+            var ms = Util.StringToPdf(boletoHtml);
+
+            HttpContext.Response.AddHeader("content-disposition", "attachment; filename=boleto" + tituloRecorrenteId.ToString() + ".pdf");
+
+            return new FileStreamResult(ms, "application/pdf");
+        }
+
 
         [ValidateInput(false)]
         [HttpPost]
@@ -188,11 +215,11 @@ namespace AgilusFinan.Web.Controllers
         {
             if (tituloId != null)
             {
-                Util.EnviarBoletoPorEmail((int)tituloId, "boleto.html", modeloBoletoId, emailDestinatario, AssuntoEmail, TextoEmail);
+                Util.EnviarBoletoPorEmail((int)tituloId, "boleto.pdf", modeloBoletoId, emailDestinatario, AssuntoEmail, TextoEmail);
             }
             else
             {
-                Util.EnviarBoletoPorEmail((int)TituloRecorrenteId, "boleto.html", modeloBoletoId, (decimal)Valor, (DateTime)DataVencimento, emailDestinatario, AssuntoEmail, TextoEmail);
+                Util.EnviarBoletoPorEmail((int)TituloRecorrenteId, "boleto.pdf", modeloBoletoId, (decimal)Valor, (DateTime)DataVencimento, emailDestinatario, AssuntoEmail, TextoEmail);
             }
             return RedirectToAction("Index", "Recebimento");
         }
@@ -217,7 +244,6 @@ namespace AgilusFinan.Web.Controllers
             Titulo model = repo.BuscarPorId(id);
             ViewBag.TipoOperacao = "Incluindo";
             var viewModel = new TituloViewModel();
-            //ModelToViewModel(model, viewModel);
             viewModel.FromModel(model);
             ViewBag.TipoTitulo = "Recebimento";
             PreAlteracao(viewModel);

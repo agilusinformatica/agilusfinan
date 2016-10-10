@@ -1,0 +1,4 @@
+﻿> y:
+> cd Y:\projects\RotativaHQ\RotativaHQ.NugetPakage\RotativaHQ.NugetPakage\RotativaHQ
+> nuget pack RotativaHQ.csproj -IncludeReferencedProjects
+> nuget push RotativaHQ.nupkg
