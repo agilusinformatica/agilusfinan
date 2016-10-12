@@ -431,9 +431,9 @@ namespace AgilusFinan.Web.Bases
             var emailRemetente = titulo.Empresa.EmailFinanceiro;
 
             var boleto = Util.GerarBoletoBancario(tituloId, modeloBoletoId);
-            var html = StringToPdf(boleto.MontaHtmlEmbedded(false, true));
+            var pdf = StringToPdf(boleto.MontaHtmlEmbedded(false, true));
             var anexos = new List<Stream>();
-            anexos.Add(html);
+            anexos.Add(pdf);
             var email = new Email(emailDestinatario, TextoEmail, AssuntoEmail, emailRemetente, anexos, new List<string>() { Path.GetFileName(nomeArquivo) });
             email.DispararMensagem();
         }
@@ -446,9 +446,9 @@ namespace AgilusFinan.Web.Bases
             var emailRemetente = titulo.Empresa.EmailFinanceiro;
 
             var boleto = Util.GerarBoletoBancario(tituloRecorrenteId, valor, dataVencimento, modeloBoletoId);
-            var html = StringToPdf(boleto.MontaHtmlEmbedded(false, true));
+            var pdf = StringToPdf(boleto.MontaHtmlEmbedded(false, true));
             var anexos = new List<Stream>();
-            anexos.Add(html);
+            anexos.Add(pdf);
             var email = new Email(emailDestinatario, TextoEmail, AssuntoEmail, emailRemetente, anexos, new List<string>() { Path.GetFileName(nomeArquivo) });
             email.DispararMensagem();
         }
@@ -476,9 +476,9 @@ namespace AgilusFinan.Web.Bases
                 boleto = Util.GerarBoletoBancario((int)loteBoleto.TituloRecorrenteId, loteBoleto.Valor, loteBoleto.DataVencimento, loteBoleto.ModeloBoletoId);
             }
 
-            var html = StringToPdf(boleto.MontaHtmlEmbedded(false, true));
+            var pdf = StringToPdf(boleto.MontaHtmlEmbedded(false, true));
             var anexos = new List<Stream>();
-            anexos.Add(html);
+            anexos.Add(pdf);
             var email = new Email(emailDestinatario, modeloBoleto.TextoEmail, modeloBoleto.AssuntoEmail, emailRemetente, anexos, new List<string>() { Path.GetFileName(nomeArquivo) });
             email.DispararMensagem();
 
