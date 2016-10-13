@@ -1095,13 +1095,13 @@
     <Content Include="Views\TipoTelefone\_Cadastro.cshtml" />
     <Content Include="Views\Titulo\_Liquidar.cshtml" />
     <Content Include="Views\Pessoa\_Details.cshtml" />
+    <Content Include="Views\AtualizacaoBoleto\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Api\Views\ControllerConsultaApiPadrao\" />
     <Folder Include="Areas\Api\Views\Extrato\" />
     <Folder Include="Areas\Api\Views\FluxoCaixa\" />
     <Folder Include="Areas\Api\Views\LoteBoleto\" />
-    <Folder Include="Views\AtualizacaoBoleto\" />
     <Folder Include="Views\Movimentacoes\" />
   </ItemGroup>
   <ItemGroup>

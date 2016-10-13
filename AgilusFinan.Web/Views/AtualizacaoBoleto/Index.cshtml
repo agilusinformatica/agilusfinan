@@ -1,0 +1,23 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Boleto</title>
+    @Styles.Render("~/Content/css")
+
+</head>
+<body>
+    <div class="container-fluid"> 
+        @Html.Raw(ViewBag.BoletoBancario)
+    </div>
+    <div class="container-fluid">
+        @Html.ActionLink("Baixar", "Baixar", "AtualizacaoBoleto", new { tokenBoleto = ViewBag.Token }, new { @class = "btn btn-primary hidden-print" })
+    </div>
+</body>
+</html>

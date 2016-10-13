@@ -119,15 +119,15 @@ namespace AgilusFinan.Web.Bases
         public static Boleto GerarBoleto(int tituloId, int modeloBoletoId)
         {
             #region Instanciações
-            var titulo = new RepositorioRecebimento().BuscarPorId(tituloId);
+            var db = new Contexto();
+            var titulo = db.Titulos.Find(tituloId);
             var conta = titulo.Conta;
             var pessoa = titulo.Pessoa;
             var empresa = titulo.Empresa;
             int numeroBanco = conta.Banco.Codigo;
-            var repoModeloBoleto = new RepositorioModeloBoleto();
+            var modeloBoleto = db.ModelosBoleto.Find(modeloBoletoId);
             var dataVencimentoOriginal = titulo.DataVencimento;
             Decimal jurosTotais = 0;
-            var modeloBoleto = repoModeloBoleto.BuscarPorId(modeloBoletoId);
 
             if (modeloBoleto == null)
             {
@@ -136,24 +136,25 @@ namespace AgilusFinan.Web.Bases
             #endregion
 
             #region Gravar Boleto
-            var repoBoletoGerado = new RepositorioBoletoGerado();
-            var boletogerado = repoBoletoGerado.Listar(b => b.TituloId == tituloId).FirstOrDefault();
+            var boletoGerado = db.BoletosGerado.Where(b => b.TituloId == tituloId && b.ModeloBoletoId == modeloBoletoId).FirstOrDefault();
 
-            if (boletogerado == null)
+            if (boletoGerado == null)
             {
-                boletogerado = new BoletoGerado();
-                boletogerado.ModeloBoletoId = modeloBoletoId;
-                boletogerado.TituloId = tituloId;
-                boletogerado.TituloRecorrenteId = null;
-                boletogerado.PercentualDesconto = modeloBoleto.PercentualDesconto;
-                boletogerado.DiasDesconto = modeloBoleto.DiasDesconto;
-                boletogerado.Juros = modeloBoleto.Juros;
-                boletogerado.Multa = modeloBoleto.Multa;
+                boletoGerado = new BoletoGerado();
+                boletoGerado.ModeloBoletoId = modeloBoletoId;
+                boletoGerado.TituloId = tituloId;
+                boletoGerado.TituloRecorrenteId = null;
+                boletoGerado.PercentualDesconto = modeloBoleto.PercentualDesconto;
+                boletoGerado.DiasDesconto = modeloBoleto.DiasDesconto;
+                boletoGerado.Juros = modeloBoleto.Juros;
+                boletoGerado.Multa = modeloBoleto.Multa;
 
                 modeloBoleto.NossoNumero++;
-                repoModeloBoleto.Alterar(modeloBoleto);
-                boletogerado.NossoNumero = modeloBoleto.NossoNumero;
-                repoBoletoGerado.Incluir(boletogerado);
+                db.Entry<ModeloBoleto>(modeloBoleto).State = System.Data.Entity.EntityState.Modified;
+                boletoGerado.NossoNumero = modeloBoleto.NossoNumero;
+                boletoGerado.EmpresaId = titulo.EmpresaId;
+                db.BoletosGerado.Add(boletoGerado);
+                db.SaveChanges();
             }
 
             #endregion
@@ -164,7 +165,7 @@ namespace AgilusFinan.Web.Bases
             #endregion
 
             #region Boleto
-            Boleto boleto = new Boleto(titulo.DataVencimento, titulo.Valor, modeloBoleto.Carteira, boletogerado.NossoNumero.ToString(), c, new EspecieDocumento(numeroBanco));
+            Boleto boleto = new Boleto(titulo.DataVencimento, titulo.Valor, modeloBoleto.Carteira, boletoGerado.NossoNumero.ToString(), c, new EspecieDocumento(numeroBanco));
             boleto.NumeroDocumento = tituloId.ToString();
             boleto.Banco = new BoletoNet.Banco(numeroBanco);
             #endregion
@@ -190,10 +191,10 @@ namespace AgilusFinan.Web.Bases
             #endregion
 
             #region Juros
-            if (boletogerado.Juros > 0)
+            if (boletoGerado.Juros > 0)
             {
                 Instrucao item2 = new Instrucao(numeroBanco);
-                boleto.JurosMora = Math.Round(boleto.ValorBoleto * boletogerado.Juros / 100 / 30, 2);
+                boleto.JurosMora = Math.Round(boleto.ValorBoleto * boletoGerado.Juros / 100 / 30, 2);
                 item2.Descricao = "Após o vencimento cobrar juros de R$ " + boleto.JurosMora + " ao dia";
                 boleto.Instrucoes.Add(item2);
                 if (titulo.DataVencimento < DateTime.Today)
@@ -206,10 +207,10 @@ namespace AgilusFinan.Web.Bases
             #endregion
 
             #region Multa
-            if (boletogerado.Multa > 0)
+            if (boletoGerado.Multa > 0)
             {
                 Instrucao item3 = new Instrucao(numeroBanco);
-                decimal multa = boleto.ValorBoleto * boletogerado.Multa / 100;
+                decimal multa = boleto.ValorBoleto * boletoGerado.Multa / 100;
                 item3.Descricao = "Após o vencimento cobrar multa de R$ " + Math.Round(multa, 2);
                 boleto.Instrucoes.Add(item3);
                 if (titulo.DataVencimento < DateTime.Today)
@@ -225,14 +226,14 @@ namespace AgilusFinan.Web.Bases
             boleto.ValorBoleto += jurosTotais + boleto.ValorMulta;
             boleto.DataJurosMora = titulo.DataVencimento;
             boleto.DataMulta = titulo.DataVencimento;
-            boleto.PercMulta = boletogerado.Multa;
-            boleto.PercJurosMora = boletogerado.Juros;
+            boleto.PercMulta = boletoGerado.Multa;
+            boleto.PercJurosMora = boletoGerado.Juros;
             #endregion
 
             #region Desconto
-            if (boletogerado.PercentualDesconto > 0)
+            if (boletoGerado.PercentualDesconto > 0)
             {
-                boleto.DataDesconto = dataVencimentoOriginal.AddDays(-boletogerado.DiasDesconto);
+                boleto.DataDesconto = dataVencimentoOriginal.AddDays(-boletoGerado.DiasDesconto);
                 if (DateTime.Today <= boleto.DataDesconto)
                 {
                     boleto.ValorDesconto = boleto.ValorBoleto * (modeloBoleto.PercentualDesconto / 100);
@@ -249,14 +250,17 @@ namespace AgilusFinan.Web.Bases
 
         public static Boleto GerarBoleto(int tituloRecorrenteId, decimal valor, DateTime dataVencimento, int modeloBoletoId)
         {
-            #region Instancioações
-            var titulo = new RepositorioTituloRecorrente().BuscarPorId(tituloRecorrenteId);
+            #region Instanciações
+            var db = new Contexto();
+            //var titulo = new RepositorioTituloRecorrente().BuscarPorId(tituloRecorrenteId);
+            var titulo = db.TitulosRecorrentes.Find(tituloRecorrenteId);
             var conta = titulo.Conta;
             var pessoa = titulo.Pessoa;
             var empresa = titulo.Empresa;
             int numeroBanco = conta.Banco.Codigo;
-            var repoModeloBoleto = new RepositorioModeloBoleto();
-            var modeloBoleto = repoModeloBoleto.BuscarPorId(modeloBoletoId);
+            //var repoModeloBoleto = new RepositorioModeloBoleto();
+            //var modeloBoleto = repoModeloBoleto.BuscarPorId(modeloBoletoId);
+            var modeloBoleto = db.ModelosBoleto.Find(modeloBoletoId);
             var dataVencimentoOriginal = dataVencimento;
             Decimal JurosTotais = 0;
             if (modeloBoleto == null)
@@ -266,25 +270,30 @@ namespace AgilusFinan.Web.Bases
             #endregion
 
             #region Gravar Boleto
-            var repoBoletoGerado = new RepositorioBoletoGerado();
-            var boletogerado = repoBoletoGerado.Listar(b => b.TituloRecorrenteId == tituloRecorrenteId && b.DataVencimento == dataVencimento).FirstOrDefault();
+            //var repoBoletoGerado = new RepositorioBoletoGerado();
+            //var boletogerado = repoBoletoGerado.Listar(b => b.TituloRecorrenteId == tituloRecorrenteId && b.DataVencimento == dataVencimento).FirstOrDefault();
+            var boletoGerado = db.BoletosGerado.Where(b => b.TituloRecorrenteId == tituloRecorrenteId && b.DataVencimento == dataVencimento).FirstOrDefault();
 
-            if (boletogerado == null)
+            if (boletoGerado == null)
             {
-                boletogerado = new BoletoGerado();
-                boletogerado.ModeloBoletoId = modeloBoletoId;
-                boletogerado.TituloId = null;
-                boletogerado.TituloRecorrenteId = tituloRecorrenteId;
-                boletogerado.DataVencimento = dataVencimento;
-                boletogerado.PercentualDesconto = modeloBoleto.PercentualDesconto;
-                boletogerado.DiasDesconto = modeloBoleto.DiasDesconto;
-                boletogerado.Juros = modeloBoleto.Juros;
-                boletogerado.Multa = modeloBoleto.Multa;
+                boletoGerado = new BoletoGerado();
+                boletoGerado.ModeloBoletoId = modeloBoletoId;
+                boletoGerado.TituloId = null;
+                boletoGerado.TituloRecorrenteId = tituloRecorrenteId;
+                boletoGerado.DataVencimento = dataVencimento;
+                boletoGerado.PercentualDesconto = modeloBoleto.PercentualDesconto;
+                boletoGerado.DiasDesconto = modeloBoleto.DiasDesconto;
+                boletoGerado.Juros = modeloBoleto.Juros;
+                boletoGerado.Multa = modeloBoleto.Multa;
 
                 modeloBoleto.NossoNumero++;
-                repoModeloBoleto.Alterar(modeloBoleto);
-                boletogerado.NossoNumero = modeloBoleto.NossoNumero;
-                repoBoletoGerado.Incluir(boletogerado);
+                //repoModeloBoleto.Alterar(modeloBoleto);
+                db.Entry<ModeloBoleto>(modeloBoleto).State = System.Data.Entity.EntityState.Modified;
+                boletoGerado.NossoNumero = modeloBoleto.NossoNumero;
+                boletoGerado.EmpresaId = titulo.EmpresaId;
+                //repoBoletoGerado.Incluir(boletoGerado);
+                db.BoletosGerado.Add(boletoGerado);
+                db.SaveChanges();
             }
             #endregion
              
@@ -294,7 +303,7 @@ namespace AgilusFinan.Web.Bases
             #endregion
 
             #region Boleto
-            Boleto boleto = new Boleto(dataVencimento, valor, modeloBoleto.Carteira, boletogerado.NossoNumero.ToString(), c, new EspecieDocumento(numeroBanco));
+            Boleto boleto = new Boleto(dataVencimento, valor, modeloBoleto.Carteira, boletoGerado.NossoNumero.ToString(), c, new EspecieDocumento(numeroBanco));
             boleto.NumeroDocumento = tituloRecorrenteId.ToString();
             boleto.Banco = new BoletoNet.Banco(numeroBanco);
             #endregion
@@ -306,10 +315,10 @@ namespace AgilusFinan.Web.Bases
             #endregion
 
             #region Juros
-            if (boletogerado.Juros > 0)
+            if (boletoGerado.Juros > 0)
             {
                 Instrucao item2 = new Instrucao(conta.Banco.Codigo);
-                boleto.JurosMora = Math.Round(boleto.ValorBoleto * boletogerado.Juros / 100 / 30, 2);
+                boleto.JurosMora = Math.Round(boleto.ValorBoleto * boletoGerado.Juros / 100 / 30, 2);
                 item2.Descricao = "Após o vencimento cobrar juros de R$ " + boleto.JurosMora + " ao dia";
                 boleto.Instrucoes.Add(item2);
                 if (dataVencimento < DateTime.Today && titulo.Categoria.DirecaoVencimentoDiaNaoUtil == DirecaoVencimento.Antecipado)
@@ -328,10 +337,10 @@ namespace AgilusFinan.Web.Bases
             #endregion
 
             #region Multa
-            if (boletogerado.Multa > 0)
+            if (boletoGerado.Multa > 0)
             {
                 Instrucao item3 = new Instrucao(conta.Banco.Codigo);
-                decimal multa = boleto.ValorBoleto * boletogerado.Multa / 100;
+                decimal multa = boleto.ValorBoleto * boletoGerado.Multa / 100;
                 item3.Descricao = "Após o vencimento cobrar multa de R$ " + Math.Round(multa, 2);
                 boleto.Instrucoes.Add(item3);
                 if (dataVencimento < DateTime.Today)
@@ -347,17 +356,17 @@ namespace AgilusFinan.Web.Bases
             boleto.ValorBoleto += JurosTotais + boleto.ValorMulta;
             boleto.DataJurosMora = dataVencimento;
             boleto.DataMulta = dataVencimento;
-            boleto.PercMulta = boletogerado.Multa;
-            boleto.PercJurosMora = boletogerado.Juros;
+            boleto.PercMulta = boletoGerado.Multa;
+            boleto.PercJurosMora = boletoGerado.Juros;
             #endregion
 
             #region Desconto
-            if (boletogerado.PercentualDesconto > 0)
+            if (boletoGerado.PercentualDesconto > 0)
             {
-                boleto.DataDesconto = dataVencimentoOriginal.AddDays(-boletogerado.DiasDesconto);
+                boleto.DataDesconto = dataVencimentoOriginal.AddDays(-boletoGerado.DiasDesconto);
                 if (DateTime.Today <= boleto.DataDesconto)
                 {
-                    boleto.ValorDesconto = boleto.ValorBoleto * (boletogerado.PercentualDesconto / 100);
+                    boleto.ValorDesconto = boleto.ValorBoleto * (boletoGerado.PercentualDesconto / 100);
                     Instrucao instrucaoDesconto = new Instrucao(numeroBanco);
                     instrucaoDesconto.Descricao = "Até " + boleto.DataDesconto.GetDateTimeFormats()[0] + " conceder desconto de R$ " + Math.Round(boleto.ValorDesconto, 2);
                     boleto.Instrucoes.Add(instrucaoDesconto);
@@ -385,6 +394,7 @@ namespace AgilusFinan.Web.Bases
         public static BoletoBancario GerarBoletoBancario(int tituloId, int modeloBoletoId)
         {
             #region Boleto Bancario
+
             var boleto = GerarBoleto(tituloId, modeloBoletoId);
             var boletobancario = new BoletoBancario();
             boletobancario.CodigoBanco = (short)boleto.Banco.Codigo;
@@ -420,7 +430,14 @@ namespace AgilusFinan.Web.Bases
                 options.Add("MarginLeft", "5");
                 options.Add("MarginRight", "5");
 
-                return new MemoryStream(client.UploadValues("http://api.html2pdfrocket.com/pdf", options));
+                try
+                {
+                    return new MemoryStream(client.UploadValues("http://api.html2pdfrocket.com/pdf", options));
+                }
+                catch (Exception)
+                {
+                    throw new Exception("A API não está respondendo! Favor verificar");   
+                }
             }
 
         }
@@ -429,6 +446,9 @@ namespace AgilusFinan.Web.Bases
         {
             var titulo = new RepositorioRecebimento().BuscarPorId(tituloId);
             var emailRemetente = titulo.Empresa.EmailFinanceiro;
+
+            var boletoGeradoId = new RepositorioBoletoGerado().Listar(b => b.TituloId == titulo.Id).FirstOrDefault().Id.ToString();
+            TextoEmail = TextoEmail.Replace("#tokenBoleto#", EnderecoHost() + "/AtualizacaoBoleto?tokenBoleto=" + Criptografia.Encriptar(boletoGeradoId));
 
             var boleto = Util.GerarBoletoBancario(tituloId, modeloBoletoId);
             var pdf = StringToPdf(boleto.MontaHtmlEmbedded(false, true));
@@ -439,11 +459,13 @@ namespace AgilusFinan.Web.Bases
         }
 
 
-
         public static void EnviarBoletoPorEmail(int tituloRecorrenteId, string nomeArquivo, int modeloBoletoId, decimal valor, DateTime dataVencimento, string emailDestinatario, string AssuntoEmail, string TextoEmail)
         {
             var titulo = new RepositorioTituloRecorrente().BuscarPorId(tituloRecorrenteId);
             var emailRemetente = titulo.Empresa.EmailFinanceiro;
+
+            var boletoGeradoId = new RepositorioBoletoGerado().Listar(b => b.TituloRecorrenteId == titulo.Id && b.DataVencimento == dataVencimento).FirstOrDefault().Id.ToString();
+            TextoEmail = TextoEmail.Replace("#tokenBoleto#", EnderecoHost() + "/AtualizacaoBoleto?tokenBoleto=" + Criptografia.Encriptar(boletoGeradoId));
 
             var boleto = Util.GerarBoletoBancario(tituloRecorrenteId, valor, dataVencimento, modeloBoletoId);
             var pdf = StringToPdf(boleto.MontaHtmlEmbedded(false, true));
@@ -460,6 +482,7 @@ namespace AgilusFinan.Web.Bases
             string emailRemetente = "";
             BoletoBancario boleto = null;
             var modeloBoleto = new RepositorioModeloBoleto().BuscarPorId(loteBoleto.ModeloBoletoId);
+            string boletoGeradoId = null;
 
             if (loteBoleto.TituloId != null)
             {
@@ -467,6 +490,7 @@ namespace AgilusFinan.Web.Bases
                 emailDestinatario = loteBoleto.EmailDestinatario;
                 emailRemetente = titulo.Empresa.EmailFinanceiro;
                 boleto = Util.GerarBoletoBancario((int)loteBoleto.TituloId, loteBoleto.ModeloBoletoId);
+                boletoGeradoId = new RepositorioBoletoGerado().Listar(b => b.TituloId == titulo.Id).FirstOrDefault().Id.ToString();
             }
             if (loteBoleto.TituloRecorrenteId != null)
             {
@@ -474,11 +498,15 @@ namespace AgilusFinan.Web.Bases
                 emailDestinatario = loteBoleto.EmailDestinatario;
                 emailRemetente = titulo.Empresa.EmailFinanceiro;
                 boleto = Util.GerarBoletoBancario((int)loteBoleto.TituloRecorrenteId, loteBoleto.Valor, loteBoleto.DataVencimento, loteBoleto.ModeloBoletoId);
+                boletoGeradoId = new RepositorioBoletoGerado().Listar(b => b.TituloRecorrenteId == titulo.Id && b.DataVencimento == loteBoleto.DataVencimento).FirstOrDefault().Id.ToString();
             }
 
             var pdf = StringToPdf(boleto.MontaHtmlEmbedded(false, true));
             var anexos = new List<Stream>();
             anexos.Add(pdf);
+
+            modeloBoleto.TextoEmail = modeloBoleto.TextoEmail.Replace("#tokenBoleto#", EnderecoHost() + "/AtualizacaoBoleto?tokenBoleto=" + Criptografia.Encriptar(boletoGeradoId));
+
             var email = new Email(emailDestinatario, modeloBoleto.TextoEmail, modeloBoleto.AssuntoEmail, emailRemetente, anexos, new List<string>() { Path.GetFileName(nomeArquivo) });
             email.DispararMensagem();
 
