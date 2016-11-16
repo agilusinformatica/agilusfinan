@@ -51,6 +51,7 @@
                         <td>
                             @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "btn btn-primary btn-circle dim fa fa-edit" })
                             <button class="btn btn-warning btn-circle" title="Excluir" onclick="Excluir((@item.Id), this)"><i class="dim fa fa-trash-o"></i></button>
+                            @Html.ActionLink(" ", "ExibirBoleto", new { boletoGeradoId = item.Id }, new { @class = "btn btn-primary btn-circle dim fa fa-search modal-link" })
                         </td>
                     </tr>
                 }

@@ -53,7 +53,7 @@ namespace AgilusFinan.Web.Controllers
                 int seq = 1;
                 foreach (var boleto in boletos)
                 {
-                    var nomeArquivo = boleto.NomePessoa + seq.ToString() + ".pdf";
+                    var nomeArquivo = boleto.NomePessoa + seq.ToString() + ".html";
                     seq++;
                     Stream html;
                     if (boleto.TituloId != null)

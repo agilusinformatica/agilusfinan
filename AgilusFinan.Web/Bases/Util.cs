@@ -525,13 +525,13 @@ namespace AgilusFinan.Web.Bases
         public static Stream SalvarBoleto(int tituloId, int modeloBoletoId)
         {
             var boleto = Util.GerarBoletoBancario(tituloId, modeloBoletoId);
-            return StringToPdf(boleto.MontaHtmlEmbedded(false, true));
+            return StringToStream(boleto.MontaHtmlEmbedded());
         }
 
         public static Stream SalvarBoleto(int tituloRecorrenteId, decimal valor, DateTime dataVencimento, int modeloBoletoId)
         {
             var boleto = Util.GerarBoletoBancario(tituloRecorrenteId, valor, dataVencimento, modeloBoletoId);
-            return StringToPdf(boleto.MontaHtmlEmbedded(false, true));
+            return StringToStream(boleto.MontaHtmlEmbedded());
         }
 
         private static Stream StringToStream(string src)
