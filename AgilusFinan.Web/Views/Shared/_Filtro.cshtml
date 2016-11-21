@@ -172,7 +172,7 @@
         filtro.Parametros = parametros;
 
         var result = $.ajax({
-            url: "@Url.Action("Consulta")",
+            url: "@Url.Action("ConsultaApi")",
             method: "POST",
             data: {
                 jsonFiltros: JSON.stringify(filtro)

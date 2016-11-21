@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using AgilusFinan.Infra.Services;
 using AgilusFinan.Domain.Entities;
+using Newtonsoft.Json;
 
 namespace AgilusFinan.Web.Bases
 {
@@ -59,6 +60,14 @@ namespace AgilusFinan.Web.Bases
             }
            
             return View("~/Views/" + FolderViewName() + "/Index.cshtml", dados);
+        }
+
+        [HttpPost]
+        public string ConsultaApi(string jsonFiltros)
+        {
+            Filtro filtro = new System.Web.Script.Serialization.JavaScriptSerializer().Deserialize<Filtro>(jsonFiltros);
+            List<C> dados = gerador.ChamarProcedimento(filtro);
+            return JsonConvert.SerializeObject(dados);
         }
 
         public virtual string FolderViewName()
