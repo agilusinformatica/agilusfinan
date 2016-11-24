@@ -52,5 +52,11 @@ namespace AgilusFinan.Infra.Services
 
             return filtro;
         }
+
+
+        public string ChamarProcedimentoApi(Filtro filtro)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

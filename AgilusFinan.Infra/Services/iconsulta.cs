@@ -9,6 +9,7 @@ namespace AgilusFinan.Infra.Services
     public interface IConsulta<C> where C : ConsultaPadrao
     {
         List<C> ChamarProcedimento(Filtro filtro);
+        string ChamarProcedimentoApi(Filtro filtro);
         Filtro DefineFiltro();
         
     }
