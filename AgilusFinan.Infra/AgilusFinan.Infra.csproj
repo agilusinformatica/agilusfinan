@@ -349,6 +349,10 @@
     <Compile Include="Migrations\201609091746551_Add Foreign Key ModeloBoleto em BoletoGerado.Designer.cs">
       <DependentUpon>201609091746551_Add Foreign Key ModeloBoleto em BoletoGerado.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611231329239_Aumentar limite do campo de E-mail Financeiro em Pessoa.cs" />
+    <Compile Include="Migrations\201611231329239_Aumentar limite do campo de E-mail Financeiro em Pessoa.Designer.cs">
+      <DependentUpon>201611231329239_Aumentar limite do campo de E-mail Financeiro em Pessoa.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Scripts\pr_soma_categoria.sql">
@@ -621,6 +625,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201609091746551_Add Foreign Key ModeloBoleto em BoletoGerado.resx">
       <DependentUpon>201609091746551_Add Foreign Key ModeloBoleto em BoletoGerado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611231329239_Aumentar limite do campo de E-mail Financeiro em Pessoa.resx">
+      <DependentUpon>201611231329239_Aumentar limite do campo de E-mail Financeiro em Pessoa.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
