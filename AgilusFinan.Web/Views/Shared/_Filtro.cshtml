@@ -141,6 +141,7 @@
                 <div class="form-group col-lg-3 col-sm-4 col-xs-12">
                     <label class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> &nbsp; </label>
                     <button type="submit" formmethod="post" id="consulta" class="btn btn-primary">Consultar</button>
+                    <button type="submit" formmethod="post" id="consultaApi" class="btn btn-primary">Consultar (json)</button>
                     <div style="float: right" id="loading"></div>
                 </div>
             </form>
@@ -192,4 +193,55 @@
 
     });
 
+    $("#consultaApi").bind("click", function (e) {
+        e.preventDefault();
+        var parametros = [];
+        var filtro = {};
+
+        $('[data-grupo="filtro"]').each(function () {
+            parametros.push({
+                Nome: $(this).attr('data-filtro'),
+                Valor: Utils.convertFormatDate($(this).val()),
+                Tipo: $(this).attr('data-tipo')
+            });
+        });
+
+        filtro.Parametros = parametros;
+
+        var result = $.ajax({
+            url: "@Url.Action("ConsultaApi")",
+            method: "POST",
+            data: {
+                jsonFiltros: JSON.stringify(filtro)
+            },
+            beforeSend: function () {
+                $("#loading").html('<img src="/Content/Images/loading.gif">');
+            },
+            success: function (dataSet) {
+                $("#loading>img").remove();
+                var conteudo = '<table class="table table-hover table-bordered"><thead><tr><th>Data</th><th>Descrição</th><th>Valor</th><th>Saldo</th></tr></thead><tbody>';
+                var dados = JSON.parse(dataSet);
+                for (var i = 0; i < dados.length-1; i++) {
+                    conteudo += '<tr><td>'+dados[i].Data+'</td><td>'+dados[i].Descricao+'</td><td>'+dados[i].Valor+'</td><td>'+dados[i].Saldo+'</td></tr>';
+                }
+                conteudo += '</tbody></table>';
+
+                $('#conteudo').html(conteudo);
+                //$('#dados').DataTable({
+                //    data: dados,
+                //    columns: [
+                //        { data: "Data" },
+                //        { data: "Descricao" },
+                //        { data: "Valor" },
+                //        { data: "Saldo" }
+                //    ]
+                //});
+                //Utils.initializeDataTables('#dados');
+            },
+            error: function () {
+                throw "Erro";
+            },
+            complete: Utils.verificaSessaoAjax
+        });
+    });
 </script>
