@@ -12,7 +12,6 @@ namespace AgilusFinan.Infra.Context
         public Contexto()
             : base("dbAgilusFinan")
         {
-            
         }
 
         public DbSet<Banco> Bancos { get; set; }
