@@ -13,7 +13,8 @@ create function fn_gerador_vencimentos(
 	@qtde_parcelas int, 
 	@data_primeiro_vencimento datetime, 
 	@tipo_recorrencia tinyint,
-	@direcao_vencimento tinyint)
+	@direcao_vencimento tinyint,
+	@data_final_titulo_recorrente datetime)
 /*----------------------------------------------------------------------------------------------------------------------
 NOME: fn_gerador_vencimentos
 OBJETIVO: Gerar os vencimentos de acordo com recorrência de cada título
@@ -38,6 +39,9 @@ BEGIN
 		@data_base datetime = @data_primeiro_vencimento,
 		@data_calculo datetime
 
+	if @data_final_titulo_recorrente is not null and @data_final_titulo_recorrente < @data_final_analise
+	   set @data_final_analise = @data_final_titulo_recorrente
+
 	WHILE @data_base <= @data_final_analise
 	BEGIN
 		set @data_base = 
@@ -51,6 +55,9 @@ BEGIN
 			when 6 then dateadd(year, @cont, @data_primeiro_vencimento) -- anual
 			end
       
+        if @data_base > @data_final_analise
+           break
+
 		if @dia_vencimento is not null and @tipo_recorrencia >= 2
 		begin
 		    
