@@ -129,30 +129,5 @@ namespace AgilusFinan.Web.Controllers
             return View("~/Views/Recebimento/GerarBoleto.cshtml", modeloBoleto);
         }
 
-        //private void ViewModelToModel(TituloViewModel viewModel, Titulo model)
-        //{
-        //    model.Id = 0;
-        //    model.CategoriaId = viewModel.CategoriaId;
-        //    model.CentroCustoId = viewModel.CentroCustoId;
-        //    model.ContaId = viewModel.ContaId; //Valor não estava vindo, fiz um update no js da view
-        //    model.DataVencimento = viewModel.DataVencimento;
-        //    model.Descricao = viewModel.Descricao;
-        //    model.TituloRecorrenteId = viewModel.Id;
-        //    model.PessoaId = viewModel.PessoaId;
-        //    model.Valor = viewModel.Valor != null ? (decimal)viewModel.Valor : viewModel.Liquidacoes.Sum(m => m.Valor);
-
-        //    foreach (var l in viewModel.Liquidacoes)
-        //    {
-        //        model.Liquidacoes.Add(new Liquidacao()
-        //        {
-        //            Data = l.Data,
-        //            Valor = l.Valor,
-        //            JurosMulta = l.JurosMulta,
-        //            FormaLiquidacao = l.FormaLiquidacao,
-        //            TituloId = viewModel.Id,
-        //            Desconto = l.Desconto
-        //        });
-        //    }
-        //}
     }
 }

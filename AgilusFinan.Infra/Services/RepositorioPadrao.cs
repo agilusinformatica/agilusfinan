@@ -74,7 +74,7 @@ namespace AgilusFinan.Infra.Services
 
         public virtual IEnumerable<T> Listar()
         {
-            return db.Set<T>().Where(e => e.EmpresaId == db.EmpresaId);
+            return db.Set<T>().Where(e => e.EmpresaId == db.EmpresaId).AsNoTracking();
         }
 
         public T BuscarPorId(int id)
@@ -84,7 +84,7 @@ namespace AgilusFinan.Infra.Services
 
         public virtual List<T> Listar(Expression<Func<T, bool>> predicate)
         {
-            return db.Set<T>().Where(predicate).Where(e => e.EmpresaId == db.EmpresaId).ToList();
+            return db.Set<T>().Where(predicate).Where(e => e.EmpresaId == db.EmpresaId).AsNoTracking().ToList();
         }
     }
 }
