@@ -8,9 +8,9 @@
             <thead>
                 <tr>
                     <th>Data</th>
+                    <th>Data de Vencimento</th>
                     <th>Descrição</th>
                     <th>Categoria</th>
-                    <th>Data de Vencimento</th>
                     <th>Valor</th>
                     <th>Saldo</th>
                 </tr>
@@ -21,9 +21,9 @@
 
                     <tr>
                         <td>@item.Data.GetDateTimeFormats()[0]</td>
+                        <td>@( item.DataVencimento != null ? item.DataVencimento.Value.ToString("dd/MM/yyyy") : "")</td>
                         <td>@item.Descricao</td>
                         <td>@item.Categoria</td>
-                        <td>@( item.DataVencimento != null ? item.DataVencimento.Value.ToString("dd/MM/yyyy") : "")</td>
                         <td>@item.Valor</td>
                         <td>@item.Saldo.ToString("C")</td>
                     </tr>
