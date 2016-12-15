@@ -38,10 +38,11 @@ Begin
 		@pessoa_id int,
 		@centro_custo_id int,
 		@data_cadastro datetime,
-		@direcao_vencimento tinyint
+		@direcao_vencimento tinyint,
+		@data_final_titulo_recorrente datetime
 
 	declare cur cursor for
-	select t.Id, t.nome, t.diaVencimento, t.valor, t.recorrencia, t.QtdeParcelas, t.CategoriaId, t.PessoaId, t.CentroCustoId, t.DataCadastro, c.DirecaoVencimentoDiaNaoUtil, t.ContaId
+	select t.Id, t.nome, t.diaVencimento, t.valor, t.recorrencia, t.QtdeParcelas, t.CategoriaId, t.PessoaId, t.CentroCustoId, t.DataCadastro, c.DirecaoVencimentoDiaNaoUtil, t.ContaId, t.DataFinal
 	from TituloRecorrente as t
 	join Categoria as c on t.CategoriaId = c.Id
 	where t.EmpresaId = @id_empresa
@@ -50,14 +51,14 @@ Begin
 	and (@id_categoria is null or c.Id = @id_categoria)
 
 	open cur
-	Fetch cur into @id, @nome, @dia_vencimento, @valor, @recorrencia, @qtde_parcelas, @categoria_id, @pessoa_id, @centro_custo_id, @data_cadastro, @direcao_vencimento, @conta_id
+	Fetch cur into @id, @nome, @dia_vencimento, @valor, @recorrencia, @qtde_parcelas, @categoria_id, @pessoa_id, @centro_custo_id, @data_cadastro, @direcao_vencimento, @conta_id, @data_final_titulo_recorrente
 	While @@FETCH_STATUS = 0
 	begin
 		insert into @titulo_virtual
 		select @id, @nome, vencimento.*, @valor, @categoria_id, @conta_id, @pessoa_id, @centro_custo_id, @id_empresa
-		from dbo.fn_gerador_vencimentos(@id, @data_inicial_analise, @data_final_analise, @dia_vencimento, @qtde_parcelas, @data_cadastro, @recorrencia, @direcao_vencimento) as vencimento
+		from dbo.fn_gerador_vencimentos(@id, @data_inicial_analise, @data_final_analise, @dia_vencimento, @qtde_parcelas, @data_cadastro, @recorrencia, @direcao_vencimento, @data_final_titulo_recorrente) as vencimento
 
-		Fetch cur into @id, @nome, @dia_vencimento, @valor, @recorrencia, @qtde_parcelas, @categoria_id, @pessoa_id, @centro_custo_id, @data_cadastro, @direcao_vencimento, @conta_id
+		Fetch cur into @id, @nome, @dia_vencimento, @valor, @recorrencia, @qtde_parcelas, @categoria_id, @pessoa_id, @centro_custo_id, @data_cadastro, @direcao_vencimento, @conta_id, @data_final_titulo_recorrente
 	end
 	close cur
 	deallocate cur
