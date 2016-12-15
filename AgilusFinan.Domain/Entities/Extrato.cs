@@ -13,5 +13,8 @@ namespace AgilusFinan.Domain.Entities
         [Display(Name = "Descrição")]
         public string Descricao { get; set; }
         public Decimal Saldo { get; set; }
+        public string Categoria { get; set; }
+        public DateTime? DataVencimento { get; set; }
+
     }
 }

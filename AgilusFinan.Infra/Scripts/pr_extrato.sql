@@ -5,6 +5,9 @@ begin
 end
 GO
 
+--exec pr_extrato 1, 1, '2016-01-01', '2016-12-15'
+
+
 create procedure pr_extrato (@empresa int, @conta int, @dataInicial smalldatetime , @dataFinal smalldatetime)
 as
 begin
@@ -22,7 +25,7 @@ begin
 
 	set @saldoInicial = dbo.fn_saldo (@conta, @dataInicial-1, @empresa)
 
-	create table #movimentacoes(Data datetime, LiquidacaoId int, TransferenciaId int, Valor decimal(18,2), Descricao varchar(100), Saldo money)
+	create table #movimentacoes(Data datetime, LiquidacaoId int, TransferenciaId int, Valor decimal(18,2), Descricao varchar(100), Categoria varchar(100), DataVencimento datetime, Saldo money)
 
 	--pegar as movimentações realizadas até a data final do extrato
 	insert into #movimentacoes
@@ -31,7 +34,7 @@ begin
          when 0 then l.valor + isnull(l.JurosMulta, 0.0) - isnull(l.Desconto,0.0)
          else -(l.valor+isnull(l.JurosMulta,0.0) - isnull(l.Desconto,0.0)) 
       end Valor, 
-      t.Descricao, convert(money,null) Saldo 
+      t.Descricao, c.Nome Categoria, t.DataVencimento DataVencimento, convert(money,null) Saldo 
 	from Liquidacao l
 	join titulo t on l.TituloId = t.Id
 	join categoria c on t.CategoriaId = c.Id
@@ -49,7 +52,7 @@ begin
          when contaDestinoId = @conta then valor 
          else 0.0 
       end Valor, 
-      Descricao, null
+      Descricao, null, null, null
 	from transferencia
 	where Data >= @dataInicial
 	and Data >= @DataSaldoInicial
@@ -85,7 +88,7 @@ begin
 	deallocate curSaldo
 
 	insert into #movimentacoes
-	values (@dataInicial-1, null, null, null, 'Saldo Inicial', @SaldoInicial)
+	values (@dataInicial-1, null, null, null, 'Saldo Inicial', null, null, @SaldoInicial)
 
 	--retornar uma lista com as movimentações
 	select *
