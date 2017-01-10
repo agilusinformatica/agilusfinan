@@ -353,6 +353,10 @@
     <Compile Include="Migrations\201611231329239_Aumentar limite do campo de E-mail Financeiro em Pessoa.Designer.cs">
       <DependentUpon>201611231329239_Aumentar limite do campo de E-mail Financeiro em Pessoa.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201701061302366_Criação Indice em Boleto Gerado.cs" />
+    <Compile Include="Migrations\201701061302366_Criação Indice em Boleto Gerado.Designer.cs">
+      <DependentUpon>201701061302366_Criação Indice em Boleto Gerado.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Scripts\pr_soma_categoria.sql">
@@ -628,6 +632,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611231329239_Aumentar limite do campo de E-mail Financeiro em Pessoa.resx">
       <DependentUpon>201611231329239_Aumentar limite do campo de E-mail Financeiro em Pessoa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701061302366_Criação Indice em Boleto Gerado.resx">
+      <DependentUpon>201701061302366_Criação Indice em Boleto Gerado.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
