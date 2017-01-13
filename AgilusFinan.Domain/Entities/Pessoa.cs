@@ -18,6 +18,7 @@ namespace AgilusFinan.Domain.Entities
         public string EmailContato { get; set; }
         public string EmailFinanceiro { get; set; }
         public string Observacao { get; set; }
+        public bool RecebeEmailLiquidacao { get; set; }
 
 
         public Pessoa()

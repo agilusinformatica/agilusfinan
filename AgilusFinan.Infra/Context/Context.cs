@@ -38,6 +38,7 @@ namespace AgilusFinan.Infra.Context
         public DbSet<FeriadoGeral> FeriadosGerais { get; set; }
         public DbSet<ModeloBoleto> ModelosBoleto { get; set; }
         public DbSet<BoletoGerado> BoletosGerado { get; set; }
+        public DbSet<Parametro> Parametros { get; set; }
 
         public int EmpresaId
         {

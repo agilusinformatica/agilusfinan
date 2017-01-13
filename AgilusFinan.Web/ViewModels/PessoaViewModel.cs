@@ -32,6 +32,9 @@ namespace AgilusFinan.Web.ViewModels
         public List<TelefonePessoaViewModel> Telefones { get; set; }
         [Display(Name = "Observação")]
         public string Observacao { get; set; }
+        [Display(Name = "Recebe E-mail quando liquidar")]
+        public bool RecebeEmailLiquidacao { get; set; }
+
 
         public PessoaViewModel()
         {
@@ -63,6 +66,7 @@ namespace AgilusFinan.Web.ViewModels
             this.Nome = model.Nome;
             this.Rg = model.Rg;
             this.Observacao = model.Observacao;
+            this.RecebeEmailLiquidacao = model.RecebeEmailLiquidacao;
 
             foreach (var t in model.Telefones)
             {
@@ -88,6 +92,7 @@ namespace AgilusFinan.Web.ViewModels
             pessoa.Nome = this.Nome;
             pessoa.Rg = this.Rg;
             pessoa.Observacao = this.Observacao;
+            pessoa.RecebeEmailLiquidacao = this.RecebeEmailLiquidacao;
 
             foreach (var t in this.Telefones)
             {

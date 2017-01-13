@@ -35,6 +35,14 @@ namespace AgilusFinan.Web.Controllers
             db.Empresas.Add(empresa);
             db.SaveChanges();
 
+            //Criação da parte de parametros para essa empresa
+            Parametro parametro = new Parametro()
+            {
+                EmpresaId = empresa.Id
+            };
+            db.Parametros.Add(parametro);
+
+            //Criação de um Perfil
             Perfil perfil = new Perfil()
             {
                 Descricao = "Administrador",
@@ -60,6 +68,9 @@ namespace AgilusFinan.Web.Controllers
                 Acesso acesso = new Acesso() { PerfilId = perfil.Id, FuncaoId = funcao.Id };
                 db.Acessos.Add(acesso);
             }
+
+
+
 
             if (file != null)
             {

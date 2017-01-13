@@ -208,7 +208,6 @@ namespace AgilusFinan.Web.Controllers
             return new FileStreamResult(ms, "application/pdf");
         }
 
-
         [ValidateInput(false)]
         [HttpPost]
         public ActionResult EnviarBoletoPorEmail(int? tituloId, int modeloBoletoId, int? TituloRecorrenteId, decimal? Valor, DateTime? DataVencimento, string emailDestinatario, string AssuntoEmail, string TextoEmail)
@@ -224,7 +223,6 @@ namespace AgilusFinan.Web.Controllers
             return RedirectToAction("Index", "Recebimento");
         }
 
-
         public Stream GenerateStreamFromString(string s)
         {
             MemoryStream stream = new MemoryStream();
@@ -234,8 +232,6 @@ namespace AgilusFinan.Web.Controllers
             stream.Position = 0;
             return stream;
         }
-
-
 
         [HttpGet]
         [Permissao]

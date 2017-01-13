@@ -2,6 +2,8 @@
     var empresaId = AgilusFinan.Domain.Entities.UsuarioLogado.EmpresaId;
     string imageDataUrl = "";
     AgilusFinan.Domain.Entities.Empresa emp = new AgilusFinan.Infra.Services.RepositorioEmpresa().BuscarPorId(empresaId);
+    
+    var parametroId = new AgilusFinan.Infra.Services.RepositorioParametro().Listar(p => p.EmpresaId == empresaId).FirstOrDefault().Id;
     if (emp.Logotipo != null)
     {
         string imageBase64Data = Convert.ToBase64String(emp.Logotipo);
@@ -40,6 +42,7 @@
                     <li>
                         <div class="text-center link-block" style="white-space:nowrap;">
                             <a href="@Url.Action("Edit", "Empresa")"><i class="fa fa-edit"></i><strong> Dados da Empresa</strong></a>
+                            <a href="@Url.Action("Edit", "Parametro", new { Id = parametroId })"><i class="fa fa-edit"></i><strong>Parametros</strong></a>
                         </div>
                     </li>
                 </ul>

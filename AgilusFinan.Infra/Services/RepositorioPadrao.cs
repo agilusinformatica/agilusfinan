@@ -9,7 +9,7 @@ using AgilusFinan.Infra.Context;
 
 namespace AgilusFinan.Infra.Services
 {
-    public class RepositorioPadrao<T> : IRepositorioPadrao<T> where T : Padrao
+    public abstract class RepositorioPadrao<T> : IRepositorioPadrao<T> where T : Padrao
     {
         protected Contexto db = new Contexto();
 
@@ -41,7 +41,9 @@ namespace AgilusFinan.Infra.Services
             db.Set<T>().Add(obj);
             obj.EmpresaId = db.EmpresaId;
             Salvar();
+            PosInclusao(obj);
         }
+
 
         public void Alterar(T obj)
         {
@@ -53,6 +55,7 @@ namespace AgilusFinan.Infra.Services
                 throw new Exception("Objeto não encontrado");
             }
             Salvar();
+            PosAlteracao(obj);
         }
 
         public virtual void PreInclusao(T obj)
@@ -60,9 +63,19 @@ namespace AgilusFinan.Infra.Services
 
         }
 
+        public virtual void PosInclusao(T obj)
+        {
+        }
+
+
         public virtual void PreAlteracao(T obj)
         {
             
+        }
+
+        public virtual void PosAlteracao(T obj)
+        {
+
         }
 
         public void ExcluirPorId(int id)

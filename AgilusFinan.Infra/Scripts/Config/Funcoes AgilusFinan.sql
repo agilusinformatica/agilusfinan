@@ -82,6 +82,8 @@ INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) V
 INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (81, N'Duplicar', N'Pagamento/Duplicar', 2)
 INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (82, N'Duplicar', N'Recebimento/Duplicar', 3)
 INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (83, N'Boletos', NULL, NULL)
+INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (84, N'Parametros', NULL, NULL)
+INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (85, N'Editar', 'Parametro/Edit', 84)
 
 
 SET IDENTITY_INSERT [dbo].[Funcao] ON

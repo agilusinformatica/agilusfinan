@@ -357,6 +357,10 @@
     <Compile Include="Migrations\201701061302366_Criação Indice em Boleto Gerado.Designer.cs">
       <DependentUpon>201701061302366_Criação Indice em Boleto Gerado.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201701111254231_Cria Tabela Parametros e Cria campo em Pessoa.cs" />
+    <Compile Include="Migrations\201701111254231_Cria Tabela Parametros e Cria campo em Pessoa.Designer.cs">
+      <DependentUpon>201701111254231_Cria Tabela Parametros e Cria campo em Pessoa.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Scripts\pr_soma_categoria.sql">
@@ -387,6 +391,7 @@
     <Compile Include="Services\RepositorioModeloBoleto.cs" />
     <Compile Include="Services\RepositorioPadrao.cs" />
     <Compile Include="Services\RepositorioPagamento.cs" />
+    <Compile Include="Services\RepositorioParametro.cs" />
     <Compile Include="Services\RepositorioPerfil.cs" />
     <Compile Include="Services\RepositorioPessoa.cs" />
     <Compile Include="Services\RepositorioRecebimento.cs" />
@@ -635,6 +640,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201701061302366_Criação Indice em Boleto Gerado.resx">
       <DependentUpon>201701061302366_Criação Indice em Boleto Gerado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701111254231_Cria Tabela Parametros e Cria campo em Pessoa.resx">
+      <DependentUpon>201701111254231_Cria Tabela Parametros e Cria campo em Pessoa.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

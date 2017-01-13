@@ -24,7 +24,14 @@
                         <td>@( item.DataVencimento != null ? item.DataVencimento.Value.ToString("dd/MM/yyyy") : "")</td>
                         <td>@item.Descricao</td>
                         <td>@item.Categoria</td>
-                        <td>@item.Valor</td>
+                        @if (item.Valor > 0)
+                        {
+                            <td style="color: #3c763d;">@item.Valor</td>
+                        }
+                        else
+                        {
+                            <td style="color: #d9534f;">@item.Valor</td>
+                        }
                         <td>@item.Saldo.ToString("C")</td>
                     </tr>
 

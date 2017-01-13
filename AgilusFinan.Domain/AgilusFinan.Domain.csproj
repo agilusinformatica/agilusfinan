@@ -56,12 +56,14 @@
     <Compile Include="Entities\FeriadoRegional.cs" />
     <Compile Include="Entities\Filtro.cs" />
     <Compile Include="Entities\FluxoCaixa.cs" />
+    <Compile Include="Entities\Parametro.cs" />
     <Compile Include="Entities\Parser.cs" />
     <Compile Include="Entities\LoteBoleto.cs" />
     <Compile Include="Entities\UsuarioLogado.cs" />
     <Compile Include="Interfaces\IRepositorioBoletoGerado.cs" />
     <Compile Include="Interfaces\IRepositorioFeriadoRegional.cs" />
     <Compile Include="Interfaces\IRepositorioModeloBoleto.cs" />
+    <Compile Include="Interfaces\IRepositorioParametro.cs" />
     <Compile Include="Utils\Criptografia.cs" />
     <Compile Include="Utils\Email.cs" />
     <Compile Include="Entities\Empresa.cs" />

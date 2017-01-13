@@ -1,4 +1,5 @@
 ﻿using AgilusFinan.Domain.Entities;
+using AgilusFinan.Domain.Utils;
 using AgilusFinan.Infra.Context;
 using AgilusFinan.Infra.Services;
 using AgilusFinan.Web.Bases;
@@ -60,12 +61,20 @@ namespace AgilusFinan.Web.Controllers
         [Permissao]
         public void Liquidar(string postedData)
         {
-            RepositorioPadrao<Titulo> repo = new RepositorioPadrao<Titulo>();
+            RepositorioPadrao<Titulo> repo;
             TituloViewModel viewModel = new System.Web.Script.Serialization.JavaScriptSerializer().Deserialize<TituloViewModel>(postedData);
+            if (viewModel.Categoria.Direcao == DirecaoCategoria.Recebimento)
+                repo = new RepositorioRecebimento();
+            else
+                repo = new RepositorioPagamento();
+
+
             if (viewModel.TituloRecorrenteId != null && (viewModel.Valor  == null ||viewModel.Valor == 0))
             {
                 viewModel.Valor = viewModel.Liquidacoes.Sum(l => l.Valor);
             }
+
+
 
             if (ModelState.IsValid)
             {
@@ -73,48 +82,49 @@ namespace AgilusFinan.Web.Controllers
                 repo.Incluir(novoTitulo);
             }
         }
-        [Permissao]
-        public ActionResult LiquidarDiretamente(DateTime dataVencimento, int tituloRecorrenteId)
-        {
-            var repo = new RepositorioTituloRecorrente();
-            var tituloR = repo.BuscarPorId(tituloRecorrenteId);
 
-            if(tituloR.Valor == 0 || tituloR.Valor == null)
-            {
-                throw new Exception("Para liquidar um título ele deve ter um valor.");
-            }
+        //[Permissao]
+        //public ActionResult LiquidarDiretamente(DateTime dataVencimento, int tituloRecorrenteId)
+        //{
+        //    var repo = new RepositorioTituloRecorrente();
+        //    var tituloR = repo.BuscarPorId(tituloRecorrenteId);
+
+        //    if(tituloR.Valor == 0 || tituloR.Valor == null)
+        //    {
+        //        throw new Exception("Para liquidar um título ele deve ter um valor.");
+        //    }
             
-            //Criação do título referente ao título recorrente
-            var titulo = new Titulo()
-            {
-                CategoriaId = tituloR.CategoriaId,
-                CentroCustoId = tituloR.CentroCustoId,
-                ContaId = tituloR.ContaId,
-                EmpresaId = tituloR.EmpresaId,
-                PessoaId = tituloR.PessoaId,
-                TituloRecorrenteId = tituloR.Id,
-                Valor = (decimal)tituloR.Valor,
-                DataVencimento = dataVencimento,
-                Descricao = tituloR.Nome
-            };
+        //    //Criação do título referente ao título recorrente
+        //    var titulo = new Titulo()
+        //    {
+        //        CategoriaId = tituloR.CategoriaId,
+        //        CentroCustoId = tituloR.CentroCustoId,
+        //        ContaId = tituloR.ContaId,
+        //        EmpresaId = tituloR.EmpresaId,
+        //        PessoaId = tituloR.PessoaId,
+        //        TituloRecorrenteId = tituloR.Id,
+        //        Valor = (decimal)tituloR.Valor,
+        //        DataVencimento = dataVencimento,
+        //        Descricao = tituloR.Nome
+        //    };
 
-            //Criação da liquidação direta
-            var liquidacao = new Liquidacao()
-            {
-                Valor = (decimal)tituloR.Valor,
-                FormaLiquidacao = FormaLiquidacao.Boleto,
-                Data = DateTime.Now.Date,
-                JurosMulta = 0,
-                Desconto = 0
-            };
+        //    //Criação da liquidação direta
+        //    var liquidacao = new Liquidacao()
+        //    {
+        //        Valor = (decimal)tituloR.Valor,
+        //        FormaLiquidacao = FormaLiquidacao.Boleto,
+        //        Data = DateTime.Now.Date,
+        //        JurosMulta = 0,
+        //        Desconto = 0
+        //    };
 
-            titulo.Liquidacoes.Add(liquidacao);
-            new RepositorioPadrao<Titulo>().Incluir(titulo);
-            TempData["Alerta"] = new Alerta() { Mensagem = "Título liquidado com sucesso", Tipo = "success" };
+        //    titulo.Liquidacoes.Add(liquidacao);
+        //    new RepositorioPadrao<Titulo>().Incluir(titulo);
+        //    TempData["Alerta"] = new Alerta() { Mensagem = "Título liquidado com sucesso", Tipo = "success" };
 
 
-            return RedirectToAction("Index", Util.NomeControllerAnterior());
-        }
+        //    return RedirectToAction("Index", Util.NomeControllerAnterior());
+        //}
 
         [Permissao]
         public ActionResult GerarBoleto(int tituloRecorrenteId, decimal valor, DateTime dataVencimento, int modeloBoletoId)

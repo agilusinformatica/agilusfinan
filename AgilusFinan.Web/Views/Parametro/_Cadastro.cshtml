@@ -1,0 +1,62 @@
+﻿@model AgilusFinan.Domain.Entities.Parametro
+@Scripts.Render("~/plugins/summernote")
+@Styles.Render("~/plugins/summernoteStyles")
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <fieldset class="form-group">
+        <legend>E-mail para quando um título for liquidado</legend>
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Id)
+            <br />
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.AssuntoEmailLiquidacao, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.AssuntoEmailLiquidacao, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.AssuntoEmailLiquidacao, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.TextoEmailLiquidacao, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.TextoEmailLiquidacao, new { @class = "form-control", @rows = "6" })
+                    @Html.ValidationMessageFor(model => model.TextoEmailLiquidacao, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Gravar</button>
+                    @Html.ActionLink("Cancelar", "Index", "Home", null, new { @class = "btn btn-warning" })
+                </div>
+            </div>
+
+        </div>
+    </fieldset>
+    
+    
+    
+}
+
+
+<script>
+    $(document).ready(function () {
+        $('#TextoEmailLiquidacao').summernote({
+            height: "203px",
+            lang: 'pt-BR',
+            toolbar: [
+                ['style', ['bold', 'italic', 'underline', 'strikethrough', 'clear', ]],
+                ['font', ['fontsize', 'fontname']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']],
+                ['insert', ['link', 'table', 'hr', 'video', 'picture']],
+                ['misc', ['codeview', 'fullscreen', 'undo', 'redo', 'help']]
+            ]
+        });
+    });
+</script>
