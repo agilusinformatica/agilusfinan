@@ -361,6 +361,10 @@
     <Compile Include="Migrations\201701111254231_Cria Tabela Parametros e Cria campo em Pessoa.Designer.cs">
       <DependentUpon>201701111254231_Cria Tabela Parametros e Cria campo em Pessoa.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201701131901268_Altera Campo de Texto Email Liquidação na tabela parametros para um tamanho MAX.cs" />
+    <Compile Include="Migrations\201701131901268_Altera Campo de Texto Email Liquidação na tabela parametros para um tamanho MAX.Designer.cs">
+      <DependentUpon>201701131901268_Altera Campo de Texto Email Liquidação na tabela parametros para um tamanho MAX.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Scripts\pr_soma_categoria.sql">
@@ -643,6 +647,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201701111254231_Cria Tabela Parametros e Cria campo em Pessoa.resx">
       <DependentUpon>201701111254231_Cria Tabela Parametros e Cria campo em Pessoa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701131901268_Altera Campo de Texto Email Liquidação na tabela parametros para um tamanho MAX.resx">
+      <DependentUpon>201701131901268_Altera Campo de Texto Email Liquidação na tabela parametros para um tamanho MAX.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

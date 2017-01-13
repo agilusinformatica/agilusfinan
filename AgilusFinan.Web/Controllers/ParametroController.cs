@@ -11,6 +11,8 @@ namespace AgilusFinan.Web.Controllers
 {
     public class ParametroController : ControllerPadrao<Parametro, RepositorioParametro>
     {
+        [ValidateInput(false)]
+        [HttpPost]
         public override ActionResult Edit(Parametro model)
         {
             base.Edit(model);

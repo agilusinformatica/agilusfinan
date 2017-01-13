@@ -61,6 +61,9 @@ namespace AgilusFinan.Infra.Services
         {
             textoEmail = textoEmail.Replace(("{{Valor}}"), string.Format("{0:C}", liquidacao.Valor));
             textoEmail = textoEmail.Replace(("{{DataPagamento}}"), liquidacao.Data.ToString("d"));
+            textoEmail = textoEmail.Replace(("{{DataVencimento}}"), liquidacao.Titulo.DataVencimento.ToString("MM/yyyy"));
+            textoEmail = textoEmail.Replace(("{{ValorTitulo}}"), string.Format("{0:C}", liquidacao.Titulo.Valor));
+
 
             return textoEmail;
         }

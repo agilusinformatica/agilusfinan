@@ -67,8 +67,12 @@ namespace AgilusFinan.Infra.Context
             modelBuilder.Entity<Titulo>().Property(p => p.Observacao).HasMaxLength(500);
             modelBuilder.Entity<Pessoa>().Property(p => p.EmailFinanceiro).HasMaxLength(500);
             modelBuilder.Entity<Convite>().HasRequired(t => t.Perfil).WithMany(t => t.Convites).HasForeignKey(d => d.PerfilId).WillCascadeOnDelete(true);
-            modelBuilder.Entity<ModeloBoleto>().Property(p => p.TextoEmail).HasColumnType("varchar(max)"); //É necessário colocar senão o entity não entende que a coluna sofreu alteração.
-            modelBuilder.Entity<ModeloBoleto>().Property(p => p.TextoEmail).IsMaxLength(); //Passa o tamanho máximo ao provider, se usar o maxLength vc é obrigado a passar um tamanho int, se passa null ele assume o valor configurado por default, que nesse caso é 100
+            //É necessário colocar senão o entity não entende que a coluna sofreu alteração.
+            modelBuilder.Entity<ModeloBoleto>().Property(p => p.TextoEmail).HasColumnType("varchar(max)");
+            //Passa o tamanho máximo ao provider, se usar o maxLength vc é obrigado a passar um tamanho int, se passa null ele assume o valor configurado por default, que nesse caso é 100
+            modelBuilder.Entity<ModeloBoleto>().Property(p => p.TextoEmail).IsMaxLength();
+            modelBuilder.Entity<Parametro>().Property(p => p.TextoEmailLiquidacao).HasColumnType("varchar(max)");
+            modelBuilder.Entity<Parametro>().Property(p => p.TextoEmailLiquidacao).IsMaxLength();
         }
     }
 }
