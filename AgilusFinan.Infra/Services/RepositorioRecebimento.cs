@@ -59,11 +59,10 @@ namespace AgilusFinan.Infra.Services
 
         private string SubstituiVariaveis(Liquidacao liquidacao, string textoEmail)
         {
-            textoEmail = textoEmail.Replace(("{{Valor}}"), string.Format("{0:C}", liquidacao.Valor));
+            textoEmail = textoEmail.Replace(("{{Valor}}"), string.Format("{0:C}", liquidacao.Valor + (liquidacao.JurosMulta ?? 0) - (liquidacao.Desconto ?? 0)));
             textoEmail = textoEmail.Replace(("{{DataPagamento}}"), liquidacao.Data.ToString("d"));
             textoEmail = textoEmail.Replace(("{{DataVencimento}}"), liquidacao.Titulo.DataVencimento.ToString("MM/yyyy"));
             textoEmail = textoEmail.Replace(("{{ValorTitulo}}"), string.Format("{0:C}", liquidacao.Titulo.Valor));
-
 
             return textoEmail;
         }
