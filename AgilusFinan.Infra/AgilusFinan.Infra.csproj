@@ -365,6 +365,10 @@
     <Compile Include="Migrations\201701131901268_Altera Campo de Texto Email Liquidação na tabela parametros para um tamanho MAX.Designer.cs">
       <DependentUpon>201701131901268_Altera Campo de Texto Email Liquidação na tabela parametros para um tamanho MAX.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201702101943274_Altera tamanho campo obervação de titulos .cs" />
+    <Compile Include="Migrations\201702101943274_Altera tamanho campo obervação de titulos .Designer.cs">
+      <DependentUpon>201702101943274_Altera tamanho campo obervação de titulos .cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Scripts\pr_soma_categoria.sql">
@@ -650,6 +654,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201701131901268_Altera Campo de Texto Email Liquidação na tabela parametros para um tamanho MAX.resx">
       <DependentUpon>201701131901268_Altera Campo de Texto Email Liquidação na tabela parametros para um tamanho MAX.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702101943274_Altera tamanho campo obervação de titulos .resx">
+      <DependentUpon>201702101943274_Altera tamanho campo obervação de titulos .cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
