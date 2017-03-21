@@ -22,7 +22,8 @@ Begin
 	select Id as CategoriaId, Nome, CategoriaPaiId, Cor, 0.0, 0.0
 	from Categoria 
 	where EmpresaId = @id_empresa
-	and 1 = 2
+	--Comando para desativar a procedure
+	--and 1 = 2
 	order by Direcao, CategoriaPaiId
 
 	declare @valor_previsto decimal(18,2)
