@@ -100,6 +100,7 @@ namespace AgilusFinan.Web.ViewModels
             {
                 titulo.Liquidacoes.Add(new Liquidacao()
                 {
+                    Id = l.Id,
                     Data = l.Data,
                     Valor = l.Valor,
                     JurosMulta = l.JurosMulta,

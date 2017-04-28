@@ -11,11 +11,11 @@
     for (var i = 0; i < formas.length; i++) {
         elementos.push(new SelectElement(i, formas[i]));
     }
+    tabLiquidacoes.Columns.push(new ColumnTable('', 'Id', ColumnType.hidden, null, null, null));
     tabLiquidacoes.Columns.push(new ColumnTable('Data', 'Data', ColumnType.date, null, 'data', 'form-control'));
     tabLiquidacoes.Columns.push(new ColumnTable('Valor', 'Valor', ColumnType.text, null, 'moeda', 'form-control'));
     tabLiquidacoes.Columns.push(new ColumnTable('Juros e Multa', 'JurosMulta', ColumnType.text, null, 'moeda', 'form-control'));
     tabLiquidacoes.Columns.push(new ColumnTable('Desconto', 'Desconto', ColumnType.text, null, 'moeda', 'form-control'));
-    
 
     tabLiquidacoes.jsonData = '@Html.Raw(Json.Encode(Model))';
 
