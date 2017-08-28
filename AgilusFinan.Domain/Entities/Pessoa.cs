@@ -19,7 +19,8 @@ namespace AgilusFinan.Domain.Entities
         public string EmailFinanceiro { get; set; }
         public string Observacao { get; set; }
         public bool RecebeEmailLiquidacao { get; set; }
-
+        public int? PessoaIndicacaoId { get; set; }
+        public virtual Pessoa PessoaIndicacao { get; set; }
 
         public Pessoa()
         {

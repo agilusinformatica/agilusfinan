@@ -15,6 +15,7 @@ namespace AgilusFinan.Web.Controllers
             ViewBag.ListaBancos = new RepositorioBanco().Listar();
             ViewBag.ListaTiposTelefone = new RepositorioTipoTelefone().Listar();
             ViewBag.ListaTiposPessoa = new SelectList(new RepositorioTipoPessoa().Listar(), "Id", "Nome");
+            ViewBag.ListaPessoaIndicacao = new SelectList(new RepositorioPessoa().Listar(), "Id", "Nome");
         }
 
         protected override void PreAlteracao(PessoaViewModel viewModel)
@@ -23,6 +24,7 @@ namespace AgilusFinan.Web.Controllers
             ViewBag.ListaBancos = new RepositorioBanco().Listar();
             ViewBag.ListaTiposTelefone = new RepositorioTipoTelefone().Listar();
             ViewBag.ListaTiposPessoa = new MultiSelectList(new RepositorioTipoPessoa().Listar(), "Id", "Nome", viewModel.TiposPorPessoa.ToArray());
+            ViewBag.ListaPessoaIndicacao = new SelectList(new RepositorioPessoa().Listar(), "Id", "Nome", viewModel.PessoaIndicacao);
         }
     }
 }

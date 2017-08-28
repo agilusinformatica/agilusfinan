@@ -34,7 +34,8 @@ namespace AgilusFinan.Web.ViewModels
         public string Observacao { get; set; }
         [Display(Name = "Recebe E-mail quando liquidar")]
         public bool RecebeEmailLiquidacao { get; set; }
-
+        [Display(Name = "Pessoa Indicada Por")]
+        public int? PessoaIndicacao { get; set; }
 
         public PessoaViewModel()
         {
@@ -44,8 +45,6 @@ namespace AgilusFinan.Web.ViewModels
             TiposPorPessoa = new List<int>();
         }
 
-
-
         public class TelefonePessoaViewModel
         {
             public int Id { get; set; }
@@ -53,7 +52,6 @@ namespace AgilusFinan.Web.ViewModels
             public string Ddd { get; set; }
             public int TipoTelefoneId { get; set; }
         }
-
 
         public void FromModel(Pessoa model)
         {
@@ -67,6 +65,7 @@ namespace AgilusFinan.Web.ViewModels
             this.Rg = model.Rg;
             this.Observacao = model.Observacao;
             this.RecebeEmailLiquidacao = model.RecebeEmailLiquidacao;
+            this.PessoaIndicacao = model.PessoaIndicacaoId;
 
             foreach (var t in model.Telefones)
             {
@@ -93,6 +92,7 @@ namespace AgilusFinan.Web.ViewModels
             pessoa.Rg = this.Rg;
             pessoa.Observacao = this.Observacao;
             pessoa.RecebeEmailLiquidacao = this.RecebeEmailLiquidacao;
+            pessoa.PessoaIndicacaoId = this.PessoaIndicacao;
 
             foreach (var t in this.Telefones)
             {
