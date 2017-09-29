@@ -373,6 +373,10 @@
     <Compile Include="Migrations\201708281325484_Adiciona PessoaIndicacao em Pessoa.Designer.cs">
       <DependentUpon>201708281325484_Adiciona PessoaIndicacao em Pessoa.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709291539228_AdicionaCampoTokenIUGUemParametro.cs" />
+    <Compile Include="Migrations\201709291539228_AdicionaCampoTokenIUGUemParametro.Designer.cs">
+      <DependentUpon>201709291539228_AdicionaCampoTokenIUGUemParametro.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Scripts\pr_soma_categoria.sql">
@@ -664,6 +668,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708281325484_Adiciona PessoaIndicacao em Pessoa.resx">
       <DependentUpon>201708281325484_Adiciona PessoaIndicacao em Pessoa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709291539228_AdicionaCampoTokenIUGUemParametro.resx">
+      <DependentUpon>201709291539228_AdicionaCampoTokenIUGUemParametro.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

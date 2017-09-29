@@ -2,6 +2,7 @@
 using AgilusFinan.Domain.Utils;
 using AgilusFinan.Infra.Context;
 using AgilusFinan.Infra.Services;
+using AgilusFinan.Web.ViewModels;
 using BoletoNet;
 using System;
 using System.Collections.Generic;
@@ -114,6 +115,113 @@ namespace AgilusFinan.Web.Bases
                 System.Web.HttpContext.Current.Request.Url.Scheme + @"://" +
                 System.Web.HttpContext.Current.Request.Url.Host + ":" +
                 System.Web.HttpContext.Current.Request.Url.Port.ToString();
+        }
+
+
+        public static FaturaViewModel GerarFatura(LoteBoleto itemBoleto)
+        {
+            FaturaViewModel fatura = new FaturaViewModel();
+
+            var db = new Contexto();
+            var titulo = db.Titulos.Find(itemBoleto.TituloId);
+            
+            var conta = titulo.Conta;
+            var pessoa = titulo.Pessoa;
+            var empresa = titulo.Empresa;
+            var tokenIUGU = db.Parametros.FirstOrDefault(e => e.EmpresaId == db.EmpresaId).TokenIUGU;
+            int numeroBanco = conta.Banco.Codigo;
+            var modeloBoleto = db.ModelosBoleto.Find(itemBoleto.ModeloBoletoId);
+
+            var emails = pessoa.EmailFinanceiro.Replace(",", ";").Split(';');
+            fatura.cc_emails = string.Join(";", emails.Skip(1));
+            fatura.email = emails.First();
+            fatura.due_date = titulo.DataVencimento.ToString("yyyy-MM-dd");
+            fatura.items.Add(new ItemFatura() { description = "Mensalidade " + titulo.DataVencimento.ToString("MM/yyyy"), price_cents = (int)(titulo.Valor * 100), quantity = 1 });
+            fatura.return_url = "";
+            fatura.fines = true;
+            fatura.late_payment_fine = (int)modeloBoleto.Multa;
+            fatura.per_day_interest = true;
+            if (modeloBoleto.PercentualDesconto > 0)
+            {
+                fatura.early_payment_discount = true;
+                fatura.early_payment_discounts.Add(new ItemDesconto()
+                {
+                    days = 0,
+                    percent = modeloBoleto.PercentualDesconto.ToString().Replace(",", ".")
+                });
+            }
+            fatura.payable_with = "bank_slip";
+            fatura.payer.cpf_cnpj = pessoa.Cpf;
+            fatura.payer.name = pessoa.Nome;
+            fatura.payer.phone_prefix = pessoa.Telefones.First().Telefone.Ddd;
+            fatura.payer.phone = pessoa.Telefones.First().Telefone.Numero;
+            fatura.payer.address = new Address()
+            {
+                zip_code = pessoa.Endereco.Cep,
+                street = pessoa.Endereco.Logradouro,
+                number = pessoa.Endereco.Numero,
+                district = pessoa.Endereco.Bairro,
+                city = pessoa.Endereco.Cidade,
+                state = pessoa.Endereco.Uf,
+                country = "Brasil",
+                complement = pessoa.Endereco.Complemento
+            };
+
+
+            //TODO: colocar todos os campos necessarios
+
+            return fatura;
+        }
+
+        public static FaturaViewModel GerarFatura(int tituloRecorrenteId, int modeloBoletoId, DateTime dataVencimento, decimal valor)
+        {
+            FaturaViewModel fatura = new FaturaViewModel();
+            var db = new Contexto();
+
+            var titulo = db.TitulosRecorrentes.Find(tituloRecorrenteId);
+            var conta = titulo.Conta;
+            var pessoa = titulo.Pessoa;
+            var empresa = titulo.Empresa;
+            int numeroBanco = conta.Banco.Codigo;
+            titulo.Valor = valor;
+            var modeloBoleto = db.ModelosBoleto.Find(modeloBoletoId);
+
+            var emails = pessoa.EmailFinanceiro.Replace(",", ";").Split(';');
+            fatura.cc_emails = string.Join(";", emails.Skip(1));
+            fatura.email = emails.First();
+            fatura.due_date = dataVencimento.ToString("yyyy-MM-dd");
+            fatura.items.Add(new ItemFatura() { description = "Mensalidade", price_cents = (int)(titulo.Valor * 100), quantity = 1 });
+            fatura.return_url = "";
+            fatura.fines = true;
+            fatura.late_payment_fine = (int)modeloBoleto.Multa;
+            fatura.per_day_interest = true;
+            if (modeloBoleto.PercentualDesconto > 0)
+            {
+                fatura.early_payment_discount = true;
+                fatura.early_payment_discounts.Add(new ItemDesconto()
+                {
+                    days = 0,
+                    percent = modeloBoleto.PercentualDesconto.ToString()
+                });
+            }
+            fatura.payable_with = "bank_slip";
+            fatura.payer.cpf_cnpj = pessoa.Cpf;
+            fatura.payer.name = pessoa.Nome;
+            fatura.payer.phone_prefix = pessoa.Telefones.First().Telefone.Ddd;
+            fatura.payer.phone = pessoa.Telefones.First().Telefone.Numero;
+            fatura.payer.address = new Address()
+            {
+                zip_code = pessoa.Endereco.Cep,
+                street = pessoa.Endereco.Logradouro,
+                number = pessoa.Endereco.Numero,
+                district = pessoa.Endereco.Bairro,
+                city = pessoa.Endereco.Cidade,
+                state = pessoa.Endereco.Uf,
+                country = "Brasil",
+                complement = pessoa.Endereco.Complemento
+            };
+
+            return fatura;
         }
 
         public static Boleto GerarBoleto(int tituloId, int modeloBoletoId)

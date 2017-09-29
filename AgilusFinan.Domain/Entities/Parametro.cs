@@ -13,5 +13,6 @@ namespace AgilusFinan.Domain.Entities
         [Display(Name = "Assunto do E-mail")]
         public string AssuntoEmailLiquidacao { get; set; }
 
+        public string TokenIUGU { get; set; }
     }
 }

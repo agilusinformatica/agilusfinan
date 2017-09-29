@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -29,15 +30,47 @@ namespace AgilusFinan.Web.Controllers
         {
             var js = new JavaScriptSerializer();
             var boleto = js.Deserialize<LoteBoleto>(postedData);
+            var fatura = new FaturaViewModel();
+            var tokenIUGU = new RepositorioParametro().Listar().FirstOrDefault().TokenIUGU;
+            var response = "";
             try
             {
-                Util.EnviarBoletoPorEmail(boleto, "boleto.pdf");
+                //Util.EnviarBoletoPorEmail(boleto, "boleto.pdf");
+                if (boleto.TituloId != null)
+                    fatura = Util.GerarFatura(boleto);
+                else
+                    fatura = Util.GerarFatura((int)boleto.TituloRecorrenteId, boleto.ModeloBoletoId, boleto.DataVencimento, boleto.Valor);
+                
+
+                var faturaJSON = js.Serialize(fatura);
+
+                using (WebClient client = new WebClient()) {
+                    client.Headers.Add("Content-Type", "application/json");
+
+                    client.Headers.Add("Authorization", "Basic " + tokenIUGU);
+
+                    response = client.UploadString("https://api.iugu.com/v1/invoices", "POST", faturaJSON);
+                }
+
+                var faturaResponse = js.Deserialize<FaturaResponse>(response);
+                if (faturaResponse != null)
+                {
+
+                }
+
                 return "Enviado";
             }
-            catch (Exception e)
+            catch (WebException e)
             {
-                return e.Message;
+                return StreamToString(e.Response.GetResponseStream());
             }
+            
+        }
+
+        private string StreamToString(Stream str)
+        {
+            StreamReader reader = new StreamReader(str);
+            return reader.ReadToEnd();
         }
 
         [HttpPost]
