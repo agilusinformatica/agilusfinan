@@ -42,6 +42,7 @@
     <Compile Include="Entities\Acesso.cs" />
     <Compile Include="Entities\Banco.cs" />
     <Compile Include="Entities\BoletoGerado.cs" />
+    <Compile Include="Entities\FaturaGerada.cs" />
     <Compile Include="Entities\ModeloBoleto.cs" />
     <Compile Include="Entities\Categoria.cs" />
     <Compile Include="Entities\CentroCusto.cs" />
@@ -60,6 +61,7 @@
     <Compile Include="Entities\Parser.cs" />
     <Compile Include="Entities\LoteBoleto.cs" />
     <Compile Include="Entities\UsuarioLogado.cs" />
+    <Compile Include="Interfaces\IRepositorioFaturaGerada.cs" />
     <Compile Include="Interfaces\IRepositorioBoletoGerado.cs" />
     <Compile Include="Interfaces\IRepositorioFeriadoRegional.cs" />
     <Compile Include="Interfaces\IRepositorioModeloBoleto.cs" />

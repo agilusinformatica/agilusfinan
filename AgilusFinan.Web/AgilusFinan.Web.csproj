@@ -197,6 +197,7 @@
     <Compile Include="Areas\Api\Controllers\CategoriaController.cs" />
     <Compile Include="Areas\Api\Controllers\ContaController.cs" />
     <Compile Include="Areas\Api\Controllers\ExtratoController.cs" />
+    <Compile Include="Areas\Api\Controllers\FaturaPaga.cs" />
     <Compile Include="Areas\Api\Controllers\FluxoCaixaController.cs" />
     <Compile Include="Areas\Api\Controllers\PagamentoController.cs" />
     <Compile Include="Areas\Api\Controllers\PerfilController.cs" />
@@ -224,6 +225,7 @@
     <Compile Include="Controllers\ConviteController.cs" />
     <Compile Include="Controllers\EmpresaController.cs" />
     <Compile Include="Controllers\ExtratoController.cs" />
+    <Compile Include="Controllers\FaturaGeradaController.cs" />
     <Compile Include="Controllers\FeriadoRegionalController.cs" />
     <Compile Include="Controllers\FluxoCaixaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -1102,6 +1104,9 @@
     <Content Include="Views\BoletoGerado\_Boleto.cshtml" />
     <Content Include="Views\Parametro\_Cadastro.cshtml" />
     <Content Include="Views\Parametro\Edit.cshtml" />
+    <Content Include="Views\FaturaGerada\Index.cshtml" />
+    <Content Include="Views\FaturaGerada\_SegundaViaModal.cshtml" />
+    <Content Include="Views\FaturaGerada\IndexData.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Api\Views\ControllerConsultaApiPadrao\" />

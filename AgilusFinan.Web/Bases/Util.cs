@@ -132,11 +132,11 @@ namespace AgilusFinan.Web.Bases
             int numeroBanco = conta.Banco.Codigo;
             var modeloBoleto = db.ModelosBoleto.Find(itemBoleto.ModeloBoletoId);
 
-            var emails = pessoa.EmailFinanceiro.Replace(",", ";").Split(';');
+            var emails = pessoa.EmailFinanceiro.Replace(",", ";").Replace(" ", "").Split(';');
             fatura.cc_emails = string.Join(";", emails.Skip(1));
             fatura.email = emails.First();
             fatura.due_date = titulo.DataVencimento.ToString("yyyy-MM-dd");
-            fatura.items.Add(new ItemFatura() { description = "Mensalidade " + titulo.DataVencimento.ToString("MM/yyyy"), price_cents = (int)(titulo.Valor * 100), quantity = 1 });
+            fatura.items.Add(new ItemFatura() { description = modeloBoleto.Instrucao, price_cents = (int)(titulo.Valor * 100), quantity = 1 });
             fatura.return_url = "";
             fatura.fines = true;
             fatura.late_payment_fine = (int)modeloBoleto.Multa;
@@ -146,20 +146,25 @@ namespace AgilusFinan.Web.Bases
                 fatura.early_payment_discount = true;
                 fatura.early_payment_discounts.Add(new ItemDesconto()
                 {
-                    days = 0,
+                    days = modeloBoleto.DiasDesconto,
                     percent = modeloBoleto.PercentualDesconto.ToString().Replace(",", ".")
                 });
             }
             fatura.payable_with = "bank_slip";
             fatura.payer.cpf_cnpj = pessoa.Cpf;
             fatura.payer.name = pessoa.Nome;
-            fatura.payer.phone_prefix = pessoa.Telefones.First().Telefone.Ddd;
-            fatura.payer.phone = pessoa.Telefones.First().Telefone.Numero;
+
+            if (pessoa.Telefones.Count > 0)
+            {
+                fatura.payer.phone_prefix = pessoa.Telefones.First().Telefone.Ddd;
+                fatura.payer.phone = pessoa.Telefones.First().Telefone.Numero;
+            }
+
             fatura.payer.address = new Address()
             {
                 zip_code = pessoa.Endereco.Cep,
                 street = pessoa.Endereco.Logradouro,
-                number = pessoa.Endereco.Numero,
+                number = pessoa.Endereco.Numero == "" ? "0" : pessoa.Endereco.Numero,
                 district = pessoa.Endereco.Bairro,
                 city = pessoa.Endereco.Cidade,
                 state = pessoa.Endereco.Uf,
@@ -186,34 +191,40 @@ namespace AgilusFinan.Web.Bases
             titulo.Valor = valor;
             var modeloBoleto = db.ModelosBoleto.Find(modeloBoletoId);
 
-            var emails = pessoa.EmailFinanceiro.Replace(",", ";").Split(';');
+            var emails = pessoa.EmailFinanceiro.Replace(",", ";").Replace(" ", "").Split(';');
             fatura.cc_emails = string.Join(";", emails.Skip(1));
             fatura.email = emails.First();
             fatura.due_date = dataVencimento.ToString("yyyy-MM-dd");
-            fatura.items.Add(new ItemFatura() { description = "Mensalidade", price_cents = (int)(titulo.Valor * 100), quantity = 1 });
+            fatura.items.Add(new ItemFatura() { description = modeloBoleto.Instrucao, price_cents = (int)(titulo.Valor * 100), quantity = 1 });
             fatura.return_url = "";
             fatura.fines = true;
             fatura.late_payment_fine = (int)modeloBoleto.Multa;
             fatura.per_day_interest = true;
+
             if (modeloBoleto.PercentualDesconto > 0)
             {
                 fatura.early_payment_discount = true;
                 fatura.early_payment_discounts.Add(new ItemDesconto()
                 {
-                    days = 0,
-                    percent = modeloBoleto.PercentualDesconto.ToString()
+                    days = modeloBoleto.DiasDesconto,
+                    percent = modeloBoleto.PercentualDesconto.ToString().Replace(",", ".")
                 });
             }
+
             fatura.payable_with = "bank_slip";
             fatura.payer.cpf_cnpj = pessoa.Cpf;
             fatura.payer.name = pessoa.Nome;
-            fatura.payer.phone_prefix = pessoa.Telefones.First().Telefone.Ddd;
-            fatura.payer.phone = pessoa.Telefones.First().Telefone.Numero;
+            if (pessoa.Telefones.Count > 0)
+            {
+                fatura.payer.phone_prefix = pessoa.Telefones.First().Telefone.Ddd;
+                fatura.payer.phone = pessoa.Telefones.First().Telefone.Numero;
+            }
+
             fatura.payer.address = new Address()
             {
                 zip_code = pessoa.Endereco.Cep,
                 street = pessoa.Endereco.Logradouro,
-                number = pessoa.Endereco.Numero,
+                number = pessoa.Endereco.Numero == "" ? "0" : pessoa.Endereco.Numero,
                 district = pessoa.Endereco.Bairro,
                 city = pessoa.Endereco.Cidade,
                 state = pessoa.Endereco.Uf,

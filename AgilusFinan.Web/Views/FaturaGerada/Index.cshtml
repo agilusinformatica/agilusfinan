@@ -1,0 +1,53 @@
+﻿@model IEnumerable<AgilusFinan.Domain.Entities.FaturaGerada>
+@{
+    ViewBag.Title = "Faturas";
+}
+
+<div class="row padding-bottom white-bg page-heading">
+    <h2>Faturas Geradas</h2>
+    <div class="col-sm-12">
+        @Html.Partial("_PainelPeriodo")
+    </div>
+</div>
+<div id="listagem">
+
+</div>
+
+<script>
+    var consultaFaturaGerada = function () {
+
+        var dataInicial = Utils.convertFormatDate($('#dataInicial').val());
+        var dataFinal = Utils.convertFormatDate($('#dataFinal').val());
+
+        var dI = dataInicial.substring(8, 10) + '/' + dataInicial.substring(5, 7) + '/' + dataInicial.substring(0, 4);
+        var dF = dataFinal.substring(8, 10) + '/' + dataFinal.substring(5, 7) + '/' + dataFinal.substring(0, 4);
+
+        $.ajax({
+            url: "@Url.Action("IndexData")",
+            method: "GET",
+            data: {
+                dataInicial: dI,
+                dataFinal: dF
+            },
+            beforeSend: function () {
+                $("#listagem").html('<img src="/Content/Images/loading.gif">');
+            },
+            success: function (conteudo) {
+                $("#listagem>img").remove();
+                $("#listagem").html(conteudo);
+            },
+            error: function (e) {
+                $("#listagem>img").remove();
+                $("#listagem").html(e.message);
+            },
+            complete: Utils.verificaSessaoAjax
+        });
+
+    };
+
+    consultarPeriodo(consultaFaturaGerada);
+</script>
+
+
+
+

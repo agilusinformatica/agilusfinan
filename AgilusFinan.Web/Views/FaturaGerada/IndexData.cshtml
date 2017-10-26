@@ -1,0 +1,69 @@
+﻿@model IEnumerable<AgilusFinan.Domain.Entities.FaturaGerada>
+
+<div class="row animated fadeInRight">
+    <div class="ibox">
+        <div class="ibox-content">
+            <table class="table" id="sorted">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.DataVencimento)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.TituloId)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.TituloRecorrenteId)
+                        </th>
+                        <th>
+                            Pessoa
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DataVencimento.GetDateTimeFormats()[0])
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Titulo.Descricao)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TituloRecorrente.Nome)
+                            </td>
+                            <td>
+                                @if (item.TituloId != null)
+                                {
+                                    @Html.DisplayFor(modelItem => item.Titulo.Pessoa.Nome)
+                                }
+                                else
+                                {
+                                    @Html.DisplayFor(modelItem => item.TituloRecorrente.Pessoa.Nome)
+                                }
+                            </td>
+                            <td>
+                                <a class="btn btn-primary btn-sm btn-rounded" id="@item.IuguId" href="@item.UrlFatura" target="_blank">Fatura</a>
+                                @if (item.DataVencimento < DateTime.Today)
+                                {
+                                    @Html.ActionLink("2º Via", "SegundaVia", new { iuguId = item.IuguId }, new { @class = "btn btn-success btn-sm btn-rounded modal-link", @title = "2º Via da Fatura" })
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    Utils.initializeDataTables('#sorted');
+</script>
+
+
+
+

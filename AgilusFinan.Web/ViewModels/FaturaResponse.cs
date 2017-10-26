@@ -12,6 +12,8 @@ namespace AgilusFinan.Web.ViewModels
         public int items_total_cents { get; set; }
         public string secure_id { get; set; }
         public string secure_url { get; set; }
+        public int total_paid_cents { get; set; }
+        public string paid_at { get; set; }
     }
 
 }

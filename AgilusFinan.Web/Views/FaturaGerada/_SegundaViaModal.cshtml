@@ -1,0 +1,55 @@
+﻿@model DateTime 
+<div class="modal-header">
+    <div class="text-center">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"></span></button>
+        <h1 class="modal-title">2º Via</h1>
+        <small class="font-bold">Opção para gerar a 2º via da fatura.</small>
+    </div>
+</div>
+<div class="modal-body">
+
+    <div class="form-group">
+        <label for="DataVencimento" class="control-label">Data do novo vencimento: </label>
+        @Html.EditorFor(model => model, null, new { @class = "form-control" })
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" id="gerar" data-loading-text="Salvando...">Gerar</button>
+    <button type="button" class="btn btn-white" data-dismiss="modal">Fechar</button>
+</div>
+
+<script>
+    $(function () {
+        Utils.defineInputDatePicker(document.getElementsByClassName('inputdate'));
+        Utils.createMaskClass(document.getElementsByClassName('inputdate'), "data");
+
+        $('#gerar').click(function () {
+            var $btn = $(this).button('loading');
+            segundaVia();
+        })
+    });
+
+    function segundaVia() {
+        $.ajax({
+            method: "POST",
+            url: '/FaturaGerada/SegundaVia',
+            data: {
+                "iuguId": "@((string)ViewBag.IuguId)",
+                "dataVencimentoSelecionada": Utils.convertFormatDate($('.inputdate').val())
+            },
+            success: function (novaFatura) {
+                swal("Ok!", "A segunda via foi gerada.", "success");
+                $('#modal-container').modal('hide');
+                var linkAntigo = $('#@((string)ViewBag.IuguId)');
+                var objNovaFatura = JSON.parse(novaFatura);
+                linkAntigo.attr("href", objNovaFatura.secure_url);
+                linkAntigo.next().attr("href", "/FaturaGerada/SegundaVia?iuguId=" + objNovaFatura.id);
+            },
+            error: function () {
+                swal("Ops...", "Não foi possivel gerar a segunda via. Tente novamente", "error");
+                var $btn = $(this).button();
+            }
+        });
+    }
+</script>
+

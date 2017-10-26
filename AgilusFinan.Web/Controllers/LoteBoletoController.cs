@@ -26,13 +26,14 @@ namespace AgilusFinan.Web.Controllers
         }
 
         [HttpPost]
-        public string GerarBoleto(string postedData)
+        public string GerarFatura(string postedData)
         {
             var js = new JavaScriptSerializer();
             var boleto = js.Deserialize<LoteBoleto>(postedData);
             var fatura = new FaturaViewModel();
             var tokenIUGU = new RepositorioParametro().Listar().FirstOrDefault().TokenIUGU;
             var response = "";
+            string faturaJSON = "";
             try
             {
                 //Util.EnviarBoletoPorEmail(boleto, "boleto.pdf");
@@ -42,11 +43,13 @@ namespace AgilusFinan.Web.Controllers
                     fatura = Util.GerarFatura((int)boleto.TituloRecorrenteId, boleto.ModeloBoletoId, boleto.DataVencimento, boleto.Valor);
                 
 
-                var faturaJSON = js.Serialize(fatura);
+                faturaJSON = js.Serialize(fatura);
 
                 using (WebClient client = new WebClient()) {
-                    client.Headers.Add("Content-Type", "application/json");
 
+                    client.Encoding = System.Text.Encoding.UTF8;
+
+                    client.Headers.Add("Content-Type", "application/json");
                     client.Headers.Add("Authorization", "Basic " + tokenIUGU);
 
                     response = client.UploadString("https://api.iugu.com/v1/invoices", "POST", faturaJSON);
@@ -55,14 +58,23 @@ namespace AgilusFinan.Web.Controllers
                 var faturaResponse = js.Deserialize<FaturaResponse>(response);
                 if (faturaResponse != null)
                 {
+                    var faturaGerada = new FaturaGerada();
+                    faturaGerada.DataVencimento = DateTime.Parse(faturaResponse.due_date);
+                    faturaGerada.IuguId = faturaResponse.id;
+                    faturaGerada.TituloId = boleto.TituloId;
+                    faturaGerada.TituloRecorrenteId = boleto.TituloRecorrenteId;
+                    faturaGerada.UrlFatura = faturaResponse.secure_url;
 
+                    var repoFaturaGerada = new RepositorioFaturaGerada();
+                    repoFaturaGerada.Incluir(faturaGerada);
                 }
 
                 return "Enviado";
             }
             catch (WebException e)
             {
-                return StreamToString(e.Response.GetResponseStream());
+                return StreamToString(e.Response.GetResponseStream()) + "      " + faturaJSON;
+
             }
             
         }

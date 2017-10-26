@@ -111,7 +111,7 @@
         $.each(boletos, function (indice, boleto) {
             $.ajax({
                 type: "POST",
-                url: '/LoteBoleto/GerarBoleto',
+                url: '/LoteBoleto/GerarFatura',
                 data: { "postedData": JSON.stringify(boleto) },
                 success: function (msg) {
                     var pos = Math.round(++contador / boletos.length * 100);

@@ -63,12 +63,13 @@
                 </ul>
             </li>
 
-            <li class="@Html.IsSelected(controller: "ModeloBoleto") @Html.IsSelected(controller: "LoteBoleto") @Html.IsSelected(controller: "BoletoGerado")">
+            <li class="@Html.IsSelected(controller: "ModeloBoleto") @Html.IsSelected(controller: "LoteBoleto") @Html.IsSelected(controller: "BoletoGerado") @Html.IsSelected(controller: "FaturaGerada")">
                 <a href="#"><i class="fa fa-barcode"></i><span class="nav-label">Boletos</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
                     <li class="@Html.IsSelected(controller: "LoteBoleto")">@Html.ActionLink("Gerador", "Index", "LoteBoleto")</li>
                     <li class="@Html.IsSelected(controller: "ModeloBoleto")">@Html.ActionLink("Modelos", "Index", "ModeloBoleto")</li>
                     <li class="@Html.IsSelected(controller: "BoletoGerado")">@Html.ActionLink("Boletos Gerados", "Index", "BoletoGerado")</li>
+                    <li class="@Html.IsSelected(controller: "FaturaGerada")">@Html.ActionLink("Faturas", "Index", "FaturaGerada")</li>
                 </ul>
             </li>
 

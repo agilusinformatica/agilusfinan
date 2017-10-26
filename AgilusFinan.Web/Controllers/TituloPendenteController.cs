@@ -74,8 +74,6 @@ namespace AgilusFinan.Web.Controllers
                 viewModel.Valor = viewModel.Liquidacoes.Sum(l => l.Valor);
             }
 
-
-
             if (ModelState.IsValid)
             {
                 var novoTitulo = viewModel.ToModel();

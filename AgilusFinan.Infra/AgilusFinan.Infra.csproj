@@ -1,5 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+  </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -377,6 +380,14 @@
     <Compile Include="Migrations\201709291539228_AdicionaCampoTokenIUGUemParametro.Designer.cs">
       <DependentUpon>201709291539228_AdicionaCampoTokenIUGUemParametro.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201710161958263_Salvamento da FaturaGerada.cs" />
+    <Compile Include="Migrations\201710161958263_Salvamento da FaturaGerada.Designer.cs">
+      <DependentUpon>201710161958263_Salvamento da FaturaGerada.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710201512087_adiciona propriedades virtuais.cs" />
+    <Compile Include="Migrations\201710201512087_adiciona propriedades virtuais.Designer.cs">
+      <DependentUpon>201710201512087_adiciona propriedades virtuais.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Scripts\pr_soma_categoria.sql">
@@ -403,6 +414,7 @@
     <Compile Include="Services\RepositorioConta.cs" />
     <Compile Include="Services\RepositorioConvite.cs" />
     <Compile Include="Services\RepositorioEmpresa.cs" />
+    <Compile Include="Services\RepositorioFaturaGerada.cs" />
     <Compile Include="Services\RepositorioFeriadoRegional.cs" />
     <Compile Include="Services\RepositorioModeloBoleto.cs" />
     <Compile Include="Services\RepositorioPadrao.cs" />
@@ -672,6 +684,12 @@
     <EmbeddedResource Include="Migrations\201709291539228_AdicionaCampoTokenIUGUemParametro.resx">
       <DependentUpon>201709291539228_AdicionaCampoTokenIUGUemParametro.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710161958263_Salvamento da FaturaGerada.resx">
+      <DependentUpon>201710161958263_Salvamento da FaturaGerada.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710201512087_adiciona propriedades virtuais.resx">
+      <DependentUpon>201710201512087_adiciona propriedades virtuais.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\Config\criacao tipo para conciliar titulos.sql" />
@@ -719,6 +737,7 @@
     <Content Include="Scripts\pr_cria_titulo_virtual.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Scripts\tr_InvalidaCacheFaturaGerada.sql" />
     <Content Include="Scripts\tr_InvalidaCacheCategoria.sql" />
     <Content Include="Scripts\tr_InvalidaCacheTituloRecorrente.sql" />
     <Content Include="Scripts\tr_InvalidaCacheLiquidacao.sql" />
@@ -727,6 +746,11 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.Sql.UnitTesting.targets" Condition="'$(SQLDBExtensionsRefPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.Sql.UnitTesting.targets" Condition="'$(SQLDBExtensionsRefPath)' == ''" />
+  <PropertyGroup>
+    <SsdtUnitTestVersion>2.0</SsdtUnitTestVersion>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

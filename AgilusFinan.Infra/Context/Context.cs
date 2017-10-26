@@ -39,6 +39,7 @@ namespace AgilusFinan.Infra.Context
         public DbSet<ModeloBoleto> ModelosBoleto { get; set; }
         public DbSet<BoletoGerado> BoletosGerado { get; set; }
         public DbSet<Parametro> Parametros { get; set; }
+        public DbSet<FaturaGerada> FaturasGeradas { get; set; }
 
         public int EmpresaId
         {
