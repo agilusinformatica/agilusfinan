@@ -85,11 +85,9 @@ INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) V
 INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (84, N'Parametros', NULL, NULL)
 INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (85, N'Editar', 'Parametro/Edit', 84)
 INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (86, N'Faturas', 'FaturaGerada/Index', 83)
-INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (87, N'Alterar', 'FaturaGerada/Edit', 86)
-INSERT INTO [dbo].[Funcao] ([Id], [Descricao], [Endereco], [FuncaoSuperiorId]) VALUES (88, N'Incluir', 'FaturaGerada/Create', 86)
-
 
 SET IDENTITY_INSERT [dbo].[Funcao] ON
+
 SET IDENTITY_INSERT [dbo].[Funcao] OFF
 
 update funcao
