@@ -10,7 +10,7 @@
 
     <div class="form-group">
         <label for="DataVencimento" class="control-label">Data do novo vencimento: </label>
-        @Html.EditorFor(model => model, null, new { @class = "form-control" })
+        <input type="text" class="form-control inputdate" id="vencimentoSegundaVia" value="@Model" maxlength="10" autocomplete="off">
     </div>
 </div>
 <div class="modal-footer">
@@ -35,7 +35,7 @@
             url: '/FaturaGerada/SegundaVia',
             data: {
                 "iuguId": "@((string)ViewBag.IuguId)",
-                "dataVencimentoSelecionada": Utils.convertFormatDate($('.inputdate').val())
+                "dataVencimentoSelecionada": Utils.convertFormatDate($('#vencimentoSegundaVia').val())
             },
             success: function (novaFatura) {
                 swal("Ok!", "A segunda via foi gerada.", "success");

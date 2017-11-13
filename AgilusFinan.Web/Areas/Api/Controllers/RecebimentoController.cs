@@ -36,7 +36,7 @@ namespace AgilusFinan.Web.Areas.Api.Controllers
                     titulo.Liquidacoes.Add(
                         new Liquidacao()
                         {
-                            Data = DateTime.Parse(faturaResponse.paid_at.Substring(0,10)),
+                            Data = DateTime.Parse(faturaResponse.paid_at.Substring(0,10)).AddDays(2),
                             Valor = (decimal)faturaResponse.items_total_cents / 100,
                             JurosMulta = faturaResponse.items_total_cents < faturaResponse.total_paid_cents ? (decimal)(faturaResponse.total_paid_cents - faturaResponse.items_total_cents) / 100 : 0,
                             FormaLiquidacao = FormaLiquidacao.Boleto,
