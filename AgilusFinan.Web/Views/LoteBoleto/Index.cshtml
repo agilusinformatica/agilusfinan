@@ -168,7 +168,7 @@
                 titulo.Valor = $tds.eq(2).children().val().replace('.', '').replace(',', '.');
             }
             else {
-                titulo.Valor = $tds.eq(2).text().split(' ')[1].replace('.', '').replace(',', '.');
+                titulo.Valor = $tds.eq(2).text().replace('R$', '').replace('.', '').replace(',', '.');
             }
             titulo.DataVencimento = Utils.convertFormatDate($($tds.eq(3)).text());
             titulo.EmailDestinatario = $tds.eq(4).children().val();
