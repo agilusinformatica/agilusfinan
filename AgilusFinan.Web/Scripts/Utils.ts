@@ -52,7 +52,7 @@
 				}
 
 				$(input).mask("000.000.000.000,00", {
-                    onChange: function (e) {
+                    onChange: function (event) {
 
                         if (input.value == '') {
                             input.value = '0,00';
@@ -218,10 +218,6 @@
         else {
             return date.split("-").reverse().join("/");
         }
-
-
-		return date;
-
 	}
 
 	export function initializeDataTables(table : string) {

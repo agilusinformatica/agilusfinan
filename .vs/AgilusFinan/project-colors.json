@@ -1,0 +1,26 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "ea995e34-ca88-4823-845b-b92b8b8e5bfc": {
+      "ProjectGuid": "ea995e34-ca88-4823-845b-b92b8b8e5bfc",
+      "DisplayName": "AgilusFinan.Domain",
+      "ColorIndex": 0
+    },
+    "82b23b04-083b-4041-87d3-29cf24749fdc": {
+      "ProjectGuid": "82b23b04-083b-4041-87d3-29cf24749fdc",
+      "DisplayName": "AgilusFinan.Web",
+      "ColorIndex": 1
+    },
+    "3ea3497f-2a10-49db-8d3e-f08c7e496405": {
+      "ProjectGuid": "3ea3497f-2a10-49db-8d3e-f08c7e496405",
+      "DisplayName": "AgilusFinan.Infra",
+      "ColorIndex": 2
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Miscellaneous Files",
+      "ColorIndex": -1
+    }
+  },
+  "NextColorIndex": 3
+}
