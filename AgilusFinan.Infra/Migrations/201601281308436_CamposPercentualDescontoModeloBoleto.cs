@@ -7,8 +7,8 @@ namespace AgilusFinan.Infra.Migrations
     {
         public override void Up()
         {
-            AddColumn("dbo.ModeloBoleto", "DiasDesconto", c => c.Int(nullable: false));
-            AddColumn("dbo.ModeloBoleto", "PercentualDesconto", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            //AddColumn("dbo.ModeloBoleto", "DiasDesconto", c => c.Int(nullable: false));
+            //AddColumn("dbo.ModeloBoleto", "PercentualDesconto", c => c.Decimal(nullable: false, precision: 18, scale: 2));
         }
         
         public override void Down()
