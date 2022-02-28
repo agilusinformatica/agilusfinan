@@ -10,9 +10,9 @@ namespace AgilusFinan.Domain.Utils
 {
     public class Email
     {
-        private string senha = "ac@78902";
+        private string senha = "C-i7HEzn";
         private string smtp = "smtp.agilus.com.br";
-        private string usuario = "rafael@agilus.com.br";
+        private string usuario = "henrique@agilus.com.br";
         private string emailDestinatario;
         private string mensagem;
         private string emailRemetente;
