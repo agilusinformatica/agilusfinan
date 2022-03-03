@@ -73,7 +73,7 @@ namespace AgilusFinan.Web.Controllers
             try
             {
                 var retornoPrObterIuguId = context.Database.SqlQuery<RetornoPrIuguId>(query).FirstOrDefault();
-                if (retornoPrObterIuguId.dataVencimento >= DateTime.Now)
+                if (retornoPrObterIuguId.dataVencimento >= DateTime.Today)
                 {
                     return retornoPrObterIuguId.urlFatura;
                 }
