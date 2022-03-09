@@ -529,7 +529,6 @@
     <None Include="Properties\PublishProfiles\agilusfinan - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\agilusfinan - FTP1.pubxml" />
     <None Include="Properties\PublishProfiles\agilusfinan - ReadOnly - FTP.pubxml" />
-    <None Include="Properties\PublishProfiles\agilusfinan - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\agilusfinan - Web Deploy1.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\datatables.min.js" />
