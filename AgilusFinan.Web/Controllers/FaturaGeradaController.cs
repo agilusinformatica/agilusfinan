@@ -11,6 +11,7 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
@@ -60,7 +61,7 @@ namespace AgilusFinan.Web.Controllers
             return PartialView("~/Views/FaturaGerada/_SegundaViaModal.cshtml", DateTime.Today);
         }
 
-        public string SegundaViaCnpj(string cpfCnpj)
+        public async Task<string> SegundaViaCnpj(string cpfCnpj)
         {
             var dataAtual = DateTime.Now.AddDays(1).ToString("yyyy-MM-dd");
 
@@ -79,7 +80,7 @@ namespace AgilusFinan.Web.Controllers
                 }
                 else
                 {
-                    string faturaJson = SegundaVia(retornoPrObterIuguId.iuguId, dataAtual);
+                    string faturaJson = await SegundaVia(retornoPrObterIuguId.iuguId, dataAtual);
                     var faturaIugu = new JavaScriptSerializer().Deserialize<FaturaResponse>(faturaJson);
                     return faturaIugu.secure_url;
                 }
@@ -91,7 +92,7 @@ namespace AgilusFinan.Web.Controllers
         }
 
         [HttpPost]
-        public string SegundaVia(string iuguId, string dataVencimentoSelecionada)
+        public async Task<string> SegundaVia(string iuguId, string dataVencimentoSelecionada)
         {
             var segundaVia = new SegundaVia();
 
@@ -104,30 +105,20 @@ namespace AgilusFinan.Web.Controllers
             var segundaViaJSON = js.Serialize(segundaVia);
 
             var tokenIUGU = new RepositorioParametro().Listar().FirstOrDefault().TokenIUGU;
+
             var response = "";
+            using (WebClient client = new WebClient())
+            {
+                client.Encoding = System.Text.Encoding.UTF8;
 
-            var httpClient = new HttpClient();
-            var httpContent = new StringContent(segundaViaJSON, Encoding.UTF8, "application/json");
-            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            httpClient.DefaultRequestHeaders.Add("Authorization", "Basic " + tokenIUGU);
-            var address = "https://api.iugu.com/v1/invoices/" + iuguId + "/duplicate?api_token=" + tokenIUGU;
-            ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls13;
-            var responseHttpClient = httpClient.PostAsync(address, httpContent).Result;
-            response = responseHttpClient.Content.ReadAsStringAsync().Result;
+                client.Headers.Add("Content-Type", "application/json");
+                client.Headers.Add("Authorization", "Basic " + tokenIUGU);
+                var address = "https://api.iugu.com/v1/invoices/" + iuguId + "/duplicate";
 
-            //using (WebClient client = new WebClient())
-            //{
-            //    client.Encoding = System.Text.Encoding.UTF8;
-
-            //    client.Headers.Add("Content-Type", "application/json");
-            //    client.Headers.Add("Authorization", "Basic " + tokenIUGU);
-            //    address = "https://api.iugu.com/v1/invoices/" + iuguId + "/duplicate?api_token=" + tokenIUGU;
-
-            //    ServicePointManager.Expect100Continue = true;
-            //    ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls13;
-            //    response = client.UploadString(address, "POST", segundaViaJSON);
-            //}
+                ServicePointManager.Expect100Continue = true;
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+                response = client.UploadString(address, "POST", segundaViaJSON);
+            }
 
             var faturaResponse = js.Deserialize<FaturaResponse>(response);
             if (faturaResponse != null)

@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
@@ -105,7 +106,7 @@ namespace AgilusFinan.Web.Areas.Api.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public string SegundaVia(string cpfCnpj, string token)
+        public async Task<string> SegundaVia(string cpfCnpj, string token)
         {
             //Response.ContentType = "application/json";
 
@@ -124,7 +125,7 @@ namespace AgilusFinan.Web.Areas.Api.Controllers
                 cpfCnpj = Regex.Replace(cpfCnpj, "[^0-9]", "");
                 try
                 {
-                    return new FaturaGeradaController().SegundaViaCnpj(cpfCnpj);
+                    return await new FaturaGeradaController().SegundaViaCnpj(cpfCnpj);
                 }
                 catch (Exception ex)
                 {
