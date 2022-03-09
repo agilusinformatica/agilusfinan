@@ -109,10 +109,12 @@ namespace AgilusFinan.Web.Controllers
             var httpClient = new HttpClient();
             var httpContent = new StringContent(segundaViaJSON, Encoding.UTF8, "application/json");
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            httpClient.DefaultRequestHeaders.Add("Authorization", "Basic " + tokenIUGU);
             var address = "https://api.iugu.com/v1/invoices/" + iuguId + "/duplicate?api_token=" + tokenIUGU;
             ServicePointManager.Expect100Continue = true;
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls13;
             var responseHttpClient = httpClient.PostAsync(address, httpContent).Result;
+            response = responseHttpClient.Content.ReadAsStringAsync().Result;
 
             //using (WebClient client = new WebClient())
             //{
