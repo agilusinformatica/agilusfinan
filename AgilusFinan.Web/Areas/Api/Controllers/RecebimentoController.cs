@@ -2,11 +2,15 @@
 using AgilusFinan.Infra.Context;
 using AgilusFinan.Infra.Services;
 using AgilusFinan.Web.Areas.Api.Bases;
+using AgilusFinan.Web.Controllers;
 using AgilusFinan.Web.ViewModels;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
@@ -98,6 +102,149 @@ namespace AgilusFinan.Web.Areas.Api.Controllers
                 var faturaResponse = js.Deserialize<FaturaResponse>(response);
                 return faturaResponse;
             }
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<string> SegundaVia(string cpfCnpj, string token)
+        {
+            //Response.ContentType = "application/json";
+
+            try
+            {
+                TokenController.ValidarToken(token);
+            }
+            catch
+            {
+                Response.StatusCode = (int)HttpStatusCode.OK;
+                return "token não encontrado";
+            }
+
+            if (ValidaCpfCnpj(cpfCnpj))
+            {
+                cpfCnpj = Regex.Replace(cpfCnpj, "[^0-9]", "");
+                try
+                {
+                    return await new FaturaGeradaController().SegundaViaCnpj(cpfCnpj);
+                }
+                catch (Exception ex)
+                {
+                    Response.StatusCode = (int)HttpStatusCode.OK;
+                    return ex.Message;
+                }
+            }
+            else
+            {
+                Response.StatusCode = (int)HttpStatusCode.OK;
+                return "cnpj inválido ou vazio";
+            }
+        }
+
+        private bool ValidaCpfCnpj(string cpfCnpj)
+        {
+            if (String.IsNullOrWhiteSpace(cpfCnpj))
+                return false;
+
+            cpfCnpj = Regex.Replace(cpfCnpj, "[^0-9]", "");
+            
+            if ((cpfCnpj.Length == 11 & cpfCnpj == "00000000000") || (cpfCnpj.Length == 14 & cpfCnpj == "00000000000000"))
+                return false;
+
+            //valida se for CPF
+            if (cpfCnpj.Length == 11)
+            {
+                int[] multiplicador1 = new int[9] { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
+                int[] multiplicador2 = new int[10] { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
+                string digito;
+                int soma = 0;
+                int resto;
+
+                string tempCpf = cpfCnpj.Substring(0, 9);
+
+                for (int i = 0; i < 9; i++)
+                {
+                    soma += int.Parse(tempCpf[i].ToString()) * multiplicador1[i];
+                }
+
+                resto = soma % 11;
+                if (resto < 2)
+                    resto = 0;
+                else
+                    resto = 11 - resto;
+
+                digito = resto.ToString();
+
+                tempCpf += digito;
+
+                soma = 0;
+                for (int i = 0; i < 10; i++)
+                {
+                    soma += int.Parse(tempCpf[i].ToString()) * multiplicador2[i];
+                }
+
+                resto = soma % 11;
+                if (resto < 2)
+                    resto = 0;
+                else
+                    resto = 11 - resto;
+
+                digito += resto.ToString();
+
+                return cpfCnpj.EndsWith(digito);
+            }
+
+            //valida se for CNPJ
+            if (cpfCnpj.Length == 14)
+            {
+                int[] multiplicador1 = new int[12] { 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
+                int[] multiplicador2 = new int[13] { 6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
+                int soma = 0;
+                int resto;
+                string digito;
+                string tempCnpj = cpfCnpj.Substring(0, 12);
+
+                for (int i = 0; i < 12; i++)
+                {
+                    soma += int.Parse(tempCnpj[i].ToString()) * multiplicador1[i];
+                }
+
+                resto = soma % 11;
+                if (resto < 2)
+                {
+                    resto = 0;
+                }
+                else
+                {
+                    resto = 11 - resto;
+                }
+
+                digito = resto.ToString();
+
+                tempCnpj += digito;
+                
+                soma = 0;
+                for (int i = 0; i < 13; i++)
+                {
+                    soma += int.Parse(tempCnpj[i].ToString()) * multiplicador2[i];
+                }
+
+                resto = soma % 11;
+
+                if (resto < 2)
+                {
+                    resto = 0;
+                }
+                else
+                {
+                    resto = 11 - resto;
+                }
+
+                digito += resto.ToString();
+
+                return cpfCnpj.EndsWith(digito);
+            }
+
+            return false;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using AgilusFinan.Domain.Entities;
+using AgilusFinan.Infra.Context;
 using AgilusFinan.Infra.Services;
 using AgilusFinan.Web.Bases;
 using AgilusFinan.Web.ViewModels;
@@ -7,6 +8,10 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
@@ -56,8 +61,38 @@ namespace AgilusFinan.Web.Controllers
             return PartialView("~/Views/FaturaGerada/_SegundaViaModal.cshtml", DateTime.Today);
         }
 
+        public async Task<string> SegundaViaCnpj(string cpfCnpj)
+        {
+            var dataAtual = DateTime.Now.AddDays(1).ToString("yyyy-MM-dd");
+
+            var context = new Contexto();
+
+            string query = String.Format("exec pr_obter_iuguid '{0}', {1}",
+                cpfCnpj,
+                context.EmpresaId.ToString()
+            );
+            try
+            {
+                var retornoPrObterIuguId = context.Database.SqlQuery<RetornoPrIuguId>(query).FirstOrDefault();
+                if (retornoPrObterIuguId.dataVencimento >= DateTime.Today)
+                {
+                    return retornoPrObterIuguId.urlFatura;
+                }
+                else
+                {
+                    string faturaJson = await SegundaVia(retornoPrObterIuguId.iuguId, dataAtual);
+                    var faturaIugu = new JavaScriptSerializer().Deserialize<FaturaResponse>(faturaJson);
+                    return faturaIugu.secure_url;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            };
+        }
+
         [HttpPost]
-        public string SegundaVia(string iuguId, string dataVencimentoSelecionada)
+        public async Task<string> SegundaVia(string iuguId, string dataVencimentoSelecionada)
         {
             var segundaVia = new SegundaVia();
 
@@ -70,17 +105,18 @@ namespace AgilusFinan.Web.Controllers
             var segundaViaJSON = js.Serialize(segundaVia);
 
             var tokenIUGU = new RepositorioParametro().Listar().FirstOrDefault().TokenIUGU;
-            var response = "";
 
+            var response = "";
             using (WebClient client = new WebClient())
             {
-
                 client.Encoding = System.Text.Encoding.UTF8;
 
                 client.Headers.Add("Content-Type", "application/json");
                 client.Headers.Add("Authorization", "Basic " + tokenIUGU);
                 var address = "https://api.iugu.com/v1/invoices/" + iuguId + "/duplicate";
 
+                ServicePointManager.Expect100Continue = true;
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
                 response = client.UploadString(address, "POST", segundaViaJSON);
             }
 
@@ -100,10 +136,22 @@ namespace AgilusFinan.Web.Controllers
 
     }
 
+    public class IuguIdT
+    {
+        public string IuguId { get; set; }
+    }
+
     public class SegundaVia {
         public string due_date { get; set; }
         public string ignore_due_email { get; set; }
         public string ignore_canceled_email { get; set; }
         public string current_fines_option { get; set; }
     }
+
+    public class RetornoPrIuguId {
+        public string iuguId { get; set; }
+        public DateTime dataVencimento { get; set; }
+        public string urlFatura { get; set; }
+    }
+
 }

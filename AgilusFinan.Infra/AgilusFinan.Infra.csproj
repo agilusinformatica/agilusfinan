@@ -392,8 +392,13 @@
     <Compile Include="Migrations\201710201512087_adiciona propriedades virtuais.Designer.cs">
       <DependentUpon>201710201512087_adiciona propriedades virtuais.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202203021321485_atualiza procedure obter iugu id.cs" />
+    <Compile Include="Migrations\202203021321485_atualiza procedure obter iugu id.designer.cs">
+      <DependentUpon>202203021321485_atualiza procedure obter iugu id.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="Scripts\pr_obter_iuguid.sql" />
     <Content Include="Scripts\pr_soma_categoria.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -693,6 +698,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201710201512087_adiciona propriedades virtuais.resx">
       <DependentUpon>201710201512087_adiciona propriedades virtuais.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203021321485_atualiza procedure obter iugu id.resx">
+      <DependentUpon>202203021321485_atualiza procedure obter iugu id.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
