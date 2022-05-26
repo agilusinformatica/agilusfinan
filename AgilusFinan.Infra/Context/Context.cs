@@ -65,8 +65,10 @@ namespace AgilusFinan.Infra.Context
             modelBuilder.Entity<Titulo>().Ignore(d => d.Liquidado);
             modelBuilder.Entity<Usuario>().Property(u => u.Email).IsRequired();
             modelBuilder.Entity<Usuario>().Property(u => u.Senha).IsRequired();
-            modelBuilder.Entity<Titulo>().Property(p => p.Observacao).HasMaxLength(1000);
-            modelBuilder.Entity<TituloRecorrente>().Property(p => p.Observacao).HasMaxLength(1000);
+            modelBuilder.Entity<Titulo>().Property(p => p.Observacao).HasColumnType("varchar(max)");
+            modelBuilder.Entity<Titulo>().Property(p => p.Observacao).IsMaxLength();
+            modelBuilder.Entity<TituloRecorrente>().Property(p => p.Observacao).HasColumnType("varchar(max)");
+            modelBuilder.Entity<TituloRecorrente>().Property(p => p.Observacao).IsMaxLength();
             modelBuilder.Entity<Pessoa>().Property(p => p.EmailFinanceiro).HasMaxLength(500);
             modelBuilder.Entity<Convite>().HasRequired(t => t.Perfil).WithMany(t => t.Convites).HasForeignKey(d => d.PerfilId).WillCascadeOnDelete(true);
             //É necessário colocar senão o entity não entende que a coluna sofreu alteração.

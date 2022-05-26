@@ -396,6 +396,18 @@
     <Compile Include="Migrations\202203021321485_atualiza procedure obter iugu id.designer.cs">
       <DependentUpon>202203021321485_atualiza procedure obter iugu id.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202205261558286_define tamanho maximo para observação em titulorecorrente.cs" />
+    <Compile Include="Migrations\202205261558286_define tamanho maximo para observação em titulorecorrente.designer.cs">
+      <DependentUpon>202205261558286_define tamanho maximo para observação em titulorecorrente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202205261602329_define tamanho infinito para observação em titulorecorrente.cs" />
+    <Compile Include="Migrations\202205261602329_define tamanho infinito para observação em titulorecorrente.designer.cs">
+      <DependentUpon>202205261602329_define tamanho infinito para observação em titulorecorrente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202205261603402_define tamanho infinito para observação em titulo.cs" />
+    <Compile Include="Migrations\202205261603402_define tamanho infinito para observação em titulo.designer.cs">
+      <DependentUpon>202205261603402_define tamanho infinito para observação em titulo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Scripts\pr_obter_iuguid.sql" />
@@ -701,6 +713,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202203021321485_atualiza procedure obter iugu id.resx">
       <DependentUpon>202203021321485_atualiza procedure obter iugu id.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202205261558286_define tamanho maximo para observação em titulorecorrente.resx">
+      <DependentUpon>202205261558286_define tamanho maximo para observação em titulorecorrente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202205261602329_define tamanho infinito para observação em titulorecorrente.resx">
+      <DependentUpon>202205261602329_define tamanho infinito para observação em titulorecorrente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202205261603402_define tamanho infinito para observação em titulo.resx">
+      <DependentUpon>202205261603402_define tamanho infinito para observação em titulo.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
