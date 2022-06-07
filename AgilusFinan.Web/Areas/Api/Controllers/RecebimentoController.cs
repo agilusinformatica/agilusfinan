@@ -93,9 +93,12 @@ namespace AgilusFinan.Web.Areas.Api.Controllers
 
                 client.Encoding = System.Text.Encoding.UTF8;
                 var tokenIUGU = new RepositorioParametro().Listar().FirstOrDefault().TokenIUGU;
-
+                tokenIUGU = "NGQzM2E3MWU0ZDI2Yjk3NWQ5NDE3ZTc2MWU3YTBiMmY6";
                 client.Headers.Add("Content-Type", "application/json");
                 client.Headers.Add("Authorization", "Basic " + tokenIUGU);
+
+                ServicePointManager.Expect100Continue = true;
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
                 var response = client.DownloadString("https://api.iugu.com/v1/invoices/" + iuguId);
                 var js = new JavaScriptSerializer();
