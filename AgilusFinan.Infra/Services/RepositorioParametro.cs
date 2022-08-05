@@ -12,8 +12,7 @@ namespace AgilusFinan.Infra.Services
         public override void PreAlteracao(Parametro obj)
         {
             base.PreAlteracao(obj);
-            var tokenIugu = db.Parametros.Find(obj.Id).TokenIUGU;
-            obj.TokenIUGU = tokenIugu;
+            obj.TokenIUGU = new RepositorioParametro().BuscarPorId(obj.Id).TokenIUGU;
         }
     }
 }
