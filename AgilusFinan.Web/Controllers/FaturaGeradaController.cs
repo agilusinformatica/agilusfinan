@@ -113,7 +113,7 @@ namespace AgilusFinan.Web.Controllers
 
                 client.Headers.Add("Content-Type", "application/json");
                 client.Headers.Add("Authorization", "Basic " + tokenIUGU);
-                var address = "https://api.iugu.com/v1/invoices/" + iuguId + "/duplicate";
+                var address = "https://api.iugu.com/v1/invoices/" + iuguId + "/duplicate?api_token=" + tokenIUGU;
 
                 ServicePointManager.Expect100Continue = true;
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;

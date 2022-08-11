@@ -99,7 +99,7 @@ namespace AgilusFinan.Web.Areas.Api.Controllers
                 ServicePointManager.Expect100Continue = true;
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
-                var response = client.DownloadString("https://api.iugu.com/v1/invoices/" + iuguId);
+                var response = client.DownloadString("https://api.iugu.com/v1/invoices/" + iuguId + "?api_token=" + tokenIUGU);
                 var js = new JavaScriptSerializer();
                 var faturaResponse = js.Deserialize<FaturaResponse>(response);
                 return faturaResponse;

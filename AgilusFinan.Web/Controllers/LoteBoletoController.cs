@@ -50,12 +50,12 @@ namespace AgilusFinan.Web.Controllers
                     client.Encoding = System.Text.Encoding.UTF8;
 
                     client.Headers.Add("Content-Type", "application/json");
-                    client.Headers.Add("Authorization", "Basic " + tokenIUGU);
+                    //client.Headers.Add("Authorization", "Basic " + tokenIUGU);
 
                     ServicePointManager.Expect100Continue = true;
                     ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
-                    response = client.UploadString("https://api.iugu.com/v1/invoices", "POST", faturaJSON); 
+                    response = client.UploadString("https://api.iugu.com/v1/invoices?api_token=" + tokenIUGU, "POST", faturaJSON); 
                 }
 
                 var faturaResponse = js.Deserialize<FaturaResponse>(response);
