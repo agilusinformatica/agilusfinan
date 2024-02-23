@@ -150,7 +150,11 @@ namespace AgilusFinan.Web.Bases
                     percent = modeloBoleto.PercentualDesconto.ToString().Replace(",", ".")
                 });
             }
-            fatura.payable_with = "bank_slip";
+            fatura.payable_with = new List<string>
+            {
+                "bank_slip",
+                "pix"
+            };
             fatura.payer.cpf_cnpj = pessoa.Cpf;
             fatura.payer.name = pessoa.Nome;
 
@@ -211,7 +215,11 @@ namespace AgilusFinan.Web.Bases
                 });
             }
 
-            fatura.payable_with = "bank_slip";
+            fatura.payable_with = new List<string>
+            {
+                "bank_slip",
+                "pix"
+            };
             fatura.payer.cpf_cnpj = pessoa.Cpf;
             fatura.payer.name = pessoa.Nome;
             if (pessoa.Telefones.Count > 0)

@@ -20,7 +20,7 @@ namespace AgilusFinan.Web.ViewModels
         public Int32 discount_cents { get; set; }
         public string customer_id { get; set; }
         public bool ignore_due_email { get; set; }
-        public string payable_with { get; set; }
+        public List<string> payable_with { get; set; }
         public bool early_payment_discount { get; set; }
         public List<ItemDesconto> early_payment_discounts { get; set; }
         public Payer payer { get; set; }
