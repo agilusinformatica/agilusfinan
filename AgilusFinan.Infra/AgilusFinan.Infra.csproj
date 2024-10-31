@@ -408,6 +408,10 @@
     <Compile Include="Migrations\202205261603402_define tamanho infinito para observação em titulo.designer.cs">
       <DependentUpon>202205261603402_define tamanho infinito para observação em titulo.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202410311903417_adiciona urlfaturacheckout em faturagerada.cs" />
+    <Compile Include="Migrations\202410311903417_adiciona urlfaturacheckout em faturagerada.Designer.cs">
+      <DependentUpon>202410311903417_adiciona urlfaturacheckout em faturagerada.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Scripts\pr_obter_iuguid.sql" />
@@ -722,6 +726,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202205261603402_define tamanho infinito para observação em titulo.resx">
       <DependentUpon>202205261603402_define tamanho infinito para observação em titulo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202410311903417_adiciona urlfaturacheckout em faturagerada.resx">
+      <DependentUpon>202410311903417_adiciona urlfaturacheckout em faturagerada.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -13,6 +13,7 @@ namespace AgilusFinan.Domain.Entities
         [Display(Name = "Data Vencimento")]
         public DateTime DataVencimento { get; set; }
         public string UrlFatura { get; set; }
+        public string UrlFaturaCheckout { get; set; }
         [Display(Name = "Título")]
         public int? TituloId { get; set; }
         [Display(Name = "Título Recorrente")]

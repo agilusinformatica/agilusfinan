@@ -66,7 +66,8 @@ namespace AgilusFinan.Web.Controllers
                     faturaGerada.IuguId = faturaResponse.id;
                     faturaGerada.TituloId = boleto.TituloId;
                     faturaGerada.TituloRecorrenteId = boleto.TituloRecorrenteId;
-                    faturaGerada.UrlFatura = faturaResponse.secure_url;
+                    faturaGerada.UrlFatura = $"https://boletos.iugu.com/v1/public/invoice/{faturaResponse.secure_id}/bank_slip.pdf";
+                    faturaGerada.UrlFaturaCheckout = faturaResponse.secure_url;
 
                     var repoFaturaGerada = new RepositorioFaturaGerada();
                     repoFaturaGerada.Incluir(faturaGerada);
