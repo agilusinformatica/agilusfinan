@@ -82,7 +82,8 @@ namespace AgilusFinan.Web.Controllers
                 {
                     string faturaJson = await SegundaVia(retornoPrObterIuguId.iuguId, dataAtual);
                     var faturaIugu = new JavaScriptSerializer().Deserialize<FaturaResponse>(faturaJson);
-                    return faturaIugu.secure_url;
+                    var urlFaturaPdf = $"https://boletos.iugu.com/v1/public/invoice/{faturaIugu.secure_id}/bank_slip.pdf";
+                    return urlFaturaPdf;
                 }
             }
             catch (Exception ex)
