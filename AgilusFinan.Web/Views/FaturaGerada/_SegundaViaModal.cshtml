@@ -42,7 +42,7 @@
                 $('#modal-container').modal('hide');
                 var linkAntigo = $('#@((string)ViewBag.IuguId)');
                 var objNovaFatura = JSON.parse(novaFatura);
-                linkAntigo.attr("href", objNovaFatura.secure_url);
+                linkAntigo.attr("href", "https://boletos.iugu.com/v1/public/invoice/" + objNovaFatura.secure_id + "/bank_slip.pdf");
                 linkAntigo.next().attr("href", "/FaturaGerada/SegundaVia?iuguId=" + objNovaFatura.id);
             },
             error: function () {
